@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="650" viewBox="0 0 1920 650">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#334155"/></marker>
+    <style>
+      text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:36px;font-weight:700;fill:#0b7285}.box{stroke:#334155;stroke-width:2}.label{font-size:19px;text-anchor:middle}.small{font-size:17px}.arrow{stroke:#334155;stroke-width:2.5;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1920" height="650" fill="#fff"/>
+  <text x="60" y="80" class="title">Pipeline semanal — Síntese das Cartas das Gestoras</text>
+  <rect class="box" x="60" y="265" width="190" height="90" rx="16" fill="#d0ebff"/><text class="label" x="155" y="305"><tspan x="155">GitHub Actions</tspan><tspan x="155" dy="26">terça · 07:00 BRT</tspan></text>
+  <rect class="box" x="315" y="125" width="225" height="90" rx="16" fill="#e7f5ff"/><text class="label" x="428" y="165"><tspan x="428">gestoras.yml</tspan><tspan x="428" dy="26">catálogo + estado</tspan></text>
+  <rect class="box" x="315" y="275" width="225" height="110" rx="16" fill="#fff3bf"/><text class="label small" x="428" y="310"><tspan x="428">Descoberta</tspan><tspan x="428" dy="24">REST · RSS · HTML</tspan><tspan x="428" dy="24">AJAX · URL previsível</tspan></text>
+  <polygon class="box" points="700,255 800,330 700,405 600,330" fill="#ffe8cc"/><text class="label" x="700" y="320"><tspan x="700">Há carta</tspan><tspan x="700" dy="26">nova?</tspan></text>
+  <rect class="box" x="875" y="275" width="205" height="110" rx="16" fill="#d3f9d8"/><text class="label small" x="978" y="310"><tspan x="978">Baixa o delta</tspan><tspan x="978" dy="24">PDF / HTML</tspan><tspan x="978" dy="24">extrai texto</tspan></text>
+  <rect class="box" x="1145" y="275" width="205" height="110" rx="16" fill="#e5dbff"/><text class="label small" x="1248" y="310"><tspan x="1248">Claude Opus</tspan><tspan x="1248" dy="24">teses + riscos</tspan><tspan x="1248" dy="24">convergências</tspan></text>
+  <rect class="box" x="1415" y="275" width="190" height="110" rx="16" fill="#c5f6fa"/><text class="label small" x="1510" y="310"><tspan x="1510">Quarto</tspan><tspan x="1510" dy="24">QMD + PDF</tspan><tspan x="1510" dy="24">capa AM</tspan></text>
+  <rect class="box" x="1670" y="275" width="220" height="110" rx="16" fill="#b2f2bb"/><text class="label small" x="1780" y="310"><tspan x="1780">Template Utility</tspan><tspan x="1780" dy="24">resumo executivo</tspan><tspan x="1780" dy="24">PDF → WhatsApp</tspan></text>
+  <rect class="box" x="640" y="475" width="180" height="75" rx="16" fill="#f1f3f5" stroke-dasharray="7 6"/><text class="label small" x="730" y="505"><tspan x="730">Não</tspan><tspan x="730" dy="23">encerra quieto</tspan></text>
+  <rect class="box" x="1415" y="485" width="220" height="90" rx="16" fill="#e7f5ff"/><text class="label small" x="1525" y="520"><tspan x="1525">Commit do digest</tspan><tspan x="1525" dy="24">+ estado por série</tspan></text>
+  <path class="arrow" d="M250 310 L315 330"/><path class="arrow" d="M428 215 L428 275"/><path class="arrow" d="M540 330 L600 330"/><path class="arrow" d="M800 330 L875 330"/><path class="arrow" d="M700 405 L730 475"/><path class="arrow" d="M1080 330 L1145 330"/><path class="arrow" d="M1350 330 L1415 330"/><path class="arrow" d="M1605 330 L1670 330"/><path class="arrow" d="M1780 385 C1780 460 1650 530 1635 530"/>
+  <text x="825" y="315" font-family="Arial" font-size="17" fill="#087f5b">sim</text><text x="708" y="445" font-family="Arial" font-size="17" fill="#868e96">não</text>
+</svg>

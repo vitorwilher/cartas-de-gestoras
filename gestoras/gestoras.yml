@@ -1,0 +1,256 @@
+# Catálogo das gestoras + ESTADO da coleta.
+#
+# Este arquivo é a fonte da verdade do pipeline e é COMMITADO DE VOLTA pelo
+# workflow a cada execução (campo `ultima_carta`). Sem esse commit, o marcador
+# morreria com o runner e toda execução reprocessaria o histórico inteiro.
+#
+# Mapeamento verificado em 2026-08-11: todas as URLs abaixo retornaram HTTP 200
+# em requisição real. Origem da lista: post de Ricardo Peruffo, CFA
+# (docs_post-instagram-peruffo.jpeg).
+#
+# CAMPOS
+#   nome            nome de exibição na síntese
+#   site            raiz institucional
+#   listagem        página (ou endpoint) de onde as cartas são descobertas
+#   estrategia      como a coleta descobre as cartas. Ver cartas.py:
+#                     wp_rest    -> API REST do WordPress (JSON, robusto)
+#                     rss        -> feed RSS que CONTÉM as cartas
+#                     html       -> parsear os href da página de listagem
+#                     url_previsivel -> gerar a URL pela data (tratar 404)
+#                     ajax       -> endpoint admin-ajax do WordPress
+#   periodicidade   mensal | trimestral | semestral | irregular
+#                   NÃO é uniforme entre gestoras — ver CLAUDE.md
+#   formato         pdf | html | pdf+html
+#   ultima_carta    ESTADO: vazio na inicialização; depois vira um mapa
+#                   {serie: identificador}. Isso preserva séries paralelas.
+#                   A 1a execução pega só a mais recente DE CADA SÉRIE
+#                   (não o histórico inteiro).
+#   notas           armadilhas verificadas — LEIA antes de mexer na coleta
+
+gestoras:
+
+  # ---------------------------------------------------------------- MENSAIS
+
+  - nome: Alaska Asset Management
+    site: https://www.alaska-asset.com.br
+    listagem: https://www.alaska-asset.com.br/cartas/
+    estrategia: url_previsivel
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {principal: 'https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/julho26.pdf'}
+    url_template: https://www.alaska-asset.com.br/pdf/cartas/Mensais/{ano}/{mes}{aa}.pdf
+    notas: >
+      A ÚNICA com URL totalmente previsível. Meses em português minúsculo e SEM
+      acento (marco, não março). Mensais de 2017 até hoje; semestrais 2015-2022
+      (descontinuadas, padrão /pdf/cartas/{ano}/semestre{1|2}_{ano}.pdf); anual só
+      2023. A carta do mês corrente dá 404 até ser publicada — tratar como normal,
+      não como erro. 128 PDFs numa única página, sem paginação. Cloudflare sem
+      challenge.
+
+  - nome: Bahia Asset Management
+    site: https://www.bahiaasset.com.br
+    listagem: https://www.bahiaasset.com.br/wp-json/wp/v2/cartas_do_gestor?per_page=100
+    estrategia: wp_rest
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {principal: cartadogestor-41}
+    notas: >
+      ARMADILHA CRÍTICA: na página /carta-do-gestor/ o link do PDF é montado por
+      JavaScript inline e NÃO existe como href no HTML servido — scraper ingênuo
+      volta vazio. Por isso a estratégia é a REST API, que expõe date, slug, link
+      e a taxonomia mes_e_ano (ex: mes_e_ano-jul-2026), da qual se deriva o PDF:
+      /wp-content/uploads/{AAAA}/{MM}/carta_do_gestor_{mmm}{aa}.pdf — onde {AAAA}/{MM}
+      é a PUBLICAÇÃO (mês seguinte) e {mmm}{aa} a REFERÊNCIA. 41 cartas no acervo.
+      Publicada nos primeiros dias úteis do mês seguinte. nginx, sem Cloudflare.
+
+  - nome: Occam Brasil
+    site: https://occambrasil.com.br
+    listagem: https://occambrasil.com.br/cartas-mensais/
+    estrategia: html
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Credito_Julho_2026.pdf', principal: 'https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Julho_2026.pdf'}
+    notas: >
+      A coleta mais simples das 12: ~52 cartas numa única página de 61 KB, todos os
+      href diretos no HTML, sem paginação, sem JS. Publica DUAS séries paralelas por
+      mês: "Carta Mensal" (multimercado/ações) e "Carta Mensal Crédito" — ambas devem
+      ser capturadas. NUNCA construir a URL por template: há sufixos -1, underscores
+      extras, v2/vf e capitalização variável em Credito/credito. Sempre extrair href.
+      Atrás de Cloudflare (respondeu normal, mas usar UA realista e throttle).
+
+  - nome: JGP
+    site: https://www.jgp.com.br
+    listagem: https://www.jgp.com.br/wp-json/wp/v2/comunicacao?per_page=100&_fields=date,title,link
+    estrategia: wp_rest
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {principal: 'https://www.jgp.com.br/comunicacao/carta-macro-junho-2026/'}
+    notas: >
+      TLS: usar SEMPRE www.jgp.com.br — o domínio sem www tem cadeia de certificado
+      incompleta e quebra o handshake. A listagem HTML (/comunicacoes/relatorios/)
+      pesa 2,3 MB e mistura cartas com notícias de imprensa, podcasts e comunicados
+      de FIDC; por isso usamos a REST API e filtramos por "Carta Macro" no título.
+      A Carta Macro é mensal (dias 8-17 do mês seguinte) e é a que nos interessa.
+      Outras famílias (Relatório de {Mês} em 3-4 versões/mês, Carta de Ações, Carta
+      Especial de Crédito) são irregulares; Carta ESG foi descontinuada em 2022.
+      PDF: /wp-content/uploads/{AAAA}/{MM}/JGP_Carta-Macroeconomica_{Mmm}{aa}.pdf,
+      mas extrair o href do post — o padrão legado pré-2023 usa timestamp.
+
+  - nome: Kinea Investimentos
+    site: https://www.kinea.com.br
+    listagem: https://www.kinea.com.br/wp-json/wp/v2/posts?categories=340&per_page=100
+    estrategia: wp_rest
+    periodicidade: mensal
+    formato: html
+    ultima_carta: {principal: carta-do-gestor-dr-strangelove-quatro-guerras-mercado}
+    notas: >
+      A carta macro é HTML INLINE (texto completo na página), sem PDF — o extrator
+      de PDF não se aplica aqui. Categoria carta-do-gestor = ID 340 na REST API.
+      61 cartas no acervo. RSS dá 404 em /feed/ e na categoria, por isso REST API.
+      Slug NÃO é previsível: deriva do tema literário/cinematográfico da carta
+      ("Dr. Strangelove", "Apollo 13"), não da data. Publicada na virada do mês.
+      Existe um segundo canal, cartas por fundo (KNCR, KNIP, KLOG, KNRI) em PDF
+      dentro de /atualizacoes/ — 168 PDFs, fora do escopo inicial.
+
+  - nome: NEO Investimentos
+    site: https://www.neo.com.br
+    listagem: https://www.neo.com.br/feed/
+    estrategia: rss
+    periodicidade: mensal
+    formato: html
+    ultima_carta: {principal: 'https://www.neo.com.br/cartas-do-gestor-julho-2026/'}
+    url_template: https://www.neo.com.br/cartas-do-gestor-{mes_extenso}-{ano}/
+    notas: >
+      ATENÇÃO ao domínio: é neo.com.br, NÃO neoinvestimentos.com.br. A página
+      /cartas-de-gestao/ mostra apenas as 3 cartas mais recentes — por isso o feed
+      RSS principal (/feed/, com pubDate) é a entrada; o feed da categoria está
+      quase vazio (779 bytes). URL previsível como fallback: mês por extenso, "marco"
+      sem cedilha. A carta macro (Luciano Sobral) é HTML inline. Os relatórios por
+      fundo são PDFs no SharePoint e NÃO devem ser baixados por GET simples:
+      respondem 200 com content-type text/html (shell do visualizador, não o PDF).
+      Publicada na 1a quinzena do mês seguinte.
+
+  - nome: Dahlia Capital
+    site: https://www.dahliacapital.com.br
+    listagem: https://www.dahliacapital.com.br/blog-feed.xml
+    estrategia: rss
+    periodicidade: mensal
+    formato: pdf+html
+    ultima_carta: {principal: 'https://www.dahliacapital.com.br/post/cila-e-car%C3%ADbdis'}
+    notas: >
+      Wix (não WordPress). O feed blog-feed.xml MISTURA cartas com posts
+      institucionais ("História da Dahlia", "Como nasce uma tese"), muitos com
+      pubDate artificial de 2026-06-16 — filtrar por categoria, não confiar na data
+      sozinha. /rss dá 404. Cada carta tem texto inline E "Versão PDF" com link
+      direto (padrão Wix {uuid}.usrfiles.com/ugd/{prefixo}_{hash32}.pdf, hash opaco
+      — só extraindo do HTML). Slugs em /post/{slug} trazem acentos e cedilha NÃO
+      escapados (/post/cila-e-caríbdis) — exige URL-encoding no request. Paginação
+      é client-side: /nossas-cartas/page/2 devolve conteúdo idêntico à página 1,
+      não serve para histórico. SPA React mas com SSR, dispensa headless.
+      Publicada entre os dias 4 e 13.
+
+  - nome: Adam Capital
+    site: https://adamcapital.com.br
+    listagem: https://adamcapital.com.br/documentos/relatorios-e-call/
+    estrategia: html
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: ""
+    url_template: https://adamcapital.com.br/wp-content/uploads/{ano_pub}/{mes_pub}/Carta-Mensal-{Mes}-{ano}.pdf
+    notas: >
+      REGRA PECULIAR da URL: a pasta é o mês SEGUINTE ao de referência (dezembro
+      rola para janeiro do ano seguinte). Ex: Carta-Mensal-Jul-2026.pdf vive em
+      /uploads/2026/08/. Há exceções de nomenclatura reais (Carta_Mensal-Jun-2026.pdf,
+      com underscore). A página de listagem mostra só o mês corrente, em HTML
+      estático. O arquivo histórico (/uploads/2026/08/adam_CartasMensais.html) é
+      renderizado por JS com look-ahead por HEAD, mas dispensa headless: basta ler
+      o array DISPONIVEIS do <script>. LIMITAÇÃO IMPORTANTE: o site só expõe cartas
+      de 2026 em diante (PRIMEIRO_ANO = 2026) — o histórico anterior foi removido.
+      Acompanha call mensal em MP3.
+
+  - nome: Legacy Capital
+    site: https://www.legacycapital.com.br
+    listagem: https://www.legacycapital.com.br/wp-admin/admin-ajax.php?action=filter_items&term=503&post_type=carta-mensal&taxonomy=ano-cartas&template_id=2555
+    estrategia: ajax
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {macro: 'https://www.legacycapital.com.br/wp-content/uploads/202607_Carta-Mensal.pdf'}
+    notas: >
+      A coleta mais trabalhosa das 12: os PDFs NÃO estão no HTML inicial (só termos
+      de LGPD), são carregados por AJAX ao trocar o filtro de ano. Mas NÃO exige
+      headless — o endpoint admin-ajax responde a curl simples, sem nonce nem
+      autenticação. term = ano (2026=503, 2025=180, 2024=179, 2023=178, 2022=177,
+      2021=176, 2020=175, 2019=174, 2018=173). Outras trilhas: calls mensais
+      (post_type=call-mensal, taxonomy=ano-call, template_id=2676) e cartas de
+      crédito (carta-de-credito / ano-carta-credito / 5213, term 2026=506).
+      URL dos PDFs é plana, com prefixo AAAAMM: /wp-content/uploads/202607_Carta-Mensal.pdf.
+      Três cuidados: os href saem em http:// (redireciona); há legados fora do padrão
+      (Legacy0203CartaMensal-2.pdf); e 202501_Carta-Mensal.pdf aparece rotulado como
+      Janeiro/2026 (erro de upload da gestora) — a data deve vir do TEXTO da página,
+      nunca do nome do arquivo. Tem newsletter por e-mail (opt-in).
+
+  - nome: Kapitalo Investimentos
+    site: https://www.kapitalo.com.br
+    listagem: https://www.kapitalo.com.br/carta-do-gestor/k10
+    estrategia: html
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {principal: 'https://www.kapitalo.com.br/wp-content/uploads/2022/09/Carta-do-Gestor_K10-Julho2026.pdf'}
+    notas: >
+      /cartas-do-gestor é um HUB, não uma listagem — as cartas vivem em 5 sub-páginas,
+      uma por fundo: /carta-do-gestor/k10 (85 PDFs, mensal), /kapa-e-zeta (mensal;
+      note o slug com UM "p"), /nw3 (37 PDFs, mensal), /tarkus (17 PDFs, SEMESTRAL)
+      e /cartas-tematicas (6 PDFs, irregular). O K10 é a trilha principal aqui;
+      as demais podem ser adicionadas depois. HTML estático, todos os PDFs nos href
+      da resposta inicial, sem paginação nem AJAX, sem Cloudflare.
+      ARMADILHA: na página Kappa/Zeta o item rotulado "Julho 2026" aponta para
+      Carta-do-Gestor_Agosto_2026.pdf — rótulo e nome divergem. Confiar SEMPRE no
+      texto da página, nunca no nome do PDF. O diretório do upload é a data de
+      criação da pasta, não da carta (K10 em /2022/09/, Kappa/Zeta em /2020/02/),
+      então não há como construir URL por template.
+
+  # ------------------------------------------------- IRREGULARES / ANUAIS
+  # Publicam ensaios temáticos, não relatórios periódicos de performance.
+  # São as cartas de maior densidade editorial do conjunto.
+
+  - nome: Dynamo
+    site: https://www.dynamo.com.br
+    listagem: https://www.dynamo.com.br/feed/
+    estrategia: rss
+    periodicidade: irregular
+    formato: pdf
+    ultima_carta: {principal: 'https://www.dynamo.com.br/carta-128-os-serendipitistas/'}
+    notas: >
+      NÃO é trimestral, ao contrário do que a tradição sugere: o ritmo atual é de
+      ~2 a 4 cartas por ano, em datas irregulares (Carta 128 em 2026-04-07, 127 em
+      2026-01-26, 126 em 2025-07-10, 125 em 2025-05-13 — intervalos de 2, 6 e 2,5
+      meses). São ensaios temáticos densos, não relatórios de performance.
+      O feed RSS CONTÉM as cartas como itens ("Carta 128 – Os Serendipitistas"),
+      o que o torna a melhor entrada. Listagem canônica é /2436-2/ (/cartas-dynamo
+      dá 301); a paginação é path-based (/2436-2/page/2/ até /page/11/) — o
+      parâmetro ?page=2 é IGNORADO e devolve a página 1. ~128 cartas no acervo.
+      URL do PDF NÃO é construível: três padrões coexistem (Carta-Dynamo-128.pdf,
+      Carta124.pdf sem hífens, e hash SHA-1 opaco nas antigas). Cloudflare sem
+      challenge; robots.txt permissivo.
+
+  - nome: IP Capital Partners
+    site: https://ip-capitalpartners.com
+    listagem: https://ip-capitalpartners.com/wp-json/wp/v2/media?search=IP_RG&per_page=100
+    estrategia: wp_rest
+    periodicidade: irregular
+    formato: pdf
+    ultima_carta: {principal: ip_rg_202602_ai-hi}
+    notas: >
+      Ex-Investidor Profissional. SÃO DOIS PRODUTOS DISTINTOS: o Relatório de Gestão
+      (ensaio longo, ~1 por ano — "Revolução Barulhenta" 2026-02-24, "Cultura
+      Dopamina" 2025-03-11, "Netflix" 2024-05-09, "Obrigado, Charlie" 2024-01-17)
+      e o Informe Mensal (/informe-mensal-ip-ipg/), este sim mensal. O catálogo
+      aponta hoje para o Relatório de Gestão.
+      ARMADILHA 1: os href da página saem SEM ASPAS (href=https://...pdf target=_blank)
+      — regex com href="..." falha SILENCIOSAMENTE, achando zero apesar dos PDFs
+      estarem lá. Usar parser HTML de verdade, nunca regex.
+      ARMADILHA 2: a listagem estática expõe apenas 4 relatórios; o filtro por ano
+      usa admin-ajax e ?ano=2024 é ignorado. Daí a REST API de media como estratégia.
+      O RSS existe mas traz artigos de blog, NÃO as cartas (ao contrário da Dynamo).
+      URL não construível: IP_RG_ + período + sufixo livre.
+      Plugin userpro (área logada) existe mas não bloqueia os relatórios públicos.

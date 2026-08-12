@@ -1,0 +1,77 @@
+name: Cartas das Gestoras
+
+on:
+  schedule:
+    # Terças, 10:00 UTC = 07:00 em São Paulo (UTC-3).
+    - cron: "0 10 * * 2"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cartas-das-gestoras
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Setup Quarto e TinyTeX
+        uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          tinytex: true
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Testar regras de estado e formatação
+        run: python -m unittest discover -s tests -v
+
+      - name: Validar secrets obrigatórios
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO_NUMBER: ${{ secrets.WHATSAPP_TO_NUMBER }}
+        run: |
+          for name in ANTHROPIC_API_KEY WHATSAPP_TOKEN WHATSAPP_PHONE_NUMBER_ID WHATSAPP_TO_NUMBER; do
+            if [ -z "${!name}" ]; then
+              echo "Secret obrigatório ausente: $name" >&2
+              exit 1
+            fi
+          done
+
+      - name: Coletar, sintetizar, renderizar e enviar
+        env:
+          PYTHONUNBUFFERED: "1"
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO_NUMBER: ${{ secrets.WHATSAPP_TO_NUMBER }}
+          WHATSAPP_WABA_ID: "1421867178829333"
+          WHATSAPP_CARTAS_TEMPLATE: "sintese_cartas_gestoras"
+        run: python cartas.py --pdf --send
+
+      - name: Commitar síntese e estado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add digests/resumo/ gestoras/gestoras.yml
+          if git diff --staged --quiet; then
+            echo "Nada para commitar."
+          else
+            git commit -m "cartas: $(date -u +%Y-%m-%d)"
+            git push
+          fi

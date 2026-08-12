@@ -1,0 +1,225 @@
+---
+lang: pt-BR
+format:
+  pdf:
+    pdf-engine: xelatex
+    toc: false
+    geometry: [margin=2.5cm]
+    fontsize: 11pt
+header-includes:
+  - |
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \renewcommand{\maketitle}{}
+---
+
+```{=latex}
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\includegraphics[width=4cm]{../../AM.png}\par
+\vspace{0.8cm}
+{\huge\bfseries Síntese das Cartas das Gestoras\par}
+\vspace{1em}
+{\Large Teses, mudanças de posicionamento e riscos\par}
+\vspace{1.5em}
+{\large Vitor Wilher\footnote{Bacharel e Mestre em Economia pela UFF, Candidato ao PhD em Economia pela EPGE/FGV. Especialista em Ciências de Dados e Inteligência Artificial Generativa pela PUC-Rio e Data Tech Lead na Análise Macro.}\par}
+\vspace{0.5em}
+{\normalsize 11 de agosto de 2026\par}
+\vfill
+\end{titlepage}
+\begingroup\small
+\tableofcontents
+\endgroup
+\clearpage
+```
+
+## Alaska Asset Management
+
+**Série:** principal (Carta Mensal — Julho/2026).
+
+**Leitura de cenário:** julho foi marcado, no externo, por volatilidade decorrente das tensões EUA-Irã (Estreito de Ormuz, Mar Vermelho) e pela alta pontual do petróleo, revertida na segunda metade do mês após dados mais fracos de inflação e emprego nos EUA e manutenção de juros pelo Fed. No Brasil, IPCA e IPCA-15 abaixo do esperado consolidaram apostas em corte da Selic, com fechamento da curva (Pré Jan/27 -19 bps, Pré Jan/28 -12 bps) e Ibovespa +3,47%. Dólar recuou 1,72%.
+
+**Posicionamento por fundo:**
+- **Alaska Institucional e Previdenciários:** carteiras de ações com desempenho negativo e inferior ao Ibovespa. Contribuição positiva de energia; negativa em consumo cíclico. Maiores posições: varejo e consumo não cíclico.
+- **Alaska Black:** carteira de ações semelhante ao Institucional, com resultado negativo em RV; câmbio vendido em dólar contra real contribuiu positivamente (+1,37%); resultado total +0,38%.
+- **Alaska Range:** ganho em RV (posição direcional positiva, long & short negativo); contribuição positiva de juros e câmbio (vendido em dólar); total +1,58%.
+
+A carta não explicita mudanças em relação ao mês anterior nem lista riscos de forma discursiva.
+
+## Bahia Asset Management
+
+**Série:** principal.
+
+**Tese/cenário:** ambiente global de "elevada incerteza" quanto a ciclos econômicos e geopolítica. Nos EUA, economia resiliente, PCE core abaixo do esperado, FOMC mantém juros (três dissidentes votaram por alta) e Warsh adota tom "dovish e pouco claro". BoJ mais hawkish com intervenção conjunta com EUA no iene. Na Zona do Euro, atividade resiliente e mercado antecipa alta em setembro. Na China, dados fracos sem novos estímulos relevantes. No Brasil, surpresa baixista de IPCA/IPCA-15, mercado passou a projetar mais um corte de Selic em 2026; atividade abaixo das expectativas; expectativas Focus subiram nos horizontes longos.
+
+**Posicionamento (Macro):**
+- Ganhos: relativas compradas em iene contra yuan e libra; vendido em dólar americano.
+- Perdas: aplicado em inclinação em África do Sul e países desenvolvidos.
+- Brasil: aplicado em juros real e nominal; posições relativas em ações.
+- Internacional: aplicado em juros dos EUA; vendido em dólar; comprado em bolsa EUA.
+
+**L&S/Long Biased e RV:** carteira média de 28 papéis; long only médio 98% comprado; long biased 70%. Maiores posições em Bancos, Elétrico e Imobiliário. Contribuições positivas: Bradesco Saúde (revisões positivas + aumento de capital no Bradesco) e Ultrapar (alta do petróleo). Contribuição negativa: incorporadoras de baixa renda (prévias do 2T abaixo do esperado, receio com Caixa mais restritiva e inflação pressionada). Bahia AM Valuation +1,9% no mês; Long Biased +1,9%; Una EH +0,8%.
+
+**Riscos apontados:** cicatrizes do conflito no Oriente Médio; políticas de Trump; postura dos BCs; atividade e inflação nos blocos; China. No Brasil: inflação e expectativas após queda de energia; discussões fiscais e parafiscais; atividade/emprego; eleições.
+
+## Occam Brasil
+
+**Duas séries: crédito e principal.**
+
+### Série crédito
+**Tese:** mercado de crédito estável mas com "sentimento de cautela"; preocupação crescente com dívida pública e proximidade das eleições. Cenário internacional pressiona renda fixa local; menor expectativa de queda de juros. NTN-Bs 2035 negociando IPCA+8,11%.
+
+**Posicionamento:** demanda forte por AAA de primeira linha; fora das emissões mais longas; caixa elevado; preferência por títulos mais curtos. Avaliam títulos de infraestrutura AAA como "excelente oportunidade" pela isenção e baixo risco, apesar da volatilidade. Mercado primário reaqueceu com ~R$21 bi em debêntures.
+
+### Série principal
+**Cenário:** ruptura do Memorando EUA-Irã, retomada de hostilidades. Comunicação do Fed "ampliou incerteza" sobre política monetária, culminando em intervenção cambial EUA-Japão. No Brasil, convenções sancionaram candidatos; eleição competitiva com leve vantagem do presidente atual; dados benignos de inflação mantêm consenso de continuidade do afrouxamento, embora expectativas tenham se elevado.
+
+**Posicionamento (Occam Retorno Absoluto, +0,49% no mês):**
+- **Juros internacionais:** realizaram lucros da posição tomada em vértices longos após abertura das taxas nos EUA; iniciaram agosto sem posições relevantes; viés tomador mantido.
+- **Juros locais:** alteraram direção — passaram a buscar posições **aplicadas** na curva doméstica.
+- **Câmbio:** encerraram vendido em euro; mantiveram cesta de moedas emergentes contra dólar.
+- **Bolsa:** setor financeiro contribuiu positivamente; reduziram parte do underweight em energia; detrator foi exposição internacional em semicondutores (-21% no ETF SOXX), mas mantêm posição por avaliar fundamentos estruturais inalterados.
+
+## JGP
+
+**Série:** principal (Carta Macro Junho 2026 — nota: única carta do corpus referente a maio/junho).
+
+**Tese/cenário:** queda de 20% do Brent com encaminhamento dos conflitos no Oriente Médio; mudança na comunicação do Fed sob Warsh, com texto conciso e sem forward guidance, sugerindo possível alta de juros. Curva americana desinclinou (2 anos +14 bps, 30 anos -5 bps). S&P -1%, DXY +2%. No Brasil, inflação elevada, Focus deteriorando, atividade resiliente; ainda assim, BCB cortou Selic em 0,25% para 14,25%, ampliando horizonte de convergência para 2028.
+
+**Interpretação da JGP:** julgam "provável mais um corte de 0,25% em agosto para 14,0%"; a partir daí depende da estabilização das expectativas, pois "o risco de perder credibilidade ao cortar juros com inflação subindo é grande".
+
+**Movimento de mercado:** real desvalorizou 2,6%, DI Jan 29 abriu 25 bps, Jan 31 abriu 29 bps, Ibovespa -1%. Riscos apontados: incerteza fiscal com proximidade das eleições.
+
+A carta não detalha posicionamento em fundos.
+
+## Kinea Investimentos
+
+**Série:** principal ("Dr. Strangelove"). Referência: agosto/2026, comentando julho.
+
+**Tese central:** quatro "guerras" moldam o mercado — Irã-EUA, Rússia-Ucrânia, corrida de IA e eleição brasileira. Nos conflitos militares, a negociação segue como desfecho mais provável; na IA, dinâmica de "destruição mutuamente assegurada" — nenhuma empresa pode parar de investir.
+
+**Posicionamento:**
+- **Bolsa (IA):** exposição concentrada em gargalos físicos — equipamentos para semicondutores, TSMC e memória; evitam modelos e hyperscalers. Reconhecem limitações crescentes (Nvidia garantindo dívida de datacenters da OpenAI, emissões da Amazon e BlackRock com baixa cobertura).
+- **Bolsa fora de tech:** exposição em financeiro (bons resultados dos bancos), saúde e biotecnologia.
+- **Brasil:** exposição em construtoras do MCMV e utilities; juros com posições pequenas e táticas aguardando visibilidade eleitoral.
+- **Commodities:** viés altista em grãos (risco Mar Negro + clima); no petróleo, negociação provável mas caminho pode envolver escaladas; preocupação maior com destilados (diesel/gasolina).
+- **Moedas:** vendidos em peso mexicano e moedas europeias; aumentaram compras em asiáticas (won sul-coreano e iene). CPI mais baixo tira urgência de alta do Fed, reduzindo posições em dólar.
+
+**Visão macro EUA/Brasil:** esperam novas altas de juros nos EUA em 2026, mas apenas "ajustes" em 2027 com inflação abaixo de 3%. No Brasil, desafio fiscal terá que ser enfrentado em 2027, independentemente do vencedor; espaço para cortes de juros em 2027 com moderação fiscal e desaceleração.
+
+## NEO Investimentos
+
+**Série:** principal.
+
+**Cenário:** alta de +20% no petróleo com retorno das trocas de ataques Irã-EUA; comunicação de Warsh no FOMC aumentou prêmios de risco, mas dados de inflação surpreenderam para baixo. No Brasil, IPCA com alívio (volta parcial de alimentos), dólar em ~R$5,0 abriu espaço para novo corte marginal de 0,25pp em agosto. Cenário eleitoral sem alterações; simulações de 2º turno mantêm vantagem de 3-4 pp de Lula sobre Flávio Bolsonaro.
+
+**Visão prospectiva:** "eleição indefinida até o último momento"; esperam consequente desvalorização relativa do real, que, se materializada, deve "fechar a janela aberta para novos cortes de juros neste ano". Atividade dá poucos sinais de desaceleração e desemprego segue nas mínimas.
+
+A carta é sumária e não detalha posicionamento por fundo.
+
+## Dahlia Capital
+
+**Série:** principal ("Cila e Caríbdis").
+
+**Tese:** eleição brasileira caracterizada como "jogo de rejeição" mais do que disputa entre projetos; pesquisas em ambiente polarizado podem subestimar o candidato oposicionista, com destaque para diferença regional (Flávio Bolsonaro no Sudeste, 46% do eleitorado). Contexto fiscal deteriorado — dívida bruta pode atingir 100% do PIB sem ajuste crível; taxas longas americanas elevadas.
+
+**Posicionamento:**
+- **Dahlia Total Return:** nível de risco e composição estáveis; **abaixo da média** em ações Brasil; mantém ações EUA e hedges em moedas.
+- **Dahlia Macro Global:** níveis de risco estáveis; comprados em ações EUA, principalmente semicondutores e hyperscalers.
+- **Dahlia Ações:** comprados em Brasil, com foco em bancos, energia elétrica e cíclicos domésticos.
+
+**Riscos apontados:** custo crescente da inércia fiscal; volatilidade eleitoral iminente; ambiente externo desafiador.
+
+## Legacy Capital
+
+**Série:** macro.
+
+**Tese/cenário:** julho marcado por "intensa desalavancagem técnica" (hedge funds concentrados, momentum, ETFs alavancados, exposições a IA) em meio a melhora dos fundamentos corporativos — leitura de ajuste técnico, não deterioração fundamental. Retorno do conflito no Oriente Médio pressionou curvas. Nos EUA, comunicação de Warsh vista como "possível erro" — discurso duro sem intenção real de ajustar juros; leituras de inflação e trabalho mais benignas, mas incerteza mantém sensibilidade aos dados. ECB deve elevar juros uma última vez em setembro. No Brasil, atividade perdendo dinamismo (risco baixista para projeções de PIB de 1,8% em 2026 e 1,5% em 2027); IPCA surpreendeu positivamente (projeção 4,6% em 2026, 4,7% em 2027); BCB seguirá com ajustes de 25 bps.
+
+**Posicionamento:**
+- **Bolsa americana:** exposição relevante e diversificada, calibrada para maior volatilidade; foco em semicondutores, infraestrutura digital e energia ligados ao ciclo de IA; reconhecem possibilidade de rotação para cíclicos.
+- **Brasil:** baixo nível de risco; posições táticas; não aumentaram exposição estrutural em locais.
+- **Demais classes:** postura tática.
+
+**Fundo Legacy Capital FIC:** -1,1% em julho (+3,3% no ano); principal contribuição negativa: bolsas globais compradas.
+
+**Riscos apontados:** escalada no Oriente Médio; incerteza sobre política monetária americana; aumento estrutural de demanda por capital do ciclo de IA pressionando juros longos; incertezas fiscais e eleitorais no Brasil.
+
+## Kapitalo Investimentos
+
+**Série:** principal (K10).
+
+**Performance:** -0,53% no mês vs CDI +1,22%. Livros de bolsa e commodities principais detratores.
+
+**Tese/cenário:** conflito EUA-Irã pressionou petróleo; Fed manteve juros com Warsh evasivo, sugerindo função de reação "mais branda". No Brasil, inflação bastante abaixo do esperado com desaceleração nos núcleos; atividade sinalizando desaceleração à frente por afrouxamento do mercado de trabalho, endividamento das famílias e fiscal menos expansionista.
+
+**Discussão de oportunidade — bolsa internacional/IA:** setor sofreu forte queda com liquidação forçada de grande fundo americano; posicionamento técnico e alavancagem ajustados criaram oportunidade. Aumentaram exposição concentrada em semicondutores (especialmente memória) e fibra óptica, com visão de ciclo mais extenso apoiado em sinalizações positivas das hyperscalers.
+
+**Posicionamento:**
+- **Moedas:** comprados em peso chileno e USD; vendidos em euro e libra; zeraram compras em lira turca e won, e vendas em baht e franco suíço.
+- **Bolsa:** aumentaram compra em tech EUA; reduziram compra em Argentina.
+- **Commodities:** aumentaram venda em café; zeraram compras em diesel/alumínio/cobre e vendas em trigo/gás natural; mantiveram desinclinação em petróleo (comprados na parte curta, vendidos nos longos por expectativa de excesso de oferta em 2027); adicionaram milho comprado.
+- **Juros:** aplicados em Brasil (aumentaram marginalmente na parte curta), Suécia, Reino Unido e África do Sul.
+
+## Dynamo
+
+**Série:** principal (Carta 128 — Os Serendipitistas). Data de referência: abril/2026.
+
+**Tese:** carta conceitual sobre "consequências não intencionais positivas" e o conceito de *serendipity* — descobertas acidentais mediadas por preparo, competência e capacidade de conectar pontos. Distingue tipos (arquimedesana, colombiana, galileana) e discute como empresas podem cultivar ambientes propícios: diversidade de interações, segurança psicológica, autonomia para experimentação, atenção ao inesperado, desenhos organizacionais que promovam encontros.
+
+**Aplicação à gestão:** a Dynamo cultiva diversidade cognitiva no time e expõe a companhia a repertório amplo de disciplinas — descrito como esforço para desenvolver "fragrância serendipitosa" na análise. Reconhecem tensão entre a agenda e imperativos de competição/eficiência.
+
+**Posicionamento:** carta não discute posições específicas. Referências históricas indicam Vale (superciclo China), Weg (megatendências), Localiza (aplicativos) como exemplos de empresas beneficiadas por CnIs positivas.
+
+**Performance Dynamo Cougar (até março/2026):** +9,9% no ano vs Ibovespa +16,3%; 12 meses +49,0% vs +43,9%.
+
+## IP Capital Partners
+
+**Série:** principal (Relatório Fevereiro 2026 — "Revolução Barulhenta").
+
+**Tese:** IA é revolução "barulhenta" com narrativas voláteis; separar sinal de ruído exige disciplina. Início de 2026 viu venda generalizada em negócios asset-light historicamente premium, sem distinguir empresas genuinamente ameaçadas de franquias de alta qualidade — criando oportunidades a valuations "incomuns e, em alguns casos, sem precedentes".
+
+**Estudos de caso:**
+- **Radiologia:** previsão de Hinton (2016) de desaparecimento da profissão fracassou; número de radiologistas cresceu 17% em 9 anos nos EUA. Erros: timing da tecnologia, subestimação do escopo do trabalho, complexidade regulatória.
+- **Alphabet:** de "AI loser" a "atacante"; ação subiu 257% de dez/2022 a fim de 2025 vs S&P +86%; receita +48% e lucro operacional +102%; recompras de 7% das ações; ROIC marginal de 39%. Atributos subestimados: qualidade do capital humano, vantagem de distribuição (10 serviços com >1 bi de usuários), verticalização em IA (chips + modelos).
+
+**Filosofia de gestão:** referência a Tetlock — investidor deve ser "raposa" (pensamento probabilístico, múltiplos modelos) e não "porco-espinho" (grande ideia única). "Beta perpétuo" — humildade e revisão constante. Lei de Amara: superestimamos impacto de curto prazo e subestimamos transformação estrutural.
+
+A carta não apresenta números de fundos nem posicionamento explícito atual (apenas menção à correção brasileira de fim de 2024 aproveitada nos fundos e Alphabet como maior contribuição de performance no período de 5 anos).
+
+## Convergências e divergências
+
+**Convergências:**
+
+- **Retorno das tensões EUA-Irã e petróleo:** todas as gestoras que comentam macro (Alaska, Bahia, Occam, Kinea, NEO, Dahlia, Legacy, Kapitalo) reconhecem a escalada em julho e o impacto sobre commodities e curvas.
+- **Comunicação do Fed sob Warsh como fonte de incerteza:** Bahia, Occam, JGP, Legacy, Kapitalo e Kinea convergem no diagnóstico de que a nova comunicação ampliou dúvidas sobre a função de reação; JGP (com dados de junho) e Kinea projetam altas de juros nos EUA; Legacy e Bahia caracterizam a comunicação como possível "erro" ou "confusa".
+- **Brasil — inflação benigna no curto prazo abrindo espaço para corte adicional da Selic:** Alaska, Bahia, Occam, NEO, Kapitalo e Legacy convergem; NEO alerta que desvalorização cambial pós-campanha pode "fechar essa janela".
+- **Eleição como fator central e agenda fiscal pós-2026:** Occam (crédito), Kinea, Dahlia, Legacy e NEO destacam eleição competitiva com vantagem marginal do incumbente e concordam que o desafio fiscal terá de ser endereçado em 2027.
+- **IA como tema estruturante mas com correção técnica em julho:** Kinea, Legacy, Kapitalo, Occam (principal), Dahlia (Macro Global) e IP mantêm exposição ao complexo de IA; todas caracterizam a queda como técnica, não fundamental.
+
+**Divergências:**
+
+- **Posicionamento tático em bolsa Brasil:** Bahia (Valuation e Long Biased +1,9%, comprada em bancos/elétrico/imobiliário) e Dahlia Ações (comprados em bancos/energia/cíclicos) mostram apetite; **Dahlia Total Return está abaixo da média** em ações Brasil; Legacy mantém baixo risco doméstico; Kinea concentra em MCMV e utilities.
+- **Direção em juros locais:** Bahia e Kapitalo estão aplicados; Occam **mudou direção** passando a aplicado na curva doméstica após atuação tática anterior; Legacy mantém apenas posições táticas.
+- **Preferências dentro do complexo de IA:** Kinea evita hyperscalers e modelos, preferindo "gargalos físicos" (equipamentos, TSMC, memória); Kapitalo aumentou em semicondutores e fibra óptica; Legacy diversifica em semicondutores, infraestrutura digital e energia; Dahlia Macro Global está em semicondutores e hyperscalers; IP destaca Alphabet como caso de assimetria mal precificada.
+- **Câmbio (dólar):** Alaska Black e Range vendidos em dólar contra real (posição doméstica); Bahia Macro vendida em dólar globalmente; Kapitalo comprado em dólar e peso chileno, vendido em europeias; Kinea reduziu compras em dólar e migrou para asiáticas; Occam mantém cesta de emergentes contra dólar.
+- **Petróleo:** Kinea mantém viés construtivo até negociação clara; Kapitalo faz **desinclinação** (comprado curto, vendido longo) por antecipar excesso de oferta em 2027.
+- **Estilo:** Dynamo e IP dedicam a carta a reflexão conceitual (serendipity e epistemologia de investimentos em IA) sem descrever posicionamento tático detalhado, contrastando com as demais gestoras macro/multimercado que reportam atribuição e mudanças de posição.
+
+---
+
+## Cartas originais
+
+- **Alaska Asset Management — Carta Mensal — Julho de 2026** ([original](https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/julho26.pdf))
+- **Bahia Asset Management — Carta do Gestor** ([original](https://www.bahiaasset.com.br/wp-content/uploads/2026/08/carta_do_gestor_jul26.pdf))
+- **Occam Brasil — Carta Mensal Crédito Julho 2026 Carta Mensal Crédito Julho 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Credito_Julho_2026.pdf))
+- **Occam Brasil — Carta Mensal Julho 2026 Carta Mensal Julho 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Julho_2026.pdf))
+- **JGP — Carta Macro Junho 2026** ([original](https://www.jgp.com.br/comunicacao/carta-macro-junho-2026/))
+- **Kinea Investimentos — Dr. Strangelove** ([original](https://www.kinea.com.br/blog/carta-do-gestor-dr-strangelove-quatro-guerras-mercado/))
+- **NEO Investimentos — Cartas do Gestor – Julho 2026** ([original](https://www.neo.com.br/cartas-do-gestor-julho-2026/))
+- **Dahlia Capital — Cila e Caríbdis** ([original](https://www.dahliacapital.com.br/post/cila-e-car%C3%ADbdis))
+- **Legacy Capital — Julho** ([original](https://www.legacycapital.com.br/wp-content/uploads/202607_Carta-Mensal.pdf))
+- **Kapitalo Investimentos — Carta do Gestor Julho Carta do Gestor Julho** ([original](https://www.kapitalo.com.br/wp-content/uploads/2022/09/Carta-do-Gestor_K10-Julho2026.pdf))
+- **Dynamo — Carta 128 – Os Serendipitistas** ([original](https://www.dynamo.com.br/carta-128-os-serendipitistas/))
+- **IP Capital Partners — IP_RG_202602_AI-hi** ([original](https://ip-capitalpartners.com/wp-content/uploads/2026/02/IP_RG_202602_AI-hi.pdf))

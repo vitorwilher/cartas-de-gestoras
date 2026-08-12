@@ -1,0 +1,29 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+.Rhistory
+
+# Capturas e respostas usadas apenas durante o desenvolvimento dos coletores
+/al.html
+/ars.xml
+/df.xml
+/dm.json
+/dyn.html
+/dyn2.html
+/ip.html
+/ipf.xml
+/media.json
+/WhatsApp Image *.jpeg
+/docs_post-instagram-peruffo.jpeg
+
+# Artefatos intermediários do Quarto (PDFs e .qmd ficam versionados como arquivo)
+*_files/
+*.html
+!digests/**/*.pdf
+
+# PDFs brutos das cartas baixadas das gestoras: binários pesados e
+# redistribuíveis apenas pela fonte original. O texto extraído e os metadados
+# (gestoras/gestoras.yml) ficam versionados; o PDF original, não.
+cartas/**/*.pdf
