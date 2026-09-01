@@ -1,0 +1,80 @@
+---
+lang: pt-BR
+format:
+  pdf:
+    pdf-engine: xelatex
+    toc: false
+    geometry: [margin=2.5cm]
+    fontsize: 11pt
+header-includes:
+  - |
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \renewcommand{\maketitle}{}
+---
+
+```{=latex}
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\includegraphics[width=4cm]{../../AM.png}\par
+\vspace{0.8cm}
+{\huge\bfseries Síntese das Cartas das Gestoras\par}
+\vspace{1em}
+{\Large Teses, mudanças de posicionamento e riscos\par}
+\vspace{1.5em}
+{\large Vitor Wilher\footnote{Bacharel e Mestre em Economia pela UFF, Candidato ao PhD em Economia pela EPGE/FGV. Especialista em Ciências de Dados e Inteligência Artificial Generativa pela PUC-Rio e Data Tech Lead na Análise Macro.}\par}
+\vspace{0.5em}
+{\normalsize 1 de setembro de 2026\par}
+\vfill
+\end{titlepage}
+\begingroup\small
+\tableofcontents
+\endgroup
+\clearpage
+```
+
+## Kinea Investimentos — Série principal ("A hora do pesadelo", ago/2026)
+
+### Tese central
+A carta articula uma metáfora de que decisões fiscais e geopolíticas do passado seguem "assombrando" o presente: dívida pública brasileira em trajetória inercial, desequilíbrio fiscal americano pressionando a ponta longa e legado das relações com Irã e Rússia sustentando prêmio no petróleo. A defesa possível, no curto prazo, seria manter juros reais e prêmios de risco elevados, mas isso não substitui um ajuste no resultado primário.
+
+### Brasil — macro e política
+- Eleição vista como mais competitiva do que sugere o agregador de pesquisas, por causa da abstenção concentrada em estratos de menor renda (base do presidente) e da estabilidade atípica da avaliação de Lula, que normalmente sobe em ano eleitoral. Do lado oposto, Flávio Bolsonaro ainda não amplia vantagem suficiente em São Paulo. Não há favorito claro.
+- Inflação corrente e atividade abaixo do esperado permitiriam continuar cortando juros, mas a Kinea espera que o **Copom pause o ciclo** para preservar margem até haver clareza sobre o orçamento de janeiro.
+- Para 2026, projetam menor impulso fiscal e desaceleração da atividade **mais acentuada que o mercado**, com retomada dos cortes de juros depois.
+
+### Internacional
+- **Fed**: núcleo da inflação em moderação e desaceleração da criação de empregos justificam esperar mais dados; revisões metodológicas podem trazer ruído. A leitura do discurso de Kevin Warsh em Jackson Hole é de um Fed que "pode voltar a subir" se os dados confirmarem economia próxima do pleno emprego.
+- **Ponta longa dos Treasuries**: pressionada por PIB nominal robusto, oferta pública elevada e crescente emissão corporativa de hyperscalers para financiar capex de IA, que compete com o Tesouro por poupança. Recompras anunciadas pelo Tesouro americano são vistas como gestão de oferta, não solução; taxas atuais são consideradas justificadas por fundamentos.
+- Ciclo de capex intensivo em capital explica ausência de pressão salarial mesmo com desemprego baixo.
+
+### Posicionamento
+- **Moedas**: viés comprado em **dólar**; comprado em **won sul-coreano** e adição de **iene** (BoJ com espaço para subir e intervenção conjunta EUA-Japão criando teto para depreciação).
+- **Juros aplicados**: México, Nova Zelândia e Reino Unido.
+- **Ações EUA**: temporada de resultados saudável; **transferiu parte da exposição em opções de Nasdaq para opções de S&P 500** buscando amplitude. Reabriu exposição comprada em Coreia após correção. Preferência por memória (HBM) e fabricantes de equipamentos para semicondutores.
+- **Ações Brasil**: exposição reduzida e neutra; preferência por utilities (dividendos e carrego), nomes ligados a Minha Casa Minha Vida e **Embraer** (backlog recorde, receita dolarizada).
+- **Commodities**: petróleo usado como **proteção** (comprado em contratos curtos, vendido em longos), sem visão direcional forte — estimam barril entre US$ 90 e US$ 100 no ritmo atual, com preço de equilíbrio subindo US$ 10–15/mês conforme estoques caem e reserva estratégica americana só oferece 3–4 meses de amortecimento. Visão positiva em **ouro** (compras de bancos centrais, ETFs), altista em **grãos** (guerra na Ucrânia + El Niño) e comprado em **boi gordo americano** (rebanho em mínimas históricas).
+
+### O que mudou
+- Retomada de visão positiva em ouro após redução do excesso de posições de varejo.
+- Adição do iene à carteira comprada em moedas asiáticas.
+- Rotação de opções de Nasdaq para S&P 500.
+- Reabertura de comprado na Coreia após correção do mês anterior.
+
+### Riscos apontados
+- Piora fiscal brasileira e incerteza pós-eleitoral sobre o orçamento de 2027.
+- Fed voltando a subir juros caso dados confirmem robustez.
+- Ruptura do equilíbrio no petróleo se sanções e conflito persistirem, com esgotamento da reserva estratégica americana em outubro/novembro.
+- Frustração de safras com El Niño em balanços já apertados.
+- Questões fiscais europeias, em particular o ciclo eleitoral na França.
+
+## Convergências e divergências
+
+Apenas a Kinea está presente nesta edição, o que impede comparação entre gestoras.
+
+---
+
+## Cartas originais
+
+- **Kinea Investimentos — A hora do pesadelo** ([original](https://www.kinea.com.br/blog/carta-do-gestor-a-hora-do-pesadelo/))
