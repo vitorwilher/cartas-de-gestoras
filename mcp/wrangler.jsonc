@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cartas-gestoras-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-10",
+  "compatibility_flags": ["nodejs_compat"],
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["CartasMCP"]
+    }
+  ],
+  "durable_objects": {
+    "bindings": [
+      {
+        "class_name": "CartasMCP",
+        "name": "MCP_OBJECT"
+      }
+    ]
+  },
+  "kv_namespaces": [
+    {
+      "binding": "ASSINANTES",
+      "id": "PREENCHER_APOS_wrangler_kv_namespace_create"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

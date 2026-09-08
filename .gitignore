@@ -27,3 +27,8 @@ __pycache__/
 # redistribuíveis apenas pela fonte original. O texto extraído e os metadados
 # (gestoras/gestoras.yml) ficam versionados; o PDF original, não.
 cartas/**/*.pdf
+
+# MCP (Cloudflare Worker): dependências e artefatos de build
+mcp/node_modules/
+mcp/dist/
+mcp/.wrangler/

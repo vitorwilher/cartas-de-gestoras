@@ -203,6 +203,14 @@ Cartas_de_Gestoras/
 ├── cartas/                  # PDFs baixados (gitignored) + texto extraído
 ├── digests/resumo/          # sínteses: resumo-YYYY-MM-DD.qmd / .pdf
 ├── gestoras/gestoras.yml    # catálogo + estado (URL, periodicidade, ultima_carta)
+├── exercicios/              # acervo indexado + seleção/geração do exercício semanal
+│   ├── acervo.json          # índice dos 88 exercícios de Mercado Financeiro
+│   ├── selecao.py           # casa conceito da carta com exercício do acervo
+│   └── geracao.py           # escolhe o conceito e escreve o exercício novo
+├── mcp/                     # servidor MCP (Cloudflare Worker) — acesso por assinante
+│   ├── src/index.ts
+│   ├── gerar_catalogo.py    # digests/*.qmd -> catalogo.json que o Worker serve
+│   └── wrangler.jsonc
 ├── requirements.txt
 └── cartas.py                # script principal
 ```
@@ -215,6 +223,53 @@ Cartas_de_Gestoras/
   em pt-BR — mesmo padrão do `../Newsletters`
 - Os `.qmd` ficam **2 níveis abaixo** da raiz (`digests/resumo/`), então a capa
   referencia `../../AM.png`
+
+## O produto (MVP, a partir de 2026-09-08)
+
+Decisão do Vitor: o pipeline vira **produto de assinatura a R$ 97/mês**. A promessa
+não é "resumo das cartas" — é **mostrar a quem é do mercado como destrinchar
+tecnicamente as teses das gestoras**. Marketing de educação, com lucro.
+
+Consequência para o conteúdo: a síntese sozinha não sustenta o preço. O que sustenta
+é o par **síntese + exercício replicável**. Por isso o `SYSTEM_PROMPT` exige, em cada
+seção, **o mecanismo** — a cadeia causal que faz a aposta se pagar — e não a descrição
+do mês. Quando a carta é meramente descritiva (caso recorrente da Alaska), o prompt
+manda dizer isso explicitamente em vez de inflar a seção com paráfrase.
+
+### O exercício da semana (`exercicios/`)
+
+Dois estágios de LLM: `escolher_conceito` lê a síntese e nomeia o mecanismo dominante
+(restrito aos 12 conceitos que o acervo cobre); `gerar_exercicio` escreve o exercício.
+
+**O acervo do Clube AM é matéria-prima, nunca entregável.** Os 88 exercícios de
+Mercado Financeiro em Python (`Exercicios_AM/Mercado Financeiro/`) estão em **Dropbox
+Smart Sync**: `ls` local mostra todos com **0 bytes**, e ler com `cat` devolve vazio
+sem erro. O conteúdo real só sai via `mcp__claude_ai_Dropbox__fetch`. E o código é de
+2022-2025 com defeitos verificados (`return` dentro de `for` fora de função, `!pip
+install` em arquivo `.py`). Ele orienta **tema e abordagem didática**; o código
+entregue ao assinante é gerado do zero, com dados atuais.
+
+Falha na geração do exercício **nunca derruba a síntese** — mesmo princípio da falha
+isolada por gestora.
+
+### O MCP (`mcp/`)
+
+Servidor MCP remoto em Cloudflare Workers, no molde do `nucleos-mcp` do
+`../Nucleos_BCB/mcp` — mas com uma diferença central: aquele é *authless*, este é
+**autenticado**. Todo caminho fora de `/health` exige `Authorization: Bearer <token>`,
+conferido contra o KV `ASSINANTES` (que o webhook do WooCommerce mantém).
+
+Cinco tools: `cartas_ultima_edicao`, `cartas_listar_edicoes`, `cartas_edicao`,
+`cartas_exercicio` e `cartas_por_gestora`.
+
+O Worker lê um `catalogo.json` publicado num release — o pipeline o regenera com
+`mcp/gerar_catalogo.py`. Assim o servidor se atualiza **sem re-deploy**.
+
+⚠️ **`@modelcontextprotocol/sdk` deve ficar pinado em `1.29.0` exato, sem `^`.** O
+pacote `agents` fixa essa versão; com `^`, o npm instala 1.30.0 na raiz e sobra uma
+cópia aninhada. O `tsc` falha com `TS2416 ... separate declarations of a private
+property '_serverInfo'` — mensagem que aponta para herança de classe, não para o
+problema real.
 
 ## Itens em aberto
 
@@ -230,6 +285,24 @@ Cartas_de_Gestoras/
   (id `1540816607134176`). O
   pipeline consulta o status antes do upload e recusa envio enquanto não estiver
   `APPROVED`
+- [x] **Síntese aprofundada** — `SYSTEM_PROMPT` reescrito para exigir o mecanismo
+  econômico, não a descrição do mês. Modelo atualizado para `claude-opus-5` (o
+  default anterior, `claude-opus-4-7`, era de geração anterior), effort `xhigh`
+- [x] **Exercício em Python** (`exercicios/`) — acervo do Clube AM indexado (88
+  exercícios de Mercado Financeiro), casamento por conceito e geração em dois estágios
+- [x] **MCP hospedado** (`mcp/`) — 5 tools, gate por assinante via KV, typecheck e
+  build validados
+- [ ] **Validar a qualidade do exercício gerado.** Não há `.env` nesta máquina, então
+  a geração nunca rodou localmente — só o casamento determinístico foi testado. É o
+  teste que decide se a promessa de R$ 97 se sustenta; fazer antes de vender
+- [ ] Criar o KV namespace (`wrangler kv namespace create ASSINANTES`), preencher o
+  `id` em `wrangler.jsonc` e publicar o Worker
+- [ ] Publicar o `catalogo.json` no release `digests` que o Worker consome
+- [ ] Migrar o layout para o template `am-livro` (Typst) do Design System Ebook —
+  hoje o pipeline usa XeLaTeX e o `render.ps1` do template é PowerShell/Windows
+- [ ] Produto de subscription no WooCommerce (R$ 97/mês) + webhook que popula o KV
+- [ ] Divulgação: broadcast para a tag Mercado Financeiro (ConvertKit) e carrossel
+  no Instagram, reaproveitando os conectores do `../ROI_Diagnostico/connectors/`
 - [ ] Avaliar as trilhas secundárias hoje fora do escopo: cartas por fundo da
   Kinea (168 PDFs em `/atualizacoes/`), demais fundos da Kapitalo (Kappa-Zeta,
   NW3, Tarkus, Temáticas), calls e cartas de crédito da Legacy, e o Informe

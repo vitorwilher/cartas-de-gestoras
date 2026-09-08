@@ -40,13 +40,15 @@ from anthropic import Anthropic
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+from exercicios.geracao import exercicio_da_semana
+
 load_dotenv()
 
 ROOT = Path(__file__).resolve().parent
 CATALOGO = ROOT / "gestoras" / "gestoras.yml"
 OUTPUT_DIR = ROOT / "digests" / "resumo"
 TEMP_DIR = ROOT / "cartas"
-MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-opus-4-7"
+MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-opus-5"
 META_API_VERSION = "v20.0"
 WABA_PRODUCAO = "1421867178829333"
 MAX_TEXT_CHARS = 45_000
@@ -396,21 +398,42 @@ def atualizar_estado(catalogo: dict[str, Any], processadas: Iterable[Carta]) -> 
         cfg["ultima_carta"] = estado
 
 
-SYSTEM_PROMPT = """Você é um analista de investimentos especializado em cartas de gestoras brasileiras.
+SYSTEM_PROMPT = """Você é um analista de investimentos que ensina profissionais do mercado
+financeiro a DESTRINCHAR TECNICAMENTE as teses das gestoras brasileiras.
+
+O leitor é do mercado: ele já sabe o que é duration, carrego e long&short. Ele não
+paga por um resumo do que a carta diz — ele paga para entender COMO se analisa uma
+carta: que mecanismo econômico sustenta a aposta, sob quais condições ela se paga,
+e o que precisaria ser verdade para ela falhar.
+
 Produza uma síntese em português (pt-BR), Markdown para Quarto, baseada SOMENTE no corpus.
 
-Regras:
-- Crie uma seção de nível 2 (##) por gestora, não por tema.
-- Em cada seção, explique a tese, o posicionamento, o que mudou (somente quando o corpus
-  trouxer comparação explícita) e os riscos apontados pela própria gestora.
-- Distinga fato da carta de interpretação. Não invente posições, retornos ou comparações.
+Estrutura:
+- Uma seção de nível 2 (##) por gestora, não por tema.
+- Em cada seção, nesta ordem:
+  1. **A tese em uma frase** — a aposta central, não a descrição do mês.
+  2. **O mecanismo** — por que a gestora acha que isso se paga. Qual a cadeia causal
+     (ex.: "inclinação tomada se paga se o BC cortar menos que o precificado, porque
+     a ponta curta ancora e a longa carrega prêmio de risco fiscal"). Este é o item
+     mais importante: é ele que ensina o leitor a pensar.
+  3. **Posicionamento e números** — posições, retornos e atribuição, quando houver.
+  4. **O que mudou** — somente quando o corpus trouxer comparação explícita.
+  5. **Riscos** — os que a própria gestora aponta, e sob que condição a tese quebra.
+- Quando a carta for essencialmente descritiva e não expuser tese estruturada, DIGA
+  ISSO explicitamente e explique o que a ausência de tese sugere sobre o mandato do
+  fundo. Não infle uma seção vazia com paráfrase.
 - Quando houver mais de uma série da mesma gestora, identifique-as claramente.
 - Termine com "## Convergências e divergências", comparando apenas gestoras presentes.
+  Aqui o valor é apontar onde o consenso se forma e onde racha, e o que a divergência
+  revela sobre premissas diferentes — não listar quem concorda com quem.
 - Ao final, depois dessa seção, inclua um comentário HTML exatamente no formato
   `<!-- resumo_whatsapp: TEXTO -->`: uma síntese executiva específica da edição,
   em uma única linha, sem Markdown, com no máximo 450 caracteres.
-- Preserve números importantes, seja direto e não use emojis nem preâmbulo.
-- Não crie uma seção de fontes; ela será adicionada pelo programa."""
+
+Rigor:
+- Distinga fato da carta de interpretação sua. Quando interpretar, sinalize.
+- Não invente posições, retornos ou comparações. Preserve números importantes.
+- Sem emojis, sem preâmbulo, sem seção de fontes (o programa a adiciona)."""
 
 
 def montar_corpus(cartas: list[Carta]) -> str:
@@ -428,9 +451,9 @@ def montar_corpus(cartas: list[Carta]) -> str:
 def sintetizar(cartas: list[Carta]) -> str:
     with Anthropic().messages.stream(
         model=MODEL,
-        max_tokens=8000,
+        max_tokens=32000,
         thinking={"type": "adaptive"},
-        output_config={"effort": "high"},
+        output_config={"effort": "xhigh"},
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": montar_corpus(cartas)}],
     ) as stream:
@@ -504,14 +527,15 @@ __FONTES__
 """
 
 
-def escrever_qmd(resumo: str, cartas: list[Carta]) -> Path:
+def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "") -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     hoje = date.today()
     fontes = "\n".join(
         f"- **{c.gestora} — {c.titulo}** ([original]({c.url}))" for c in cartas
     )
+    corpo = f"{resumo}\n\n{exercicio}" if exercicio else resumo
     conteudo = (QMD_TEMPLATE.replace("__DATA__", f"{hoje.day} de {MESES_PT[hoje.month]} de {hoje.year}")
-                .replace("__RESUMO__", resumo).replace("__FONTES__", fontes))
+                .replace("__RESUMO__", corpo).replace("__FONTES__", fontes))
     caminho = OUTPUT_DIR / f"resumo-{hoje.isoformat()}.qmd"
     caminho.write_text(conteudo, encoding="utf-8")
     return caminho
@@ -637,7 +661,13 @@ def executar(args: argparse.Namespace) -> int:
         return 1
 
     resumo_documento, resumo_executivo = resumo_para_whatsapp(sintetizar(processadas))
-    qmd = escrever_qmd(resumo_documento, processadas)
+    exercicio = ""
+    if not args.sem_exercicio:
+        resultado = exercicio_da_semana(resumo_documento)
+        if resultado is not None:
+            conceito, exercicio = resultado
+            print(f"Exercício da semana: {conceito}")
+    qmd = escrever_qmd(resumo_documento, processadas, exercicio)
     print(f"Gerado: {qmd}")
     pdf = renderizar(qmd) if args.pdf else None
     if pdf:
@@ -657,6 +687,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--discover-only", action="store_true", help="descobre o delta sem baixar, sintetizar ou alterar estado")
     parser.add_argument("--pdf", action="store_true", help="renderiza PDF com Quarto")
     parser.add_argument("--send", action="store_true", help="envia o PDF pelo WhatsApp (exige --pdf)")
+    parser.add_argument("--sem-exercicio", action="store_true", help="pula o exercício em Python da semana")
     parser.add_argument("--pausa", type=float, default=0.5, help="pausa educada entre requests (segundos)")
     args = parser.parse_args()
     if args.send and not args.pdf:

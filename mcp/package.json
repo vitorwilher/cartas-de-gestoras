@@ -1,0 +1,24 @@
+{
+  "name": "cartas-gestoras-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MCP Análise Macro — sínteses das cartas das gestoras e exercícios em Python. Acesso por assinante.",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "dry-run": "wrangler deploy --dry-run --outdir dist",
+    "check": "npm run typecheck && npm run dry-run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "agents": "^0.19.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260722.1",
+    "typescript": "^5.5.4",
+    "wrangler": "^4.114.0"
+  }
+}

@@ -1,0 +1,798 @@
+{
+  "fonte": "Clube AM — Mercado Financeiro",
+  "total": 88,
+  "itens": [
+    {
+      "data": "2025-12-10",
+      "titulo": "analise de criptomoedas com python",
+      "slug": "analise-de-criptomoedas-com-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-12-10-analise-de-criptomoedas-com-python-luiz",
+      "busca": "analise de criptomoedas com python"
+    },
+    {
+      "data": "2025-05-19",
+      "titulo": "como otimizar um portfolio de investimentos no python",
+      "slug": "como-otimizar-um-portfolio-de-investimentos-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-05-19-como-otimizar-um-portfolio-de-investimentos-no-python-luiz",
+      "busca": "como otimizar um portfolio de investimentos no python"
+    },
+    {
+      "data": "2025-05-15",
+      "titulo": "medidas de retorno e risco de ativos individuais",
+      "slug": "medidas-de-retorno-e-risco-de-ativos-individuais",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-05-15-medidas-de-retorno-e-risco-de-ativos-individuais-luiz",
+      "busca": "medidas de retorno e risco de ativos individuais"
+    },
+    {
+      "data": "2025-05-14",
+      "titulo": "relacao de risco x retorno em python",
+      "slug": "relacao-de-risco-x-retorno-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-05-14-relacao-de-risco-x-retorno-em-python-luiz",
+      "busca": "relacao de risco x retorno em python"
+    },
+    {
+      "data": "2025-03-25",
+      "titulo": "como usar o python para tratar e manipular dados financeiros",
+      "slug": "como-usar-o-python-para-tratar-e-manipular-dados-financeiros",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-03-25-como-usar-o-python-para-tratar-e-manipular-dados-financeiros-luiz",
+      "busca": "como usar o python para tratar e manipular dados financeiros"
+    },
+    {
+      "data": "2025-03-20",
+      "titulo": "aplicacao de hidden markov models para financas usando python",
+      "slug": "aplicacao-de-hidden-markov-models-para-financas-usando-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2025-03-20-aplicacao-de-hidden-markov-models-para-financas-usando-python-luiz",
+      "busca": "aplicacao de hidden markov models para financas usando python"
+    },
+    {
+      "data": "2024-11-06",
+      "titulo": "o que e e como calcular o beta de mercado usando o python",
+      "slug": "o-que-e-e-como-calcular-o-beta-de-mercado-usando-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-11-06-o-que-e-e-como-calcular-o-beta-de-mercado-usando-o-python-luiz",
+      "busca": "o que e e como calcular o beta de mercado usando o python"
+    },
+    {
+      "data": "2024-10-11",
+      "titulo": "coletando dados economicos e financeiros com o openbb no python",
+      "slug": "coletando-dados-economicos-e-financeiros-com-o-openbb-no-python",
+      "autor": "fernando",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-10-11-coletando-dados-economicos-e-financeiros-com-o-openbb-no-python-fernando",
+      "busca": "coletando dados economicos e financeiros com o openbb no python"
+    },
+    {
+      "data": "2024-09-16",
+      "titulo": "usando python para compreender os regimes da volatilidade do mercado",
+      "slug": "usando-python-para-compreender-os-regimes-da-volatilidade-do-mercado",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-09-16-usando-python-para-compreender-os-regimes-da-volatilidade-do-mercado-luiz",
+      "busca": "usando python para compreender os regimes da volatilidade do mercado"
+    },
+    {
+      "data": "2024-08-06",
+      "titulo": "volatilidade do bitcoin har vs aprendizado de maquina python",
+      "slug": "volatilidade-do-bitcoin-har-vs-aprendizado-de-maquina-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-08-06-volatilidade-do-bitcoin-har-vs-aprendizado-de-maquina-python-luiz",
+      "busca": "volatilidade do bitcoin har vs aprendizado de maquina python"
+    },
+    {
+      "data": "2024-07-30",
+      "titulo": "volatilidade do ibovespa garch vs ml",
+      "slug": "volatilidade-do-ibovespa-garch-vs-ml",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-07-30-volatilidade-do-ibovespa-garch-vs-ml-luiz",
+      "busca": "volatilidade do ibovespa garch vs ml"
+    },
+    {
+      "data": "2024-07-09",
+      "titulo": "analisando o mercado acionario brasileiro com aprendizado nao supervisionado",
+      "slug": "analisando-o-mercado-acionario-brasileiro-com-aprendizado-nao-supervisionado",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-07-09-analisando-o-mercado-acionario-brasileiro-com-aprendizado-nao-supervisionado-luiz",
+      "busca": "analisando o mercado acionario brasileiro com aprendizado nao supervisionado"
+    },
+    {
+      "data": "2024-06-25",
+      "titulo": "contribuicao para a volatilidade python",
+      "slug": "contribuicao-para-a-volatilidade-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-06-25-contribuicao-para-a-volatilidade-python-luiz-(3)",
+      "busca": "contribuicao para a volatilidade python"
+    },
+    {
+      "data": "2024-06-18",
+      "titulo": "aplicacoes de modelos de volatilidade var dinamico usando garch r e python",
+      "slug": "aplicacoes-de-modelos-de-volatilidade-var-dinamico-usando-garch-r-e-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2024-06-18-aplicacoes-de-modelos-de-volatilidade-var-dinamico-usando-garch-r-e-python-luiz-(2)",
+      "busca": "aplicacoes de modelos de volatilidade var dinamico usando garch r e python"
+    },
+    {
+      "data": "2024-06-11",
+      "titulo": "analisando a volatilidade de acoes usando python",
+      "slug": "analisando-a-volatilidade-de-acoes-usando-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-06-11-analisando-a-volatilidade-de-acoes-usando-python-luiz",
+      "busca": "analisando a volatilidade de acoes usando python"
+    },
+    {
+      "data": "2024-05-28",
+      "titulo": "como usar o python para analisar a dre de uma empresa",
+      "slug": "como-usar-o-python-para-analisar-a-dre-de-uma-empresa",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-05-28-como-usar-o-python-para-analisar-a-dre-de-uma-empresa-luiz",
+      "busca": "como usar o python para analisar a dre de uma empresa"
+    },
+    {
+      "data": "2024-05-21",
+      "titulo": "analisando a volatilidade de longo prazo do ibovespa usando garch 1 1 python",
+      "slug": "analisando-a-volatilidade-de-longo-prazo-do-ibovespa-usando-garch-1-1-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-05-21-analisando-a-volatilidade-de-longo-prazo-do-ibovespa-usando-garch-1-1-python-luiz",
+      "busca": "analisando a volatilidade de longo prazo do ibovespa usando garch 1 1 python"
+    },
+    {
+      "data": "2024-05-14",
+      "titulo": "estimando a volatilidade da taxa de cambio",
+      "slug": "estimando-a-volatilidade-da-taxa-de-cambio",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-05-14-estimando-a-volatilidade-da-taxa-de-cambio-luiz",
+      "busca": "estimando a volatilidade da taxa de cambio"
+    },
+    {
+      "data": "2024-05-07",
+      "titulo": "python e financas relacao de risco e retorno",
+      "slug": "python-e-financas-relacao-de-risco-e-retorno",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-05-07-python-e-financas-relacao-de-risco-e-retorno-luiz",
+      "busca": "python e financas relacao de risco e retorno"
+    },
+    {
+      "data": "2024-04-23",
+      "titulo": "dashboard de acao",
+      "slug": "dashboard-de-acao",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-04-23-dashboard-de-acao-luiz",
+      "busca": "dashboard de acao"
+    },
+    {
+      "data": "2024-04-16",
+      "titulo": "como analisar dados financeiros com o python um guia para quem deseja",
+      "slug": "como-analisar-dados-financeiros-com-o-python-um-guia-para-quem-deseja",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-04-16-como-analisar-dados-financeiros-com-o-python-um-guia-para-quem-deseja-luiz",
+      "busca": "como analisar dados financeiros com o python um guia para quem deseja"
+    },
+    {
+      "data": "2024-04-09",
+      "titulo": "criando um relatorio de analise de acoes no python",
+      "slug": "criando-um-relatorio-de-analise-de-acoes-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-04-09-criando-um-relatorio-de-analise-de-acoes-no-python-luiz",
+      "busca": "criando um relatorio de analise de acoes no python"
+    },
+    {
+      "data": "2024-04-02",
+      "titulo": "como obter dados financeiros com o python um guia para sair do excel",
+      "slug": "como-obter-dados-financeiros-com-o-python-um-guia-para-sair-do-excel",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-04-02-como-obter-dados-financeiros-com-o-python-um-guia-para-sair-do-excel-luiz",
+      "busca": "como obter dados financeiros com o python um guia para sair do excel"
+    },
+    {
+      "data": "2024-03-26",
+      "titulo": "otimizacao de portfolio com hierarchical risk parity hrp",
+      "slug": "otimizacao-de-portfolio-com-hierarchical-risk-parity-hrp",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-03-26-otimizacao-de-portfolio-com-hierarchical-risk-parity-hrp-luiz",
+      "busca": "otimizacao de portfolio com hierarchical risk parity hrp"
+    },
+    {
+      "data": "2024-03-19",
+      "titulo": "usando ia para construir uma estrategia de investimentos no python",
+      "slug": "usando-ia-para-construir-uma-estrategia-de-investimentos-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-03-19-usando-ia-para-construir-uma-estrategia-de-investimentos-no-python-luiz",
+      "busca": "usando ia para construir uma estrategia de investimentos no python"
+    },
+    {
+      "data": "2024-02-27",
+      "titulo": "como analisar a dre de empresas de capital aberto usando o python",
+      "slug": "como-analisar-a-dre-de-empresas-de-capital-aberto-usando-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-02-27-como-analisar-a-dre-de-empresas-de-capital-aberto-usando-o-python-luiz",
+      "busca": "como analisar a dre de empresas de capital aberto usando o python"
+    },
+    {
+      "data": "2024-02-20",
+      "titulo": "cointegracao e pairs trading de acoes no python",
+      "slug": "cointegracao-e-pairs-trading-de-acoes-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-02-20-cointegracao-e-pairs-trading-de-acoes-no-python-luiz",
+      "busca": "cointegracao e pairs trading de acoes no python"
+    },
+    {
+      "data": "2024-02-13",
+      "titulo": "o que e e como estimar o beta de uma acao usando o python",
+      "slug": "o-que-e-e-como-estimar-o-beta-de-uma-acao-usando-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-02-13-o-que-e-e-como-estimar-o-beta-de-uma-acao-usando-o-python-luiz",
+      "busca": "o que e e como estimar o beta de uma acao usando o python"
+    },
+    {
+      "data": "2024-02-06",
+      "titulo": "medidas de retorno e risco de ativos individuais",
+      "slug": "medidas-de-retorno-e-risco-de-ativos-individuais",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-02-06-medidas-de-retorno-e-risco-de-ativos-individuais-luiz",
+      "busca": "medidas de retorno e risco de ativos individuais"
+    },
+    {
+      "data": "2024-01-30",
+      "titulo": "como criar um portfolio de investimentos no vectorbt parte 2",
+      "slug": "como-criar-um-portfolio-de-investimentos-no-vectorbt-parte-2",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-01-30-como-criar-um-portfolio-de-investimentos-no-vectorbt-parte-2-luiz",
+      "busca": "como criar um portfolio de investimentos no vectorbt parte 2"
+    },
+    {
+      "data": "2024-01-23",
+      "titulo": "como criar um portfolio de investimentos no vectorbt",
+      "slug": "como-criar-um-portfolio-de-investimentos-no-vectorbt",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-01-23-como-criar-um-portfolio-de-investimentos-no-vectorbt-luiz",
+      "busca": "como criar um portfolio de investimentos no vectorbt"
+    },
+    {
+      "data": "2024-01-16",
+      "titulo": "o que e o vectorbt",
+      "slug": "o-que-e-o-vectorbt",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-01-16-o-que-e-o-vectorbt-luiz",
+      "busca": "o que e o vectorbt"
+    },
+    {
+      "data": "2024-01-09",
+      "titulo": "analisando a volatilidade de longo prazo do ibovespa usando garch 1 1",
+      "slug": "analisando-a-volatilidade-de-longo-prazo-do-ibovespa-usando-garch-1-1",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-01-09-analisando-a-volatilidade-de-longo-prazo-do-ibovespa-usando-garch-1-1-luiz",
+      "busca": "analisando a volatilidade de longo prazo do ibovespa usando garch 1 1"
+    },
+    {
+      "data": "2024-01-02",
+      "titulo": "decompondo o retorno de portfolios setoriais por fatores de risco",
+      "slug": "decompondo-o-retorno-de-portfolios-setoriais-por-fatores-de-risco",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2024-01-02-decompondo-o-retorno-de-portfolios-setoriais-por-fatores-de-risco-luiz",
+      "busca": "decompondo o retorno de portfolios setoriais por fatores de risco"
+    },
+    {
+      "data": "2023-12-12",
+      "titulo": "fama macbeth regression explorando o mercado acionario brasileiro",
+      "slug": "fama-macbeth-regression-explorando-o-mercado-acionario-brasileiro",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-12-12-fama-macbeth-regression-explorando-o-mercado-acionario-brasileiro-luiz",
+      "busca": "fama macbeth regression explorando o mercado acionario brasileiro"
+    },
+    {
+      "data": "2023-12-05",
+      "titulo": "contribuicao para a volatilidade python",
+      "slug": "contribuicao-para-a-volatilidade-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-12-05-contribuicao-para-a-volatilidade-python-luiz-(2)",
+      "busca": "contribuicao para a volatilidade python"
+    },
+    {
+      "data": "2023-11-28",
+      "titulo": "criando o fator de momentum para o brasil python",
+      "slug": "criando-o-fator-de-momentum-para-o-brasil-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-11-28-criando-o-fator-de-momentum-para-o-brasil-python-luiz",
+      "busca": "criando o fator de momentum para o brasil python"
+    },
+    {
+      "data": "2023-11-21",
+      "titulo": "hierarchical risk parity hrp",
+      "slug": "hierarchical-risk-parity-hrp",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-11-21-hierarchical-risk-parity-hrp-luiz",
+      "busca": "hierarchical risk parity hrp"
+    },
+    {
+      "data": "2023-11-14",
+      "titulo": "analise de betas de mercado do mercado brasileiro",
+      "slug": "analise-de-betas-de-mercado-do-mercado-brasileiro",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-11-14-analise-de-betas-de-mercado-do-mercado-brasileiro-luiz",
+      "busca": "analise de betas de mercado do mercado brasileiro"
+    },
+    {
+      "data": "2023-11-07",
+      "titulo": "medidas de retorno e risco de ativos individuais",
+      "slug": "medidas-de-retorno-e-risco-de-ativos-individuais",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-11-07-medidas-de-retorno-e-risco-de-ativos-individuais-luiz",
+      "busca": "medidas de retorno e risco de ativos individuais"
+    },
+    {
+      "data": "2023-10-24",
+      "titulo": "a abordagem do estudo de eventos no mercado financeiro",
+      "slug": "a-abordagem-do-estudo-de-eventos-no-mercado-financeiro",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-10-24-a-abordagem-do-estudo-de-eventos-no-mercado-financeiro-luiz",
+      "busca": "a abordagem do estudo de eventos no mercado financeiro"
+    },
+    {
+      "data": "2023-10-17",
+      "titulo": "construindo o capital asset pricing model no python",
+      "slug": "construindo-o-capital-asset-pricing-model-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-10-17-construindo-o-capital-asset-pricing-model-no-python-luiz",
+      "busca": "construindo o capital asset pricing model no python"
+    },
+    {
+      "data": "2023-10-10",
+      "titulo": "valuation no python",
+      "slug": "valuation-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-10-10-valuation-no-python-luiz",
+      "busca": "valuation no python"
+    },
+    {
+      "data": "2023-10-03",
+      "titulo": "analise fundamentalista usando o python",
+      "slug": "analise-fundamentalista-usando-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-10-03-analise-fundamentalista-usando-o-python-luiz",
+      "busca": "analise fundamentalista usando o python"
+    },
+    {
+      "data": "2023-09-26",
+      "titulo": "selecao de carteira e teoria de markowitz",
+      "slug": "selecao-de-carteira-e-teoria-de-markowitz",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-09-26-selecao-de-carteira-e-teoria-de-markowitz-luiz",
+      "busca": "selecao de carteira e teoria de markowitz"
+    },
+    {
+      "data": "2023-09-12",
+      "titulo": "mercado de renda fixa no python",
+      "slug": "mercado-de-renda-fixa-no-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-09-12-mercado-de-renda-fixa-no-python-luiz",
+      "busca": "mercado de renda fixa no python"
+    },
+    {
+      "data": "2023-09-05",
+      "titulo": "como usar principal component analysis para analisar acoes",
+      "slug": "como-usar-principal-component-analysis-para-analisar-acoes",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-09-05-como-usar-principal-component-analysis-para-analisar-acoes-luiz",
+      "busca": "como usar principal component analysis para analisar acoes"
+    },
+    {
+      "data": "2023-08-14",
+      "titulo": "volatilidade implicita python",
+      "slug": "volatilidade-implicita-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-08-14-volatilidade-implicita-python-luiz-(2)",
+      "busca": "volatilidade implicita python"
+    },
+    {
+      "data": "2023-08-08",
+      "titulo": "aplicacoes de modelos de volatilidade otimizacao de portfolio usando",
+      "slug": "aplicacoes-de-modelos-de-volatilidade-otimizacao-de-portfolio-usando",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-08-08-aplicacoes-de-modelos-de-volatilidade-otimizacao-de-portfolio-usando-luiz",
+      "busca": "aplicacoes de modelos de volatilidade otimizacao de portfolio usando"
+    },
+    {
+      "data": "2023-08-01",
+      "titulo": "aplicacoes de modelos de volatilidade beta dinamico usando garch r e",
+      "slug": "aplicacoes-de-modelos-de-volatilidade-beta-dinamico-usando-garch-r-e",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-08-01-aplicacoes-de-modelos-de-volatilidade-beta-dinamico-usando-garch-r-e-luiz",
+      "busca": "aplicacoes de modelos de volatilidade beta dinamico usando garch r e"
+    },
+    {
+      "data": "2023-07-25",
+      "titulo": "aplicacoes de modelos de volatilidade covariancia dinamica usando garch",
+      "slug": "aplicacoes-de-modelos-de-volatilidade-covariancia-dinamica-usando-garch",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-07-25-aplicacoes-de-modelos-de-volatilidade-covariancia-dinamica-usando-garch-luiz",
+      "busca": "aplicacoes de modelos de volatilidade covariancia dinamica usando garch"
+    },
+    {
+      "data": "2023-07-18",
+      "titulo": "aplicacoes de modelos de volatilidade var dinamico usando garch r e",
+      "slug": "aplicacoes-de-modelos-de-volatilidade-var-dinamico-usando-garch-r-e",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-07-18-aplicacoes-de-modelos-de-volatilidade-var-dinamico-usando-garch-r-e-luiz",
+      "busca": "aplicacoes de modelos de volatilidade var dinamico usando garch r e"
+    },
+    {
+      "data": "2023-07-11",
+      "titulo": "volatilidade de ativos e modelos de volatilidade r e python",
+      "slug": "volatilidade-de-ativos-e-modelos-de-volatilidade-r-e-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-07-11-volatilidade-de-ativos-e-modelos-de-volatilidade-r-e-python-luiz-(2)",
+      "busca": "volatilidade de ativos e modelos de volatilidade r e python"
+    },
+    {
+      "data": "2023-07-04",
+      "titulo": "volatilidade de ativos e modelos de volatilidade r e python",
+      "slug": "volatilidade-de-ativos-e-modelos-de-volatilidade-r-e-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-07-04-volatilidade-de-ativos-e-modelos-de-volatilidade-r-e-python-luiz-(1)",
+      "busca": "volatilidade de ativos e modelos de volatilidade r e python"
+    },
+    {
+      "data": "2023-06-13",
+      "titulo": "introducao a dados financeiros e suas caracteristicas aplicacoes em r e",
+      "slug": "introducao-a-dados-financeiros-e-suas-caracteristicas-aplicacoes-em-r-e",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2023-06-13-introducao-a-dados-financeiros-e-suas-caracteristicas-aplicacoes-em-r-e-luiz",
+      "busca": "introducao a dados financeiros e suas caracteristicas aplicacoes em r e"
+    },
+    {
+      "data": "2023-06-06",
+      "titulo": "contribuicao para a volatilidade python",
+      "slug": "contribuicao-para-a-volatilidade-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-06-06-contribuicao-para-a-volatilidade-python-luiz-(1)",
+      "busca": "contribuicao para a volatilidade python"
+    },
+    {
+      "data": "2023-05-30",
+      "titulo": "simulacoes de monte carlo no python",
+      "slug": "simulacoes-de-monte-carlo-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-05-30-simulacoes-de-monte-carlo-no-python-luiz",
+      "busca": "simulacoes de monte carlo no python"
+    },
+    {
+      "data": "2023-05-09",
+      "titulo": "dashboard do modelo capm no python",
+      "slug": "dashboard-do-modelo-capm-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-05-09-dashboard-do-modelo-capm-no-python-luiz",
+      "busca": "dashboard do modelo capm no python"
+    },
+    {
+      "data": "2023-05-02",
+      "titulo": "criando um dashboard de indices de sharpe no python",
+      "slug": "criando-um-dashboard-de-indices-de-sharpe-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-05-02-criando-um-dashboard-de-indices-de-sharpe-no-python-luiz",
+      "busca": "criando um dashboard de indices de sharpe no python"
+    },
+    {
+      "data": "2023-04-25",
+      "titulo": "dashboard de analise de assimetria e curtose no python",
+      "slug": "dashboard-de-analise-de-assimetria-e-curtose-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-04-25-dashboard-de-analise-de-assimetria-e-curtose-no-python-luiz",
+      "busca": "dashboard de analise de assimetria e curtose no python"
+    },
+    {
+      "data": "2023-04-18",
+      "titulo": "construindo um dashboard de medidas de desvio padrao no python",
+      "slug": "construindo-um-dashboard-de-medidas-de-desvio-padrao-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-04-18-construindo-um-dashboard-de-medidas-de-desvio-padrao-no-python-luiz",
+      "busca": "construindo um dashboard de medidas de desvio padrao no python"
+    },
+    {
+      "data": "2023-04-04",
+      "titulo": "coletando preco e construindo um dashboard",
+      "slug": "coletando-preco-e-construindo-um-dashboard",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-04-04-coletando-preco-e-construindo-um-dashboard-luiz",
+      "busca": "coletando preco e construindo um dashboard"
+    },
+    {
+      "data": "2023-04-04",
+      "titulo": "construindo uma carteira de investimentos portfolio em python",
+      "slug": "construindo-uma-carteira-de-investimentos-portfolio-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-04-04-construindo-uma-carteira-de-investimentos-portfolio-em-python-luiz",
+      "busca": "construindo uma carteira de investimentos portfolio em python"
+    },
+    {
+      "data": "2023-03-07",
+      "titulo": "criando o indice de sharpe no python",
+      "slug": "criando-o-indice-de-sharpe-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-03-07-criando-o-indice-de-sharpe-no-python-luiz",
+      "busca": "criando o indice de sharpe no python"
+    },
+    {
+      "data": "2023-02-28",
+      "titulo": "volatilidade implicita python",
+      "slug": "volatilidade-implicita-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-02-28-volatilidade-implicita-python-luiz-(1)",
+      "busca": "volatilidade implicita python"
+    },
+    {
+      "data": "2023-02-07",
+      "titulo": "automatizando a coleta de demonstrativos financeiros no python",
+      "slug": "automatizando-a-coleta-de-demonstrativos-financeiros-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-02-07-automatizando-a-coleta-de-demonstrativos-financeiros-no-python-luiz",
+      "busca": "automatizando a coleta de demonstrativos financeiros no python"
+    },
+    {
+      "data": "2023-01-10",
+      "titulo": "analise de portfolio de investimentos com o python",
+      "slug": "analise-de-portfolio-de-investimentos-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2023-01-10-analise-de-portfolio-de-investimentos-com-o-python-luiz",
+      "busca": "analise de portfolio de investimentos com o python"
+    },
+    {
+      "data": "2022-12-27",
+      "titulo": "fatos estilizados em python",
+      "slug": "fatos-estilizados-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-12-27-fatos-estilizados-em-python-luiz",
+      "busca": "fatos estilizados em python"
+    },
+    {
+      "data": "2022-12-20",
+      "titulo": "metodo monte carlo com o python",
+      "slug": "metodo-monte-carlo-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-12-20-metodo-monte-carlo-com-o-python-luiz",
+      "busca": "metodo monte carlo com o python"
+    },
+    {
+      "data": "2022-11-29",
+      "titulo": "coletando dados de demonstrativos financeiros com o python",
+      "slug": "coletando-dados-de-demonstrativos-financeiros-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-11-29-coletando-dados-de-demonstrativos-financeiros-com-o-python-luiz",
+      "busca": "coletando dados de demonstrativos financeiros com o python"
+    },
+    {
+      "data": "2022-11-17",
+      "titulo": "usando algoritmos de trading com o python",
+      "slug": "usando-algoritmos-de-trading-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-11-17-usando-algoritmos-de-trading-com-o-python-luiz",
+      "busca": "usando algoritmos de trading com o python"
+    },
+    {
+      "data": "2022-11-08",
+      "titulo": "criando ordens com o metatrader5 utilizando o python",
+      "slug": "criando-ordens-com-o-metatrader5-utilizando-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-11-08-criando-ordens-com-o-metatrader5-utilizando-o-python-luiz",
+      "busca": "criando ordens com o metatrader5 utilizando o python"
+    },
+    {
+      "data": "2022-10-25",
+      "titulo": "mercado de renda fixa no python",
+      "slug": "mercado-de-renda-fixa-no-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2022-10-25-mercado-de-renda-fixa-no-python-luiz",
+      "busca": "mercado de renda fixa no python"
+    },
+    {
+      "data": "2022-10-18",
+      "titulo": "analise tecnica com o python",
+      "slug": "analise-tecnica-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-10-18-analise-tecnica-com-o-python-luiz",
+      "busca": "analise tecnica com o python"
+    },
+    {
+      "data": "2022-08-09",
+      "titulo": "criando indicadores fundamentalistas com python",
+      "slug": "criando-indicadores-fundamentalistas-com-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-08-09-criando-indicadores-fundamentalistas-com-python-luiz",
+      "busca": "criando indicadores fundamentalistas com python"
+    },
+    {
+      "data": "2022-08-02",
+      "titulo": "medias moveis simples para trading com o python",
+      "slug": "medias-moveis-simples-para-trading-com-o-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-08-02-medias-moveis-simples-para-trading-com-o-python-luiz",
+      "busca": "medias moveis simples para trading com o python"
+    },
+    {
+      "data": "2022-07-12",
+      "titulo": "analise de portfolio com pyfolio",
+      "slug": "analise-de-portfolio-com-pyfolio",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-07-12-analise-de-portfolio-com-pyfolio-luiz",
+      "busca": "analise de portfolio com pyfolio"
+    },
+    {
+      "data": "2022-07-06",
+      "titulo": "analise de fundos imobiliarios com r e python",
+      "slug": "analise-de-fundos-imobiliarios-com-r-e-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2022-07-06-analise-de-fundos-imobiliarios-com-r-e-python-luiz",
+      "busca": "analise de fundos imobiliarios com r e python"
+    },
+    {
+      "data": "2022-05-31",
+      "titulo": "criando medidas de volatilidade no python",
+      "slug": "criando-medidas-de-volatilidade-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-05-31-criando-medidas-de-volatilidade-no-python-luiz",
+      "busca": "criando medidas de volatilidade no python"
+    },
+    {
+      "data": "2022-05-24",
+      "titulo": "construindo uma carteira de acoes portfolio em python",
+      "slug": "construindo-uma-carteira-de-acoes-portfolio-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-05-24-construindo-uma-carteira-de-acoes-portfolio-em-python-luiz",
+      "busca": "construindo uma carteira de acoes portfolio em python"
+    },
+    {
+      "data": "2022-05-24",
+      "titulo": "construindo uma carteira de investimentos em python",
+      "slug": "construindo-uma-carteira-de-investimentos-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-05-24-construindo-uma-carteira-de-investimentos-em-python-luiz",
+      "busca": "construindo uma carteira de investimentos em python"
+    },
+    {
+      "data": "2022-05-17",
+      "titulo": "estrutura a termo da taxa de juros em python",
+      "slug": "estrutura-a-termo-da-taxa-de-juros-em-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-05-17-estrutura-a-termo-da-taxa-de-juros-em-python-luiz",
+      "busca": "estrutura a termo da taxa de juros em python"
+    },
+    {
+      "data": "2022-04-26",
+      "titulo": "estimando o beta em r e python",
+      "slug": "estimando-o-beta-em-r-e-python",
+      "autor": "luiz",
+      "linguagem": "R-Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/R-Python/2022-04-26-estimando-o-beta-em-r-e-python-luiz",
+      "busca": "estimando o beta em r e python"
+    },
+    {
+      "data": "2022-04-19",
+      "titulo": "fazendo backtesting no python",
+      "slug": "fazendo-backtesting-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-04-19-fazendo-backtesting-no-python-luiz",
+      "busca": "fazendo backtesting no python"
+    },
+    {
+      "data": "2022-03-22",
+      "titulo": "datareader e analises com yahoo finance",
+      "slug": "datareader-e-analises-com-yahoo-finance",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-03-22-datareader-e-analises-com-yahoo-finance-luiz",
+      "busca": "datareader e analises com yahoo finance"
+    },
+    {
+      "data": "2022-03-15",
+      "titulo": "python e financas relacao de risco e retorno",
+      "slug": "python-e-financas-relacao-de-risco-e-retorno",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-03-15-python-e-financas-relacao-de-risco-e-retorno-luiz",
+      "busca": "python e financas relacao de risco e retorno"
+    },
+    {
+      "data": "2022-03-15",
+      "titulo": "python e financas relacao de risco e retorno",
+      "slug": "python-e-financas-relacao-de-risco-e-retorno",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-03-15-python-e-financas-relacao-de-risco-e-retorno-luiz-(2)",
+      "busca": "python e financas relacao de risco e retorno"
+    },
+    {
+      "data": "2022-03-08",
+      "titulo": "graficos para analises e operacoes no python",
+      "slug": "graficos-para-analises-e-operacoes-no-python",
+      "autor": "luiz",
+      "linguagem": "Python",
+      "caminho_dropbox": "/5. Nova Análise Macro/5. Produtos/3. Clube AM/Exercicios_AM/Mercado Financeiro/Python/2022-03-08-graficos-para-analises-e-operacoes-no-python-luiz",
+      "busca": "graficos para analises e operacoes no python"
+    }
+  ]
+}
