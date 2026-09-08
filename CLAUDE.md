@@ -211,6 +211,13 @@ Cartas_de_Gestoras/
 │   ├── src/index.ts
 │   ├── gerar_catalogo.py    # digests/*.qmd -> catalogo.json que o Worker serve
 │   └── wrangler.jsonc
+├── assinatura/              # WooCommerce: produto e sincronismo com o KV do MCP
+│   ├── woo.py               # cria o produto (draft) — NUNCA publica
+│   └── sincronizar.py       # assinaturas ativas -> comandos wrangler kv put
+├── divulgacao/              # copy e preparação de disparo — NUNCA envia
+│   ├── email-lancamento.md
+│   ├── carrossel-instagram.md
+│   └── preparar_disparo.py
 ├── requirements.txt
 └── cartas.py                # script principal
 ```
@@ -271,6 +278,33 @@ cópia aninhada. O `tsc` falha com `TS2416 ... separate declarations of a privat
 property '_serverInfo'` — mensagem que aponta para herança de classe, não para o
 problema real.
 
+### Assinatura e divulgação (`assinatura/`, `divulgacao/`)
+
+**Regra permanente, definida pelo Vitor em 2026-09-08: preparar, nunca disparar.**
+Woo, ConvertKit e Instagram recebem rascunho e revisão humana; nenhum script deste
+repositório publica produto, envia e-mail ou posta. Os scripts têm bloqueios
+explícitos para isso — `preparar_disparo.py` se recusa a criar o broadcast enquanto
+a copy tiver placeholder de checkout.
+
+**Fatos verificados em 2026-09-08 (conferir de novo antes de usar):**
+
+| Fato | Valor | Fonte |
+|---|---|---|
+| WooCommerce Subscriptions | **ativo** na loja | `system_status` da API |
+| Loja | `aluno.analisemacro.com.br` | `WC_URL` |
+| Slug `cartas-de-gestoras` | livre | API do Woo |
+| Tag ConvertKit "Mercado Financeiro" | ID **22406993**, 530 assinantes | API do Kit |
+| Tag 22775548 ("...e Investimentos") | **zerada, órfã — não usar** | API do Kit |
+
+As credenciais vivem no `.env` do `../ROI_Diagnostico`, que já as usa. Os
+conectores de lá (`connectors/woocommerce.py`, `connectors/convertkit.py`) são
+**somente leitura** — alimentam o dashboard; a camada de escrita é a daqui.
+
+O acesso ao MCP é derivado por HMAC do id da assinatura
+(`ASSINANTES_HMAC_SECRET`): token reproduzível sem tabela de correspondência e
+revogável trocando o segredo. `pending-cancel` mantém acesso — a pessoa cancelou,
+mas o período pago ainda corre.
+
 ## Itens em aberto
 
 - [x] **Mapeamento verificado das 12 gestoras (2026-08-11)** — em
@@ -300,9 +334,16 @@ problema real.
 - [ ] Publicar o `catalogo.json` no release `digests` que o Worker consome
 - [ ] Migrar o layout para o template `am-livro` (Typst) do Design System Ebook —
   hoje o pipeline usa XeLaTeX e o `render.ps1` do template é PowerShell/Windows
-- [ ] Produto de subscription no WooCommerce (R$ 97/mês) + webhook que popula o KV
-- [ ] Divulgação: broadcast para a tag Mercado Financeiro (ConvertKit) e carrossel
-  no Instagram, reaproveitando os conectores do `../ROI_Diagnostico/connectors/`
+- [x] **Assinatura preparada** (`assinatura/`) — produto R$ 97/mês pronto para criar
+  como rascunho; Subscriptions confirmado ativo; sincronismo Woo -> KV do MCP escrito
+- [x] **Divulgação escrita** (`divulgacao/`) — e-mail para a tag Mercado Financeiro
+  (530 assinantes) e carrossel de Instagram, ambos em rascunho
+- [ ] **Decisões de oferta que faltam para a copy fechar**: existe preço de tabela
+  para a âncora "De X por Y"? Existe data de fim de campanha (sem ela a copy sai
+  sem urgência — não se inventa)? A garantia de 7 dias da casa vale para recorrente?
+- [ ] Publicar o produto no Woo e **testar o carrinho ao vivo**, lendo o preço na
+  página (HTTP 200 não prova nada), antes de qualquer disparo
+- [ ] Definir `ASSINANTES_HMAC_SECRET` e ligar o webhook do Woo ao KV
 - [ ] Avaliar as trilhas secundárias hoje fora do escopo: cartas por fundo da
   Kinea (168 PDFs em `/atualizacoes/`), demais fundos da Kapitalo (Kappa-Zeta,
   NW3, Tarkus, Temáticas), calls e cartas de crédito da Legacy, e o Informe
