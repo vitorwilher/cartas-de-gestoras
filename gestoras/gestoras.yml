@@ -37,7 +37,7 @@ gestoras:
     estrategia: url_previsivel
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: 'https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/julho26.pdf'}
+    ultima_carta: {principal: 'https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/agosto26.pdf'}
     url_template: https://www.alaska-asset.com.br/pdf/cartas/Mensais/{ano}/{mes}{aa}.pdf
     notas: >
       A ÚNICA com URL totalmente previsível. Meses em português minúsculo e SEM
@@ -53,7 +53,7 @@ gestoras:
     estrategia: wp_rest
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: cartadogestor-41}
+    ultima_carta: {principal: cartadogestor-42}
     notas: >
       ARMADILHA CRÍTICA: na página /carta-do-gestor/ o link do PDF é montado por
       JavaScript inline e NÃO existe como href no HTML servido — scraper ingênuo
@@ -69,7 +69,8 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Credito_Julho_2026.pdf',
+    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Credito_Agosto_2026.pdf',
+  principal: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Agosto_2026.pdf'}
   principal: 'https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Julho_2026.pdf'}
     notas: >
       A coleta mais simples das 12: ~52 cartas numa única página de 61 KB, todos os
@@ -156,7 +157,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: ''
+    ultima_carta: {principal: 'https://adamcapital.com.br/wp-content/uploads/2026/09/Carta_Mensal_AGOSTO_2026.pdf'}
     url_template: https://adamcapital.com.br/wp-content/uploads/{ano_pub}/{mes_pub}/Carta-Mensal-{Mes}-{ano}.pdf
     notas: >
       REGRA PECULIAR da URL: a pasta é o mês SEGUINTE ao de referência (dezembro
@@ -175,7 +176,7 @@ gestoras:
     estrategia: ajax
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {macro: 'https://www.legacycapital.com.br/wp-content/uploads/202607_Carta-Mensal.pdf'}
+    ultima_carta: {macro: 'https://www.legacycapital.com.br/wp-content/uploads/202608_Carta-Mensal.pdf'}
     notas: >
       A coleta mais trabalhosa das 12: os PDFs NÃO estão no HTML inicial (só termos
       de LGPD), são carregados por AJAX ao trocar o filtro de ano. Mas NÃO exige

@@ -1,0 +1,134 @@
+---
+lang: pt-BR
+format:
+  pdf:
+    pdf-engine: xelatex
+    toc: false
+    geometry: [margin=2.5cm]
+    fontsize: 11pt
+header-includes:
+  - |
+    \usepackage{graphicx}
+    \usepackage{hyperref}
+    \renewcommand{\maketitle}{}
+---
+
+```{=latex}
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+\includegraphics[width=4cm]{../../AM.png}\par
+\vspace{0.8cm}
+{\huge\bfseries Síntese das Cartas das Gestoras\par}
+\vspace{1em}
+{\Large Teses, mudanças de posicionamento e riscos\par}
+\vspace{1.5em}
+{\large Vitor Wilher\footnote{Bacharel e Mestre em Economia pela UFF, Candidato ao PhD em Economia pela EPGE/FGV. Especialista em Ciências de Dados e Inteligência Artificial Generativa pela PUC-Rio e Data Tech Lead na Análise Macro.}\par}
+\vspace{0.5em}
+{\normalsize 8 de setembro de 2026\par}
+\vfill
+\end{titlepage}
+\begingroup\small
+\tableofcontents
+\endgroup
+\clearpage
+```
+
+## Alaska Asset Management
+
+**Série principal (Institucional, Black, Range e previdenciários).** A carta é essencialmente descritiva do mês, sem exposição estruturada de tese macro. No cenário local, destaca a nova redução de 25 bps na Selic pelo Copom, volatilidade de juros futuros e influência do calendário eleitoral. No exterior, aponta interação entre dados americanos, tensões no Oriente Médio (Estreito de Ormuz) e recompras de títulos pelo Tesouro dos EUA.
+
+**Posicionamento e atribuição:**
+- **Alaska Institucional e Previdenciários / Black:** carteiras de ações com desempenho negativo e inferior ao Ibovespa. Contribuição positiva de óleo e gás; negativa de varejo. Varejo e consumo não cíclico seguem como as maiores posições da carteira.
+- **Alaska Range:** perdas em renda variável (direcional e long & short entre carteira e índice) e em juros. Mantém posição vendida em dólar contra o real, que contribuiu negativamente no mês.
+- Resultados no mês: Alaska Black FIC FIA -9,42%; Alaska Institucional Long Only -6,21%; Alaska Range -1,91%. Ibovespa -0,33%.
+
+A carta não apresenta discussão explícita de mudanças de posicionamento nem menciona riscos de forma estruturada.
+
+## Bahia Asset Management
+
+**Tese e leitura macro.** No exterior, destaca discurso hawkish de Kevin Warsh em Jackson Hole (colocando inflação como principal problema), escalada com o Irã sustentando o petróleo, e intervenção do Tesouro americano na parte longa da curva via ampliação de recompras, sinalizando "desconforto das autoridades com a dinâmica do mercado". Nos EUA, núcleo do PCE veio acima do esperado com revisões altistas. No Brasil, Copom cortou 25 bps com postura mais data dependent; núcleos de serviços seguem pressionados; pesquisas indicam melhora gradual de Flávio Bolsonaro.
+
+**Posicionamento nos macros (Mutá, Maraú, Bahia):**
+- **Ganhos:** posições relativas em inclinação de juros nominal e real; comprado em dólar australiano contra cesta; comprado em bolsa americana e em ouro.
+- **Perdas:** posições relativas em cesta de ações brasileiras.
+- **Posições Brasil atuais:** tomado em inclinação de juros nominal, posições relativas em nominais e reais, comprado em bolsa.
+- **Posições internacionais:** inclinação em juros da Europa, dólar australiano, comprado em iene contra yuan, comprado em bolsa americana.
+
+**Renda variável (Valuation, Long Biased, Una EH):** carteira média de 28 papéis; long only com 98% comprado e Long Biased com 72%. Maiores posições: Elétrico, Óleo e Gás, Imobiliário. Contribuições positivas de Cury, Tenda e Embraer; negativa de Bradesco Saúde (sinistralidade acima do esperado). Retornos no mês: Valuation -0,40%; Long Biased +1,28%; Una EH +1,85%.
+
+**Riscos apontados:** cicatrizes do conflito no Oriente Médio; evolução do capex em IA; políticas de Trump; reação dos bancos centrais; atividade e inflação nos principais blocos; estímulos na China. No Brasil: inflação e expectativas, fiscal/parafiscal, atividade e emprego, e eleições.
+
+## Occam Brasil
+
+### Série principal
+**Tese.** Ciclo de investimentos em IA sustenta a demanda mas amplia pressão inflacionária; preocupações fiscais e financiamento de defesa/energia levaram juros longos a máximas em várias economias. Dívida pública americana superou US$ 40 tri; recompras de Treasuries e intervenção coordenada com o Japão tiveram efeito apenas temporário. Warsh sinalizou que o Fed pode "ter trabalho a fazer" se a inflação não convergir. No Brasil, atividade em moderação, mas expectativas de inflação em alta por El Niño, mercado de trabalho resiliente e fim da melhor janela desinflacionária. Copom deve continuar flexibilizando sem sinalização forte.
+
+**Posicionamento:**
+- **Juros:** aplicado na parte curta doméstica contra tomado nos vértices longos.
+- **Câmbio:** visão negativa para o dólar; alocado em peso chileno; abriu pequena posição comprada em ouro como proteção.
+- **Bolsa:** carteira com bom nível de hedge, maior exposição a financeiro (principal detrator do mês). Reduziu saneamento e cobriu underweight em Bens de Capital. Destaques positivos: incorporadoras e energia. Exterior: mantida visão positiva em Semicondutores.
+
+**Atribuição (Retorno Absoluto, ago/26):** fundo +0,03% (3% do CDI); ganhos em caixa (+0,80%), moedas (+0,21%) e commodities (+0,14%); perdas em bolsa local (-1,05%). No ano, fundo +2,14% (26% do CDI).
+
+### Série crédito
+**Tese.** Mercado cauteloso por juros elevados, incertezas externas e eleições. Investidores buscam emissões AAA; bancos e reguladas beneficiados. Aumento de recuperações judiciais preocupa, mas fundos de crédito seguem com desempenho atrativo. Retomada de captação líquida em fundos CDI e primárias bem absorvidas. IDA-DI fechou 1 bp para 1,16%; IDA-INFRA abriu 3 bps para NTN-B+36 bps.
+
+**Posicionamento:** preferência por empresas de alta qualidade de crédito e boa governança; redução de duration; foco em operações estruturadas com subordinação adequada. Retornos no mês: Baixa Vol +1,12% (103% CDI); Liquidez +1,16% (106% CDI); Crédito Corporativo 30 +1,14% (104% CDI); Infra CDI 30 +1,04% (95% CDI).
+
+## Adam Capital
+
+**Tese central — "o preço do dinheiro".** IA é estruturalmente desinflacionária (produtividade) mas exige capital extraordinário, competindo com déficits fiscais elevados pela mesma poupança. Consequência: a queda da inflação implícita pode não compensar a alta do juro real, mantendo/elevando juros nominais longos. Cita parcerias da Nvidia com Apollo, BlackRock, Blackstone, Brookfield, Goldman e KKR (mobilização de US$ 500 bi) — compute virando nova classe de ativo. Vê otimismo fiscal americano de médio prazo, mas ciclo de investimento privado deve pressionar juros longos primeiro. Alerta que se Treasuries de 10 anos voltarem a >6%, impacto sobre emergentes será relevante.
+
+**Brasil.** PIB em dólares não retomou níveis de 15 anos atrás; PLOA 2027 permite elevar despesas discricionárias em ~20%; conta-corrente segue deteriorada. Constrói medida de IPCA ex-intervenções (expurgando controles de administrados) e traça paralelo com 2014, projetando que "a conta do represamento inevitavelmente chegará em 2027, não importa quem assuma a presidência". Gastos do governo em tendência de alta secular; demografia agrava. Solução histórica veio via inflação ("poupança forçada").
+
+**Posicionamento:**
+- Comprado em ações americanas de tecnologia.
+- Comprado em dólar contra cesta de moedas.
+- NTN-B parcialmente travada em juros reais (inflação implícita).
+- Vendido em ouro (único detrator do mês).
+
+Resultado consolidado positivo no mês, com contribuição de tech americana, dólar global e NTN-B/implícitas.
+
+## Legacy Capital
+
+**Tese.** Dois vetores estruturais sustentam juros reais longos elevados: (i) déficits e crescimento de dívida em desenvolvidas ampliam term premium; (ii) capex em infraestrutura de IA intensifica competição global por capital. Soma-se normalização monetária no Japão, que reduz demanda por Treasuries. Discurso de Warsh em Jackson Hole é lido como deslocamento do balanço de riscos para alta de juros; Legacy projeta Fed elevando 25 a 50 bps no 2º semestre. Petróleo entre US$ 80–90, mas pressões concentradas em derivados e gás natural. Zona do euro: espera uma alta adicional do ECB, com menor convicção.
+
+**Brasil.** Atividade desacelerando com aumento de dificuldades financeiras corporativas; projeta PIB de 1,8% em 2026 e 1,5% em 2027 (viés de baixa) e IPCA de 4,9% e 4,7%. Copom deve seguir com cortes de 25 bps, mas com assimetria pior. Eleição de segundo turno "numericamente empatada" após enfraquecimento de Lula e recuperação de Flávio Bolsonaro; precificação de mercado ainda favorece incumbente, o que abre assimetria favorável para ativos locais.
+
+**Posicionamento:**
+- Construtivo com ações americanas (força de lucros do S&P).
+- Cauteloso com duration em juros globais.
+- Postura mais equilibrada em dólar (diferencial de juros voltou a favorecer EUA); expressa visões via moedas com fundamentos domésticos melhores.
+- Aumento de exposição a Brasil por combinação de melhora eleitoral e dinâmica técnica favorável.
+
+**Atribuição:** fundo +0,84% no mês, +4,20% no ano, +9,43% em 12 meses. Ganhos em bolsas globais e commodities.
+
+**Riscos:** ciclo adicional de aperto do Fed além do esperado; restrições prolongadas no gás via Ormuz elevando inflação europeia; disseminação da fragilidade financeira corporativa no Brasil; El Niño; movimentos do real pós-eleição em ambiente de menor diferencial de juros.
+
+## Convergências e divergências
+
+**Convergências:**
+- **Juros longos globais pressionados por IA + fiscal:** Adam, Legacy e Occam convergem que capex em IA e emissões de dívida disputam a mesma poupança, sustentando juros longos elevados. Bahia também cita a mesma dinâmica ("desconforto do Tesouro americano").
+- **Leitura de Warsh como hawkish:** Bahia, Occam, Adam e Legacy destacam o discurso em Jackson Hole como inflexão relevante, elevando a probabilidade de novo aperto ou manutenção prolongada.
+- **Petróleo e Oriente Médio como vetor inflacionário:** Bahia, Occam, Legacy e Alaska mencionam o conflito e o Estreito de Ormuz.
+- **Copom cortou 25 bps** — reportado por Alaska, Bahia e Occam; Legacy espera continuidade dos cortes de 25 bps.
+- **Eleição competitiva com melhora de Flávio Bolsonaro:** Bahia, Occam e Legacy observam a mesma tendência.
+
+**Divergências:**
+- **Dólar/real:** Alaska mantém vendido em dólar contra real (com perda no mês); Occam segue negativo com o dólar; Adam está comprado em dólar contra cesta; Legacy migrou para postura mais equilibrada após Warsh.
+- **Ouro:** Bahia e Occam estão comprados (Occam abriu no mês); Adam está vendido (único detrator do mês).
+- **Bolsa Brasil:** Legacy vê assimetria favorável e aumentou exposição; Occam mantém hedge elevado; Adam não tem exposição direta relevante ao Ibovespa; Alaska sofreu forte perda com sua carteira concentrada em varejo/consumo.
+- **Inflação no Brasil:** Adam enfatiza risco de "represamento" tarifário que estourará em 2027 (paralelo com 2014); Legacy vê convergência lenta com serviços persistentes; Occam vê fim da melhor janela desinflacionária; Bahia vê "algum alívio" em itens menos cíclicos.
+- **Juros locais:** Occam está aplicado no curto e tomado no longo; Bahia está tomado na inclinação nominal; Adam está em NTN-B travada em juros reais.
+
+---
+
+## Cartas originais
+
+- **Alaska Asset Management — Carta Mensal — Agosto de 2026** ([original](https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/agosto26.pdf))
+- **Bahia Asset Management — Carta do Gestor** ([original](https://www.bahiaasset.com.br/wp-content/uploads/2026/09/carta_do_gestor_ago26.pdf))
+- **Occam Brasil — Carta Mensal Agosto 2026 Carta Mensal Agosto 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Agosto_2026.pdf))
+- **Occam Brasil — Carta Mensal Crédito Agosto 2026 Carta Mensal Crédito Agosto 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Credito_Agosto_2026.pdf))
+- **Adam Capital — CARTA MENSAL CARTA MENSAL** ([original](https://adamcapital.com.br/wp-content/uploads/2026/09/Carta_Mensal_AGOSTO_2026.pdf))
+- **Legacy Capital — Agosto** ([original](https://www.legacycapital.com.br/wp-content/uploads/202608_Carta-Mensal.pdf))
