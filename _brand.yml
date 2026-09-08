@@ -1,0 +1,76 @@
+# Tokens da marca Análise Macro — registro CLARO (fonte: tokens.ts dos DS de carrossel)
+meta:
+  name: Análise Macro
+  link:
+    home: https://analisemacro.com.br
+    instagram: https://instagram.com/analisemacro
+color:
+  palette:
+    blue: "#1CA0D8"          # azul-marca (âncora)
+    blue-soft: "#7FC4E8"
+    blue-light: "#BFE3F5"    # topo do gradiente de título (dark)
+    cyan: "#03CDFF"          # acento IA
+    cyan-bright: "#43EBFC"
+    royal: "#002C8F"
+    royal-deep: "#0A1F6E"
+    blue-cta: "#0061D6"      # botão/CTA
+    blue-electric: "#2681FE"
+    navy: "#0A1A3C"
+    navy2: "#0D2149"
+    ink: "#0A1526"           # base do fundo dark (nunca quase-preto)
+    paper: "#EDF1F6"         # fundo claro
+    ink-title: "#0B1220"     # título sobre claro
+    body-text: "#3A4658"     # corpo sobre claro
+    body-muted: "#6B7788"
+    hairline: "#C6D0DC"
+    watermark: "#DDE4EC"
+    white: "#FFFFFF"
+    grey: "#C9D3DE"          # corpo sobre navy
+    grey-muted: "#7E8DA0"
+    amber: "#FFC53D"
+    yellow: "#FCC606"
+    green: "#00DC59"
+    red: "#E5484D"
+  foreground: body-text
+  background: white
+  primary: blue
+  secondary: navy
+  tertiary: cyan
+  info: blue
+  success: green
+  warning: amber
+  danger: red
+  light: paper
+  dark: navy
+typography:
+  fonts:
+    - family: Archivo
+      source: file
+      files:
+        - path: _extensions/analisemacro/am-livro/fonts/Archivo-Regular.ttf
+        - path: _extensions/analisemacro/am-livro/fonts/Archivo-Bold.ttf
+          weight: bold
+        - path: _extensions/analisemacro/am-livro/fonts/Archivo-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+    - family: Inter
+      source: file
+      files:
+        - path: _extensions/analisemacro/am-livro/fonts/Inter-Regular.ttf
+        - path: _extensions/analisemacro/am-livro/fonts/Inter-Italic.ttf
+          style: italic
+        - path: _extensions/analisemacro/am-livro/fonts/Inter-Bold.ttf
+          weight: bold
+    - family: JetBrains Mono
+      source: file
+      files:
+        - path: _extensions/analisemacro/am-livro/fonts/JetBrainsMono-Regular.ttf
+  base:
+    family: Inter
+    size: 10.5pt
+  headings:
+    family: Archivo
+    weight: 800
+    style: italic
+  monospace:
+    family: JetBrains Mono

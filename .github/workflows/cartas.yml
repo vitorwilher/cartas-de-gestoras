@@ -27,10 +27,10 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - name: Setup Quarto e TinyTeX
+      # O layout usa a extensão `am-livro` (Typst), e o Quarto 1.9+ já traz o
+      # Typst embutido — TinyTeX deixou de ser necessário aqui.
+      - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          tinytex: true
 
       - name: Instalar dependências
         run: pip install -r requirements.txt

@@ -1,0 +1,63 @@
+title: AM Livro — livro digital Quarto → Typst no design system da Análise Macro
+author: Análise Macro
+version: 0.4.0
+quarto-required: ">=1.9.0"
+contributes:
+  formats:
+    typst:
+      # Partials que substituem o template padrão de livro (orange-book) do Quarto
+      template-partials:
+        - numbering.typ
+        - typst-template.typ
+        - typst-show.typ
+        - page.typ
+      filters:
+        - path: am-livro.lua
+          at: pre-quarto
+      # Assets copiados para junto do documento na hora do render
+      format-resources:
+        - assets/logo-am-cor.png
+        - assets/logo-am-branco.png
+        - assets/icones/am-icone-definicao.svg
+        - assets/icones/am-icone-atencao.svg
+        - assets/icones/am-icone-dica.svg
+        - assets/icones/am-icone-pratica.svg
+        - assets/icones/am-icone-exemplo.svg
+        - assets/icones/am-icone-objetivos.svg
+        - assets/icones/am-icone-resumo.svg
+        - assets/icones/am-icone-saiba-mais.svg
+        - assets/icones/am-icone-exercicio.svg
+        - assets/icones/am-icone-solucao.svg
+        - assets/icones/am-icone-checagem.svg
+      # Fontes da marca (instâncias estáticas OFL) — Typst não lê fontes variáveis
+      font-paths:
+        - fonts
+      # Defaults do livro
+      papersize: a4
+      toc: true
+      toc-depth: 2
+      toc-title: "Sumário"
+      number-sections: true
+      keep-typ: true
+
+    # ---------- EPUB (e base do futuro HTML): mesmo conteúdo, mesmo filtro, CSS da casa ----------
+    epub:
+      filters:
+        - path: am-livro.lua
+          at: pre-quarto
+      css: am-livro-epub.css
+      # Fontes embutidas no EPUB (mesmos .ttf estáticos OFL do PDF); o CSS as referencia em ../fonts/.
+      # Caminhos a partir da raiz do livro (o Pandoc não resolve a partir da extensão).
+      epub-fonts:
+        - _extensions/analisemacro/am-livro/fonts/space-grotesk-v22-latin_latin-ext-700.ttf
+        - _extensions/analisemacro/am-livro/fonts/space-grotesk-v22-latin_latin-ext-500.ttf
+        - _extensions/analisemacro/am-livro/fonts/Inter-Regular.ttf
+        - _extensions/analisemacro/am-livro/fonts/Inter-Italic.ttf
+        - _extensions/analisemacro/am-livro/fonts/Inter-SemiBold.ttf
+        - _extensions/analisemacro/am-livro/fonts/Inter-Bold.ttf
+        - _extensions/analisemacro/am-livro/fonts/JetBrainsMono-Regular.ttf
+      toc: true
+      toc-depth: 2
+      toc-title: "Sumário"
+      number-sections: true
+      epub-chapter-level: 1

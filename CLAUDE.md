@@ -224,12 +224,26 @@ Cartas_de_Gestoras/
 
 ## Renderização do PDF
 
-- **Quarto 1.9+** com engine **XeLaTeX** (via TinyTeX na CI)
-- `lang: pt-BR` ativa babel-portuges e hifenização automaticamente
-- Titlepage customizada com logo `AM.png`, título, autor com footnote bio e data
-  em pt-BR — mesmo padrão do `../Newsletters`
-- Os `.qmd` ficam **2 níveis abaixo** da raiz (`digests/resumo/`), então a capa
-  referencia `../../AM.png`
+Desde 2026-09-08 o layout é o **design system de livros digitais da casa**
+(`_extensions/analisemacro/am-livro`, copiado de `~/Dropbox/Claude Design/Design
+System Ebook/`). Saiu o XeLaTeX, entrou o **Typst**.
+
+- **Quarto 1.9+**, que já traz o **Typst embutido** — **TinyTeX não é mais
+  necessário** (removido do workflow)
+- Capa, tipografia, caixas e sumário vêm da extensão; o `.qmd` gerado só carrega
+  conteúdo e os metadados da edição (`kicker`, `edition`, `category`)
+- O subtítulo é montado no `escrever_qmd`: lista as gestoras quando são até 4,
+  senão diz "N gestoras nesta edição"
+
+⚠️ **O render acontece num diretório TEMPORÁRIO, com o `.qmd` copiado para junto
+de `_extensions/` e `_brand.yml`.** O Quarto resolve extensão e brand a partir do
+diretório **do arquivo** e **não sobe** para a raiz do projeto — nem com um
+`_quarto.yml` declarado. Um `.qmd` em `digests/resumo/` falha com *"Unable to read
+the extension 'am-livro'"*. Foi por isso que o `render.ps1` do template original
+também renderizava fora da pasta.
+
+⚠️ As **fontes da marca (7 MB) são versionadas** em `_extensions/.../fonts/`. A CI
+não as tem de outra forma, e sem elas o Typst não compõe o texto.
 
 ## O produto (MVP, a partir de 2026-09-08)
 
@@ -332,8 +346,9 @@ mas o período pago ainda corre.
 - [ ] Criar o KV namespace (`wrangler kv namespace create ASSINANTES`), preencher o
   `id` em `wrangler.jsonc` e publicar o Worker
 - [ ] Publicar o `catalogo.json` no release `digests` que o Worker consome
-- [ ] Migrar o layout para o template `am-livro` (Typst) do Design System Ebook —
-  hoje o pipeline usa XeLaTeX e o `render.ps1` do template é PowerShell/Windows
+- [x] **Layout migrado para o `am-livro` (Typst)** — capa, tipografia e caixas do
+  design system da casa; TinyTeX removido do workflow. O `render.ps1` do template
+  era só conveniência: o Quarto do macOS/Linux renderiza direto
 - [x] **Assinatura preparada** (`assinatura/`) — produto R$ 97/mês pronto para criar
   como rascunho; Subscriptions confirmado ativo; sincronismo Woo -> KV do MCP escrito
 - [x] **Divulgação escrita** (`divulgacao/`) — e-mail para a tag Mercado Financeiro

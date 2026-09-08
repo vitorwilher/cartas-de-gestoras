@@ -22,8 +22,10 @@ import io
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 import time
 import unicodedata
 from dataclasses import dataclass, field
@@ -481,45 +483,24 @@ def resumo_para_whatsapp(resumo: str) -> tuple[str, str]:
     return documento, chamada
 
 
-QMD_TEMPLATE = r"""---
+QMD_TEMPLATE = """---
+title: "Cartas de *Gestoras*"
+subtitle: "__SUBTITULO__"
+author: "Vitor Wilher"
+date: "__DATA_ISO__"
+date-format: "D [de] MMMM [de] YYYY"
 lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "__DATA__"
+  tagline: "A verdade está nos dados."
 format:
-  pdf:
-    pdf-engine: xelatex
-    toc: false
-    geometry: [margin=2.5cm]
-    fontsize: 11pt
-header-includes:
-  - |
-    \usepackage{graphicx}
-    \usepackage{hyperref}
-    \renewcommand{\maketitle}{}
+  am-livro-typst:
+    toc-depth: 2
 ---
-
-```{=latex}
-\begin{titlepage}
-\thispagestyle{empty}
-\centering
-\includegraphics[width=4cm]{../../AM.png}\par
-\vspace{0.8cm}
-{\huge\bfseries Síntese das Cartas das Gestoras\par}
-\vspace{1em}
-{\Large Teses, mudanças de posicionamento e riscos\par}
-\vspace{1.5em}
-{\large Vitor Wilher\footnote{Bacharel e Mestre em Economia pela UFF, Candidato ao PhD em Economia pela EPGE/FGV. Especialista em Ciências de Dados e Inteligência Artificial Generativa pela PUC-Rio e Data Tech Lead na Análise Macro.}\par}
-\vspace{0.5em}
-{\normalsize __DATA__\par}
-\vfill
-\end{titlepage}
-\begingroup\small
-\tableofcontents
-\endgroup
-\clearpage
-```
 
 __RESUMO__
-
----
 
 ## Cartas originais
 
@@ -534,18 +515,52 @@ def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "") -> Path:
         f"- **{c.gestora} — {c.titulo}** ([original]({c.url}))" for c in cartas
     )
     corpo = f"{resumo}\n\n{exercicio}" if exercicio else resumo
-    conteudo = (QMD_TEMPLATE.replace("__DATA__", f"{hoje.day} de {MESES_PT[hoje.month]} de {hoje.year}")
-                .replace("__RESUMO__", corpo).replace("__FONTES__", fontes))
+    data_extenso = f"{hoje.day} de {MESES_PT[hoje.month]} de {hoje.year}"
+    nomes = sorted({c.gestora.split()[0] for c in cartas})
+    subtitulo = "Teses, mecanismos e riscos — " + (
+        ", ".join(nomes) if len(nomes) <= 4 else f"{len(nomes)} gestoras nesta edição"
+    )
+    conteudo = (QMD_TEMPLATE
+                .replace("__DATA_ISO__", hoje.isoformat())
+                .replace("__DATA__", f"Edição de {data_extenso}")
+                .replace("__SUBTITULO__", subtitulo)
+                .replace("__RESUMO__", corpo)
+                .replace("__FONTES__", fontes))
     caminho = OUTPUT_DIR / f"resumo-{hoje.isoformat()}.qmd"
     caminho.write_text(conteudo, encoding="utf-8")
     return caminho
 
 
 def renderizar(qmd: Path) -> Path:
-    subprocess.run(["quarto", "render", str(qmd), "--to", "pdf"], check=True)
-    pdf = qmd.with_suffix(".pdf")
-    if not pdf.exists():
-        raise FileNotFoundError(f"Quarto não criou {pdf}")
+    """Renderiza com a extensão `am-livro` (Typst), o design system da casa.
+
+    O Quarto 1.9+ traz o Typst embutido — não é preciso TinyTeX neste projeto.
+
+    O render acontece num diretório temporário com o `.qmd` AO LADO de
+    `_extensions/` e `_brand.yml`. Isso não é capricho: o Quarto resolve extensão
+    e brand a partir do diretório DO ARQUIVO, e não sobe para a raiz do projeto
+    nem com um `_quarto.yml` declarado — um `.qmd` em `digests/resumo/` falha com
+    "Unable to read the extension 'am-livro'". Copiar é mais simples e mais
+    robusto do que espalhar caminhos relativos pelos .qmd.
+    """
+    with tempfile.TemporaryDirectory(prefix="cartas-render-") as tmp:
+        trabalho = Path(tmp)
+        shutil.copytree(ROOT / "_extensions", trabalho / "_extensions")
+        shutil.copy2(ROOT / "_brand.yml", trabalho / "_brand.yml")
+        alvo = trabalho / qmd.name
+        shutil.copy2(qmd, alvo)
+
+        subprocess.run(
+            ["quarto", "render", alvo.name, "--to", "am-livro-typst"],
+            cwd=trabalho,
+            check=True,
+        )
+
+        gerado = alvo.with_suffix(".pdf")
+        if not gerado.exists():
+            raise FileNotFoundError(f"Quarto não criou {gerado.name}")
+        pdf = qmd.with_suffix(".pdf")
+        shutil.copy2(gerado, pdf)
     return pdf
 
 

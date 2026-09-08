@@ -1,0 +1,146 @@
+/* am-livro-epub.css — design system de livros digitais da Análise Macro, saída EPUB/HTML
+   Mesmos tokens do typst-template.typ. CSS conservador: sem flex/grid, para Kindle (KF8),
+   Apple Books, Google Play Livros, Thorium e Calibre. */
+
+@font-face { font-family: "Space Grotesk"; font-weight: 700; font-style: normal;
+  src: url("../fonts/space-grotesk-v22-latin_latin-ext-700.ttf"); }
+@font-face { font-family: "Space Grotesk"; font-weight: 500; font-style: normal;
+  src: url("../fonts/space-grotesk-v22-latin_latin-ext-500.ttf"); }
+@font-face { font-family: "Inter"; font-weight: normal; font-style: normal;
+  src: url("../fonts/Inter-Regular.ttf"); }
+@font-face { font-family: "Inter"; font-weight: normal; font-style: italic;
+  src: url("../fonts/Inter-Italic.ttf"); }
+@font-face { font-family: "Inter"; font-weight: 600; font-style: normal;
+  src: url("../fonts/Inter-SemiBold.ttf"); }
+@font-face { font-family: "Inter"; font-weight: bold; font-style: normal;
+  src: url("../fonts/Inter-Bold.ttf"); }
+@font-face { font-family: "JetBrains Mono"; font-weight: normal; font-style: normal;
+  src: url("../fonts/JetBrainsMono-Regular.ttf"); }
+
+/* ---------- base ---------- */
+body { font-family: "Inter", "Helvetica Neue", Arial, sans-serif; line-height: 1.5;
+  color: #3A4658; margin: 0 4%; }
+p { margin: 0 0 0.85em; text-align: left; }
+a { color: #0061D6; text-decoration: none; }
+strong { color: #0B1220; }
+hr { border: 0; border-top: 1px solid #C6D0DC; margin: 1.5em 0; }
+
+h1, h2, h3, h4 { font-family: "Space Grotesk", "Trebuchet MS", Arial, sans-serif;
+  color: #0B1220; line-height: 1.18; page-break-after: avoid; }
+h1 { font-size: 1.9em; font-weight: 700; margin: 1.2em 0 0.6em; }
+h2 { font-size: 1.35em; font-weight: 700; margin: 1.6em 0 0.5em; }
+h3 { font-size: 1.1em; font-weight: 500; color: #1470B6; margin: 1.3em 0 0.4em; }
+h4 { font-size: 1em; font-weight: 600; font-family: "Inter", Arial, sans-serif; }
+/* *ênfase* no título = palavra-chave da casa (o gradiente do PDF vira azul-marca) */
+h1 em, h2 em, .title em, .am-cta-titulo em { font-style: normal; color: #1470B6; }
+.header-section-number { color: #1CA0D8; margin-right: 0.45em; }
+
+/* ---------- navegação: esconde a lista de marcos (Cover/Title Page) que alguns leitores mostram ---------- */
+nav#landmarks { display: none; }
+
+/* ---------- página de rosto (gerada pelo Pandoc) ---------- */
+h1.title { font-size: 2.3em; margin-top: 18%; }
+p.subtitle { font-size: 1.15em; color: #3A4658; margin-bottom: 2em; }
+p.author { font-weight: 600; color: #0A1A3C; }
+p.date { color: #6B7788; font-size: 0.9em; }
+
+/* ---------- lead ---------- */
+.am-lead, .lead { font-size: 1.12em; line-height: 1.45; color: #2A3545; margin: 0.4em 0 1.3em; }
+
+/* ---------- destaque (pull-quote) ---------- */
+.am-destaque { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700; font-size: 1.25em;
+  line-height: 1.3; color: #0B1220; border-left: 3px solid #1CA0D8; padding: 0.3em 0 0.3em 0.9em;
+  margin: 1.4em 0; }
+.am-destaque em { font-style: normal; color: #1470B6; }
+
+/* ---------- caixas da casa ---------- */
+.am-caixa { margin: 1.3em 0; padding: 0.7em 0.9em 0.75em 1em; border-left: 3px solid #1CA0D8;
+  border-radius: 6px; background-color: #E4F2FA; page-break-inside: avoid; font-size: 0.95em; }
+.am-caixa-cab { margin: 0 0 0.45em; }
+.am-caixa-cab p { margin: 0; }
+.am-icone { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin-right: 0.45em; }
+.am-rotulo { font-size: 0.72em; font-weight: bold; letter-spacing: 0.14em; color: #0F7FB0; }
+.am-titulo { display: block; font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700;
+  font-size: 1.05em; color: #0B1220; margin-top: 0.15em; }
+.am-caixa-corpo p:last-child { margin-bottom: 0; }
+.am-caixa pre { background-color: #FFFFFF; border-left-color: #C6D0DC; }
+
+.am-atencao    { background-color: #FDEBEB; border-left-color: #E5484D; }  .am-atencao .am-rotulo    { color: #B3261E; }
+.am-dica       { background-color: #FDF1D8; border-left-color: #E0A030; }  .am-dica .am-rotulo       { color: #8A5A0B; }
+.am-na-pratica { background-color: #E3F7EA; border-left-color: #22A85F; }  .am-na-pratica .am-rotulo { color: #14703F; }
+.am-exemplo    { background-color: #E0F6FB; border-left-color: #0AA6C9; }  .am-exemplo .am-rotulo    { color: #0B7A93; }
+.am-objetivos  { background-color: #E6EEFF; border-left-color: #0061D6; }  .am-objetivos .am-rotulo  { color: #0047A3; }
+.am-resumo     { background-color: #E9EDF3; border-left-color: #0A1A3C; }  .am-resumo .am-rotulo     { color: #0A1A3C; }
+.am-saiba-mais { background-color: #E9F0FF; border-left-color: #2681FE; }  .am-saiba-mais .am-rotulo { color: #1A5FCC; }
+.am-exercicio  { background-color: #EBEFFB; border-left-color: #002C8F; }  .am-exercicio .am-rotulo  { color: #002C8F; }
+.am-solucao    { background-color: #F2FAF5; border-left-color: #1B7F4D; }  .am-solucao .am-rotulo    { color: #14603A; }
+.am-checagem   { background-color: #F1EEFB; border-left-color: #7A5AF8; }  .am-checagem .am-rotulo   { color: #5335C8; }
+
+/* callouts padrão do Quarto, se aparecerem */
+.callout { margin: 1.3em 0; padding: 0.7em 0.9em; border-left: 3px solid #1CA0D8; background-color: #E9EDF3; border-radius: 6px; }
+.callout-title, .callout-header { font-weight: bold; color: #0A1A3C; margin-bottom: 0.3em; }
+
+/* ---------- código ---------- */
+/* font-variant-ligatures/font-feature-settings: a JetBrains Mono usa alternativas contextuais
+   (calt) que trocam "|>" por ▷, "<-" por ←, "->" por →, "::" por ∷, "!=" por ≠ etc. Isso corrompe
+   código que o leitor precisa copiar. Desligamos calt e liga em todo trecho de código. */
+code, pre, .am-url {
+  font-variant-ligatures: none;
+  font-feature-settings: "calt" 0, "liga" 0, "clig" 0, "dlig" 0;
+}
+code { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.88em; }
+p code, li code, td code { background-color: #E9EDF3; color: #0B1220; padding: 0 0.25em; border-radius: 3px; }
+pre { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.8em; line-height: 1.45;
+  background-color: #E9EDF3; color: #0B1220; padding: 0.8em 0.9em; border-radius: 6px;
+  border-left: 3px solid #C6D0DC; white-space: pre-wrap; word-wrap: break-word; margin: 1em 0; }
+pre code { background-color: transparent; color: inherit; font-size: 1em; padding: 0; }
+.am-saida pre code { background-color: transparent; color: #3A4658; }
+/* saída do bloco de código anterior (```{.saida}): branco, filete, rótulo SAÍDA */
+.am-saida { background-color: #FFFFFF; border: 1px solid #C6D0DC; border-left: 3px solid #C6D0DC;
+  border-radius: 0 0 6px 6px; margin: -0.7em 0 1em; padding: 0.5em 0.8em 0.6em; }
+.am-saida p { margin: 0 0 0.3em; }
+.am-saida-rotulo { font-family: "Inter", Arial, sans-serif; font-size: 0.68em; font-weight: bold;
+  letter-spacing: 0.14em; color: #6B7788; }
+.am-saida pre { background-color: transparent; color: #3A4658; border: 0; padding: 0; margin: 0; font-size: 0.76em; }
+/* Pandoc injeta as cores de sintaxe (classes .kw .st …) no mesmo stylesheet — feitas para fundo claro, como no PDF */
+
+/* ---------- figuras e tabelas ---------- */
+figure, .figure { margin: 1.3em 0; text-align: center; page-break-inside: avoid; }
+img { max-width: 100%; height: auto; }
+figcaption, .caption, caption { font-size: 0.85em; color: #6B7788; text-align: left; margin-top: 0.5em; }
+figcaption strong, .caption strong { color: #0A1A3C; }
+table { border-collapse: collapse; width: 100%; margin: 1.2em 0; font-size: 0.9em; }
+th { font-family: "Inter", Arial, sans-serif; font-weight: bold; color: #FFFFFF; background-color: #0A1A3C;
+  padding: 0.45em 0.6em; text-align: left; }
+td { padding: 0.4em 0.6em; border-bottom: 1px solid #C6D0DC; vertical-align: top; }
+
+/* ---------- listas, citações, glossário ---------- */
+ul, ol { margin: 0 0 1em 1.2em; padding: 0; }
+li { margin-bottom: 0.3em; }
+blockquote { border-left: 3px solid #1CA0D8; margin: 1.2em 0; padding: 0.2em 0 0.2em 0.9em; color: #3A4658; font-style: italic; }
+dl dt { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700; color: #0B1220; margin-top: 0.9em; }
+dl dd { margin: 0.15em 0 0 0; }
+
+/* ---------- páginas finais (montadas pelo filtro am-livro.lua) ---------- */
+.am-logo { width: 34%; max-width: 220px; margin: 1.5em 0 1em; }
+.am-sobre { font-size: 1.02em; }
+.am-site { font-weight: 600; color: #0A1A3C; }
+.am-colofao { font-size: 0.82em; color: #6B7788; border-top: 1px solid #C6D0DC; margin-top: 2em; padding-top: 0.9em; }
+.am-cta { text-align: center; margin-top: 1.5em; }
+.am-cta .am-logo { margin: 1.5em auto 1.2em; display: block; }
+.am-cta-titulo { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700; line-height: 1.15; }
+.am-cta-sub { font-size: 1.05em; color: #3A4658; }
+.am-botao { display: inline-block; background-color: #0061D6; color: #FFFFFF; font-weight: bold;
+  padding: 0.7em 1.5em; border-radius: 2em; margin: 0.8em 0 0.5em; }
+/* faixa de CTA no meio do texto (::: {.cta}) — bloco navy, distinta do CTA final de página inteira */
+.am-cta-faixa { background-color: #0A1A3C; color: #C9D3DE; border-left: 4px solid #1CA0D8;
+  border-radius: 6px; padding: 1.1em 1.2em; margin: 1.8em 0; }
+.am-cta-faixa p { color: #C9D3DE; }
+.am-cta-faixa-titulo p { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700;
+  font-size: 1.18em; line-height: 1.2; color: #FFFFFF; margin: 0 0 0.5em; }
+.am-cta-faixa-titulo em { font-style: normal; color: #BFE3F5; }
+.am-cta-faixa .am-botao { margin-bottom: 0; }
+.am-url { font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.82em; color: #6B7788; }
+.am-contracapa { text-align: center; margin-top: 4em; padding-top: 2em; border-top: 1px solid #C6D0DC; }
+.am-contracapa .am-tagline { font-family: "Space Grotesk", Arial, sans-serif; font-weight: 700; font-size: 1.5em; color: #0B1220; }
+.am-contracapa .am-site { font-weight: normal; color: #6B7788; font-size: 0.9em; }

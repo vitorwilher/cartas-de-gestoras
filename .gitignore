@@ -32,3 +32,6 @@ cartas/**/*.pdf
 mcp/node_modules/
 mcp/dist/
 mcp/.wrangler/
+
+# Cache do Quarto
+.quarto/
