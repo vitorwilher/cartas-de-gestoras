@@ -64,3 +64,75 @@ class TestEstadoEDatas(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestSalvarCatalogoMultilinha(unittest.TestCase):
+    """Regressão do bug que corrompeu gestoras.yml em 2026-09-08.
+
+    Um `ultima_carta` com duas séries de URL longa era serializado em DUAS linhas
+    pelo safe_dump. O padrão antigo casava só a primeira, e a cauda da execução
+    anterior sobrava órfã — quebrando o YAML na execução seguinte.
+    """
+
+    CATALOGO_MULTILINHA = """gestoras:
+
+  - nome: Occam Brasil
+    estrategia: html
+    ultima_carta: {credito: 'https://x.com/uploads/2026/08/Carta_Credito_Julho_2026.pdf',
+      principal: 'https://x.com/uploads/2026/08/Carta_Julho_2026.pdf'}
+    notas: >
+      Publica duas séries paralelas.
+
+  - nome: Alaska
+    estrategia: url_previsivel
+    ultima_carta: {principal: 'https://y.com/julho26.pdf'}
+    notas: >
+      URL previsível.
+"""
+
+    def _salvar(self, catalogo_texto, estados):
+        with tempfile.NamedTemporaryFile("w", suffix=".yml", delete=False, encoding="utf-8") as f:
+            f.write(catalogo_texto)
+            caminho = Path(f.name)
+        catalogo = yaml.safe_load(catalogo_texto)
+        for gestora, estado in zip(catalogo["gestoras"], estados):
+            gestora["ultima_carta"] = estado
+        salvar_catalogo(catalogo, caminho)
+        return caminho
+
+    def test_valor_multilinha_nao_deixa_orfa(self):
+        novos = [
+            {"credito": "https://x.com/uploads/2026/09/Carta_Credito_Agosto_2026.pdf",
+             "principal": "https://x.com/uploads/2026/09/Carta_Agosto_2026.pdf"},
+            {"principal": "https://y.com/agosto26.pdf"},
+        ]
+        caminho = self._salvar(self.CATALOGO_MULTILINHA, novos)
+        texto = caminho.read_text(encoding="utf-8")
+
+        # O arquivo tem de voltar a carregar — era exatamente isto que quebrava.
+        recarregado = yaml.safe_load(texto)
+        self.assertEqual(len(recarregado["gestoras"]), 2)
+        self.assertEqual(recarregado["gestoras"][0]["ultima_carta"], novos[0])
+        self.assertEqual(recarregado["gestoras"][1]["ultima_carta"], novos[1])
+
+        # Nenhum resíduo do valor antigo pode sobreviver.
+        self.assertNotIn("Julho_2026", texto)
+        self.assertNotIn("julho26", texto)
+        # E os comentários/notas seguem preservados.
+        self.assertIn("Publica duas séries paralelas.", texto)
+        self.assertIn("URL previsível.", texto)
+
+    def test_estado_longo_fica_em_uma_linha(self):
+        """O dump precisa caber em uma linha, para não recriar o problema."""
+        novos = [
+            {"credito": "https://x.com/" + "a" * 120 + ".pdf",
+             "principal": "https://x.com/" + "b" * 120 + ".pdf"},
+            {"principal": "https://y.com/agosto26.pdf"},
+        ]
+        caminho = self._salvar(self.CATALOGO_MULTILINHA, novos)
+        texto = caminho.read_text(encoding="utf-8")
+        yaml.safe_load(texto)  # não pode lançar
+        linhas_estado = [l for l in texto.splitlines() if "ultima_carta:" in l]
+        self.assertEqual(len(linhas_estado), 2)
+        for linha in linhas_estado:
+            self.assertTrue(linha.rstrip().endswith("}"), f"quebrou em várias linhas: {linha}")

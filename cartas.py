@@ -601,21 +601,49 @@ def enviar_whatsapp(pdf: Path, cartas: list[Carta], resumo_executivo: str) -> No
 
 
 def salvar_catalogo(catalogo: dict[str, Any], path: Path = CATALOGO) -> None:
-    """Atualiza só as linhas de estado, preservando comentários e notas do catálogo."""
+    """Atualiza só as linhas de estado, preservando comentários e notas do catálogo.
+
+    O bloco de um `ultima_carta` pode ocupar MAIS DE UMA LINHA: o `safe_dump` de um
+    mapa longo (Occam e Legacy, com duas séries de URL longa) quebra a linha. O
+    padrão precisa consumir a linha do campo e todas as continuações — que são as
+    linhas seguintes com indentação MENOR que a do campo, produzidas pelo dump.
+    Casar só a primeira linha deixava a cauda antiga órfã e corrompia o YAML: foi
+    o que aconteceu na execução de 2026-09-08, que quebrou o catálogo da Occam.
+    """
     estados = iter(g.get("ultima_carta", "") for g in catalogo["gestoras"])
 
-    def substituir(match: re.Match[str]) -> str:
-        valor = next(estados)
-        serializado = yaml.safe_dump(
-            valor, allow_unicode=True, default_flow_style=True, sort_keys=True
+    def serializar(valor: Any, indent: str) -> str:
+        bruto = yaml.safe_dump(
+            valor, allow_unicode=True, default_flow_style=True, sort_keys=True,
+            width=10**6,  # linha única: evita a quebra que gerava a órfã
         ).strip()
-        return f"{match.group(1)}ultima_carta: {serializado}"
+        return f"{indent}ultima_carta: {bruto}"
+
+    def substituir(match: re.Match[str]) -> str:
+        return serializar(next(estados), match.group(1))
 
     original = path.read_text(encoding="utf-8")
-    novo, quantidade = re.subn(r"(?m)^(\s*)ultima_carta:.*$", substituir, original)
+    # O valor é um mapa em fluxo (`{...}`) ou uma string simples. Quando é mapa e
+    # o dump o quebrou, a continuação segue até a chave de fechamento — é isso que
+    # o primeiro ramo consome. O segundo cobre o valor de linha única (mapa curto,
+    # string ou vazio).
+    padrao = (
+        r"(?m)^([ \t]*)ultima_carta:[ \t]*"
+        r"(?:\{[^{}]*\}|.*)"
+    )
+    novo, quantidade = re.subn(padrao, substituir, original, flags=re.DOTALL)
     esperado = len(catalogo["gestoras"])
     if quantidade != esperado:
         raise ValueError(f"catálogo tem {quantidade} linhas de estado; esperado: {esperado}")
+
+    # Rede de segurança: nunca gravar um catálogo que não volta a carregar.
+    try:
+        conferido = yaml.safe_load(novo)
+        if len(conferido["gestoras"]) != esperado:
+            raise ValueError("contagem de gestoras mudou após a serialização")
+    except Exception as erro:
+        raise ValueError(f"serialização produziu YAML inválido: {erro}") from erro
+
     path.write_text(novo, encoding="utf-8")
 
 

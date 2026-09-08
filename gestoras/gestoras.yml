@@ -69,9 +69,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Credito_Agosto_2026.pdf',
-  principal: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Agosto_2026.pdf'}
-  principal: 'https://occambrasil.com.br/wp-content/uploads/2026/08/Carta_Mensal_Julho_2026.pdf'}
+    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Credito_Agosto_2026.pdf', principal: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Agosto_2026.pdf'}
     notas: >
       A coleta mais simples das 12: ~52 cartas numa única página de 61 KB, todos os
       href diretos no HTML, sem paginação, sem JS. Publica DUAS séries paralelas por
