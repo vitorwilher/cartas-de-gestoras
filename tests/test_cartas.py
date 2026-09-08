@@ -136,3 +136,35 @@ class TestSalvarCatalogoMultilinha(unittest.TestCase):
         self.assertEqual(len(linhas_estado), 2)
         for linha in linhas_estado:
             self.assertTrue(linha.rstrip().endswith("}"), f"quebrou em várias linhas: {linha}")
+
+    def test_estado_vazio_nao_engole_o_resto_do_arquivo(self):
+        """`ultima_carta: ""` é o estado de inicialização de qualquer gestora.
+
+        Com `.*` sob re.DOTALL, o ramo escalar do padrão engolia todas as linhas
+        seguintes e só 2 dos 12 campos eram encontrados — o salvamento abortava.
+        """
+        catalogo_texto = """gestoras:
+
+  - nome: Bahia
+    estrategia: wp_rest
+    ultima_carta: ""
+    notas: >
+      Primeira execução ainda não rodou.
+
+  - nome: Alaska
+    estrategia: url_previsivel
+    ultima_carta: {principal: 'https://y.com/julho26.pdf'}
+    notas: >
+      URL previsível.
+"""
+        novos = [{"principal": "cartadogestor-42"}, {"principal": "https://y.com/agosto26.pdf"}]
+        caminho = self._salvar(catalogo_texto, novos)
+        texto = caminho.read_text(encoding="utf-8")
+
+        recarregado = yaml.safe_load(texto)
+        self.assertEqual(len(recarregado["gestoras"]), 2)
+        self.assertEqual(recarregado["gestoras"][0]["ultima_carta"], novos[0])
+        self.assertEqual(recarregado["gestoras"][1]["ultima_carta"], novos[1])
+        # As notas das duas gestoras precisam sobreviver.
+        self.assertIn("Primeira execução ainda não rodou.", texto)
+        self.assertIn("URL previsível.", texto)

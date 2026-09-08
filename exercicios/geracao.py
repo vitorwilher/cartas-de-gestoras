@@ -17,7 +17,9 @@ from anthropic import Anthropic
 
 from .selecao import Exercicio, candidatos_por_conceito, conceitos_disponiveis
 
-MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-opus-5"
+MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-fable-5-1"
+# A escolha do conceito é classificação, não redação: modelo menor, resposta direta.
+MODELO_CLASSIFICACAO = "claude-sonnet-5"
 
 PROMPT_CONCEITO = """Leia a síntese das cartas de gestoras abaixo e identifique qual
 mecanismo quantitativo é o mais central nas teses desta edição.
@@ -47,10 +49,14 @@ Estrutura:
    citada na síntese. Uma frase ou duas.
 2. **O conceito** — a intuição econômica antes da fórmula. O leitor é do mercado:
    não explique o óbvio, explique o mecanismo.
-3. **O código** — Python, em UM bloco ```python. Deve rodar de ponta a ponta.
-   Use fontes públicas e gratuitas de dados brasileiros (yfinance, python-bcb,
-   pyettj, pandas). Comente em português. Sem `!pip install` (não é notebook);
-   liste as dependências em texto antes do bloco.
+3. **O código** — Python, em UM bloco ```python. Deve rodar de ponta a ponta
+   **num terminal, sem interação**. Use fontes públicas e gratuitas de dados
+   brasileiros (yfinance, python-bcb, pyettj, pandas). Comente em português.
+   Sem `!pip install` (não é notebook); liste as dependências em texto antes do
+   bloco. **Nunca use `plt.show()`** — ele bloqueia esperando alguém fechar a
+   janela e trava o script; salve o gráfico com `plt.savefig("nome.png", dpi=150)`
+   e diga no texto onde o arquivo foi gravado. Toda leitura de rede leva timeout
+   explícito.
 4. **Como ler o resultado** — o que o número significa para a tese da gestora, e
    qual valor mudaria a conclusão.
 5. **Vá além** — uma variação que o leitor pode tentar sozinho.
@@ -66,9 +72,13 @@ def escolher_conceito(resumo: str) -> str | None:
         print("Acervo vazio: exercício será pulado.", file=sys.stderr)
         return None
     prompt = PROMPT_CONCEITO.format(conceitos="\n".join(f"- {c}" for c in conceitos))
+    # Classificação simples: Sonnet a effort baixo basta e responde direto. No
+    # Fable 5.1 com thinking sempre ativo, um teto de 64 tokens é consumido
+    # pensando e a resposta volta vazia — verificado em 2026-09-08.
     resposta = Anthropic().messages.create(
-        model=MODEL,
-        max_tokens=64,
+        model=MODELO_CLASSIFICACAO,
+        max_tokens=512,
+        output_config={"effort": "low"},
         system=prompt,
         messages=[{"role": "user", "content": resumo[:20_000]}],
     )
@@ -91,16 +101,25 @@ def gerar_exercicio(conceito: str, resumo: str, referencia: Exercicio | None = N
             f"({referencia.data}). Use isso apenas como referência de abordagem "
             "didática — aquele código é antigo e não deve ser reproduzido."
         )
+    # effort "high", não "max": com `max` o Fable 5.1 gasta o orçamento inteiro
+    # pensando e a resposta sai truncada (stop_reason=max_tokens) — mesma
+    # armadilha da síntese em cartas.py, verificada em 2026-09-08.
     with Anthropic().messages.stream(
         model=MODEL,
-        max_tokens=16_000,
+        max_tokens=48_000,
         thinking={"type": "adaptive"},
         output_config={"effort": "high"},
         system=sistema,
         messages=[{"role": "user", "content": "Escreva o exercício desta semana."}],
     ) as stream:
         final = stream.get_final_message()
-    return "\n".join(b.text for b in final.content if b.type == "text").strip()
+
+    if final.stop_reason == "max_tokens":
+        raise RuntimeError("exercício cortado por max_tokens; sairia incompleto")
+    texto = "\n".join(b.text for b in final.content if b.type == "text").strip()
+    if not texto:
+        raise RuntimeError(f"exercício voltou vazio (stop_reason={final.stop_reason})")
+    return texto
 
 
 def exercicio_da_semana(resumo: str) -> tuple[str, str] | None:
@@ -117,5 +136,9 @@ def exercicio_da_semana(resumo: str) -> tuple[str, str] | None:
         referencia = candidatos[0] if candidatos else None
         return conceito, gerar_exercicio(conceito, resumo, referencia)
     except Exception as erro:  # noqa: BLE001 — degradação proposital
-        print(f"Exercício da semana falhou ({erro}); seguindo sem ele.", file=sys.stderr)
+        # A síntese já tem valor sozinha, então a falha não derruba o pipeline —
+        # mas precisa aparecer: um `0 chars` silencioso custou uma rodada de
+        # depuração em 2026-09-08.
+        print(f"[erro] exercício da semana: {type(erro).__name__}: {erro}", file=sys.stderr)
+        print("Seguindo sem o exercício.", file=sys.stderr)
         return None

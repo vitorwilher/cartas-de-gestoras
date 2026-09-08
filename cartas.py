@@ -50,7 +50,9 @@ ROOT = Path(__file__).resolve().parent
 CATALOGO = ROOT / "gestoras" / "gestoras.yml"
 OUTPUT_DIR = ROOT / "digests" / "resumo"
 TEMP_DIR = ROOT / "cartas"
-MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-opus-5"
+# Modelo mais capaz disponível. No Fable 5.1 o thinking é SEMPRE ativo: passar
+# `thinking` explícito com qualquer coisa que não seja adaptive devolve 400.
+MODEL = os.environ.get("ANTHROPIC_MODEL") or "claude-fable-5-1"
 META_API_VERSION = "v20.0"
 WABA_PRODUCAO = "1421867178829333"
 MAX_TEXT_CHARS = 45_000
@@ -453,14 +455,28 @@ def montar_corpus(cartas: list[Carta]) -> str:
 def sintetizar(cartas: list[Carta]) -> str:
     with Anthropic().messages.stream(
         model=MODEL,
-        max_tokens=32000,
+        # 64k de saída e effort "high": com `max`, o Fable 5.1 gasta o orçamento
+        # inteiro pensando e a resposta é cortada (stop_reason=max_tokens) —
+        # verificado em 2026-09-08, 32k de saída rendiam 2 KB de texto truncado.
+        max_tokens=64000,
         thinking={"type": "adaptive"},
-        output_config={"effort": "xhigh"},
+        output_config={"effort": "high"},
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": montar_corpus(cartas)}],
     ) as stream:
         final = stream.get_final_message()
-    return "\n".join(b.text for b in final.content if b.type == "text").strip()
+
+    if final.stop_reason == "max_tokens":
+        raise RuntimeError(
+            "A síntese foi cortada por max_tokens: o documento sairia incompleto. "
+            "Aumente max_tokens ou reduza o effort."
+        )
+    texto = "\n".join(b.text for b in final.content if b.type == "text").strip()
+    if not texto:
+        raise RuntimeError(
+            f"A síntese voltou vazia (stop_reason={final.stop_reason}). Nada foi gravado."
+        )
+    return texto
 
 
 def resumo_para_whatsapp(resumo: str) -> tuple[str, str]:
@@ -638,15 +654,14 @@ def salvar_catalogo(catalogo: dict[str, Any], path: Path = CATALOGO) -> None:
         return serializar(next(estados), match.group(1))
 
     original = path.read_text(encoding="utf-8")
-    # O valor é um mapa em fluxo (`{...}`) ou uma string simples. Quando é mapa e
-    # o dump o quebrou, a continuação segue até a chave de fechamento — é isso que
-    # o primeiro ramo consome. O segundo cobre o valor de linha única (mapa curto,
-    # string ou vazio).
-    padrao = (
-        r"(?m)^([ \t]*)ultima_carta:[ \t]*"
-        r"(?:\{[^{}]*\}|.*)"
-    )
-    novo, quantidade = re.subn(padrao, substituir, original, flags=re.DOTALL)
+    # O valor é um mapa em fluxo (`{...}`) — que o dump pode ter quebrado em várias
+    # linhas — ou um escalar de uma linha (string vazia na inicialização).
+    #
+    # `[^\n]*` no segundo ramo, e NÃO `.*` com re.DOTALL: com DOTALL o ponto casa
+    # newline e o ramo escalar engoliria o resto do arquivo. Só o primeiro ramo
+    # precisa atravessar linhas, e ele já o faz sozinho por causa da classe negada.
+    padrao = r"(?m)^([ \t]*)ultima_carta:[ \t]*(?:\{[^{}]*\}|[^\n]*)"
+    novo, quantidade = re.subn(padrao, substituir, original)
     esperado = len(catalogo["gestoras"])
     if quantidade != esperado:
         raise ValueError(f"catálogo tem {quantidade} linhas de estado; esperado: {esperado}")
