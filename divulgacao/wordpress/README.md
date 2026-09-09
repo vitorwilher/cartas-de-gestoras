@@ -1,116 +1,106 @@
-# Landing de captura no WordPress
+# Landing de captura — fluxo de dois passos
 
-**Status: página criada como RASCUNHO. Não publicada.**
+**Status: as duas páginas existem como RASCUNHO.**
 
-- **Página:** id `78368`, slug `cartas-de-gestoras`
-- **Editar:** https://analisemacro.com.br/wp-admin/post.php?post=78368&action=edit
-- **Ponte PHP:** `captura_cartas_para_convertkit.php` (deste diretório)
+| Página | id | Slug |
+|---|---|---|
+| Captura | `78368` | `cartas-de-gestoras` |
+| Obrigado | `78374` | `cartas-de-gestoras-obrigado` |
 
-## Por que precisa da ponte
+Editar: `analisemacro.com.br/wp-admin/post.php?post=<id>&action=edit`
 
-**A ação "ConvertKit" do Elementor Pro escreve APENAS `email` e `first_name`.**
-Ela lê as tags do Kit para montar o seletor, mas não escreve campo nem tag a
-partir do formulário. Está verificado no payload real e documentado no
-`../ROI_Diagnostico/CLAUDE.md` — o Cristiano e o Alan testaram 3 plugins em
-02-03/09/2026, todos iguais.
+## O fluxo (desenho do Vitor, 09/09)
 
-Sem a ponte, **o telefone não chega ao Kit**.
+```
+Landing 1: nome + e-mail + telefone
+        ↓  (ponte PHP)
+   ConvertKit: sequência 2888305 + tag Mercado Financeiro
+        ↓
+Página de obrigado:
+   • botão que baixa o PDF na hora
+   • botão "Mandar Oi no WhatsApp"  ← o LEAD inicia a conversa
+        ↓
+   janela de 24h aberta → conversa livre com o lead
+```
 
-## ⚠️ O que esta página É e o que NÃO é
+### Por que o "Oi" é o lead quem manda
 
-**É o CONTEÚDO da landing, não o design.** O texto segue a anatomia da página do
-Livro Linguagem Econômica (id `73683`), que é o padrão da casa: hero com promessa
-específica → o que você recebe → para quem é → o argumento → quem escreve (com
-credenciais e citação) → formulário.
+**A Meta não permite enviar mensagem para quem nunca conversou com o número.**
+Fora da janela de 24h só se envia template aprovado *para aquele uso* — e usar o
+template UTILITY de entrega do PDF para captação é reclassificação de uso: a Meta
+**descarta em silêncio** (a API responde `accepted`) e ainda derruba a qualidade
+do número de produção, o mesmo que entrega o resto.
 
-**NÃO tem layout.** A página do livro é montada no **Elementor**, e o Elementor
-guarda o layout em `_elementor_data` — um post meta que a REST API **expõe a
-chave mas não o valor**, e que não dá para escrever de fora com segurança. O que
-criei via API são blocos Gutenberg: o texto certo, na ordem certa, sem desenho.
+Pedindo o "Oi" ao lead, é ele quem abre a janela. Sem template de captação, sem
+risco para o número, e com 24h de conversa livre. É a solução certa.
 
-O caminho a partir daqui é abrir no Elementor e montar as seções sobre esse
-texto — ou, mais rápido, **duplicar a página do livro** (73683) e trocar o
-conteúdo, herdando o layout inteiro pronto.
+## A ponte PHP
 
-## Passo a passo
+`captura_cartas_para_convertkit.php` — Code Snippets → Add New.
 
-### 1. Montar o formulário no Elementor
+⚠️ **Escopo `global`, não `front-end`.** O submit do Elementor vai por
+`admin-ajax.php`, que "front-end" não cobre: a ponte fica ativa, sem erro de
+sintaxe, e não executa. Foi o que mais custou tempo no conserto de 15/08 — se o
+dado parar de chegar, confira o ESCOPO antes do código.
 
-Editar a página, trocar o parágrafo marcado `[SUBSTITUIR POR FORMULÁRIO
-ELEMENTOR]` por um widget **Form** com três campos:
+Substituir `<<<API_SECRET_DO_CONVERTKIT>>>` pelo API Secret do Kit.
+
+**Por que a ponte existe:** a ação "ConvertKit" do Elementor Pro escreve apenas
+`email` e `first_name` — não escreve campo, tag nem sequência a partir do
+formulário. Verificado no payload real e documentado no ROI (3 plugins testados
+em 02-03/09/2026, todos iguais).
+
+**O que ela faz**, em duas chamadas:
+1. `/v3/sequences/2888305/subscribe` — inscreve na **mesma sequência** que a
+   landing nativa do Kit dispara, gravando `first_name`, `phone` e `whatsapp`.
+   Assim as duas portas de entrada entregam a mesma régua de e-mail.
+2. `/v3/tags/22406993/subscribe` — a tag Mercado Financeiro, que segmenta broadcast.
+
+**Testado de verdade em 09/09/2026:** a chamada à sequência devolveu HTTP 200,
+estado `active`, com `phone` e `whatsapp` gravados. O assinante de teste foi removido.
+
+## Montar o formulário (Elementor)
+
+Na página 78368, três campos:
 
 | Campo | Tipo | ID | Obrigatório |
 |---|---|---|---|
 | Nome | Texto | `nome` | sim |
 | E-mail | E-mail | `email` | sim |
-| Telefone | Telefone | `telefone` | **sim** (decisão do Vitor) |
+| WhatsApp | Telefone | `telefone` | sim |
 
-⚠️ Em **Configurações Adicionais → ID do formulário**, definir exatamente
-`cartasgestoras`. É por esse id que a ponte reconhece o form; com outro valor ela
-ignora o submit e o telefone se perde em silêncio.
+⚠️ **Configurações Adicionais → ID do formulário: `cartasgestoras`.** É por esse
+id que a ponte reconhece o form; com outro valor ela ignora o submit em silêncio.
 
-### 2. Instalar a ponte
+⚠️ **Ações após o envio → Redirecionar** para a página de obrigado
+(`/cartas-de-gestoras-obrigado`).
 
-Code Snippets → Add New → colar `captura_cartas_para_convertkit.php`.
+## ⚠️ O que ainda NÃO tem: design
 
-⚠️ **Escopo `global`, não `front-end`.** O submit do Elementor vai por
-`admin-ajax.php`, que não é coberto por "front-end". A ponte fica ativa, sem erro
-de sintaxe, e simplesmente não executa. Foi o que mais custou tempo no conserto de
-15/08 — se o dado parar de chegar, confira o ESCOPO antes do código.
+O conteúdo das duas páginas está escrito, na anatomia da landing do Livro
+Linguagem Econômica (id `73683`) — hero, o que você recebe, para quem é, quem
+escreve. Mas são **blocos Gutenberg, sem layout**.
 
-Substituir `<<<API_SECRET_DO_CONVERTKIT>>>` pelo API Secret do Kit.
+O `_elementor_data` **aceita escrita** pela REST API (testei), mas a leitura volta
+vazia — não dá para copiar o layout do livro por lá. O caminho rápido é
+**duplicar a página 73683 no Elementor** e trocar o texto pelo que está aqui,
+herdando o layout inteiro.
 
-### 3. Testar antes de publicar
+## Números e ids conferidos (09/09/2026)
 
-Preencher o formulário com um e-mail real de teste e conferir na API do Kit se o
-assinante recebeu a tag e os campos `phone` e `whatsapp`.
+| O quê | Valor |
+|---|---|
+| Sequência (a mesma do form do Alan) | `2888305` |
+| Tag Mercado Financeiro | `22406993` (a `22775548` é órfã) |
+| Campos no Kit | `phone` (676333), `whatsapp` (1142293) |
+| WhatsApp da casa | `wa.me/5521971167250` (o mesmo da página do livro) |
+| PDF (URL fixa) | `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf` |
 
-## O que a ponte faz
+## Falta
 
-Uma única chamada a `/v3/tags/22406993/subscribe`, que **cria o assinante se ele
-não existir e aplica a tag ao mesmo tempo**:
-
-- `first_name` ← campo nome
-- `fields.phone` e `fields.whatsapp` ← telefone, normalizado para dígitos com DDI
-  55 quando vem só com DDD (formato que o disparo de WhatsApp espera)
-- tag **Mercado Financeiro** (`22406993`)
-
-**Testado de verdade em 09/09/2026** com a chamada exata que o PHP faz: HTTP 200,
-`phone` e `whatsapp` gravados, tag aplicada. O assinante de teste foi removido.
-
-⚠️ **O Kit descarta em silêncio valor de campo que não existe.** Os campos usados
-foram conferidos na API: `phone` (676333) e `whatsapp` (1142293). Ao acrescentar
-campo novo, criar antes no painel do Kit.
-
-⚠️ A tag `22406993` é a que **tem gente** (532 assinantes). Existe outra chamada
-"Mercado Financeiro e Investimentos" (`22775548`) que está **zerada e é órfã** —
-não usar.
-
-## Duas decisões que faltam
-
-1. **A sequência de boas-vindas** precisa entregar a URL fixa do PDF
-   (`https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf`).
-   Como o pipeline sobrescreve o arquivo toda terça, quem se inscrever em qualquer
-   semana recebe a edição corrente — sem trocar nada no painel.
-2. **Esta página x a landing do Kit.** Já existe
-   `analisemacro.kit.com/sintese-semanal-das-cartas-das-gestoras` (form 9899518),
-   no ar. Manter as duas divide a métrica: decidir qual é a oficial.
-
-   ⚠️ **As duas capturam telefone.** O form NATIVO do Kit já traz
-   `email_address`, `fields[first_name]` e `fields[phone]` — verificado no JS do
-   formulário (`/ec3285530c/index.js`) em 09/09/2026. A limitação de só passar
-   email e first_name é da integração **Elementor→ConvertKit**, que não se aplica
-   a um form do próprio Kit.
-
-   A diferença real entre as duas é outra:
-
-   | | Kit (9899518) | WordPress (78368) |
-   |---|---|---|
-   | Telefone | sim, nativo | sim, via ponte |
-   | Trabalho para manter | nenhum | snippet + form Elementor |
-   | Controle de design | limitado ao Kit | total |
-   | UTM no assinante | não | sim (ponte id 8 já existente) |
-   | Pixel/CAPI da Meta | não | sim, o do site |
-
-   Se o objetivo é só captar, **a do Kit já resolve e não precisa de manutenção**.
-   A do WordPress se justifica por design próprio, UTM e rastreamento de anúncio.
+- [ ] Montar o layout no Elementor (duplicar a 73683)
+- [ ] Montar o formulário com id `cartasgestoras` e o redirect
+- [ ] Instalar a ponte com escopo `global` e o API Secret
+- [ ] Testar o fluxo ponta a ponta com um e-mail real
+- [ ] **Publicar as duas páginas** (autorizado pelo Vitor em 09/09)
+- [ ] Conferir se a sequência 2888305 entrega a URL fixa do PDF no e-mail
