@@ -102,7 +102,7 @@ gestoras:
     estrategia: wp_rest
     periodicidade: mensal
     formato: html
-    ultima_carta: {principal: carta-do-gestor-a-hora-do-pesadelo}
+    ultima_carta: ''
     notas: >
       A carta macro é HTML INLINE (texto completo na página), sem PDF — o extrator
       de PDF não se aplica aqui. Categoria carta-do-gestor = ID 340 na REST API.

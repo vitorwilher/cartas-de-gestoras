@@ -50,8 +50,10 @@ Estrutura:
 2. **O conceito** — a intuição econômica antes da fórmula. O leitor é do mercado:
    não explique o óbvio, explique o mecanismo.
 3. **O código** — Python, em UM bloco ```python. Deve rodar de ponta a ponta
-   **num terminal, sem interação**. Use fontes públicas e gratuitas de dados
-   brasileiros (yfinance, python-bcb, pyettj, pandas). Comente em português.
+   **num terminal, sem interação**. Use SOMENTE estas bibliotecas, que são as
+   instaladas no ambiente: pandas, numpy, matplotlib, requests, python-bcb (`from
+   bcb import sgs`), yfinance e pyettj. Qualquer outra falha com ModuleNotFoundError
+   e a edição sai sem o gráfico. Comente em português.
    Sem `!pip install` (não é notebook); liste as dependências em texto antes do
    bloco. Toda leitura de rede leva timeout explícito.
 
