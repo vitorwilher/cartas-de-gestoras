@@ -45,8 +45,10 @@ WHATS = ("https://wa.me/5521971167250?text=Quero%20receber%20a%20s%C3%ADntese"
 NAVY = "#2B3551"     # global "primary"
 AZUL = "#0098DA"     # global "secondary"
 CINZA = "#54595F"    # global "text"
-IMG_GRAFICO = "https://analisemacro.com.br/wp-content/uploads/2026/09/cartas-gestoras-exercicio.png"
-IMG_GRAFICO_ID = 78378
+# Versão WEB do gráfico (painéis empilhados, fontes de tela) — gerar_hero.py.
+# A do PDF é larga e baixa: numa coluna de landing fica ilegível.
+IMG_GRAFICO = "https://analisemacro.com.br/wp-content/uploads/2026/09/cartas-gestoras-hero.png"
+IMG_GRAFICO_ID = 78423
 # Mesma foto que a landing do Livro Linguagem Econômica usa.
 IMG_VITOR = "https://analisemacro.com.br/wp-content/uploads/2026/08/vitor-wilher-cientista-chefe.png"
 IMG_VITOR_ID = 73691
@@ -464,6 +466,19 @@ def layout_obrigado() -> list:
         ], fundo="#F4F7FA"),
     ]
 
+
+# ⚠️ ESCREVER NÃO BASTA: a página pública continua servindo a versão antiga.
+# São TRÊS camadas de cache, e cada uma precisa da sua chave:
+#   1. cache do Elementor  -> DELETE /wp-json/elementor/v1/cache
+#   2. cache de página     -> ciclo status draft -> publish, que dispara os
+#      hooks de invalidação do WP Rocket. PURGE/BAN dão 404; a rota
+#      /wp-rocket/v1/purge não existe nesta instalação.
+#   3. querystring NÃO serve de teste: `?v=123` devolve a versão nova enquanto
+#      a URL canônica ainda serve a velha. Conferir SEMPRE na URL limpa.
+#
+# E ao conferir, procurar uma string EXCLUSIVA da versão nova. Buscar "toda
+# semana" deu falso positivo: o texto do corpo já continha essa frase, e a
+# página parecia atualizada quando o H1 ainda era o antigo.
 
 def publicar(page_id: int, layout: list, dry: bool) -> None:
     dados = json.dumps(layout, ensure_ascii=False)
