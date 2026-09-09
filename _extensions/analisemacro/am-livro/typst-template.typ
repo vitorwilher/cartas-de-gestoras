@@ -218,15 +218,17 @@
   set document(title: title, author: authors)
   set text(lang: lang, region: region, hyphenate: true)
 
-  // ---- endcap: página inteira, fundo perolado + watermark da marca ----
+  // ---- endcap: página inteira, fundo perolado ----
+  // A watermark "análise" (215pt, dx:-12pt) foi DESLIGADA neste projeto por decisão
+  // do Vitor em 2026-09-09: no tamanho original ela sangra para fora da página e
+  // aparece cortada no meio da palavra, na capa e na contracapa. O parâmetro segue
+  // na assinatura para não quebrar as chamadas existentes, mas não desenha nada.
+  // Esta é uma cópia LOCAL da extensão — o design system dos livros digitais em
+  // ~/Dropbox/Claude Design/ segue intocado.
   let endcap(watermark: true, body) = page(
     margin: 0pt, header: none, footer: none, numbering: none, fill: P.paper,
   )[
     #place(top + left, rect(width: 100%, height: 100%, fill: am-bg-light))
-    #if watermark {
-      place(bottom + left, dx: -12pt, dy: 30pt,
-        box(text(font: am-font-title, weight: 700, size: 215pt, hyphenate: false, fill: P.watermark)[análise]))
-    }
     #body
   ]
 

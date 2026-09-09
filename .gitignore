@@ -35,3 +35,6 @@ mcp/.wrangler/
 
 # Cache do Quarto
 .quarto/
+
+# Carrossel: HTML intermediário (os PNGs ficam versionados como entregável)
+divulgacao/carrossel/carrossel.html

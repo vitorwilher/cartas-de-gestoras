@@ -53,13 +53,25 @@ Estrutura:
    **num terminal, sem interação**. Use fontes públicas e gratuitas de dados
    brasileiros (yfinance, python-bcb, pyettj, pandas). Comente em português.
    Sem `!pip install` (não é notebook); liste as dependências em texto antes do
-   bloco. **Nunca use `plt.show()`** — ele bloqueia esperando alguém fechar a
-   janela e trava o script; salve o gráfico com `plt.savefig("nome.png", dpi=150)`
-   e diga no texto onde o arquivo foi gravado. Toda leitura de rede leva timeout
-   explícito.
-4. **Como ler o resultado** — o que o número significa para a tese da gestora, e
-   qual valor mudaria a conclusão.
-5. **Vá além** — uma variação que o leitor pode tentar sozinho.
+   bloco. Toda leitura de rede leva timeout explícito.
+
+   **O exercício SEMPRE produz um gráfico** — é ele que faz o argumento visual.
+   Regras invioláveis:
+   - **Nunca `plt.show()`**: bloqueia esperando alguém fechar a janela e trava o
+     script. Use `plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")`
+     com exatamente esse nome de arquivo.
+   - O gráfico precisa mostrar o MECANISMO em discussão, não enfeitar: se o tema é
+     inclinação de curva, plote a curva e a série histórica da inclinação; marque no
+     desenho o ponto de hoje contra a distribuição passada.
+   - Rotule os eixos em português, com unidade. Anote no próprio gráfico o número
+     que sustenta a conclusão.
+
+4. **O gráfico no texto** — logo após o bloco de código, insira a linha
+   `![Legenda descritiva do que o gráfico mostra](grafico-exercicio.png)` para que a
+   imagem entre no PDF. A legenda deve dizer o que se vê, não repetir o título.
+5. **Como ler o resultado** — o que o número significa para a tese da gestora, e
+   qual valor mudaria a conclusão. Cite o que o gráfico mostra.
+6. **Vá além** — uma variação que o leitor pode tentar sozinho.
 
 Rigor: nada de código que não roda, nada de API paga, nada de dado inventado.
 Se precisar de um ticker ou série, use um real e diga qual é. Sem emojis."""

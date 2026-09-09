@@ -42,6 +42,7 @@ from anthropic import Anthropic
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
+from exercicios.execucao import NOME_GRAFICO, gerar_grafico, remover_referencia
 from exercicios.geracao import exercicio_da_semana
 
 load_dotenv()
@@ -413,6 +414,11 @@ e o que precisaria ser verdade para ela falhar.
 Produza uma síntese em português (pt-BR), Markdown para Quarto, baseada SOMENTE no corpus.
 
 Estrutura:
+- **Abra com uma seção `## Nesta edição`** de 2 a 4 parágrafos, antes de qualquer
+  gestora. Ela situa o leitor: que semana foi esta nos mercados, quais casas
+  publicaram e por quê isso importa, e qual é a tensão central que atravessa as
+  cartas desta edição. Termine dizendo, em uma frase, o que o leitor vai encontrar
+  adiante. Não é sumário — é a leitura editorial que dá sentido ao conjunto.
 - Uma seção de nível 2 (##) por gestora, não por tema.
 - Em cada seção, nesta ordem:
   1. **A tese em uma frase** — a aposta central, não a descrição do mês.
@@ -433,6 +439,16 @@ Estrutura:
 - Ao final, depois dessa seção, inclua um comentário HTML exatamente no formato
   `<!-- resumo_whatsapp: TEXTO -->`: uma síntese executiva específica da edição,
   em uma única linha, sem Markdown, com no máximo 450 caracteres.
+
+Vocabulário — o leitor é do mercado, mas não é operador de renda fixa:
+- **Todo termo técnico é explicado na primeira vez que aparece**, em aposto curto,
+  sem interromper a leitura. Exemplos do registro certo: "tomado em inclinação
+  (*steepener*: uma aposta em que o juro longo sobe mais que o curto, ou cai
+  menos)"; "carrego (o retorno que a posição rende só pela passagem do tempo)".
+- Isso vale para termos em inglês, jargão de mesa e siglas de instrumento —
+  steepener, flattener, carrego, duration, breakeven, DI1, NTN-B, long&short.
+- Uma explicação por termo, na primeira ocorrência. Não repita nas seguintes, e
+  não explique o que é trivial para quem lê carta de gestora (Selic, Ibovespa, CDI).
 
 Rigor:
 - Distinga fato da carta de interpretação sua. Quando interpretar, sinalize.
@@ -530,6 +546,12 @@ def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "") -> Path:
     fontes = "\n".join(
         f"- **{c.gestora} — {c.titulo}** ([original]({c.url}))" for c in cartas
     )
+    if exercicio:
+        # O texto do exercício referencia grafico-exercicio.png. Rodamos o código
+        # para produzir a figura AO LADO do .qmd; se falhar, tiramos a referência —
+        # senão o Typst aborta o documento inteiro por uma imagem ausente.
+        if gerar_grafico(exercicio, OUTPUT_DIR / NOME_GRAFICO) is None:
+            exercicio = remover_referencia(exercicio)
     corpo = f"{resumo}\n\n{exercicio}" if exercicio else resumo
     data_extenso = f"{hoje.day} de {MESES_PT[hoje.month]} de {hoje.year}"
     nomes = sorted({c.gestora.split()[0] for c in cartas})
@@ -565,6 +587,10 @@ def renderizar(qmd: Path) -> Path:
         shutil.copy2(ROOT / "_brand.yml", trabalho / "_brand.yml")
         alvo = trabalho / qmd.name
         shutil.copy2(qmd, alvo)
+        # A figura do exercício mora ao lado do .qmd e precisa acompanhá-lo.
+        figura = qmd.parent / NOME_GRAFICO
+        if figura.exists():
+            shutil.copy2(figura, trabalho / NOME_GRAFICO)
 
         subprocess.run(
             ["quarto", "render", alvo.name, "--to", "am-livro-typst"],
