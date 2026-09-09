@@ -13,8 +13,8 @@ a antiga em definitivo (para liberar o slug).
 
 | Página | id | Slug |
 |---|---|---|
-| Captura | `78376` | `/conteudo/cartas-das-gestoras/` — **no ar** |
-| Obrigado | `78374` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
+| Captura | `78384` | `/conteudo/cartas-das-gestoras/` — **no ar** |
+| Obrigado | `78382` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
 
 Editar: `analisemacro.com.br/wp-admin/post.php?post=<id>&action=edit`
 

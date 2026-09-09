@@ -32,26 +32,45 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
-PAGINA_CAPTURA = 78368
-PAGINA_OBRIGADO = 78374
+PAGINA_CAPTURA = 78384
+PAGINA_OBRIGADO = 78382
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
 WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
          "%20S%C3%ADntese%20das%20Cartas%20das%20Gestoras%20e%20quero%20receber"
          "%20o%20PDF%20por%20aqui.")
 
 
+NAVY = "#2B3551"     # global "primary"
+AZUL = "#0098DA"     # global "secondary"
+CINZA = "#54595F"    # global "text"
+IMG_GRAFICO = "https://analisemacro.com.br/wp-content/uploads/2026/09/cartas-gestoras-exercicio.png"
+IMG_GRAFICO_ID = 78378
+
+
 def _id() -> str:
     return uuid.uuid4().hex[:7]
 
 
-def titulo(texto, tag="h2", cor=None, tamanho=32, align="left", peso="700"):
+def _px(v):
+    return {"unit": "px", "size": v, "sizes": []}
+
+
+def _pad(t, r, bo, l):
+    return {"unit": "px", "top": str(t), "right": str(r),
+            "bottom": str(bo), "left": str(l), "isLinked": False}
+
+
+def titulo(texto, tag="h2", cor=None, tamanho=34, align="left", peso="700", mb=0):
     s = {
         "title": texto, "header_size": tag, "align": align,
         "typography_typography": "custom",
-        "typography_font_size": {"unit": "px", "size": tamanho, "sizes": []},
+        "typography_font_size": _px(tamanho),
         "typography_font_weight": peso,
-        "typography_line_height": {"unit": "em", "size": 1.2, "sizes": []},
+        "typography_line_height": {"unit": "em", "size": 1.18, "sizes": []},
+        "typography_letter_spacing": _px(-0.5),
     }
+    if mb:
+        s["_margin"] = _pad(0, 0, mb, 0)
     if cor:
         s["title_color"] = cor
     else:
@@ -59,18 +78,142 @@ def titulo(texto, tag="h2", cor=None, tamanho=32, align="left", peso="700"):
     return {"id": _id(), "elType": "widget", "widgetType": "heading", "settings": s}
 
 
-def texto(html, tamanho=17, cor=None):
+def texto(html, tamanho=17, cor=None, align=None):
     s = {
         "editor": html,
         "typography_typography": "custom",
-        "typography_font_size": {"unit": "px", "size": tamanho, "sizes": []},
-        "typography_line_height": {"unit": "em", "size": 1.65, "sizes": []},
+        "typography_font_size": _px(tamanho),
+        "typography_line_height": {"unit": "em", "size": 1.7, "sizes": []},
     }
+    if align:
+        s["align"] = align
     if cor:
         s["text_color"] = cor
     else:
         s["__globals__"] = {"text_color": "globals/colors?id=text"}
     return {"id": _id(), "elType": "widget", "widgetType": "text-editor", "settings": s}
+
+
+def imagem(url, mid=None, largura=100):
+    s = {
+        "image": {"url": url, "id": mid} if mid else {"url": url},
+        "image_size": "full",
+        "width": {"unit": "%", "size": largura, "sizes": []},
+        "image_border_radius": {"unit": "px", "top": "10", "right": "10",
+                                "bottom": "10", "left": "10", "isLinked": True},
+        "image_box_shadow_box_shadow_type": "yes",
+        "image_box_shadow_box_shadow": {"horizontal": 0, "vertical": 12, "blur": 34,
+                                        "spread": 0, "color": "rgba(43,53,81,0.14)"},
+    }
+    return {"id": _id(), "elType": "widget", "widgetType": "image", "settings": s}
+
+
+def icone_texto(icone, titulo_txt, descricao):
+    """Caixa com ícone grande + título + descrição. É o que dá ritmo visual."""
+    return {
+        "id": _id(), "elType": "widget", "widgetType": "icon-box",
+        "settings": {
+            "selected_icon": {"value": icone, "library": "fa-solid"},
+            "title_text": titulo_txt,
+            "description_text": descricao,
+            "position": "top",
+            "primary_color": AZUL,
+            "icon_size": _px(30),
+            "icon_space": _px(16),
+            "title_typography_typography": "custom",
+            "title_typography_font_size": _px(20),
+            "title_typography_font_weight": "700",
+            "description_typography_typography": "custom",
+            "description_typography_font_size": _px(16),
+            "description_typography_line_height": {"unit": "em", "size": 1.6, "sizes": []},
+            "__globals__": {
+                "title_color": "globals/colors?id=primary",
+                "description_color": "globals/colors?id=text",
+            },
+        },
+    }
+
+
+def caixa(filhos, fundo="#FFFFFF", borda=True, pad=32):
+    """Container-cartão: fundo, cantos arredondados e sombra suave."""
+    s = {
+        "content_width": "full",
+        "padding": _pad(pad, pad, pad, pad),
+        "background_background": "classic",
+        "background_color": fundo,
+        "border_radius": {"unit": "px", "top": "12", "right": "12",
+                          "bottom": "12", "left": "12", "isLinked": True},
+        "flex_gap": {"unit": "px", "size": 14, "column": "14", "row": "14"},
+    }
+    if borda:
+        s["box_shadow_box_shadow_type"] = "yes"
+        s["box_shadow_box_shadow"] = {"horizontal": 0, "vertical": 4, "blur": 22,
+                                      "spread": 0, "color": "rgba(43,53,81,0.10)"}
+    return {"id": _id(), "elType": "container", "settings": s, "elements": filhos}
+
+
+def colunas(cols, gap=28):
+    """Container flex em linha — as colunas viram empilhadas no celular."""
+    filhos = []
+    for c in cols:
+        # `width` em % e `content_width: full`: com width em px 0 o container
+        # colapsava e as colunas empilhavam.
+        filhos.append({
+            "id": _id(), "elType": "container",
+            "settings": {
+                "content_width": "full",
+                "width": {"unit": "%", "size": round(100 / max(len(cols), 1), 2), "sizes": []},
+                "width_mobile": {"unit": "%", "size": 100, "sizes": []},
+                "flex_gap": {"unit": "px", "size": 12, "column": "12", "row": "12"},
+            },
+            "elements": c,
+        })
+    return {
+        "id": _id(), "elType": "container",
+        "settings": {
+            "content_width": "full", "flex_direction": "row",
+            "flex_gap": {"unit": "px", "size": gap, "column": str(gap), "row": str(gap)},
+            "flex_direction_mobile": "column",
+        },
+        "elements": filhos,
+    }
+
+
+def numero(valor, rotulo):
+    """Estatística em destaque — o número grande em azul."""
+    return caixa([
+        titulo(valor, tag="div", tamanho=42, cor=AZUL, align="center"),
+        texto(f'<p style="text-align:center;margin:0">{rotulo}</p>', tamanho=15),
+    ], fundo="#FFFFFF", pad=24)
+
+
+def botao(rotulo, url, align="center", cor=None):
+    return {
+        "id": _id(), "elType": "widget", "widgetType": "button",
+        "settings": {
+            "text": rotulo,
+            "link": {"url": url, "is_external": "true", "nofollow": "",
+                     "custom_attributes": ""},
+            "size": "lg", "align": align,
+            "typography_typography": "custom",
+            "typography_font_size": _px(19),
+            "typography_font_weight": "700",
+            "border_radius": {"unit": "px", "top": "8", "right": "8",
+                              "bottom": "8", "left": "8", "isLinked": True},
+            "text_padding": _pad(20, 44, 20, 44),
+            "background_color": cor or AZUL,
+            "button_box_shadow_box_shadow_type": "yes",
+            "button_box_shadow_box_shadow": {"horizontal": 0, "vertical": 8, "blur": 20,
+                                             "spread": 0, "color": "rgba(0,152,218,0.32)"},
+        },
+    }
+
+
+def divisor():
+    return {"id": _id(), "elType": "widget", "widgetType": "divider",
+            "settings": {"weight": _px(3), "width": {"unit": "px", "size": 64, "sizes": []},
+                         "color": AZUL, "align": "left",
+                         "gap": _px(18)}}
 
 
 def lista(itens, icone="fas fa-check"):
@@ -82,11 +225,11 @@ def lista(itens, icone="fas fa-check"):
                  "selected_icon": {"value": icone, "library": "fa-solid"}}
                 for t in itens
             ],
-            "space_between": {"unit": "px", "size": 16, "sizes": []},
-            "icon_size": {"unit": "px", "size": 16, "sizes": []},
+            "space_between": _px(18),
+            "icon_size": _px(17),
+            "text_indent": _px(14),
             "icon_typography_typography": "custom",
-            "icon_typography_font_size": {"unit": "px", "size": 17, "sizes": []},
-            "text_indent": {"unit": "px", "size": 12, "sizes": []},
+            "icon_typography_font_size": _px(17),
             "__globals__": {
                 "icon_color": "globals/colors?id=secondary",
                 "text_color": "globals/colors?id=text",
@@ -95,32 +238,13 @@ def lista(itens, icone="fas fa-check"):
     }
 
 
-def botao(rotulo, url, tamanho="lg", align="left"):
-    return {
-        "id": _id(), "elType": "widget", "widgetType": "button",
-        "settings": {
-            "text": rotulo,
-            "link": {"url": url, "is_external": "true", "nofollow": ""},
-            "size": tamanho, "align": align,
-            "typography_typography": "custom",
-            "typography_font_size": {"unit": "px", "size": 18, "sizes": []},
-            "typography_font_weight": "600",
-            "border_radius": {"unit": "px", "top": "6", "right": "6",
-                              "bottom": "6", "left": "6", "isLinked": True},
-            "text_padding": {"unit": "px", "top": "18", "right": "38",
-                             "bottom": "18", "left": "38", "isLinked": False},
-            "__globals__": {"background_color": "globals/colors?id=secondary"},
-        },
-    }
-
-
-def secao(filhos, fundo=None, pad_v=64, largura=980):
+def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column"):
     s = {
         "content_width": "boxed",
-        "boxed_width": {"unit": "px", "size": largura, "sizes": []},
-        "padding": {"unit": "px", "top": str(pad_v), "right": "24",
-                    "bottom": str(pad_v), "left": "24", "isLinked": False},
-        "flex_gap": {"unit": "px", "size": 20, "column": "20", "row": "20"},
+        "boxed_width": _px(largura),
+        "padding": _pad(pad_v, 24, pad_v, 24),
+        "flex_gap": {"unit": "px", "size": 22, "column": "22", "row": "22"},
+        "flex_direction": direcao,
     }
     if fundo:
         s["background_background"] = "classic"
@@ -130,130 +254,116 @@ def secao(filhos, fundo=None, pad_v=64, largura=980):
 
 def layout_captura() -> list:
     return [
-        # Hero
         secao([
-            titulo("Leia as cartas das 12 maiores gestoras do Brasil sem ler as doze",
-                   tag="h1", tamanho=44),
-            texto("<p>Toda semana, a síntese das cartas novas — a tese de cada casa, "
-                  "o mecanismo que a sustenta, e onde o consenso do mercado racha. "
-                  "Com um exercício em Python que testa uma dessas teses com dado "
-                  "público, para você <strong>conferir em vez de acreditar</strong>.</p>",
-                  tamanho=19),
-            texto("<p><em>Para quem lê carta de gestor e quer saber o que sustenta "
-                  "cada aposta.</em></p>", tamanho=16),
-        ], fundo="#F7F9FB", pad_v=72),
+            colunas([
+                [
+                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">SÍNTESE SEMANAL</p>', tamanho=14),
+                    titulo("Leia as cartas das 12 maiores gestoras do Brasil sem ler as doze", tag="h1", tamanho=46, mb=6),
+                    texto("<p>Toda semana, a síntese das cartas novas — a tese de cada casa, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
+                    botao("Quero receber a síntese", "#form", align="left"),
+                ],
+                [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
+            ]),
+        ], fundo="#F4F7FA", pad_v=64),
 
-        # O que você recebe
         secao([
-            titulo("O que você recebe toda semana"),
-            lista([
-                "A tese de cada gestora e o mecanismo econômico que a sustenta",
-                "A condição em que cada tese quebra, com os riscos que a própria gestora aponta",
-                "Convergências e divergências: onde as casas concordam e onde discordam",
-                "Um exercício em Python que testa uma das teses com dado público",
-                "O código completo, comentado e pronto para rodar",
-                "O link para a carta original de cada gestora citada",
+            colunas([[numero("12", "gestoras acompanhadas")],
+                     [numero("1x", "por semana, toda terça")],
+                     [numero("6s", "para rodar o exercício")]], gap=20),
+        ], pad_v=48),
+
+        secao([
+            titulo("O que você recebe toda semana", align="center", mb=8),
+            divisor(),
+            colunas([
+                [caixa([icone_texto("fas fa-lightbulb", "A tese e o mecanismo",
+                    "Não o resumo do mês: a cadeia causal que faz a aposta se pagar, e a condição exata em que ela quebra.")])],
+                [caixa([icone_texto("fas fa-code-branch", "Convergências e divergências",
+                    "Onde as casas concordam, onde discordam, e o que a divergência revela sobre premissas diferentes.")])],
+                [caixa([icone_texto("fab fa-python", "O exercício em Python",
+                    "Código comentado que testa uma das teses com dado do Tesouro Direto e do Banco Central. Roda em segundos.")])],
+            ]),
+        ], fundo="#F4F7FA"),
+
+        secao([
+            colunas([
+                [titulo("Por que ler as doze juntas", mb=6), divisor(),
+                 texto("<p>Uma carta isolada mostra a visão de uma casa. Doze mostram onde o mercado brasileiro concorda — e onde a mesma leitura vira apostas incompatíveis.</p>")],
+                [caixa([texto('<p style="margin:0"><strong>Um caso real, de setembro:</strong> três gestoras olhando dados diferentes — inadimplência, recuperações judiciais e reestruturações de crédito — descreveram o mesmo ciclo virando.</p><p style="margin:10px 0 0"><em>Nenhuma delas disse isso sozinha. O sinal só apareceu com as cartas lado a lado.</em></p>', tamanho=17)], fundo="#EAF6FC")],
             ]),
         ]),
 
-        # Por que ler as doze
         secao([
-            titulo("Por que ler as doze juntas"),
-            texto("<p>Uma carta isolada mostra a visão de uma casa. Doze mostram onde "
-                  "o mercado brasileiro concorda — e onde a mesma leitura vira apostas "
-                  "incompatíveis.</p>"
-                  "<p>Num exemplo real de setembro: três gestoras olhando dados "
-                  "diferentes — inadimplência, recuperações judiciais e reestruturações "
-                  "de crédito — descreveram o mesmo ciclo virando. Nenhuma delas disse "
-                  "isso sozinha. O sinal só apareceu com as cartas lado a lado.</p>"),
-        ], fundo="#F7F9FB"),
+            titulo("Para quem é", align="center", mb=8),
+            divisor(),
+            colunas([
+                [lista(["Analistas e gestores que acompanham as cartas",
+                        "Profissionais de mercado que leem duas ou três por mês"], icone="fas fa-user-tie")],
+                [lista(["Economistas que querem testar em código o que leem em prosa",
+                        "Quem usa Python e quer aplicá-lo a dados brasileiros"], icone="fas fa-chart-line")],
+            ]),
+        ], fundo="#F4F7FA"),
 
-        # Para quem é
         secao([
-            titulo("Para quem é"),
-            lista([
-                "Analistas e gestores que acompanham as cartas e querem ver as teses lado a lado",
-                "Profissionais de mercado que leem duas ou três por mês e sabem que perdem a comparação",
-                "Economistas que querem testar em código o que leem em prosa",
-                "Quem já usa Python e quer aplicá-lo a dados de mercado brasileiros",
-            ], icone="fas fa-user"),
+            titulo("As gestoras acompanhadas", align="center", tamanho=30, mb=8),
+            caixa([
+                texto('<p style="text-align:center;font-size:19px;margin:0"><strong>Dynamo · IP Capital Partners · Alaska · Kapitalo · Adam Capital · Legacy Capital<br>Bahia Asset · Occam Brasil · JGP · Kinea · NEO Investimentos · Dahlia Capital</strong></p>'),
+                texto('<p style="text-align:center;margin:12px 0 0">As cartas não têm cadência única: dez são mensais, e Dynamo e IP publicam ensaios temáticos irregulares — justamente os de maior densidade.</p>', tamanho=16),
+            ]),
         ]),
 
-        # Gestoras
         secao([
-            titulo("As gestoras acompanhadas", tamanho=28),
-            texto("<p><strong>Dynamo · IP Capital Partners · Alaska · Kapitalo · "
-                  "Adam Capital · Legacy Capital · Bahia Asset · Occam Brasil · JGP · "
-                  "Kinea · NEO Investimentos · Dahlia Capital</strong></p>"
-                  "<p>As cartas não têm cadência única: dez são mensais, e Dynamo e IP "
-                  "publicam ensaios temáticos irregulares — justamente os de maior "
-                  "densidade. A síntese cobre o que for publicado na semana.</p>"),
-        ], fundo="#F7F9FB"),
+            colunas([
+                [titulo("Quem escreve", mb=6), divisor(),
+                 texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e IA Generativa pela PUC-Rio e doutorado em Economia em curso na EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de 5.000 alunos.</p>")],
+                [caixa([texto('<p style="margin:0;font-style:italic;font-size:18px">"Todo mês eu abria seis ou sete cartas e lia duas. O que se perde não é o conteúdo de cada uma — é a comparação, que é onde está o valor. O exercício em Python existe porque ler a tese não basta: é preciso medir se ela já está no preço."</p>')], fundo="#EAF6FC")],
+            ]),
+        ], fundo="#F4F7FA"),
 
-        # Autor
         secao([
-            titulo("Quem escreve"),
-            texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. "
-                  "Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e "
-                  "IA Generativa pela PUC-Rio e doutorado em Economia em curso na "
-                  "EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de "
-                  "5.000 alunos.</p>"
-                  "<blockquote><p>Todo mês eu abria seis ou sete cartas e lia duas. O "
-                  "que se perde não é o conteúdo de cada uma — é a comparação, que é "
-                  "onde está o valor. O exercício em Python existe porque ler a tese não "
-                  "basta: é preciso conseguir medir se ela já está no preço.</p>"
-                  "</blockquote>"),
-        ]),
-
-        # Formulário
-        secao([
-            titulo("Receba a síntese desta semana", align="center", tamanho=34),
-            texto('<p style="text-align:center">Deixe seus dados e receba o PDF na hora.</p>'),
-            texto('<p style="text-align:center;color:#B00020"><strong>[ARRASTE AQUI O '
-                  'WIDGET FORM DO ELEMENTOR — id do formulário: cartasgestoras, campos '
-                  'nome/email/telefone, redirect para /conteudo/cartas-das-gestoras-obrigado/]'
-                  '</strong></p>'),
-            texto('<p style="text-align:center"><small>Não é para você concordar com as '
-                  'gestoras. É para conseguir checar.</small></p>'),
-        ], fundo="#F7F9FB", pad_v=72),
+            titulo("Receba a síntese desta semana", align="center", tamanho=38, mb=8),
+            texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba o PDF na hora.</p>'),
+            caixa([texto('<p style="text-align:center;color:#B00020"><strong>[ARRASTE AQUI O WIDGET FORM DO ELEMENTOR — id do formulário: cartasgestoras, campos nome/email/telefone, redirect para /conteudo/cartas-das-gestoras-obrigado/]</strong></p>')], pad=40),
+            texto('<p style="text-align:center"><small>Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
+        ], fundo="#F4F7FA", pad_v=80),
     ]
 
 
 def layout_obrigado() -> list:
+    """Um CTA só: o WhatsApp. O PDF vai por e-mail e como link discreto aqui.
+
+    Dois botões lado a lado competiam entre si — e empilhados ficavam feios. O
+    WhatsApp é o que interessa: é ele que abre a janela de 24h e permite a
+    conversa. O PDF a pessoa recebe no e-mail de qualquer forma.
+    """
     return [
         secao([
             titulo("Pronto. Sua inscrição está confirmada.", tag="h1",
-                   tamanho=42, align="center"),
-            texto('<p style="text-align:center">A síntese desta semana já está '
-                  'disponível — e a próxima chega no seu e-mail toda terça.</p>',
-                  tamanho=19),
-        ], fundo="#F7F9FB", pad_v=72),
+                   tamanho=44, align="center", mb=6),
+            texto('<p style="text-align:center;font-size:20px">A síntese desta semana '
+                  'está a caminho do seu e-mail — e a próxima chega toda terça.</p>'),
+        ], fundo="#F4F7FA", pad_v=72),
 
         secao([
-            titulo("Baixe a edição desta semana", align="center"),
-            texto('<p style="text-align:center">O PDF traz a síntese das cartas e o '
-                  'exercício em Python da semana.</p>'),
-            botao("Baixar a síntese em PDF", PDF, align="center"),
-        ]),
-
-        secao([
-            titulo("Quer receber também no WhatsApp?", align="center"),
-            texto('<p style="text-align:center">Manda um <strong>"Oi"</strong> no nosso '
-                  'WhatsApp que eu te envio o PDF por lá — e, se quiser, a síntese de '
-                  'toda semana chega no mesmo lugar.</p>'),
-            botao('Mandar "Oi" no WhatsApp', WHATS, align="center"),
-            texto('<p style="text-align:center"><small>É você quem inicia a conversa — '
-                  'assim eu posso te responder sem ficar preso a mensagem automática. '
-                  'Se preferir só o e-mail, é só ignorar este passo.</small></p>',
+            titulo("Quer receber também no WhatsApp?", align="center", tamanho=34, mb=8),
+            texto('<p style="text-align:center;font-size:19px">Manda um <strong>"Oi"</strong> '
+                  'que eu te envio o PDF por lá na hora — e, se quiser, a síntese de toda '
+                  'semana chega no mesmo lugar.</p>'),
+            botao('Mandar "Oi" no WhatsApp', WHATS, cor="#25D366"),
+            texto('<p style="text-align:center;margin-top:14px"><small>É você quem inicia '
+                  'a conversa — assim eu posso te responder sem ficar preso a mensagem '
+                  'automática. Se preferir só o e-mail, é só ignorar este passo.</small></p>',
                   tamanho=15),
-        ], fundo="#F7F9FB"),
+        ], pad_v=64),
 
         secao([
-            titulo("Enquanto isso", tamanho=28),
-            texto("<p>Abra o PDF na seção <em>Exercício da semana</em>: lá tem o código "
-                  "Python que testa uma das teses das gestoras com dado público. Roda em "
-                  "segundos, e você adapta para a tese que quiser checar.</p>"),
-        ]),
+            titulo("Comece pelo exercício", align="center", tamanho=30, mb=8),
+            texto('<p style="text-align:center">No PDF, procure a seção <em>Exercício da '
+                  'semana</em>: lá está o código Python que testa uma das teses das '
+                  'gestoras com dado público. Roda em segundos, e você adapta para a tese '
+                  f'que quiser checar. <a href="{PDF}">Este gráfico saiu de lá</a>.</p>'),
+            imagem(IMG_GRAFICO, IMG_GRAFICO_ID),
+        ], fundo="#F4F7FA"),
     ]
 
 
