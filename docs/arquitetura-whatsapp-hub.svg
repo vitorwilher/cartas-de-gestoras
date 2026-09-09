@@ -1,107 +1,123 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="900" viewBox="0 0 1120 900" font-family="Inter,Helvetica,Arial,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1080" viewBox="0 0 1240 1080" font-family="Inter,Helvetica,Arial,sans-serif">
   <defs>
     <marker id="s" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#475569"/></marker>
     <marker id="sv" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2f9e44"/></marker>
     <marker id="sr" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#6741d9"/></marker>
   </defs>
-  <rect width="1120" height="900" fill="#ffffff"/>
+  <rect width="1240" height="1080" fill="#ffffff"/>
 
-  <text x="36" y="42" font-size="23" font-weight="700" fill="#0f172a">Automação de WhatsApp sem tocar no que já funciona</text>
-  <text x="36" y="70" font-size="13.5" fill="#64748b">A Meta aceita UM webhook por WABA, e ele é do Kommo. Em vez de disputar esse lugar, invertemos:</text>
-  <text x="36" y="89" font-size="13.5" fill="#64748b"><tspan font-weight="700" fill="#2f9e44">o Kommo avisa o nosso código.</tspan> Número, WABA e a rotina da Raiane ficam exatamente como estão.</text>
-  <text x="36" y="108" font-size="12.5" font-weight="700" fill="#2f9e44">✓ Fases 1 e 2 provadas em 09/09 — o evento chega, e o Worker já sabe quem escreveu e se veio da landing.</text>
+  <text x="36" y="42" font-size="23" font-weight="700" fill="#0f172a">Entrega semanal automática — da carta da gestora ao lead no WhatsApp</text>
+  <text x="36" y="70" font-size="13.5" fill="#64748b">Toda terça, 07:00 BRT: o pipeline lê as cartas novas, escreve a síntese, publica o PDF e dispara os dois canais.</text>
+  <text x="36" y="89" font-size="13.5" fill="#64748b"><tspan font-weight="700" fill="#2f9e44">Sem intervenção humana.</tspan> A Meta aceita um webhook por WABA, e ele é do Kommo: em vez de disputar, o Kommo avisa o nosso código.</text>
+  <text x="36" y="110" font-size="12.5" font-weight="700" fill="#2f9e44">✓ Fases 1 a 3 provadas com tráfego real em 09/09 — evento recebido, lead identificado, PDF entregue.</text>
 
-  <!-- INTOCADO -->
-  <rect x="36" y="126" width="470" height="196" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6 4"/>
-  <text x="54" y="152" font-size="13" font-weight="700" fill="#64748b">NADA AQUI MUDA</text>
+  <!-- ===================== FAIXA 1: O PIPELINE ===================== -->
+  <text x="36" y="146" font-size="13" font-weight="700" fill="#0f172a">1 · O PIPELINE SEMANAL (GitHub Actions, cron terças 07:00 BRT)</text>
+  <rect x="36" y="158" width="1168" height="150" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.6"/>
 
-  <rect x="54" y="166" width="200" height="66" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.4"/>
-  <text x="70" y="190" font-size="13.5" font-weight="700" fill="#0f172a">WhatsApp Cloud API</text>
-  <text x="70" y="211" font-size="11.5" fill="#64748b">+55 21 97116-7250 · GREEN</text>
+  <rect x="54" y="176" width="176" height="60" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.3"/>
+  <text x="68" y="199" font-size="12.5" font-weight="700" fill="#0f172a">Coleta</text>
+  <text x="68" y="218" font-size="10.5" fill="#64748b">12 gestoras · 5 estratégias</text>
 
-  <rect x="286" y="166" width="200" height="66" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="1.4"/>
-  <text x="302" y="190" font-size="13.5" font-weight="700" fill="#0f172a">Kommo</text>
-  <text x="302" y="211" font-size="11.5" fill="#64748b">webhook da WABA · dono do chat</text>
+  <rect x="252" y="176" width="176" height="60" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.3"/>
+  <text x="266" y="199" font-size="12.5" font-weight="700" fill="#0f172a">Síntese</text>
+  <text x="266" y="218" font-size="10.5" fill="#64748b">Fable 5.1 · só o delta</text>
 
-  <rect x="54" y="248" width="432" height="56" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
-  <text x="70" y="270" font-size="13" font-weight="700" fill="#0f172a">Raiane</text>
-  <text x="70" y="290" font-size="11.5" fill="#64748b">atende no board, na thread nativa — sem nenhuma mudança de rotina</text>
+  <rect x="450" y="176" width="176" height="60" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.3"/>
+  <text x="464" y="199" font-size="12.5" font-weight="700" fill="#0f172a">Exercício Python</text>
+  <text x="464" y="218" font-size="10.5" fill="#64748b">roda e valida o gráfico</text>
 
-  <path d="M256 199 L282 199" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
-  <path d="M386 226 L386 236" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
+  <rect x="648" y="176" width="176" height="60" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.3"/>
+  <text x="662" y="199" font-size="12.5" font-weight="700" fill="#0f172a">PDF (Typst)</text>
+  <text x="662" y="218" font-size="10.5" fill="#64748b">design system am-livro</text>
 
-  <!-- O NOVO -->
-  <text x="546" y="132" font-size="13" font-weight="700" fill="#6741d9">O QUE ENTRA (só ouve, no começo)</text>
-  <rect x="546" y="146" width="458" height="168" rx="10" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.8"/>
-  <text x="564" y="172" font-size="14" font-weight="700" fill="#0f172a">Endpoint próprio</text>
-  <text x="564" y="193" font-size="11.5" fill="#64748b">Cloudflare Worker ou Cloud Run — os dois já rodam na casa</text>
+  <rect x="846" y="176" width="340" height="60" rx="8" fill="#e6fcf5" stroke="#2f9e44" stroke-width="1.4"/>
+  <text x="860" y="199" font-size="12.5" font-weight="700" fill="#0f172a">URL fixa no GCS</text>
+  <text x="860" y="218" font-size="10.5" fill="#64748b">cartas/edicao-atual.pdf — sobrescrita toda semana</text>
 
-  <rect x="564" y="208" width="422" height="44" rx="7" fill="#ffffff" stroke="#6741d9" stroke-width="1.3"/>
-  <text x="580" y="228" font-size="12.5" font-weight="700" fill="#0f172a">webhook add_talk</text>
-  <text x="580" y="245" font-size="11.5" fill="#475569">testado: HTTP 201 — o Kommo dispara quando abre conversa</text>
+  <path d="M232 206 L248 206" stroke="#475569" stroke-width="1.7" fill="none" marker-end="url(#s)"/>
+  <path d="M430 206 L446 206" stroke="#475569" stroke-width="1.7" fill="none" marker-end="url(#s)"/>
+  <path d="M628 206 L644 206" stroke="#475569" stroke-width="1.7" fill="none" marker-end="url(#s)"/>
+  <path d="M826 206 L842 206" stroke="#475569" stroke-width="1.7" fill="none" marker-end="url(#s)"/>
 
-  <rect x="564" y="270" width="422" height="38" rx="7" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.3"/>
-  <text x="580" y="286" font-size="12" fill="#0f172a">FASE 1 — só imprime o JSON no log. Não responde, não grava, não altera.</text>
+  <text x="54" y="262" font-size="11" fill="#64748b">Falha isolada por gestora: um site fora do ar não derruba a edição. Exercício que quebra é removido do documento, não aborta o render.</text>
+  <text x="54" y="281" font-size="11" fill="#64748b">Semana sem carta nova = silêncio. O pipeline termina sem enviar nada — e nada é reenviado.</text>
+  <text x="54" y="300" font-size="11" fill="#0f172a" font-weight="700">Estado versionado em gestoras.yml (ultima_carta): é o que impede reprocessar o histórico a cada execução.</text>
 
-  <path d="M488 191 L542 205" stroke="#6741d9" stroke-width="1.8" fill="none" marker-end="url(#sr)"/>
-  <text x="470" y="176" font-size="11" fill="#6741d9">avisa</text>
+  <!-- ===================== FAIXA 2: OS DOIS CANAIS ===================== -->
+  <text x="36" y="346" font-size="13" font-weight="700" fill="#0f172a">2 · A ENTREGA — dois canais, mesma edição</text>
 
-  <!-- FASES -->
-  <text x="36" y="356" font-size="13" font-weight="700" fill="#0f172a">AS FASES — cada uma só começa quando a anterior estiver provada</text>
+  <rect x="36" y="358" width="574" height="196" rx="10" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.8"/>
+  <text x="54" y="384" font-size="14" font-weight="700" fill="#0f172a">E-mail (Kit) — alcança todo lead cadastrado</text>
+  <rect x="54" y="398" width="538" height="52" rx="7" fill="#ffffff" stroke="#6741d9" stroke-width="1.2"/>
+  <text x="70" y="419" font-size="12" font-weight="700" fill="#0f172a">broadcast_semanal.py --enviar</text>
+  <text x="70" y="438" font-size="10.5" fill="#64748b">agenda para +30 min (status scheduled) — cancelável até a hora marcada</text>
+  <text x="54" y="472" font-size="11" fill="#e03131" font-weight="700">⚠ Exige a API v4. A v3 aceita o subscriber_filter, responde 200 e o descarta:</text>
+  <text x="54" y="490" font-size="11" fill="#e03131">o e-mail iria para os 5.118 da lista, não para a tag do projeto.</text>
+  <text x="54" y="514" font-size="11" fill="#64748b">Três guardas antes de agendar: tag não vazia · filtro confirmado na releitura · status scheduled.</text>
+  <text x="54" y="533" font-size="11" fill="#64748b">Segmento: tag <tspan font-weight="700" fill="#0f172a">Leads - Cartas Semanais</tspan> (23251247) — só quem veio desta landing.</text>
 
-  <rect x="36" y="372" width="234" height="150" rx="9" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.6"/>
-  <text x="54" y="398" font-size="13.5" font-weight="700" fill="#2f9e44">FASE 1 · ouvir  ✓</text>
-  <text x="54" y="422" font-size="12" font-weight="700" fill="#0f172a">PROVADA em 09/09</text>
-  <text x="54" y="443" font-size="11.5" fill="#0f172a">2 mensagens reais chegaram</text>
-  <text x="54" y="461" font-size="11.5" fill="#0f172a">talk_id 106564 e 106565</text>
-  <text x="54" y="486" font-size="11.5" fill="#64748b">origin=waba · contact_id →</text>
-  <text x="54" y="503" font-size="11.5" fill="#64748b">nome e telefone do lead</text>
+  <rect x="630" y="358" width="574" height="196" rx="10" fill="#fff4e6" stroke="#e8590c" stroke-width="1.8"/>
+  <text x="648" y="384" font-size="14" font-weight="700" fill="#0f172a">WhatsApp — só para quem abriu a janela</text>
+  <rect x="648" y="398" width="538" height="52" rx="7" fill="#ffffff" stroke="#e8590c" stroke-width="1.2"/>
+  <text x="664" y="419" font-size="12" font-weight="700" fill="#0f172a">Worker escuta o Kommo (add_talk)</text>
+  <text x="664" y="438" font-size="10.5" fill="#64748b">o LEAD escreve primeiro — é ele quem abre a janela de 24h</text>
+  <text x="648" y="472" font-size="11" fill="#64748b">A Meta aceita UM webhook por WABA, e ele é do Kommo. Disputar esse lugar</text>
+  <text x="648" y="490" font-size="11" fill="#64748b">mataria o atendimento da Raiane — por isso o Kommo avisa, e nós ouvimos.</text>
+  <text x="648" y="514" font-size="11" fill="#64748b">O Worker cruza o telefone com a tag do Kit e decide se responde.</text>
+  <text x="648" y="533" font-size="11" fill="#0f172a" font-weight="700">Na dúvida (Kit fora do ar), NÃO envia. Silêncio é melhor que mensagem indevida.</text>
 
-  <rect x="288" y="372" width="234" height="150" rx="9" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.6"/>
-  <text x="306" y="398" font-size="13.5" font-weight="700" fill="#2f9e44">FASE 2 · registrar  ✓</text>
-  <text x="306" y="422" font-size="12" font-weight="700" fill="#0f172a">PROVADA em 09/09</text>
-  <text x="306" y="443" font-size="11.5" fill="#0f172a">resolve nome e telefone</text>
-  <text x="306" y="461" font-size="11.5" fill="#0f172a">e cruza com o lead do Kit</text>
-  <text x="306" y="486" font-size="11.5" fill="#64748b">testado nos dois casos:</text>
-  <text x="306" y="503" font-size="11.5" fill="#64748b">na base e fora dela</text>
+  <!-- ===================== FAIXA 3: O QUE NÃO MUDA ===================== -->
+  <text x="36" y="590" font-size="13" font-weight="700" fill="#0f172a">3 · O QUE CONTINUA EXATAMENTE COMO ESTAVA</text>
+  <rect x="36" y="602" width="574" height="150" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6 4"/>
 
-  <rect x="540" y="372" width="234" height="150" rx="9" fill="#fff4e6" stroke="#e8590c" stroke-width="2.8"/>
-  <text x="558" y="398" font-size="13.5" font-weight="700" fill="#e8590c">FASE 3 · responder ←</text>
-  <text x="558" y="422" font-size="12" font-weight="700" fill="#0f172a">AGORA — a 1ª que ENVIA</text>
-  <text x="558" y="443" font-size="11.5" fill="#0f172a">PDF pela Cloud API, só para</text>
-  <text x="558" y="461" font-size="11.5" fill="#0f172a">quem veio da landing</text>
-  <text x="558" y="486" font-size="11.5" fill="#c92a2a">Lista de permissão: começa</text>
-  <text x="558" y="503" font-size="11.5" fill="#c92a2a">só com o número do Vitor.</text>
+  <rect x="54" y="622" width="238" height="58" rx="8" fill="#ffffff" stroke="#0f172a" stroke-width="1.3"/>
+  <text x="68" y="645" font-size="12.5" font-weight="700" fill="#0f172a">WhatsApp Cloud API</text>
+  <text x="68" y="664" font-size="10.5" fill="#64748b">+55 21 97116-7250 · GREEN</text>
 
-  <rect x="792" y="372" width="212" height="150" rx="9" fill="#ffe3e3" stroke="#c92a2a" stroke-width="1.6"/>
-  <text x="810" y="398" font-size="13.5" font-weight="700" fill="#c92a2a">FASE 4 · follow-up</text>
-  <text x="810" y="422" font-size="12" fill="#0f172a">Mensagem de D+1</text>
-  <text x="810" y="441" font-size="12" fill="#0f172a">dentro da janela de 24h</text>
-  <text x="810" y="467" font-size="11.5" fill="#64748b">Risco: incomodar cliente</text>
-  <text x="810" y="484" font-size="11.5" fill="#64748b">de verdade. Só depois de</text>
-  <text x="810" y="501" font-size="11.5" fill="#64748b">as três anteriores rodarem.</text>
+  <rect x="330" y="622" width="262" height="58" rx="8" fill="#fff4e6" stroke="#e8590c" stroke-width="1.3"/>
+  <text x="344" y="645" font-size="12.5" font-weight="700" fill="#0f172a">Kommo</text>
+  <text x="344" y="664" font-size="10.5" fill="#64748b">dono do webhook da WABA e do chat</text>
 
-  <!-- JA PRONTO -->
-  <rect x="36" y="552" width="652" height="152" rx="9" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.6" stroke-dasharray="6 4"/>
-  <text x="54" y="578" font-size="13.5" font-weight="700" fill="#2f9e44">JÁ VERIFICADO (09/09) — não precisa descobrir de novo</text>
-  <text x="54" y="602" font-size="12" fill="#0f172a">✓ add_talk aceito pelo Kommo — HTTP 201 (criado e removido no teste)</text>
-  <text x="54" y="623" font-size="12" fill="#0f172a">✓ Já rodam 2 webhooks do Kommo, um num Cloud Run seu (amblack-webhook)</text>
-  <text x="54" y="644" font-size="12" fill="#0f172a">✓ Token System User com whatsapp_business_messaging — não expira</text>
-  <text x="54" y="665" font-size="12" fill="#0f172a">✓ 4 Cloudflare Workers em produção · PDF em URL fixa no GCS</text>
-  <text x="54" y="686" font-size="12" fill="#c92a2a">✗ A API do Kommo NÃO injeta mensagem no chat (endpoint privado, 403)</text>
+  <rect x="54" y="694" width="538" height="42" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="68" y="720" font-size="11.5" fill="#64748b"><tspan font-weight="700" fill="#0f172a">Raiane</tspan> atende na thread nativa — sem nenhuma mudança de rotina.</text>
 
-  <rect x="708" y="552" width="296" height="152" rx="9" fill="#ffe3e3" stroke="#c92a2a" stroke-width="1.6" stroke-dasharray="6 4"/>
-  <text x="726" y="578" font-size="13.5" font-weight="700" fill="#c92a2a">CUIDADO</text>
-  <text x="726" y="604" font-size="12" fill="#0f172a">O IP foi bloqueado em 08/09 por</text>
-  <text x="726" y="623" font-size="12" fill="#0f172a">excesso de chamadas ao Kommo.</text>
-  <text x="726" y="649" font-size="12" fill="#0f172a">Espaçar requisições. Não sondar</text>
-  <text x="726" y="668" font-size="12" fill="#0f172a">endpoints em série.</text>
-  <text x="726" y="694" font-size="11.5" fill="#64748b">Perguntar antes de explorar.</text>
+  <path d="M294 651 L326 651" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
+  <path d="M461 682 L461 690" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
 
-  <!-- ESCALA -->
-  <rect x="36" y="730" width="968" height="130" rx="9" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.6" stroke-dasharray="6 4"/>
-  <text x="54" y="756" font-size="13.5" font-weight="700" fill="#6741d9">POR QUE VALE PARA QUALQUER PROJETO</text>
-  <text x="54" y="782" font-size="12.5" fill="#0f172a">O endpoint não sabe o que é "Cartas de Gestoras". Ele recebe a conversa e consulta um mapa: de qual landing veio,</text>
-  <text x="54" y="803" font-size="12.5" fill="#0f172a">qual PDF entregar, qual tag do Kit aplicar, qual sequência disparar.</text>
-  <text x="54" y="829" font-size="12.5" font-weight="600" fill="#6741d9">Projeto novo = uma linha nova no mapa. Sem código, sem deploy, sem tocar no WhatsApp.</text>
+  <!-- ===================== FAIXA 3b: A CAPTURA ===================== -->
+  <text x="630" y="590" font-size="13" font-weight="700" fill="#0f172a">3b · DE ONDE VEM O LEAD</text>
+  <rect x="630" y="602" width="574" height="150" rx="10" fill="#e7f5ff" stroke="#1971c2" stroke-width="1.6"/>
+  <text x="648" y="628" font-size="12.5" font-weight="700" fill="#0f172a">Landing /projetos/cartas-das-gestoras/</text>
+  <text x="648" y="649" font-size="11" fill="#64748b">Elementor + hCaptcha · nome, e-mail e WhatsApp</text>
+  <text x="648" y="674" font-size="11" fill="#64748b">Snippet PHP → Kit: inicia a sequência e aplica TRÊS tags.</text>
+  <text x="648" y="693" font-size="11" fill="#0f172a" font-weight="700">Só a tag do projeto decide o envio.</text>
+  <text x="648" y="712" font-size="11" fill="#64748b">Mercado Financeiro (534) é guarda-chuva: usá-la mandaria PDF</text>
+  <text x="648" y="731" font-size="11" fill="#64748b">para gente que nunca ouviu falar deste projeto.</text>
+
+  <!-- ===================== FAIXA 4: VERIFICADO ===================== -->
+  <rect x="36" y="782" width="700" height="196" rx="10" fill="#e6fcf5" stroke="#2f9e44" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="54" y="808" font-size="13" font-weight="700" fill="#0f172a">JÁ VERIFICADO COM TRÁFEGO REAL (09/09) — não precisa descobrir de novo</text>
+  <text x="54" y="832" font-size="11.5" fill="#2b8a3e">✓ add_talk chega do Kommo — Alan 21:44 e Luiz 21:47, talk_id sequencial</text>
+  <text x="54" y="852" font-size="11.5" fill="#2b8a3e">✓ Worker resolve nome e telefone e cruza com a tag do Kit</text>
+  <text x="54" y="872" font-size="11.5" fill="#2b8a3e">✓ PDF entregue pela Cloud API — HTTP 200 + wamid (Vitor, Alan, Luiz)</text>
+  <text x="54" y="892" font-size="11.5" fill="#2b8a3e">✓ Nota criada no Kommo: a Raiane vê o que foi enviado</text>
+  <text x="54" y="912" font-size="11.5" fill="#2b8a3e">✓ Broadcast v4 agendado com segmento confirmado na releitura</text>
+  <text x="54" y="932" font-size="11.5" fill="#2b8a3e">✓ Landing capturando: nome, e-mail e telefone chegam ao Kit com as 3 tags</text>
+  <text x="54" y="954" font-size="11.5" fill="#e03131">✗ A API do Kommo NÃO injeta mensagem no chat (endpoint privado, 403)</text>
+
+  <rect x="756" y="782" width="448" height="196" rx="10" fill="#fff5f5" stroke="#e03131" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="774" y="808" font-size="13" font-weight="700" fill="#0f172a">CUIDADO</text>
+  <text x="774" y="832" font-size="11.5" fill="#64748b">IP bloqueado em 08/09 por excesso de chamadas ao Kommo.</text>
+  <text x="774" y="851" font-size="11.5" fill="#64748b">Espaçar requisições; não sondar endpoints em série.</text>
+  <text x="774" y="878" font-size="11.5" fill="#64748b">A leitura de tags do Kit atrasa por indexação: pode voltar</text>
+  <text x="774" y="897" font-size="11.5" fill="#64748b">vazia enquanto o painel já mostra a tag aplicada.</text>
+  <text x="774" y="924" font-size="11.5" fill="#64748b">WordPress: escrever pela API não publica. Limpar o cache do</text>
+  <text x="774" y="943" font-size="11.5" fill="#64748b">Elementor e fazer o ciclo draft→publish.</text>
+  <text x="774" y="965" font-size="11" fill="#e03131" font-weight="700">Perguntar antes de explorar.</text>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <rect x="36" y="998" width="1168" height="58" rx="10" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="54" y="1022" font-size="12.5" font-weight="700" fill="#6741d9">POR QUE VALE PARA QUALQUER PROJETO</text>
+  <text x="54" y="1043" font-size="11.5" fill="#64748b">O Worker não sabe o que é "Cartas de Gestoras": ele consulta um mapa — de qual landing veio, qual PDF entregar, qual tag aplicar. <tspan font-weight="700" fill="#0f172a">Projeto novo = uma linha nova no mapa.</tspan></text>
 </svg>

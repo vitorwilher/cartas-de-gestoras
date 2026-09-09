@@ -69,13 +69,14 @@ jobs:
       # semana. Falha aqui não derruba a edição — o PDF já foi gerado e enviado
       # por WhatsApp; só o link público fica com a versão anterior.
       - name: Publicar o PDF no GCS (URL fixa)
+        id: gcs
         continue-on-error: true
         env:
           SOCIAL_GCS_BUCKET: ${{ secrets.SOCIAL_GCS_BUCKET }}
           GCS_CREDENTIALS_JSON: ${{ secrets.GCS_CREDENTIALS_JSON }}
         run: |
-          if [ -z "$GCS_CREDENTIALS_JSON" ]; then
-            echo "GCS_CREDENTIALS_JSON ausente; pulando a publicação." >&2
+          if [ -z "$GCS_CREDENTIALS_JSON" ] || [ -z "$SOCIAL_GCS_BUCKET" ]; then
+            echo "::warning::PDF NÃO publicado no GCS — falta GCS_CREDENTIALS_JSON ou SOCIAL_GCS_BUCKET. O link público segue com a edição anterior."
             exit 0
           fi
           printf '%s' "$GCS_CREDENTIALS_JSON" > /tmp/gcs.json
@@ -91,16 +92,46 @@ jobs:
       # descarta o subscriber_filter em silêncio e mandaria para a lista inteira);
       # CONVERTKIT_API_SECRET só conta quantas pessoas a tag alcança.
       - name: Enviar o e-mail da semana
+        id: email
         continue-on-error: true
         env:
           CONVERT_KIT_V4: ${{ secrets.CONVERT_KIT_V4 }}
           CONVERTKIT_API_SECRET: ${{ secrets.CONVERTKIT_API_SECRET }}
         run: |
-          if [ -z "$CONVERT_KIT_V4" ]; then
-            echo "CONVERT_KIT_V4 ausente; pulando o e-mail da semana." >&2
+          # As DUAS credenciais são necessárias: sem CONVERTKIT_API_SECRET o
+          # script não consegue contar a tag e aborta como se estivesse vazia.
+          # Checar só uma delas daria "sucesso" sem e-mail nenhum.
+          faltando=""
+          [ -z "$CONVERT_KIT_V4" ] && faltando="$faltando CONVERT_KIT_V4"
+          [ -z "$CONVERTKIT_API_SECRET" ] && faltando="$faltando CONVERTKIT_API_SECRET"
+          if [ -n "$faltando" ]; then
+            echo "::warning::E-mail da semana NÃO enviado — secrets ausentes:$faltando"
             exit 0
           fi
           python divulgacao/broadcast_semanal.py --enviar --espera 30
+
+      # Um passo `continue-on-error` que falha deixa o run VERDE. Sem este
+      # resumo, "PDF não publicado" e "e-mail não enviado" seriam invisíveis:
+      # o ícone verde diria que a semana correu bem. Aqui o resultado de cada
+      # canal vira uma linha no Summary do run — e um aviso quando falha.
+      - name: Resumo da execução
+        if: always()
+        run: |
+          {
+            echo "## Cartas das Gestoras — $(date -u +'%d/%m/%Y')"
+            echo ""
+            echo "| Etapa | Resultado |"
+            echo "|---|---|"
+            echo "| PDF no GCS | ${{ steps.gcs.outcome }} |"
+            echo "| E-mail da semana | ${{ steps.email.outcome }} |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "${{ steps.email.outcome }}" != "success" ]; then
+            echo "::warning::O e-mail da semana NÃO saiu (${{ steps.email.outcome }}). Verifique o log do passo."
+          fi
+          if [ "${{ steps.gcs.outcome }}" != "success" ]; then
+            echo "::warning::O PDF não foi publicado no GCS — o link público está servindo a edição anterior."
+          fi
 
       - name: Commitar síntese e estado
         run: |

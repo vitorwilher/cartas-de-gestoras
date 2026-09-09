@@ -28,7 +28,7 @@ import argparse
 import os
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 import httpx
@@ -115,6 +115,29 @@ adapta e discorda — que é o ponto.</p>
 <p>Vítor Wilher — Análise Macro</p>"""
 
 
+def ja_existe(headers: dict[str, str], assunto: str) -> int | None:
+    """Devolve o id de um broadcast com este assunto, se já houver um.
+
+    Sem isto, rodar o script duas vezes na mesma semana agenda DOIS e-mails
+    idênticos para os mesmos leads — aconteceu em 09/09, num teste. O Kit
+    aceita assuntos repetidos sem reclamar, então a checagem é nossa.
+
+    Só olha a primeira página: os broadcasts vêm do mais recente para o mais
+    antigo, e um duplicado da mesma edição estaria entre os últimos criados.
+    """
+    try:
+        r = httpx.get(f"{BASE}/broadcasts", headers=headers,
+                      params={"per_page": 50}, timeout=60)
+        if r.status_code != 200:
+            return None
+        for b in r.json().get("broadcasts", []):
+            if b.get("subject") == assunto and b.get("status") in ("draft", "scheduled"):
+                return b.get("id")
+    except httpx.HTTPError:
+        return None
+    return None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true")
@@ -122,6 +145,8 @@ def main() -> int:
                     help="agenda o envio (padrão: só cria o rascunho)")
     ap.add_argument("--espera", type=int, default=15, metavar="MIN",
                     help="minutos até o disparo, para dar tempo de cancelar (padrão: 15)")
+    ap.add_argument("--idade-maxima", type=int, default=2, metavar="DIAS",
+                    help="recusa enviar edição mais velha que isso (padrão: 2 dias)")
     args = ap.parse_args()
 
     data, gestoras, conceito = edicao_mais_recente()
@@ -150,6 +175,37 @@ def main() -> int:
               file=sys.stderr)
         print("       não entrega nada — o único desfecho possível é erro.", file=sys.stderr)
         return 1
+
+    # GUARDA DE FRESCOR — a mais importante deste script.
+    #
+    # `cartas.py` sai com código 0 quando nenhuma gestora publicou na janela
+    # (silêncio é saída válida). O workflow não distingue isso de "gerei a
+    # edição", e `edicao_mais_recente()` lê o .qmd mais recente do acervo — que
+    # é versionado no git, então está sempre lá. Sem esta guarda, uma terça sem
+    # cartas reenviaria a edição da SEMANA ANTERIOR, com o mesmo assunto, para
+    # os mesmos leads. Duas semanas quietas, três e-mails iguais.
+    #
+    # As gestoras irregulares (Dynamo ~2-4/ano, IP ~1/ano) e a concentração das
+    # mensais no começo do mês tornam as terças de fim de mês candidatas
+    # naturais a "nada novo" — o cenário não é hipotético.
+    idade = (date.today() - date.fromisoformat(data)).days
+    if idade > args.idade_maxima:
+        print(f"\n[nada a enviar] A edição mais recente é de {data}, {idade} dias atrás.",
+              file=sys.stderr)
+        print("   Provavelmente nenhuma gestora publicou nesta janela — e reenviar",
+              file=sys.stderr)
+        print("   a edição anterior aos mesmos leads seria pior que não enviar.",
+              file=sys.stderr)
+        return 0
+
+    duplicado = ja_existe(headers, assunto)
+    if duplicado:
+        print(f"\n[nada a fazer] Já existe o broadcast {duplicado} com este assunto,",
+              file=sys.stderr)
+        print("   ainda não enviado. Criar outro mandaria o mesmo e-mail duas vezes.",
+              file=sys.stderr)
+        print(f"   Veja em https://app.kit.com/campaigns", file=sys.stderr)
+        return 0
 
     # O filtro é o que separa "os leads deste projeto" de "a lista inteira".
     # Vai já na criação: um rascunho sem filtro nasce apontado para todo mundo,
