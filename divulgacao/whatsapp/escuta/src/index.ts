@@ -156,6 +156,30 @@ function permitido(env: Env, telefone: string): boolean {
   return lista.includes(telefone);
 }
 
+/** Registra no lead do Kommo o que a automação enviou.
+ *
+ * ⚠️ POR QUE ISTO EXISTE: o Worker envia direto pela Cloud API, contornando o
+ *    Kommo — e o Kommo NÃO tem como saber. Sem esta nota, a Raiane abre o card,
+ *    vê só o "oi" do lead e não sabe que já respondemos. Pior: se o lead
+ *    responder ao PDF, a resposta cai no Kommo e parece que ele fala sozinho.
+ *
+ *    A API do Kommo não injeta mensagem na thread do chat (endpoint privado,
+ *    403). A nota é o que dá para fazer — e aparece no card.
+ */
+async function registrarNoKommo(env: Env, leadId: string, texto: string) {
+  if (!leadId) return { pulado: "sem lead" };
+  const url = `https://${env.KOMMO_SUBDOMAIN}.kommo.com/api/v4/leads/${leadId}/notes`;
+  const r = await fetch(url, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${env.KOMMO_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify([{ note_type: "common", params: { text: texto } }]),
+  });
+  return { http: r.status };
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -190,8 +214,20 @@ export default {
           // permissão. Enquanto a lista tiver poucos números, nenhum lead real
           // recebe nada por acidente.
           const tel = registro.telefone as string;
+          const leadId = registro.entity_id as string;
           if (permitido(env, tel)) {
-            registro.envio = await enviarPDF(env, tel, c.nome);
+            const envio = await enviarPDF(env, tel, c.nome);
+            registro.envio = envio;
+            // A nota é o que a Raiane vê. Sem ela, o atendimento fica cego
+            // para o que a automação fez.
+            const quando = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+            const texto = envio.wamid
+              ? `🤖 Automação: PDF da síntese das cartas enviado por WhatsApp em ${quando}.\n`
+                + `Mensagem: ${envio.wamid}\n`
+                + `Este envio saiu pela Cloud API e NÃO aparece na thread do chat.`
+              : `🤖 Automação: FALHA ao enviar o PDF em ${quando}. `
+                + `HTTP ${envio.http}${envio.erro ? " — " + envio.erro : ""}`;
+            registro.nota_kommo = await registrarNoKommo(env, leadId, texto);
           } else {
             registro.envio = { pulado: "fora da lista de permissão" };
           }

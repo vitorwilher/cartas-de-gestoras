@@ -198,3 +198,40 @@ chegou.
 Eu quase o cadastrei como `5535988195504`, acrescentando um 9 que não existe — a
 mensagem simplesmente não chegaria. **Sempre conferir o telefone como o Kommo
 guarda**, não como parece que deveria ser.
+
+
+---
+
+# O que a automação envia FICA REGISTRADO no Kommo
+
+Pergunta do Vitor, e a desconfiança estava certa: **não ficava.**
+
+## O problema
+
+O Worker envia direto pela Cloud API, contornando o Kommo — que não tem como
+saber. Verificado: depois de enviarmos o PDF às 21:59, o lead do Alan seguia com
+`updated_at` de 18:44:56, a hora em que ele escreveu. Nenhum rastro.
+
+**Por que isso é grave:** a Raiane abre o card, vê só o "oi" do lead, e não sabe
+que já respondemos. Pode responder de novo. E se o lead responder ao PDF, a
+resposta cai no Kommo — parecendo que ele fala sozinho, sobre algo que não está lá.
+
+## A solução
+
+Toda vez que envia, o Worker cria uma **nota no lead**:
+
+```
+🤖 Automação: PDF da síntese das cartas enviado por WhatsApp em 09/09/2026, 19:10.
+Mensagem: wamid.HBgNNTUx...
+Este envio saiu pela Cloud API e NÃO aparece na thread do chat.
+```
+
+Falha também é registrada, com o HTTP e o erro — para não haver silêncio.
+
+**Testado:** notas confirmadas nos cards do Alan (19:10:59) e do Luiz (19:11:06).
+
+## O que a nota NÃO é
+
+Não é a mensagem na thread do chat. A API do Kommo **não injeta mensagem em
+conversa de WhatsApp** (endpoint privado, 403). A nota aparece no card, no
+histórico — é o que dá para fazer, e resolve a cegueira.
