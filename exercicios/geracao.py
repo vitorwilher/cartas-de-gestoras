@@ -69,11 +69,20 @@ Estrutura:
      que sustenta a conclusão.
 
 4. **O gráfico no texto** — logo após o bloco de código, insira a linha
-   `![Legenda descritiva do que o gráfico mostra](grafico-exercicio.png)` para que a
-   imagem entre no PDF. A legenda deve dizer o que se vê, não repetir o título.
-5. **Como ler o resultado** — o que o número significa para a tese da gestora, e
+   `![Legenda](grafico-exercicio.png)` para que a imagem entre no PDF.
+   A legenda descreve **o que o leitor vê**, painel por painel, com os valores e
+   prazos EXATOS que o seu código usou — nada de arredondar ou trocar o vértice.
+   Ela é a primeira coisa que alguém confere contra o gráfico; se divergir, o
+   documento inteiro perde credibilidade.
+
+5. **Como o gráfico foi construído** — antes ou depois da figura, explique em 2-3
+   frases as decisões de construção que um leitor técnico questionaria: por que
+   estes vértices e não outros, de onde vem cada série, como foi feita a
+   interpolação, e que ajuste os dados exigiram. O leitor quer poder refazer o
+   gráfico, não só olhar.
+6. **Como ler o resultado** — o que o número significa para a tese da gestora, e
    qual valor mudaria a conclusão. Cite o que o gráfico mostra.
-6. **Vá além** — uma variação que o leitor pode tentar sozinho.
+7. **Vá além** — uma variação que o leitor pode tentar sozinho.
 
 Rigor: nada de código que não roda, nada de API paga, nada de dado inventado.
 Se precisar de um ticker ou série, use um real e diga qual é. Sem emojis."""

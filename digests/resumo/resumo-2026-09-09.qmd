@@ -310,7 +310,7 @@ plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
 print("\nGráfico salvo em grafico-exercicio.png")
 ```
 
-![À esquerda, a curva pré de hoje contra a Selic; à direita, a série da inclinação 5a-1a desde 2021, com o ponto atual marcado.](grafico-exercicio.png)
+![À esquerda, a curva prefixada do Tesouro Direto em 08/09/2026, com a inclinação entre os vértices de 2 e 7 anos destacada. À direita, a série dessa mesma inclinação desde 2010: a faixa cinza é o intervalo entre os percentis 10 e 90, a linha tracejada é a mediana (60 bps) e o ponto vermelho é hoje, em +48 bps.](grafico-exercicio.png)
 
 ### Como ler o resultado
 

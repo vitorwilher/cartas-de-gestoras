@@ -47,15 +47,19 @@ def _fig_para_uri(fig) -> str:
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
 
 
-def _estilo(ax):
-    """Aplica o visual claro da casa: sem molduras, grade suave, texto em INK_SOFT."""
-    for lado in ("top", "right"):
+def _limpar(ax, eixo_y_direita: bool = True):
+    """Visual de feed, não de relatório: sem molduras, poucos ticks, texto grande.
+
+    Num slide o leitor passa 2 segundos. Cada elemento que não conta a história
+    (moldura, ticks miúdos, rótulo de eixo óbvio) rouba atenção do que conta.
+    """
+    for lado in ("top", "right", "left", "bottom"):
         ax.spines[lado].set_visible(False)
-    for lado in ("left", "bottom"):
-        ax.spines[lado].set_color(LINE)
-    ax.tick_params(labelsize=15, colors=INK_SOFT)
-    ax.grid(axis="y", color=LINE, lw=1.2)
+    ax.tick_params(labelsize=21, colors=MUTED, length=0, pad=12)
+    ax.grid(axis="y", color=LINE, lw=1.6)
     ax.set_axisbelow(True)
+    if eixo_y_direita:
+        ax.yaxis.tick_right()
 
 
 def dados_do_exercicio() -> dict:
@@ -118,68 +122,79 @@ def dados_do_exercicio() -> dict:
     return dados
 
 
-def grafico_curva(d: dict) -> str:
-    """A curva pré de hoje, com a inclinação entre os dois vértices anotada."""
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    curva = d["curva_hoje"].sort_values("prazo")
-    x = list(curva["prazo"])
-    y = list(curva["taxa"])
-
-    fig, ax = plt.subplots(figsize=(7.4, 6.2))
-    ax.plot(x, y, color=BLUE, lw=4, marker="o", markersize=10,
-            solid_capstyle="round", zorder=3)
-
-    tc, tl = d["TENOR_CURTO"], d["TENOR_LONGO"]
-    yc, yl = d["taxa_curta"], d["taxa_longa"]
-    ax.annotate("", xy=(tl, yl), xytext=(tl, yc),
-                arrowprops=dict(arrowstyle="<->", color=NAVY, lw=2.5))
-    ax.annotate(f"+{d['atual_bps']:.0f} bps", (tl, (yc + yl) / 2),
-                xytext=(tl - 3.4, (yc + yl) / 2), fontsize=19,
-                color=NAVY, fontweight="bold", va="center")
-    for t, v in ((tc, yc), (tl, yl)):
-        ax.plot([t], [v], "o", color=NAVY, markersize=12, zorder=4)
-        ax.axvline(t, color=LINE, lw=1.4, zorder=1)
-
-    _estilo(ax)
-    ax.set_xlabel("prazo até o vencimento (anos)", fontsize=16, color=INK_SOFT)
-    ax.set_ylabel("taxa (% a.a.)", fontsize=16, color=INK_SOFT)
-    ax.set_title(f"Curva prefixada em {d['ultima']:%d/%m/%Y}", fontsize=19,
-                 color=NAVY, fontweight="bold", pad=16)
-    return _fig_para_uri(fig)
-
-
 def grafico_historico(d: dict) -> str:
-    """A inclinação no tempo, com a faixa 10-90% e o ponto de hoje destacado."""
+    """A inclinação no tempo — a história é 'onde estamos contra a história'."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     hist = d["hist"]
-    x = hist.index
-    y = hist["inclinacao_bps"]
+    x, y = hist.index, hist["inclinacao_bps"]
+    atual, p10, p90 = d["atual_bps"], d["p10"], d["p90"]
 
-    fig, ax = plt.subplots(figsize=(7.4, 6.2))
-    ax.axhspan(d["p10"], d["p90"], color=BLUE, alpha=0.10, zorder=1)
-    ax.plot(x, y, color=BLUE, lw=2, zorder=3)
-    ax.axhline(d["mediana"], color=MUTED, lw=1.6, linestyle="--", zorder=2)
-    ax.plot([x[-1]], [d["atual_bps"]], "o", color=NAVY, markersize=16, zorder=5)
-    # Rótulo perto do ponto: com xytext em fração dos eixos a linha atravessava o
-    # gráfico inteiro e cruzava a série.
-    ax.annotate(f"hoje: +{d['atual_bps']:.0f} bps\npercentil {d['percentil']:.0f}%",
-                (x[-1], d["atual_bps"]),
-                xytext=(-30, -95), textcoords="offset points",
-                fontsize=17, color=NAVY, fontweight="bold", ha="right",
-                arrowprops=dict(arrowstyle="-", color=NAVY, lw=1.6,
-                                connectionstyle="arc3,rad=0.2"))
+    fig, ax = plt.subplots(figsize=(9.6, 7.2))
+    ax.axhspan(p10, p90, color=BLUE, alpha=0.09, zorder=1)
+    ax.plot(x, y, color=BLUE, lw=2.6, zorder=3, solid_capstyle="round")
+    ax.axhline(d["mediana"], color=MUTED, lw=2, linestyle=(0, (6, 5)), zorder=2)
 
-    _estilo(ax)
-    ax.set_ylabel("inclinação (pontos-base)", fontsize=16, color=INK_SOFT)
-    ax.set_title(f"Inclinação {d['TENOR_LONGO']:.0f}a − {d['TENOR_CURTO']:.0f}a "
-                 f"desde {x[0]:%Y}", fontsize=19, color=NAVY,
-                 fontweight="bold", pad=16)
+    # O ponto de hoje é o assunto: círculo grande, halo branco e rótulo colado.
+    ax.plot([x[-1]], [atual], "o", color="white", markersize=30, zorder=5)
+    ax.plot([x[-1]], [atual], "o", color=NAVY, markersize=21, zorder=6)
+    # Rótulo ACIMA do ponto: abaixo ele colidia com os rótulos de ano.
+    ax.annotate(f"hoje: +{atual:.0f} bps", (x[-1], atual),
+                xytext=(-14, 96), textcoords="offset points",
+                fontsize=28, color=NAVY, fontweight="bold",
+                ha="right", va="bottom",
+                arrowprops=dict(arrowstyle="-", color=NAVY, lw=2.2,
+                                connectionstyle="arc3,rad=-0.25"))
+    ax.text(0.015, 0.965, "faixa dos 80% do tempo", transform=ax.transAxes,
+            fontsize=20, color=MUTED, va="top")
+
+    _limpar(ax)
+    ax.margins(x=0.02)
+    ax.set_yticks([0, 100, 200, 300])
+    ax.set_yticklabels(["0", "100", "200", "300 bps"])
+    return _fig_para_uri(fig)
+
+
+def grafico_curva(d: dict) -> str:
+    """A curva de hoje — a história é o degrau entre os dois vértices."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    curva = d["curva_hoje"].sort_values("prazo")
+    x, y = list(curva["prazo"]), list(curva["taxa"])
+    tc, tl = d["TENOR_CURTO"], d["TENOR_LONGO"]
+    yc, yl = d["taxa_curta"], d["taxa_longa"]
+
+    fig, ax = plt.subplots(figsize=(9.6, 7.2))
+    ax.plot(x, y, color=BLUE, lw=5, marker="o", markersize=11,
+            solid_capstyle="round", zorder=3)
+
+    # A inclinação é o assunto: faixa entre os dois vértices + seta grossa.
+    ax.axvspan(tc, tl, color=BLUE, alpha=0.07, zorder=1)
+    for t, v in ((tc, yc), (tl, yl)):
+        ax.plot([t], [v], "o", color="white", markersize=26, zorder=4)
+        ax.plot([t], [v], "o", color=NAVY, markersize=18, zorder=5)
+    # Seta dupla entre os dois vértices: é o "degrau" que a aposta persegue.
+    ax.annotate("", xy=(tl, yl), xytext=(tl, yc),
+                arrowprops=dict(arrowstyle="<|-|>", color=NAVY, lw=3,
+                                mutation_scale=22, shrinkA=0, shrinkB=0))
+    ax.text(tl - 0.28, (yc + yl) / 2, f"+{d['atual_bps']:.0f} bps",
+            fontsize=31, color=NAVY, fontweight="bold", ha="right", va="center")
+    # Rótulos dos vértices: o de 2 anos vai ABAIXO e à esquerda, senão cai em
+    # cima da curva, que sobe justamente ali.
+    ax.text(tc - 0.25, yc - 0.16, f"{tc:.0f} anos", fontsize=22, color=MUTED,
+            ha="right", va="top")
+    ax.text(tl, yl + 0.07, f"{tl:.0f} anos", fontsize=22, color=MUTED,
+            ha="center", va="bottom")
+
+    _limpar(ax)
+    ax.margins(x=0.04, y=0.16)
+    ax.set_xticks([])
+    ax.set_yticks([13.6, 14.0, 14.4])
+    ax.set_yticklabels(["13,6", "14,0", "14,4%"])
     return _fig_para_uri(fig)
 
 
@@ -271,6 +286,39 @@ def slides(d: dict) -> list[dict]:
     ]
 
 
+def ocupar_o_slide(html: str) -> str:
+    """Distribui o conteúdo na altura do slide, em vez de amontoá-lo no topo.
+
+    O `.bd` do design system usa `justify-content:flex-start`, pensado para
+    slides densos. Com bullets curtos sobra um vazio enorme embaixo — o conteúdo
+    ocupava menos de metade dos 1350px. Aqui centramos verticalmente, damos ar
+    entre os itens e aumentamos o corpo do texto, que no feed é lido no celular.
+
+    O override é aplicado ao HTML gerado, não ao design system em
+    ../ROI_Diagnostico — os carrosséis dos outros produtos seguem como estão.
+    """
+    override = """
+    /* --- ajustes deste carrossel (ver ocupar_o_slide) --- */
+    /* Distribui na altura: com bullets curtos, flex-start deixava metade do
+       slide em branco. `space-between` empurra o último item para a base. */
+    .bd { justify-content: space-between; padding: 30px 0 10px; }
+    .lst { flex: 1 1 auto; justify-content: space-evenly; gap: 0; }
+    .li { font-size: 54px; line-height: 1.26; }
+    .title { font-size: 68px; line-height: 1.14; margin-bottom: 10px; }
+    .def-list { flex: 1 1 auto; justify-content: space-evenly; gap: 0; }
+    .def-term { font-size: 50px; }
+    .def-desc { font-size: 44px; line-height: 1.30; }
+    .body { font-size: 48px; line-height: 1.40; }
+    .mk-dia, .mk-check, .mk-num { transform: scale(1.15); }
+    /* Slides com gráfico: a imagem ganha o espaço que sobra. */
+    .capa-media-wrap { flex: 1 1 auto; display: flex; align-items: center;
+                       margin-top: 20px; }
+    .capa-media { width: 100%; height: auto; }
+    .stat { margin: 20px 0; }
+    """
+    return html.replace("</style>", override + "</style>", 1)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--so-html", action="store_true", help="não rasteriza os PNGs")
@@ -285,6 +333,7 @@ def main() -> int:
     SAIDA.mkdir(parents=True, exist_ok=True)
     lista = slides(dados)
     html = build(lista, fmt="post")
+    html = ocupar_o_slide(html)
     destino = SAIDA / "carrossel.html"
     destino.write_text(html, encoding="utf-8")
     print(f"HTML: {destino} ({len(lista)} slides)")
