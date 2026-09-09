@@ -76,7 +76,11 @@ async function buscarContato(env: Env, contactId: string): Promise<Contato | nul
  *    no momento do cadastro — aí a consulta é instantânea e exata. Fica para
  *    quando a ponte PHP for ajustada.
  */
-const TAG_PROJETO = 22406993;   // "Mercado Financeiro"
+// ⚠️ A tag do PROJETO, não a guarda-chuva. "Mercado Financeiro" (22406993) tem
+//    534 pessoas, a maioria vinda de outros materiais — usá-la como critério
+//    mandaria o PDF para quem nunca pediu. "Leads - Cartas Semanais" só tem quem
+//    passou por ESTA landing.
+const TAG_PROJETO = 23251247;   // "Leads - Cartas Semanais"
 
 async function buscarNoKit(env: Env, telefone: string) {
   if (!env.CONVERTKIT_SECRET || !telefone) return { estado: "sem_dados" };
@@ -150,10 +154,30 @@ async function enviarPDF(env: Env, telefone: string, nome: string) {
   };
 }
 
-/** O número está autorizado a receber? Lista vazia = ninguém. */
-function permitido(env: Env, telefone: string): boolean {
+/** Quem recebe a resposta automática?
+ *
+ * Duas portas, e ambas exigem confirmação positiva:
+ *
+ *  1. `veio_da_landing` — o telefone está na tag DO PROJETO ("Leads - Cartas
+ *     Semanais"). É a porta de produção: quem passou pela nossa landing.
+ *  2. `PERMITIDOS` — lista fixa, para teste. Independe do Kit.
+ *
+ * ⚠️ REGRA DA DÚVIDA (decisão do Vitor): se a busca no Kit falhar — API fora do
+ *    ar, telefone em formato inesperado —, **não enviamos**. A conversa segue
+ *    para a Raiane como qualquer outra. Um lead sem PDF automático é um
+ *    problema pequeno; um cliente recebendo material de captação no meio de
+ *    outro assunto é um problema grande.
+ */
+function podeReceber(env: Env, telefone: string, estadoKit: string): {
+  ok: boolean; motivo: string;
+} {
   const lista = (env.PERMITIDOS ?? "").split(",").map((x) => x.trim()).filter(Boolean);
-  return lista.includes(telefone);
+  if (lista.includes(telefone)) return { ok: true, motivo: "lista de teste" };
+  if (estadoKit === "encontrado") return { ok: true, motivo: "veio da landing" };
+  if (estadoKit === "erro_kit") {
+    return { ok: false, motivo: "Kit indisponível — na dúvida, não enviamos" };
+  }
+  return { ok: false, motivo: "não veio desta landing" };
 }
 
 /** Registra no lead do Kommo o que a automação enviou.
@@ -215,7 +239,9 @@ export default {
           // recebe nada por acidente.
           const tel = registro.telefone as string;
           const leadId = registro.entity_id as string;
-          if (permitido(env, tel)) {
+          const decisao = podeReceber(env, tel, (lead as any).estado ?? "");
+          registro.decisao = decisao;
+          if (decisao.ok) {
             const envio = await enviarPDF(env, tel, c.nome);
             registro.envio = envio;
             // A nota é o que a Raiane vê. Sem ela, o atendimento fica cego
@@ -234,7 +260,7 @@ export default {
                 + `HTTP ${envio.http}${envio.erro ? ": " + envio.erro : ""}`;
             registro.nota_kommo = await registrarNoKommo(env, leadId, texto);
           } else {
-            registro.envio = { pulado: "fora da lista de permissão" };
+            registro.envio = { pulado: decisao.motivo };
           }
         }
       }

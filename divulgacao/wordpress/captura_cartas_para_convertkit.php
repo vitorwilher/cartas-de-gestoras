@@ -44,7 +44,19 @@ add_action( 'elementor_pro/forms/new_record', function ( $record, $handler ) {
 
 	// Conferidos na API do Kit em 09/09/2026.
 	$SEQUENCIA = 2888305;    // "Cartas Semanais: Síntese Semanal das Cartas das Gestoras"
-	$TAG       = 22406993;   // "Mercado Financeiro" — a que TEM gente (a 22775548 é órfã)
+
+	// TRÊS tags, com papéis diferentes:
+	//   - PROJETO identifica quem veio DESTA landing. É a ÚNICA que a automação
+	//     de WhatsApp consulta para decidir se responde com o PDF.
+	//   - As outras duas alimentam segmentação e broadcast: uma pelo tema
+	//     (Mercado Financeiro, 534 pessoas) e outra pelo formato (Exercícios).
+	// Usar uma guarda-chuva como critério de envio mandaria PDF para gente que
+	// nunca ouviu falar deste projeto.
+	$TAG_PROJETO = 23251247;   // "Leads - Cartas Semanais"  ← decide o envio
+	$TAGS_TEMA   = array(
+		22406993,   // "Mercado Financeiro"
+		13265211,   // "Leads - Exercícios"
+	);
 	$secret    = '<<<API_SECRET_DO_CONVERTKIT>>>';
 
 	$fields = $record->get( 'fields' );
@@ -105,17 +117,20 @@ add_action( 'elementor_pro/forms/new_record', function ( $record, $handler ) {
 			$email, $code, '' !== $digitos ? 'sim' : 'nao' ) );
 	}
 
-	// A tag é separada: a sequência entrega a régua, a tag segmenta broadcast.
-	$resp2 = wp_remote_post(
-		'https://api.convertkit.com/v3/tags/' . $TAG . '/subscribe',
-		array(
-			'timeout' => 20,
-			'headers' => array( 'Content-Type' => 'application/json' ),
-			'body'    => wp_json_encode( array( 'api_secret' => $secret, 'email' => $email ) ),
-		)
-	);
-	if ( is_wp_error( $resp2 ) ) {
-		error_log( '[CARTAS->CK] tag falhou: ' . $resp2->get_error_message() );
+	// As tags são separadas da sequência: a sequência entrega a régua de e-mail,
+	// as tags segmentam. Falha em uma não impede a outra.
+	foreach ( array_merge( array( $TAG_PROJETO ), $TAGS_TEMA ) as $tag_id ) {
+		$r = wp_remote_post(
+			'https://api.convertkit.com/v3/tags/' . $tag_id . '/subscribe',
+			array(
+				'timeout' => 20,
+				'headers' => array( 'Content-Type' => 'application/json' ),
+				'body'    => wp_json_encode( array( 'api_secret' => $secret, 'email' => $email ) ),
+			)
+		);
+		if ( is_wp_error( $r ) ) {
+			error_log( '[CARTAS->CK] tag ' . $tag_id . ' falhou: ' . $r->get_error_message() );
+		}
 	}
 
 }, 40, 2 );   // prioridade 40: depois da ponte de UTM (20) e das Categorias (30).
