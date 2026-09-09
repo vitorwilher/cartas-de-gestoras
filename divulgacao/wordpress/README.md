@@ -1,11 +1,20 @@
 # Landing de captura — fluxo de dois passos
 
-**Status: as duas páginas existem como RASCUNHO.**
+**Status: as duas páginas estão PUBLICADAS, com layout Elementor.**
+
+⚠️ **A página de captura foi recriada (78368 → 78376).** Eu havia gravado uma sonda
+"TESTE DE ESCRITA" na 78368 ao verificar se o `_elementor_data` aceitava escrita,
+e o WordPress passou a servir aquela versão mesmo depois de eu regravar o layout
+— o conteúdo ficou preso nas revisões do post. Trocar o slug, republicar e limpar
+o meta não resolveram. A saída foi criar a página do zero, sem histórico, e apagar
+a antiga em definitivo (para liberar o slug).
+
+**Lição:** nunca gravar dado de teste num post real. Testar em post descartável.
 
 | Página | id | Slug |
 |---|---|---|
-| Captura | `78368` | `cartas-de-gestoras` |
-| Obrigado | `78374` | `cartas-de-gestoras-obrigado` |
+| Captura | `78376` | `/conteudo/cartas-das-gestoras/` — **no ar** |
+| Obrigado | `78374` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
 
 Editar: `analisemacro.com.br/wp-admin/post.php?post=<id>&action=edit`
 
@@ -106,7 +115,7 @@ Na página 78368, três campos:
 id que a ponte reconhece o form; com outro valor ela ignora o submit em silêncio.
 
 ⚠️ **Ações após o envio → Redirecionar** para a página de obrigado
-(`/cartas-de-gestoras-obrigado`).
+(`/conteudo/cartas-das-gestoras-obrigado/`).
 
 ## ⚠️ O que ainda NÃO tem: design
 
