@@ -1,81 +1,67 @@
-# Hub de WhatsApp — arquitetura
+# Arquitetura da entrega semanal
 
-![Arquitetura](arquitetura-whatsapp-hub.svg)
+O desenho vive em `arquitetura-whatsapp-hub.svg` (SVG escrito à mão; o
+`.excalidraw` é a versão editável da primeira iteração, hoje defasada).
 
-Editável: `arquitetura-whatsapp-hub.excalidraw`
+## O que o sistema faz
 
-## O problema, em uma frase
+Toda terça, 07:00 BRT, o pipeline lê as cartas novas das 12 gestoras, escreve a
+síntese, gera o exercício em Python, publica o PDF numa URL fixa e dispara dois
+canais — **sem intervenção humana**.
 
-**A WABA aceita UM webhook, e ele está com o Kommo.** Verificado em
-`GET /{WABA}/subscribed_apps`: só o app Kommo (`1022173854571346`) está inscrito.
-Hoje é **saída pela Cloud API, entrada pelo Kommo** — quando alguém responde, cai
-no board da Raiane.
+## As quatro fases, e o que cada uma provou
 
-Conectar o ManyChat (ou qualquer outro provedor) exigiria **substituir** o Kommo,
-o que quebraria o atendimento do número principal. Foi esse o impasse.
+| Fase | O que faz | Status |
+|---|---|---|
+| 1 · ouvir | Receber o `add_talk` do Kommo | ✓ provado 09/09 — Alan 21:44, Luiz 21:47 |
+| 2 · registrar | Resolver nome/telefone e cruzar com a tag do Kit | ✓ provado 09/09 |
+| 3 · responder | Enviar o PDF pela Cloud API | ✓ provado 09/09 — HTTP 200 + wamid |
+| 4 · follow-up | Mensagem de D+1 dentro da janela de 24h | não iniciada |
 
-## A inversão que destrava
+## As duas decisões que sustentam tudo
 
-Em vez de escolher entre Kommo *ou* automação, **o webhook passa a ser nosso** — um
-Cloudflare Worker que recebe tudo e decide o destino de cada mensagem:
+**1. O Kommo avisa; nós ouvimos.** A Meta aceita um webhook por WABA, e ele é do
+Kommo. Assumi-lo mataria o atendimento da Raiane. Verificamos que a alternativa
+óbvia era impossível — a API do Kommo não injeta mensagem no chat nativo
+(endpoint privado, 403) — e invertemos a direção: consumimos o webhook do próprio
+Kommo. Ele continua dono do canal.
 
-- mensagem para o número de captação → responde o PDF, agenda o D+1
-- mensagem para o número de atendimento → repassa ao Kommo, intacto
+**2. Quem decide o envio é a tag do projeto.** `Leads - Cartas Semanais`
+(23251247), não a guarda-chuva `Mercado Financeiro` (534 pessoas). Usar a
+guarda-chuva mandaria PDF para gente que nunca ouviu falar do projeto.
 
-O Kommo continua recebendo o que sempre recebeu. Nada muda para a Raiane.
+## Os dois canais
 
-## Por que é rápido de implementar
+**E-mail** (`divulgacao/broadcast_semanal.py --enviar`) — alcança todo lead
+cadastrado. Agenda para +30 min em vez de disparar no ato: `scheduled` é
+cancelável, envio imediato não é.
 
-Quase tudo já existe, e foi verificado hoje (2026-09-09):
+**WhatsApp** (`divulgacao/whatsapp/escuta/`) — só para quem escreveu primeiro; é
+o lead que abre a janela de 24h. Na dúvida (Kit indisponível), não envia.
 
-| Peça | Estado |
-|---|---|
-| Token com `whatsapp_business_messaging` | System User, **não expira** |
-| Cloudflare Workers | **4 em produção** (nucleos, imersão, MPP, cartas) |
-| Ponte WordPress → ConvertKit | testada: nome, telefone e tag chegam |
-| PDF em URL fixa | no GCS, atualizado pelo pipeline toda terça |
-| Kommo | API e token longo no `.env` do ROI |
-| Cron para o D+1 | nativo do Workers (`scheduled`) |
+## Guardas que impedem o pior desfecho
 
-**Falta:** número novo na WABA, trocar o webhook, ~200 linhas de Worker e o mapa
-de projetos no KV. Nenhuma infra nova.
+O pior desfecho de um sistema de comunicação automática não é ficar mudo — é
+mandar a mensagem errada para a pessoa certa. Três guardas:
 
-## Por que escala para qualquer projeto
+1. **Frescor** — recusa edição mais velha que 2 dias. Sem isso, uma terça sem
+   cartas reenviaria a edição anterior aos mesmos leads.
+2. **Duplicata** — não cria broadcast se já existe um pendente com o mesmo
+   assunto. Rodar duas vezes agendava dois e-mails idênticos.
+3. **Segmento confirmado na releitura** — a v3 do Kit aceitava o filtro,
+   respondia 200 e o descartava. Status HTTP não é prova de efeito.
 
-O hub **não sabe** o que é "Cartas de Gestoras". Ele lê o número de destino e
-consulta um mapa no KV:
+## Por que vale para qualquer projeto
 
-```json
-{
-  "5521XXXXXXXX": {
-    "projeto": "cartas-de-gestoras",
-    "pdf": "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf",
-    "tag_kit": 22406993,
-    "sequencia_kit": 2888305,
-    "boas_vindas": "Oi, {nome}! Aqui está a síntese desta semana 👇",
-    "followup_h": 24
-  }
-}
-```
+O Worker não sabe o que é "Cartas de Gestoras". Ele consulta um mapa: de qual
+landing veio, qual PDF entregar, qual tag aplicar, qual sequência disparar.
+**Projeto novo = uma linha nova no mapa.**
 
-Projeto novo = **uma linha nova no mapa**. Zero código, zero deploy.
+## Cuidados
 
-Se um dia forem muitos projetos num número só, o roteamento passa a ser pela
-palavra-chave da primeira mensagem — a mesma lógica, outra chave de busca.
-
-## Duas decisões que ficam para o Vitor
-
-1. **Um número por projeto, ou um número para todos?** Um número para todos é mais
-   barato e simples; um por projeto separa métrica e reputação.
-2. **O que o hub faz quando não reconhece o número/palavra?** O padrão seguro é
-   repassar ao Kommo — melhor um humano ler do que a mensagem sumir.
-
-## Ordem de implementação sugerida
-
-1. Número novo na WABA (verificação por SMS, ~15 min)
-2. Worker com o roteador e o repasse ao Kommo — **testar que nada quebrou**
-3. Só então a resposta automática do PDF
-4. Por último o D+1, que é o mais delicado (janela de 24h)
-
-O passo 2 é o mais importante: enquanto ele não estiver provado, não vale ligar o
-resto. É o que garante que o atendimento atual continua intacto.
+- **IP bloqueado em 08/09** por excesso de chamadas ao Kommo. Espaçar
+  requisições; não sondar endpoints em série.
+- **A leitura de tags do Kit atrasa por indexação** — pode voltar vazia enquanto
+  o painel já mostra a tag aplicada. Não concluir falha de uma leitura só.
+- **No WordPress, escrever pela API não publica.** Limpar o cache do Elementor
+  (`DELETE /wp-json/elementor/v1/cache`) e fazer o ciclo `draft → publish`.
