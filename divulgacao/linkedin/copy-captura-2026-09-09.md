@@ -114,7 +114,9 @@ Por que essa escolha:
 ### Ressalvas antes de publicar
 
 - ⚠️ **Conferir a URL da landing.** A copy usa
-  `https://analisemacro.com.br/projetos/cartas-das-gestoras/`, informada no briefing.
+  `https://analisemacro.com.br/projetos/cartas-das-gestoras/` — VERIFICADA no ar em
+  09/09: HTTP 200, título e formulário presentes. A `/conteudo/` citada no README
+  é de uma versão anterior da página e não vale mais.
   O `divulgacao/wordpress/README.md` registra a página de captura em
   `/conteudo/cartas-das-gestoras/` (id 78395). Se o slug mudou, o README está
   desatualizado; se não mudou, a copy precisa do slug antigo. **Não publicar sem
