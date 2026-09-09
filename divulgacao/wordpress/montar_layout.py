@@ -33,11 +33,13 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
 PAGINA_CAPTURA = 78405
-PAGINA_OBRIGADO = 78419
+PAGINA_OBRIGADO = 78421
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
-WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
-         "%20S%C3%ADntese%20das%20Cartas%20das%20Gestoras%20e%20quero%20receber"
-         "%20o%20PDF%20por%20aqui.")
+# ⚠️ O `text=` fica: é a mensagem que o LEAD envia, e é o envio dela que abre a
+#    janela de 24h em que podemos responder sem template. Sem isso, o clique
+#    abre uma conversa vazia e a janela não abre.
+WHATS = ("https://wa.me/5521971167250?text=Quero%20receber%20a%20s%C3%ADntese"
+         "%20das%20cartas%20das%20gestoras%20no%20WhatsApp.")
 
 
 NAVY = "#2B3551"     # global "primary"
@@ -439,12 +441,12 @@ def layout_obrigado() -> list:
 
         secao([
             titulo("Receba também no WhatsApp", align="center", tamanho=34, mb=8),
-            texto('<p style="text-align:center;font-size:19px">Manda um <strong>"Oi"</strong> '
-                  'que eu te envio o PDF por lá na hora — e, se quiser, a síntese de toda '
+            texto('<p style="text-align:center;font-size:19px">Toque no botão abaixo e '
+                  'eu te envio o PDF por lá na hora — e, se quiser, a síntese de toda '
                   'semana chega no mesmo lugar.</p>'),
-            botao('Mandar "Oi" no WhatsApp', WHATS, cor="#25D366"),
-            texto('<p style="text-align:center;margin-top:14px"><small>É você quem inicia '
-                  'a conversa — assim eu posso te responder sem ficar preso a mensagem '
+            botao("Receber no WhatsApp", WHATS, cor="#25D366"),
+            texto('<p style="text-align:center;margin-top:14px"><small>A conversa começa '
+                  'por você — é o que me permite responder na hora, sem mensagem '
                   'automática. Se preferir só o e-mail, é só ignorar este passo.</small></p>',
                   tamanho=15),
         ], pad_v=64),
