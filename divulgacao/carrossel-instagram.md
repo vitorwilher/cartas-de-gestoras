@@ -24,30 +24,35 @@ que rendeu 174 mensagens e zero respostas em Claude Code T2.
 
 ## Os 9 slides
 
-**Bullets, não parágrafos** (pedido do Vitor em 09/09): no feed o texto compete com
-o polegar. E os dois gráficos são os **mesmos do exercício da edição**, redesenhados
-em retrato — não ilustrações.
+**A regra que organiza a ordem:** nenhum gráfico aparece antes de o leitor ter
+contexto para lê-lo. Foi o erro da versão anterior — a capa trazia a série da
+inclinação da curva enquanto a manchete falava de inflação e gestoras, e "48 bps"
+não significa nada para quem passa o polegar sem saber do que é a medida.
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + **gráfico real** | "Quatro gestoras leram a mesma inflação. Duas fizeram a aposta oposta." — série da inclinação desde 2010, com o ponto de hoje |
-| 2 | lista ✓ | No que elas concordam: 4 bullets |
+| 1 | capa + gráfico | A divergência do Copom: duas trajetórias de Selic, cada casa nomeada na ponta da linha |
+| 2 | lista ✓ | No que elas concordam — 4 bullets |
 | 3 | lista | Onde racha: o Copom — 3 bullets |
 | 4 | definição | A diferença não é sobre inflação: Legacy/Occam × Kinea |
-| 5 | lista | E isso custa dinheiro — o steepener explicado em um bullet |
-| 6 | capa + **gráfico real** | "Dá para medir quanto dessa aposta já está no preço" — curva pré de hoje |
-| 7 | dado | **+48 bps** — a inclinação hoje, percentil 45 desde 2010 |
-| 8 | lista | Por que ler as doze juntas — 3 bullets |
+| 5 | lista | E isso custa dinheiro — o *steepener* explicado aqui, **antes** dos gráficos de curva |
+| 6 | capa + gráfico | "É esse degrau que elas estão comprando" — a curva de hoje |
+| 7 | capa + gráfico | "+48 bps, percentil 45" — a inclinação contra a própria história |
+| 8 | lista | O que isso quer dizer — a aposta não está barata na entrada |
 | 9 | CTA | Comente `GESTORAS` + pergunta |
+
+**Todo gráfico leva título e subtítulo dizendo o que a medida é** (ex.: "Inclinação
+da curva: 7 anos − 2 anos" / "quanto o juro longo paga a mais que o curto"). Num
+carrossel não há legenda nem texto de apoio: o gráfico precisa se apresentar.
 
 ⚠️ **Os números vêm do próprio exercício.** `carrossel.py` reexecuta o bloco de
 código da edição mais recente (cortando antes da parte de gráfico) e lê as
 variáveis de lá. Se o carrossel dissesse 48 bps e o PDF outra coisa, a
 inconsistência seria checável por quem lê os dois.
 
-⚠️ O exercício é reescrito pelo modelo a cada edição, então os **nomes das
-variáveis mudam**. `dados_do_exercicio()` normaliza por alias e **falha alto** se
-faltar algo essencial — melhor do que um KeyError no meio do render.
+⚠️ O exercício é reescrito pelo modelo a cada edição e os **nomes das variáveis
+mudam**. `dados_do_exercicio()` normaliza por alias e **falha alto** se faltar algo
+essencial — melhor do que um KeyError no meio do render.
 
 ## Legenda do post
 
@@ -88,11 +93,11 @@ faltar algo essencial — melhor do que um KeyError no meio do render.
 
 ## Sobre os gráficos
 
-Os dois gráficos são **dados reais**, gerados pelo mesmo código do exercício que
-está no PDF da edição: curva prefixada do Tesouro Direto em 08/09/2026 e a série da
-inclinação 7a−2a desde 2010. A inclinação de **+48 bps no percentil 45** é medida,
-não estimada.
+Os slides 6 e 7 são **dados reais**, do mesmo código do exercício que está no PDF:
+curva prefixada do Tesouro Direto em 08/09/2026 e a série da inclinação 7a−2a desde
+2010. A inclinação de **+48 bps no percentil 45** é medida, não estimada.
 
-Isso é diferente da versão anterior deste carrossel, que trazia uma ilustração de
-duas trajetórias de Selic — conceitualmente correta, mas que nenhuma carta publica
-ponto a ponto. A troca elimina a ressalva que era necessária ali.
+⚠️ **O gráfico da capa é ilustrativo do conceito.** As cartas dizem a direção
+("ciclo segue" × "pausa"), não uma trajetória de Selic ponto a ponto. Por isso o
+eixo x é relativo (hoje, +6m, +12m, +18m) e não afirma data nem valor futuro —
+mostra a forma da divergência. Se alguém do mercado perguntar, essa é a resposta.

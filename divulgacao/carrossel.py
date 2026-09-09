@@ -62,6 +62,62 @@ def _limpar(ax, eixo_y_direita: bool = True):
         ax.yaxis.tick_right()
 
 
+def _titulo(ax, titulo: str, medida: str):
+    """Título + o que a medida É — sem isso o gráfico não se explica sozinho.
+
+    Ao "limpar para o feed" eu havia removido os títulos, e a capa virou uma
+    série de 16 anos sem dizer o que estava no eixo. Num carrossel o leitor não
+    tem legenda nem texto de apoio: o gráfico precisa se apresentar.
+    """
+    ax.set_title(titulo, fontsize=30, color=NAVY, fontweight="bold",
+                 loc="left", pad=44)
+    ax.text(0, 1.035, medida, transform=ax.transAxes,
+            fontsize=22, color=MUTED, va="bottom")
+
+
+def grafico_divergencia() -> str:
+    """A capa: o racha do Copom, que é o que a manchete promete.
+
+    Ilustração do CONCEITO — as cartas dizem a direção ("ciclo segue" × "pausa"),
+    não uma trajetória ponto a ponto. Por isso o gráfico não leva escala de data
+    fechada nem afirma valores futuros: mostra a forma da divergência.
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    meses = list(range(7))
+    rotulos = ["hoje", "", "+6m", "", "+12m", "", "+18m"]
+    ciclo = [14.00, 13.75, 13.50, 13.25, 13.00, 12.75, 12.50]
+    pausa = [14.00, 14.00, 14.00, 13.75, 13.50, 13.25, 13.00]
+
+    fig, ax = plt.subplots(figsize=(9.6, 7.0))
+    ax.fill_between(meses, ciclo, pausa, color=BLUE, alpha=0.10, zorder=1)
+    ax.plot(meses, ciclo, color=BLUE, lw=6, marker="o", markersize=13,
+            solid_capstyle="round", zorder=3)
+    ax.plot(meses, pausa, color=NAVY, lw=6, marker="o", markersize=13,
+            linestyle=(0, (5, 3)), solid_capstyle="round", zorder=3)
+
+    ax.text(6.15, ciclo[-1], "Bahia\nOccam\nLegacy", fontsize=24, color=BLUE,
+            fontweight="bold", va="center", linespacing=1.2)
+    ax.text(6.15, pausa[-1], "Kinea", fontsize=24, color=NAVY,
+            fontweight="bold", va="center")
+    ax.annotate("a pausa", (2, 14.0), xytext=(1.75, 14.30), fontsize=25,
+                color=NAVY, fontweight="bold", ha="center",
+                arrowprops=dict(arrowstyle="-", color=MUTED, lw=2))
+
+    _limpar(ax, eixo_y_direita=False)
+    ax.set_xticks(meses)
+    ax.set_xticklabels(rotulos)
+    ax.set_yticks([12.5, 13.0, 13.5, 14.0])
+    ax.set_yticklabels(["12,5", "13,0", "13,5", "14,0%"])
+    ax.set_xlim(-0.3, 8.3)
+    ax.set_ylim(12.2, 14.55)
+    _titulo(ax, "Duas leituras da mesma inflação",
+            "para onde vai a Selic, segundo cada casa")
+    return _fig_para_uri(fig)
+
+
 def dados_do_exercicio() -> dict:
     """Roda a parte de DADOS do exercício da edição mais recente.
 
@@ -154,6 +210,8 @@ def grafico_historico(d: dict) -> str:
     ax.margins(x=0.02)
     ax.set_yticks([0, 100, 200, 300])
     ax.set_yticklabels(["0", "100", "200", "300 bps"])
+    _titulo(ax, "Inclinação da curva: 7 anos − 2 anos",
+            "quanto o juro longo paga a mais que o curto")
     return _fig_para_uri(fig)
 
 
@@ -195,18 +253,23 @@ def grafico_curva(d: dict) -> str:
     ax.set_xticks([])
     ax.set_yticks([13.6, 14.0, 14.4])
     ax.set_yticklabels(["13,6", "14,0", "14,4%"])
+    _titulo(ax, "A curva de juros hoje",
+            "taxa dos prefixados do Tesouro, por prazo")
     return _fig_para_uri(fig)
 
 
 def slides(d: dict) -> list[dict]:
-    """Os 9 slides. Abre com CENA (nível 1-2 de consciência), fecha em salvamento.
+    """Os 9 slides, na ordem em que a história se sustenta.
 
-    Bullets, não parágrafos: no feed o texto compete com o polegar. Os dois
-    gráficos são os MESMOS do exercício da edição, redesenhados em retrato.
+    A regra que organiza tudo: **nenhum gráfico aparece antes de o leitor ter
+    contexto para lê-lo**. A capa mostra a divergência entre as casas, que é o
+    que a manchete promete; o gráfico da inclinação da curva só entra depois do
+    slide que explica o que é um steepener — antes disso, "48 bps" não significa
+    nada para quem passa o polegar.
 
-    Sem preço e sem oferta — o público do Instagram está no topo do funil, e
-    entregar nível 5 a quem está no 2 é o erro documentado que rendeu 174
-    mensagens e zero respostas na campanha de Claude Code T2.
+    Bullets, não parágrafos. Sem preço e sem oferta: o público está em nível 1-2
+    de consciência, e nível 5 no primeiro toque é o erro documentado que rendeu
+    174 mensagens e zero respostas na campanha de Claude Code T2.
     """
     bps = f"{d['atual_bps']:.0f}"
     pct = f"{d['percentil']:.0f}"
@@ -214,7 +277,7 @@ def slides(d: dict) -> list[dict]:
         {
             "kind": "capa",
             "hook": "Quatro gestoras leram a *mesma* inflação. Duas fizeram a aposta oposta.",
-            "src": grafico_historico(d),
+            "src": grafico_divergencia(),
         },
         {
             "kind": "lista",
@@ -251,30 +314,30 @@ def slides(d: dict) -> list[dict]:
             "variant": "diamond",
             "items": [
                 "Bahia e Occam carregam o mesmo trade",
-                "*Steepener:* aposta em que o juro longo sobe mais que o curto",
+                "*Steepener:* ganham se o juro longo subir mais que o curto",
                 "A pausa da Kinea é o cenário em que a perna curta perde",
             ],
         },
         {
             "kind": "capa",
-            "hook": "Dá para medir *quanto* dessa aposta já está no preço 👇",
+            "hook": "É esse *degrau* que elas estão comprando 👇",
             "hint": False,
             "src": grafico_curva(d),
         },
         {
-            "kind": "dado",
-            "value": f"+{bps} bps",
-            "label": f"a inclinação da curva hoje — percentil {pct} desde 2010",
-            "note": "Nem esticada, nem comprimida. O steepener não está barato na entrada.",
+            "kind": "capa",
+            "hook": f"E ele está em +{bps} bps — no *percentil {pct}* desde 2010.",
+            "hint": False,
+            "src": grafico_historico(d),
         },
         {
             "kind": "lista",
-            "title": "Por que ler as *doze* juntas",
+            "title": "O que isso quer dizer",
             "variant": "diamond",
             "items": [
-                "Uma carta mostra a visão de uma casa",
-                "Doze mostram onde o mercado concorda",
-                "E onde a mesma leitura vira apostas incompatíveis",
+                "Nem esticado, nem comprimido: o degrau está na média histórica",
+                "Ou seja, a aposta *não* está barata na entrada",
+                "Dá para medir isso em Python, com dado público",
             ],
         },
         {
