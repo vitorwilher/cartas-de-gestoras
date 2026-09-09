@@ -22,18 +22,32 @@ rótulo engaja metade. Sem preço e sem oferta — o público do Instagram está
 nível 1-2 de consciência, e entregar nível 5 a quem está no 2 é o erro documentado
 que rendeu 174 mensagens e zero respostas em Claude Code T2.
 
-## Os 8 slides
+## Os 9 slides
+
+**Bullets, não parágrafos** (pedido do Vitor em 09/09): no feed o texto compete com
+o polegar. E os dois gráficos são os **mesmos do exercício da edição**, redesenhados
+em retrato — não ilustrações.
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + gráfico | "Quatro gestoras leram a mesma inflação. Duas chegaram a apostas opostas." |
-| 2 | texto | O consenso: diagnóstico igual nas quatro casas |
-| 3 | texto | Onde racha: o Copom — três veem corte, Kinea vê pausa |
-| 4 | definição | Por que a diferença não é sobre inflação, e sim sobre função de reação |
-| 5 | texto | E isso custa dinheiro: Bahia e Occam carregam o mesmo *steepener* |
-| 6 | dado | **−3,7%** — o que juros renderam em 12 meses no Bahia Mutá |
-| 7 | texto | É isto que aparece lendo as cartas juntas |
-| 8 | CTA | Comente `GESTORAS` + pergunta para engajamento |
+| 1 | capa + **gráfico real** | "Quatro gestoras leram a mesma inflação. Duas fizeram a aposta oposta." — série da inclinação desde 2010, com o ponto de hoje |
+| 2 | lista ✓ | No que elas concordam: 4 bullets |
+| 3 | lista | Onde racha: o Copom — 3 bullets |
+| 4 | definição | A diferença não é sobre inflação: Legacy/Occam × Kinea |
+| 5 | lista | E isso custa dinheiro — o steepener explicado em um bullet |
+| 6 | capa + **gráfico real** | "Dá para medir quanto dessa aposta já está no preço" — curva pré de hoje |
+| 7 | dado | **+48 bps** — a inclinação hoje, percentil 45 desde 2010 |
+| 8 | lista | Por que ler as doze juntas — 3 bullets |
+| 9 | CTA | Comente `GESTORAS` + pergunta |
+
+⚠️ **Os números vêm do próprio exercício.** `carrossel.py` reexecuta o bloco de
+código da edição mais recente (cortando antes da parte de gráfico) e lê as
+variáveis de lá. Se o carrossel dissesse 48 bps e o PDF outra coisa, a
+inconsistência seria checável por quem lê os dois.
+
+⚠️ O exercício é reescrito pelo modelo a cada edição, então os **nomes das
+variáveis mudam**. `dados_do_exercicio()` normaliza por alias e **falha alto** se
+faltar algo essencial — melhor do que um KeyError no meio do render.
 
 ## Legenda do post
 
@@ -72,10 +86,13 @@ que rendeu 174 mensagens e zero respostas em Claude Code T2.
       `{{campaign.name}}` entra na URL e o firewall devolve 403 de tela branca.
       Já custou R\$ 385,72 em nove dias
 
-## Ressalva sobre o gráfico da capa
+## Sobre os gráficos
 
-As duas trajetórias de Selic são **ilustrativas do conceito**, não projeções das
-gestoras. Nenhuma das cartas publica uma trajetória ponto a ponto; o que elas dizem
-é a direção ("ciclo segue" × "pausa"). O gráfico mostra a forma da divergência, e a
-legenda no slide não afirma número. Se alguém do mercado perguntar, essa é a
-resposta honesta.
+Os dois gráficos são **dados reais**, gerados pelo mesmo código do exercício que
+está no PDF da edição: curva prefixada do Tesouro Direto em 08/09/2026 e a série da
+inclinação 7a−2a desde 2010. A inclinação de **+48 bps no percentil 45** é medida,
+não estimada.
+
+Isso é diferente da versão anterior deste carrossel, que trazia uma ilustração de
+duas trajetórias de Selic — conceitualmente correta, mas que nenhuma carta publica
+ponto a ponto. A troca elimina a ressalva que era necessária ali.
