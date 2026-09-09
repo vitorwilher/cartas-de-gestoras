@@ -31,15 +31,26 @@ não significa nada para quem passa o polegar sem saber do que é a medida.
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + gráfico | A divergência do Copom: duas trajetórias de Selic, cada casa nomeada na ponta da linha |
+| 1 | capa + gráfico | A divergência do Copom: duas trajetórias de Selic, cada casa nomeada na ponta |
 | 2 | lista ✓ | No que elas concordam — 4 bullets |
 | 3 | lista | Onde racha: o Copom — 3 bullets |
 | 4 | definição | A diferença não é sobre inflação: Legacy/Occam × Kinea |
-| 5 | lista | E isso custa dinheiro — o *steepener* explicado aqui, **antes** dos gráficos de curva |
+| 5 | lista | E isso custa dinheiro — o *steepener* explicado, **antes** dos gráficos de curva |
 | 6 | capa + gráfico | "É esse degrau que elas estão comprando" — a curva de hoje |
 | 7 | capa + gráfico | "+48 bps, percentil 45" — a inclinação contra a própria história |
-| 8 | lista | O que isso quer dizer — a aposta não está barata na entrada |
-| 9 | CTA | Comente `GESTORAS` + pergunta |
+| 8 | lista | O que isso quer dizer — e você não precisou acreditar em ninguém |
+| 9 | lista numerada | **O caminho que eu fiz aqui** — tese → mecanismo → código → gráfico |
+| 10 | CTA | "Te mando o código junto" + `GESTORAS` + pergunta |
+
+### O eixo do fecho: o método, não a síntese
+
+Resumir carta é commodity — qualquer um faz, e a IA faz de graça. O que ninguém
+mais entrega é **o caminho da tese até o código que a testa**. Por isso o slide 9
+mostra esse caminho em quatro passos numerados, e só então o CTA oferece o
+exercício *junto* com a síntese.
+
+A versão anterior fechava com "Quer a síntese desta semana?" — prometia justamente
+a parte replicável por qualquer um. O ativo é o script que roda.
 
 **Todo gráfico leva título e subtítulo dizendo o que a medida é** (ex.: "Inclinação
 da curva: 7 anos − 2 anos" / "quanto o juro longo paga a mais que o curto"). Num
@@ -60,25 +71,27 @@ essencial — melhor do que um KeyError no meio do render.
 > serviços pressionados, expectativas com viés de alta, atividade desacelerando,
 > eleição empatada.
 >
-> Aí chega o Copom e elas se separam.
+> Aí chega o Copom e elas se separam. Bahia, Occam e Legacy veem o ciclo de cortes
+> seguindo. A Kinea vê pausa.
 >
-> Bahia, Occam e Legacy veem o ciclo de cortes seguindo. A Kinea vê pausa — "para
-> preservar margem de manobra até que haja clareza sobre o orçamento".
->
-> A diferença não é sobre inflação. É sobre a que o Banco Central reage: para
-> Legacy e Occam, aos dados de atividade. Para a Kinea, à incerteza fiscal
-> pós-eleitoral.
->
-> E isso tem preço. Bahia e Occam carregam o mesmo trade — steepener doméstico, uma
-> aposta em que o juro longo sobe mais que o curto. A pausa que a Kinea projeta é
+> A diferença não é sobre inflação — é sobre a que o Banco Central reage. E tem
+> preço: Bahia e Occam carregam o mesmo steepener, e a pausa que a Kinea projeta é
 > exatamente o cenário em que a perna curta desse trade perde.
 >
-> Uma carta isolada mostra a visão de uma casa. Quatro mostram onde o mercado
-> concorda — e onde a mesma leitura vira apostas incompatíveis.
+> Mas aqui está a parte que interessa a quem quer aprender:
 >
-> Comenta GESTORAS que eu te mando a síntese desta semana no direct.
+> Você não precisa acreditar em nenhuma delas. Dá para ler a tese, achar o
+> mecanismo que a sustenta e escrever o código que mede se ele já está no preço.
+> Foi o que fiz no slide 6 e 7 — dado público do Tesouro Direto, seis segundos de
+> execução, e a resposta: +48 bps, percentil 45 desde 2010. O degrau está na média
+> histórica. A aposta não está barata na entrada.
 >
-> E me conta: qual gestora você acompanha de verdade?
+> É isso que eu faço toda semana: leio as cartas das 12 maiores gestoras do Brasil,
+> destrincho as teses e escrevo um exercício em Python que testa uma delas.
+>
+> Comenta GESTORAS que eu mando a desta semana — a síntese e o código — no direct.
+>
+> E me conta: qual tese você queria ver testada?
 
 ## Checklist antes de publicar
 

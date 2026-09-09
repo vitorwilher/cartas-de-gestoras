@@ -259,13 +259,18 @@ def grafico_curva(d: dict) -> str:
 
 
 def slides(d: dict) -> list[dict]:
-    """Os 9 slides, na ordem em que a história se sustenta.
+    """Os 10 slides, na ordem em que a história se sustenta.
 
     A regra que organiza tudo: **nenhum gráfico aparece antes de o leitor ter
     contexto para lê-lo**. A capa mostra a divergência entre as casas, que é o
     que a manchete promete; o gráfico da inclinação da curva só entra depois do
     slide que explica o que é um steepener — antes disso, "48 bps" não significa
     nada para quem passa o polegar.
+
+    O fecho não promete a síntese — promete o MÉTODO. Resumir carta é
+    commodity; o que ninguém mais entrega é o caminho da tese até o código que a
+    testa. O penúltimo slide mostra esse caminho em 4 passos, e só então o CTA
+    oferece o exercício junto com a síntese.
 
     Bullets, não parágrafos. Sem preço e sem oferta: o público está em nível 1-2
     de consciência, e nível 5 no primeiro toque é o erro documentado que rendeu
@@ -335,15 +340,28 @@ def slides(d: dict) -> list[dict]:
             "title": "O que isso quer dizer",
             "variant": "diamond",
             "items": [
-                "Nem esticado, nem comprimido: o degrau está na média histórica",
-                "Ou seja, a aposta *não* está barata na entrada",
-                "Dá para medir isso em Python, com dado público",
+                "O degrau está na média histórica",
+                "A aposta *não* está barata na entrada",
+                "E você não precisou acreditar em ninguém para saber disso",
+            ],
+        },
+        {
+            "kind": "lista",
+            "title": "O caminho que eu fiz aqui",
+            "variant": "number",
+            "items": [
+                "Li a tese: Bahia e Occam tomadas em inclinação",
+                "Achei o *mecanismo*: se paga quando o longo sobe mais que o curto",
+                "Escrevi o código que mede isso com dado público",
+                "*Este gráfico saiu daí* — e roda em 6 segundos",
             ],
         },
         {
             "kind": "cta",
-            "title": "Quer a síntese desta semana?",
-            "paragraph": f"Comenta *{PALAVRA_CHAVE}* que eu mando no direct. E me conta: qual gestora você acompanha de verdade?",
+            "title": "Te mando o código junto",
+            # A pergunta no fim puxa comentário de quem não vai digitar a
+            # palavra-chave — e comentário é o que o algoritmo lê como alcance.
+            "paragraph": f"Toda semana leio as cartas das 12 maiores gestoras, destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a desta semana — síntese e código — no seu direct. E me conta: qual tese você queria ver testada?",
             "cta": f"Comente {PALAVRA_CHAVE}",
         },
     ]

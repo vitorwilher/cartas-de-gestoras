@@ -28,15 +28,19 @@ prova ponta a ponta é comentar a palavra-chave de uma conta que nunca interagiu
 > Oi! Vi que você comentou GESTORAS no carrossel.
 >
 > Toda semana eu leio as cartas das 12 maiores gestoras do Brasil — Dynamo, IP,
-> Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO e Dahlia — e
-> comparo as teses: onde o consenso se forma, onde racha, e o que a divergência
-> revela sobre premissas diferentes.
+> Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO e Dahlia — e faço
+> duas coisas com elas:
 >
-> A síntese desta semana está aqui: [LINK]
+> 1. Destrincho a tese de cada uma: o mecanismo que a sustenta e a condição em que
+> ela quebra.
+> 2. Escrevo um exercício em Python que testa uma dessas teses com dado público —
+> o código roda em segundos e você replica.
 >
-> Nela você vê o racha do Copom que mostrei no carrossel, com a passagem exata de
-> cada carta — e o exercício em Python que mede quanto de corte a curva já embute
-> hoje.
+> A desta semana está aqui: [LINK]
+>
+> Nela tem o racha do Copom que mostrei no carrossel, com a passagem exata de cada
+> carta, e o exercício que mede quanto do steepener a curva já pagou — o mesmo
+> gráfico dos slides 6 e 7, com o código inteiro.
 
 ## O link e a UTM
 
