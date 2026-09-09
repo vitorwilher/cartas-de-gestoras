@@ -15,6 +15,11 @@ interface Env {
   KOMMO_TOKEN: string;
   KOMMO_SUBDOMAIN: string;
   CONVERTKIT_SECRET: string;
+  WHATSAPP_TOKEN: string;
+  WHATSAPP_PHONE_ID: string;
+  /** Lista de permissão: só estes números recebem resposta automática.
+   *  Vazio = ninguém recebe (modo observação). Separados por vírgula. */
+  PERMITIDOS: string;
 }
 
 type Contato = { nome: string; telefone: string };
@@ -100,6 +105,57 @@ async function buscarNoKit(env: Env, telefone: string) {
   return { estado: "nao_encontrado", paginas_varridas: totalPaginas };
 }
 
+const PDF_URL = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf";
+
+/** Envia o PDF pela Cloud API. Só é chamada para número da lista de permissão.
+ *
+ * ⚠️ Isto só funciona DENTRO da janela de 24h aberta pelo próprio lead. Fora
+ *    dela a Meta exige template — e usar o template UTILITY de entrega para
+ *    captação é reclassificação de uso, que a Meta descarta em silêncio e ainda
+ *    derruba a qualidade do número. Por isso não há fallback: se a janela
+ *    fechou, não enviamos.
+ */
+async function enviarPDF(env: Env, telefone: string, nome: string) {
+  const saudacao = nome ? `Oi, ${nome.split(" ")[0]}!` : "Oi!";
+  const corpo = {
+    messaging_product: "whatsapp",
+    to: telefone,
+    type: "document",
+    document: {
+      link: PDF_URL,
+      filename: "sintese-cartas-das-gestoras.pdf",
+      caption: `${saudacao} Aqui está a síntese das cartas das gestoras desta semana.\n\n`
+        + "Dentro dela tem também o exercício em Python que testa uma das teses "
+        + "com dado público — o código roda em segundos e você adapta para a tese "
+        + "que quiser checar.\n\nBoa leitura!",
+    },
+  };
+  const r = await fetch(
+    `https://graph.facebook.com/v20.0/${env.WHATSAPP_PHONE_ID}/messages`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${env.WHATSAPP_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(corpo),
+    },
+  );
+  const resposta: any = await r.json().catch(() => ({}));
+  return {
+    http: r.status,
+    // O wamid é o que o suporte da Meta pede quando algo não chega.
+    wamid: resposta?.messages?.[0]?.id ?? null,
+    erro: resposta?.error?.message ?? null,
+  };
+}
+
+/** O número está autorizado a receber? Lista vazia = ninguém. */
+function permitido(env: Env, telefone: string): boolean {
+  const lista = (env.PERMITIDOS ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+  return lista.includes(telefone);
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -129,6 +185,16 @@ export default {
           const lead = await buscarNoKit(env, c.telefone);
           registro.lead = lead;
           registro.veio_da_landing = lead.estado === "encontrado";
+
+          // FASE 3: responde com o PDF — mas SÓ para número da lista de
+          // permissão. Enquanto a lista tiver poucos números, nenhum lead real
+          // recebe nada por acidente.
+          const tel = registro.telefone as string;
+          if (permitido(env, tel)) {
+            registro.envio = await enviarPDF(env, tel, c.nome);
+          } else {
+            registro.envio = { pulado: "fora da lista de permissão" };
+          }
         }
       }
 

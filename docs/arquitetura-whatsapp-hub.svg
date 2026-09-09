@@ -9,7 +9,7 @@
   <text x="36" y="42" font-size="23" font-weight="700" fill="#0f172a">Automação de WhatsApp sem tocar no que já funciona</text>
   <text x="36" y="70" font-size="13.5" fill="#64748b">A Meta aceita UM webhook por WABA, e ele é do Kommo. Em vez de disputar esse lugar, invertemos:</text>
   <text x="36" y="89" font-size="13.5" fill="#64748b"><tspan font-weight="700" fill="#2f9e44">o Kommo avisa o nosso código.</tspan> Número, WABA e a rotina da Raiane ficam exatamente como estão.</text>
-  <text x="36" y="108" font-size="12.5" font-weight="700" fill="#2f9e44">✓ Fase 1 provada em 09/09 com duas mensagens reais (Alan e Luiz) — nada do que existia foi afetado.</text>
+  <text x="36" y="108" font-size="12.5" font-weight="700" fill="#2f9e44">✓ Fases 1 e 2 provadas em 09/09 — o evento chega, e o Worker já sabe quem escreveu e se veio da landing.</text>
 
   <!-- INTOCADO -->
   <rect x="36" y="126" width="470" height="196" rx="10" fill="#f8fafc" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6 4"/>
@@ -57,21 +57,21 @@
   <text x="54" y="486" font-size="11.5" fill="#64748b">origin=waba · contact_id →</text>
   <text x="54" y="503" font-size="11.5" fill="#64748b">nome e telefone do lead</text>
 
-  <rect x="288" y="372" width="234" height="150" rx="9" fill="#e7f5ff" stroke="#1971c2" stroke-width="2.6"/>
-  <text x="306" y="398" font-size="13.5" font-weight="700" fill="#1971c2">FASE 2 · registrar ←</text>
-  <text x="306" y="422" font-size="12" font-weight="700" fill="#0f172a">AGORA</text>
-  <text x="306" y="443" font-size="11.5" fill="#0f172a">Resolver o telefone no Kommo</text>
-  <text x="306" y="461" font-size="11.5" fill="#0f172a">e cruzar com o lead da landing</text>
-  <text x="306" y="486" font-size="11.5" fill="#64748b">Risco: nenhum. Ainda não</text>
-  <text x="306" y="503" font-size="11.5" fill="#64748b">envia nada para ninguém.</text>
+  <rect x="288" y="372" width="234" height="150" rx="9" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2.6"/>
+  <text x="306" y="398" font-size="13.5" font-weight="700" fill="#2f9e44">FASE 2 · registrar  ✓</text>
+  <text x="306" y="422" font-size="12" font-weight="700" fill="#0f172a">PROVADA em 09/09</text>
+  <text x="306" y="443" font-size="11.5" fill="#0f172a">resolve nome e telefone</text>
+  <text x="306" y="461" font-size="11.5" fill="#0f172a">e cruza com o lead do Kit</text>
+  <text x="306" y="486" font-size="11.5" fill="#64748b">testado nos dois casos:</text>
+  <text x="306" y="503" font-size="11.5" fill="#64748b">na base e fora dela</text>
 
-  <rect x="540" y="372" width="234" height="150" rx="9" fill="#fff4e6" stroke="#e8590c" stroke-width="1.6"/>
-  <text x="558" y="398" font-size="13.5" font-weight="700" fill="#e8590c">FASE 3 · responder</text>
-  <text x="558" y="422" font-size="12" fill="#0f172a">Enviar o PDF pela</text>
-  <text x="558" y="441" font-size="12" fill="#0f172a">Cloud API (token já existe)</text>
-  <text x="558" y="460" font-size="12" fill="#0f172a">só para leads de captação</text>
-  <text x="558" y="486" font-size="11.5" fill="#64748b">Risco: mensagem indevida.</text>
-  <text x="558" y="503" font-size="11.5" fill="#64748b">Testar só com o seu número.</text>
+  <rect x="540" y="372" width="234" height="150" rx="9" fill="#fff4e6" stroke="#e8590c" stroke-width="2.8"/>
+  <text x="558" y="398" font-size="13.5" font-weight="700" fill="#e8590c">FASE 3 · responder ←</text>
+  <text x="558" y="422" font-size="12" font-weight="700" fill="#0f172a">AGORA — a 1ª que ENVIA</text>
+  <text x="558" y="443" font-size="11.5" fill="#0f172a">PDF pela Cloud API, só para</text>
+  <text x="558" y="461" font-size="11.5" fill="#0f172a">quem veio da landing</text>
+  <text x="558" y="486" font-size="11.5" fill="#c92a2a">Lista de permissão: começa</text>
+  <text x="558" y="503" font-size="11.5" fill="#c92a2a">só com o número do Vitor.</text>
 
   <rect x="792" y="372" width="212" height="150" rx="9" fill="#ffe3e3" stroke="#c92a2a" stroke-width="1.6"/>
   <text x="810" y="398" font-size="13.5" font-weight="700" fill="#c92a2a">FASE 4 · follow-up</text>

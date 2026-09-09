@@ -129,3 +129,53 @@ ponte PHP — vale quando a fase 3 começar.
 | Worker | `wa-escuta.analisemacro.workers.dev` — ouve, resolve e registra |
 | Segredos | KOMMO_TOKEN, KOMMO_SUBDOMAIN, CONVERTKIT_SECRET (no Worker) |
 | Envio de mensagem | **nenhum** — continua só observando |
+
+
+---
+
+# Fase 3 — resultado: FUNCIONOU
+
+Executada em 2026-09-09. **É a primeira fase que envia mensagem.**
+
+## O ciclo completo, sem intervenção
+
+Evento do Kommo → resolve o contato → confere a lista de permissão → **envia o
+PDF pela Cloud API**. Testado com o contato do Vitor (id 11600558):
+
+```
+ENVIO: {http: 200, wamid: wamid.HBgNNTUyMTk2NzIxNjgxMxUC..., erro: null}
+```
+
+## A trava que protege
+
+**Lista de permissão (`PERMITIDOS`).** Só números nessa lista recebem resposta
+automática; qualquer outro é registrado com `{pulado: "fora da lista"}`.
+
+**Lista vazia = ninguém recebe.** É o modo seguro por padrão: se a variável
+sumir, o Worker volta a só observar em vez de sair respondendo a todo mundo.
+
+Enquanto a lista tiver poucos números, **nenhum lead real recebe nada por
+acidente** — que é o risco desta fase.
+
+## Sobre a janela de 24h
+
+O envio só funciona **dentro da janela aberta pelo próprio lead**. Fora dela a
+Meta exige template, e usar o template UTILITY de entrega para captação é
+reclassificação de uso — a Meta descarta em silêncio (a API ainda responde
+`accepted`) e derruba a qualidade do número.
+
+**Por isso não há fallback:** se a janela fechou, não enviamos. Melhor não
+entregar do que queimar o número de produção.
+
+## O `wamid`
+
+Toda resposta guarda o `wamid`. É o identificador que o suporte da Meta pede
+quando uma mensagem não chega — sem ele, não há o que investigar.
+
+## Estado
+
+| | |
+|---|---|
+| Lista de permissão | só o número do Vitor, no primeiro teste |
+| Envio | **ativo** para a lista |
+| Fora da lista | registrado, sem envio |
