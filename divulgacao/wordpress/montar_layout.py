@@ -32,8 +32,8 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
-PAGINA_CAPTURA = 78395
-PAGINA_OBRIGADO = 78388
+PAGINA_CAPTURA = 78405
+PAGINA_OBRIGADO = 78403
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
 WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
          "%20S%C3%ADntese%20das%20Cartas%20das%20Gestoras%20e%20quero%20receber"
@@ -107,6 +107,9 @@ def imagem(url, mid=None, largura=100):
         "image_box_shadow_box_shadow_type": "yes",
         "image_box_shadow_box_shadow": {"horizontal": 0, "vertical": 12, "blur": 34,
                                         "spread": 0, "color": "rgba(43,53,81,0.14)"},
+        # Largura no próprio widget: o CSS de coluna vive no post-{id}.css, que o
+        # Elementor nem sempre regenera — e aí o gráfico volta ao tamanho antigo.
+        "_element_custom_css": "selector img{width:100%;max-width:none}",
     }
     return {"id": _id(), "elType": "widget", "widgetType": "image", "settings": s}
 
@@ -161,13 +164,20 @@ def colunas(cols, gap=28, pesos=None):
     for i, c in enumerate(cols):
         # `width` em % e `content_width: full`: com width em px 0 o container
         # colapsava e as colunas empilhavam.
+        larg = pesos[i] if pesos else round(100 / max(len(cols), 1), 2)
         filhos.append({
             "id": _id(), "elType": "container",
             "settings": {
                 "content_width": "full",
-                "width": {"unit": "%", "size": (pesos[i] if pesos else round(100 / max(len(cols), 1), 2)), "sizes": []},
+                "width": {"unit": "%", "size": larg, "sizes": []},
                 "width_mobile": {"unit": "%", "size": 100, "sizes": []},
                 "flex_gap": {"unit": "px", "size": 12, "column": "12", "row": "12"},
+                # CSS inline: a largura de coluna vive no post-{id}.css, que o
+                # Elementor nem sempre regenera — e a coluna volta ao padrão.
+                "_element_custom_css": (
+                    f"selector{{flex:0 0 {larg}%;max-width:{larg}%}}"
+                    f"@media(max-width:767px){{selector{{flex:0 0 100%;max-width:100%}}}}"
+                ),
             },
             "elements": c,
         })
@@ -195,8 +205,11 @@ def botao(rotulo, url, align="center", cor=None):
         "id": _id(), "elType": "widget", "widgetType": "button",
         "settings": {
             "text": rotulo,
-            "link": {"url": url, "is_external": "true", "nofollow": "",
-                     "custom_attributes": ""},
+            # is_external vira target="_blank". Numa ÂNCORA (#form) isso abre
+            # aba nova e recarrega a página do topo — foi o que quebrou o botão
+            # do hero. Só links de fora abrem em aba nova.
+            "link": {"url": url, "is_external": ("true" if url.startswith("http") else ""),
+                     "nofollow": "", "custom_attributes": ""},
             "size": "lg", "align": align,
             "typography_typography": "custom",
             "typography_font_size": _px(19),
@@ -238,6 +251,29 @@ def lista(itens, icone="fas fa-check"):
                 "text_color": "globals/colors?id=text",
             },
         },
+    }
+
+
+def estilo_da_pagina():
+    """Um widget HTML com <style> no topo da página.
+
+    O CSS de container (largura de coluna, largura de seção) vive no arquivo
+    gerado `post-{id}.css`, que o Elementor nem sempre regenera quando o layout
+    entra pela REST API — e a coluna volta ao padrão. Este bloco entra no HTML e
+    não depende daquele arquivo.
+    """
+    return {
+        "id": _id(), "elType": "widget", "widgetType": "html",
+        "settings": {"html": """<style>
+/* HERO: gráfico ocupa a maior parte da largura */
+#hero > .e-con-inner, #hero { max-width: 1240px !important; }
+#hero .e-child:first-child { flex: 0 0 34% !important; max-width: 34% !important; }
+#hero .e-child:last-child  { flex: 0 0 64% !important; max-width: 64% !important; }
+#hero img { width: 100% !important; max-width: none !important; }
+@media (max-width: 767px) {
+  #hero .e-child { flex: 0 0 100% !important; max-width: 100% !important; }
+}
+</style>"""},
     }
 
 
@@ -307,6 +343,7 @@ def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column", css_id=N
 
 def layout_captura() -> list:
     return [
+        secao([estilo_da_pagina()], pad_v=0),
         secao([
             colunas([
                 [
@@ -316,8 +353,8 @@ def layout_captura() -> list:
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ], gap=32, pesos=[38, 62]),
-        ], fundo="#F4F7FA", pad_v=64),
+            ], gap=40, pesos=[34, 66]),
+        ], fundo="#F4F7FA", pad_v=64, largura=1240, css_id="hero"),
 
         secao([
             colunas([[numero("12", "gestoras acompanhadas")],
