@@ -33,7 +33,7 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Instalar dependências
-        run: pip install -r requirements.txt gcsfs
+        run: pip install -r requirements.txt
 
       - name: Testar regras de estado e formatação
         run: python -m unittest discover -s tests -v

@@ -15,3 +15,6 @@ requests>=2.32.0
 python-bcb>=0.3.0
 yfinance>=0.2.40
 pyettj>=1.0.0
+
+# Publicação do PDF na URL fixa do GCS (divulgacao/publicar_pdf.py).
+gcsfs>=2024.6.0
