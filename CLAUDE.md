@@ -415,14 +415,13 @@ Drive, editar, e o Vitor sobe por "Gerenciar versões" para preservar o ID.
   sem urgência — não se inventa)? A garantia de 7 dias da casa vale para recorrente?
 - [x] **URL fixa do PDF** — `divulgacao/publicar_pdf.py` publica no GCS e o
   workflow chama a cada execução. Verificado: HTTP 200, application/pdf
-- [x] **`SOCIAL_GCS_BUCKET` e `GCS_CREDENTIALS_JSON` na CI** — adicionados em
-  09/09 14:18 (conferido com `gh secret list`)
-- [ ] **Adicionar `CONVERT_KIT_V4` e `CONVERTKIT_API_SECRET` na CI.** Sem eles o
-  passo do e-mail se pula com aviso no Summary do run — o pipeline fica verde e a
-  edição não sai por e-mail. Os valores estão no `.env` do ROI_Diagnostico:
-  `gh secret set CONVERT_KIT_V4` e `gh secret set CONVERTKIT_API_SECRET`.
-  ⚠️ São necessárias JUNTAS: sem o `CONVERTKIT_API_SECRET` o script não consegue
-  contar a tag e aborta como se ela estivesse vazia
+- [x] **Todos os secrets da CI configurados (09/09)** — conferido cruzando
+  `gh secret list` contra os `secrets.*` do workflow: nada falta. `ANTHROPIC_MODEL`
+  aparece como ausente e está correto assim — é opcional, e sem ele o código usa
+  o default `claude-fable-5-1`.
+  ⚠️ As duas credenciais do Kit são necessárias JUNTAS: sem o
+  `CONVERTKIT_API_SECRET` o script não consegue contar a tag e aborta como se ela
+  estivesse vazia — por isso o guard do workflow checa as duas
 - [x] **Fluxo `GESTORAS` no ManyChat criado** (Vitor, 09/09) e carrossel publicado:
   https://www.instagram.com/p/DdFcVNRla6q/ — `divulgacao/publicar_instagram.py`
 - [x] **Landing publicada** em `/projetos/cartas-das-gestoras/` — captura nome,
@@ -436,6 +435,55 @@ Drive, editar, e o Vitor sobe por "Gerenciar versões" para preservar o ID.
   Kinea (168 PDFs em `/atualizacoes/`), demais fundos da Kapitalo (Kappa-Zeta,
   NW3, Tarkus, Temáticas), calls e cartas de crédito da Legacy, e o Informe
   Mensal da IP (que é o produto mensal dela, distinto do Relatório de Gestão)
+
+## O estado em 09/09/2026 — o pipeline entrega sozinho
+
+Fecha o ciclo aberto no MVP: as três dimensões (produto, assinatura, divulgação)
+saíram do papel e o pipeline **entrega sem intervenção humana**.
+
+| Peça | Onde |
+|---|---|
+| Landing de captura | `analisemacro.com.br/projetos/cartas-das-gestoras/` |
+| Página de obrigado | `.../cartas-das-gestoras-obrigado/` |
+| Carrossel publicado | `instagram.com/p/DdFcVNRla6q/` |
+| PDF (URL fixa) | `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf` |
+| Paper técnico | `paper/paper.pdf` — 7 páginas, números gerados por código |
+| Desenho da arquitetura | `docs/arquitetura-whatsapp-hub.svg` |
+| Copy do LinkedIn | `divulgacao/linkedin/copy-captura-2026-09-09.md` (o Vitor posta) |
+
+### O que roda toda terça, e em que ordem
+
+1. `cartas.py --pdf --send` — coleta, sintetiza, gera o exercício, renderiza e
+   manda por WhatsApp
+2. `publicar_pdf.py` — sobrescreve a URL fixa no GCS
+3. `broadcast_semanal.py --enviar --espera 30` — **agenda** o e-mail para a tag
+   do projeto
+4. **Resumo da execução** — escreve o resultado de cada canal no Summary do run
+
+⚠️ O passo 4 existe porque um `continue-on-error` que falha deixa o run **verde**:
+sem ele, "e-mail não enviado" era visualmente idêntico a "enviado".
+
+### As três guardas do envio automático
+
+O pior desfecho de comunicação automática não é ficar mudo — é mandar a mensagem
+errada para a pessoa certa, e isso não se desfaz. Ver `tests/test_broadcast.py`.
+
+1. **Frescor** — recusa edição com mais de 2 dias. `cartas.py` sai com código 0
+   quando ninguém publicou, e os `.qmd` são versionados: sem a guarda, uma terça
+   quieta **reenviaria a edição anterior aos mesmos leads**
+2. **Duplicata** — não cria broadcast se já existe um pendente com o mesmo
+   assunto. Rodar duas vezes agendava dois e-mails idênticos
+3. **Segmento confirmado na releitura** — status HTTP não é prova de efeito
+
+Terminar com código 0 em "nada a enviar" é deliberado: silêncio é resultado
+normal do pipeline, não falha.
+
+### O que ainda depende de decisão
+
+- **Fase 4 do WhatsApp** (follow-up de D+1 dentro da janela de 24h) — não iniciada
+- **Publicar o produto no Woo** e testar o carrinho ao vivo antes de vender
+- A tag tem poucos leads reais: os primeiros envios alcançam pouca gente. É
+  esperado — é a landing que precisa acumular
 
 ---
 
