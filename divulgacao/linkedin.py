@@ -68,10 +68,10 @@ def grafico_horizontal(d: dict) -> str:
     ax.margins(x=0.02)
     ax.set_yticks([0, 100, 200, 300])
     ax.set_yticklabels(["0", "100", "200", "300 bps"])
-    ax.set_title("Inclinação da curva: 7 anos − 2 anos", fontsize=22,
-                 color=NAVY, fontweight="bold", loc="left", pad=34)
-    ax.text(0, 1.035, "quanto o juro longo paga a mais que o curto",
-            transform=ax.transAxes, fontsize=16, color=MUTED, va="bottom")
+    ax.set_title("Inclinação da curva: 7 anos − 2 anos", fontsize=20,
+                 color=NAVY, fontweight="bold", loc="left", pad=32)
+    ax.text(0, 1.04, "exemplo do exercício desta semana",
+            transform=ax.transAxes, fontsize=15, color=MUTED, va="bottom")
 
     buf = io.BytesIO()
     fig.savefig(buf, format="png", dpi=150, bbox_inches="tight",
@@ -86,38 +86,55 @@ def _logo() -> str:
 
 
 def html(d: dict) -> str:
+    """A arte vende o PRODUTO, não a edição.
+
+    O objetivo do post é a captura no ConvertKit, então a peça precisa dizer o
+    que a pessoa passa a receber toda semana — não a manchete de uma edição, que
+    envelhece no dia seguinte e não se sustenta se a composição de gestoras mudar
+    (a Kinea, por exemplo, caiu do PDF de 09/09 por rate limit na coleta).
+
+    O gráfico continua: é a prova visual de que existe código de verdade por trás.
+    Mas entra como amostra do que se recebe, não como o assunto.
+    """
     bps = f"{d['atual_bps']:.0f}"
-    pct = f"{d['percentil']:.0f}"
     return f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
   * {{ margin:0; padding:0; box-sizing:border-box; }}
   .card {{ width:{W}px; height:{H}px; background:#FFFFFF; display:flex;
            font-family:'Inter','Helvetica Neue',Arial,sans-serif; overflow:hidden; }}
-  .esq {{ width:46%; padding:52px 40px 44px 56px; display:flex;
+  .esq {{ width:50%; padding:48px 36px 44px 56px; display:flex;
           flex-direction:column; justify-content:space-between; }}
-  .dir {{ width:54%; display:flex; align-items:center; justify-content:center;
-          padding:28px 44px 28px 8px; background:#FBFCFD; }}
+  .dir {{ width:50%; display:flex; align-items:center; justify-content:center;
+          padding:26px 40px 26px 6px; background:#FBFCFD; }}
   .dir img {{ width:100%; height:auto; }}
   .marca {{ display:flex; align-items:center; gap:12px; }}
-  .marca img {{ width:38px; height:38px; }}
-  .marca span {{ font-size:19px; font-weight:700; color:{NAVY}; letter-spacing:-.2px; }}
-  .kicker {{ font-size:14px; font-weight:700; color:{BLUE}; letter-spacing:1.6px;
-             text-transform:uppercase; margin-bottom:14px; }}
-  h1 {{ font-size:40px; line-height:1.16; color:{NAVY}; font-weight:700;
+  .marca img {{ width:36px; height:36px; }}
+  .marca span {{ font-size:18px; font-weight:700; color:{NAVY}; letter-spacing:-.2px; }}
+  .kicker {{ font-size:13px; font-weight:700; color:{BLUE}; letter-spacing:1.7px;
+             text-transform:uppercase; margin-bottom:12px; }}
+  h1 {{ font-size:37px; line-height:1.14; color:{NAVY}; font-weight:700;
         letter-spacing:-.6px; }}
   h1 em {{ font-style:normal; color:{BLUE}; }}
-  p {{ font-size:19px; line-height:1.46; color:{INK_SOFT}; margin-top:18px; }}
-  .pe {{ font-size:15px; color:{MUTED}; border-top:1px solid {LINE}; padding-top:14px; }}
+  ul {{ list-style:none; margin-top:20px; }}
+  li {{ font-size:18px; line-height:1.36; color:{INK_SOFT}; margin-bottom:11px;
+        display:flex; gap:11px; align-items:flex-start; }}
+  li b {{ color:{NAVY}; font-weight:600; }}
+  .dot {{ width:8px; height:8px; border-radius:50%; background:{BLUE};
+          margin-top:8px; flex:0 0 8px; }}
+  .pe {{ font-size:15px; color:{MUTED}; border-top:1px solid {LINE}; padding-top:13px; }}
 </style></head><body>
 <div class="card">
   <div class="esq">
     <div class="marca"><img src="{_logo()}"><span>Análise Macro</span></div>
     <div>
-      <div class="kicker">Cartas de gestoras · síntese semanal</div>
-      <h1>Quatro gestoras leram a mesma inflação.<br><em>Duas fizeram a aposta oposta.</em></h1>
-      <p>Bahia e Occam estão tomadas em inclinação. A Kinea projeta a pausa
-         do Copom — exatamente o cenário em que essa aposta perde.</p>
+      <div class="kicker">Toda semana, de graça</div>
+      <h1>As cartas das 12 maiores gestoras do Brasil,<br><em>destrinchadas em Python.</em></h1>
+      <ul>
+        <li><span class="dot"></span><span>A <b>tese de cada casa</b> e o mecanismo que a sustenta</span></li>
+        <li><span class="dot"></span><span>Onde o consenso se forma — e <b>onde racha</b></span></li>
+        <li><span class="dot"></span><span>Um <b>exercício em Python</b> que testa uma das teses</span></li>
+      </ul>
     </div>
-    <div class="pe">O degrau está em <strong>+{bps} bps</strong>, percentil {pct} desde 2010.</div>
+    <div class="pe">Dynamo · IP · Alaska · Kapitalo · Adam · Legacy · Bahia · Occam · JGP · Kinea · NEO · Dahlia</div>
   </div>
   <div class="dir"><img src="{grafico_horizontal(d)}"></div>
 </div>
