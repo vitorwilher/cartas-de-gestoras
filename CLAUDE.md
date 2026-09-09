@@ -415,12 +415,14 @@ Drive, editar, e o Vitor sobe por "Gerenciar versões" para preservar o ID.
   sem urgência — não se inventa)? A garantia de 7 dias da casa vale para recorrente?
 - [x] **URL fixa do PDF** — `divulgacao/publicar_pdf.py` publica no GCS e o
   workflow chama a cada execução. Verificado: HTTP 200, application/pdf
-- [ ] **Adicionar 4 secrets na CI** — sem eles o pipeline roda, mas os canais
-  se pulam em silêncio (o passo "Resumo da execução" agora avisa no Summary):
-  `SOCIAL_GCS_BUCKET` e `GCS_CREDENTIALS_JSON` (o PDF público fica com a edição
-  anterior) e `CONVERT_KIT_V4` + `CONVERTKIT_API_SECRET` (o e-mail não sai).
-  ⚠️ As duas do Kit são necessárias JUNTAS: sem o `CONVERTKIT_API_SECRET` o
-  script não consegue contar a tag e aborta como se ela estivesse vazia
+- [x] **`SOCIAL_GCS_BUCKET` e `GCS_CREDENTIALS_JSON` na CI** — adicionados em
+  09/09 14:18 (conferido com `gh secret list`)
+- [ ] **Adicionar `CONVERT_KIT_V4` e `CONVERTKIT_API_SECRET` na CI.** Sem eles o
+  passo do e-mail se pula com aviso no Summary do run — o pipeline fica verde e a
+  edição não sai por e-mail. Os valores estão no `.env` do ROI_Diagnostico:
+  `gh secret set CONVERT_KIT_V4` e `gh secret set CONVERTKIT_API_SECRET`.
+  ⚠️ São necessárias JUNTAS: sem o `CONVERTKIT_API_SECRET` o script não consegue
+  contar a tag e aborta como se ela estivesse vazia
 - [x] **Fluxo `GESTORAS` no ManyChat criado** (Vitor, 09/09) e carrossel publicado:
   https://www.instagram.com/p/DdFcVNRla6q/ — `divulgacao/publicar_instagram.py`
 - [x] **Landing publicada** em `/projetos/cartas-das-gestoras/` — captura nome,
