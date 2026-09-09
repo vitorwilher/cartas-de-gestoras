@@ -33,7 +33,7 @@ jobs:
         uses: quarto-dev/quarto-actions/setup@v2
 
       - name: Instalar dependências
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt gcsfs
 
       - name: Testar regras de estado e formatação
         run: python -m unittest discover -s tests -v
@@ -63,6 +63,24 @@ jobs:
           WHATSAPP_WABA_ID: "1421867178829333"
           WHATSAPP_CARTAS_TEMPLATE: "sintese_cartas_gestoras"
         run: python cartas.py --pdf --send
+
+      # A URL do PDF é FIXA (cartas/edicao-atual.pdf): o ManyChat e a landing do
+      # ConvertKit apontam sempre para ela, e o arquivo é sobrescrito aqui toda
+      # semana. Falha aqui não derruba a edição — o PDF já foi gerado e enviado
+      # por WhatsApp; só o link público fica com a versão anterior.
+      - name: Publicar o PDF no GCS (URL fixa)
+        continue-on-error: true
+        env:
+          SOCIAL_GCS_BUCKET: ${{ secrets.SOCIAL_GCS_BUCKET }}
+          GCS_CREDENTIALS_JSON: ${{ secrets.GCS_CREDENTIALS_JSON }}
+        run: |
+          if [ -z "$GCS_CREDENTIALS_JSON" ]; then
+            echo "GCS_CREDENTIALS_JSON ausente; pulando a publicação." >&2
+            exit 0
+          fi
+          printf '%s' "$GCS_CREDENTIALS_JSON" > /tmp/gcs.json
+          GCS_CREDENTIALS_PATH=/tmp/gcs.json python divulgacao/publicar_pdf.py
+          rm -f /tmp/gcs.json
 
       - name: Commitar síntese e estado
         run: |

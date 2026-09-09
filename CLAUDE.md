@@ -319,6 +319,46 @@ O acesso ao MCP é derivado por HMAC do id da assinatura
 revogável trocando o segredo. `pending-cancel` mantém acesso — a pessoa cancelou,
 mas o período pago ainda corre.
 
+### A URL fixa do PDF (`divulgacao/publicar_pdf.py`)
+
+O PDF de cada edição é publicado no GCS em **uma URL que nunca muda**:
+
+```
+https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
+```
+
+O fluxo do ManyChat e a landing do ConvertKit apontam para ela e são criados
+**uma vez só**; o pipeline sobrescreve o arquivo toda terça, no passo "Publicar o
+PDF no GCS" do workflow. Sem isso, cada edição exigiria trocar o link à mão em
+dois painéis — e a API do ManyChat nem permite editar fluxo.
+
+Cada edição também vai para um endereço datado (`cartas/AAAA-MM-DD.pdf`), para
+quem recebeu o link numa semana conseguir reabrir aquela edição depois.
+
+Reaproveita o bucket e as credenciais do `../ROI_Diagnostico` (`SOCIAL_GCS_BUCKET`,
+`GCS_CREDENTIALS_PATH`), no molde do `social/assets_gcs.py` de lá.
+
+⚠️ O passo é `continue-on-error`: falha na publicação **não derruba a edição** (o
+PDF já foi gerado e enviado por WhatsApp), mas deixa o link público com a versão
+anterior. Ao conferir, olhar a data na capa do PDF.
+
+⚠️ Na CI faltam dois secrets: `SOCIAL_GCS_BUCKET` e `GCS_CREDENTIALS_JSON` (o JSON
+da service account, inteiro). Sem eles o passo se pula com aviso no stderr.
+
+### O calendário de iscas
+
+A trilha **C · Mercado Financeiro** foi acrescentada ao
+`../ROI_Diagnostico/social/iscas/2026_calendario-iscas.xlsx`: 30 quartas, de
+16/09/2026 a 07/04/2027, palavra-chave única `GESTORAS`. Quartas porque
+segundas/quintas são da trilha A e terças da B — e porque o pipeline roda terça
+07:00, deixando a edição pronta no dia seguinte.
+
+⚠️ **A planilha também vive no Drive** (`1tPuifu125UPND3GgVN8XPR2z4mJHg726`, pasta
+"Iscas — Notebooks Estatística (trilha B)"), e a versão de lá costuma estar à
+frente da local — é onde o Vitor marca os fluxos como `SIM`. O conector do Drive
+**não escreve conteúdo** (só título e pasta), então o caminho é: baixar a versão do
+Drive, editar, e o Vitor sobe por "Gerenciar versões" para preservar o ID.
+
 ## Itens em aberto
 
 - [x] **Mapeamento verificado das 12 gestoras (2026-08-11)** — em
@@ -356,6 +396,10 @@ mas o período pago ainda corre.
 - [ ] **Decisões de oferta que faltam para a copy fechar**: existe preço de tabela
   para a âncora "De X por Y"? Existe data de fim de campanha (sem ela a copy sai
   sem urgência — não se inventa)? A garantia de 7 dias da casa vale para recorrente?
+- [x] **URL fixa do PDF** — `divulgacao/publicar_pdf.py` publica no GCS e o
+  workflow chama a cada execução. Verificado: HTTP 200, application/pdf
+- [ ] Adicionar os secrets `SOCIAL_GCS_BUCKET` e `GCS_CREDENTIALS_JSON` na CI
+- [ ] Criar o fluxo `GESTORAS` no painel do ManyChat e a landing no ConvertKit
 - [ ] Publicar o produto no Woo e **testar o carrinho ao vivo**, lendo o preço na
   página (HTTP 200 não prova nada), antes de qualquer disparo
 - [ ] Definir `ASSINANTES_HMAC_SECRET` e ligar o webhook do Woo ao KV

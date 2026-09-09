@@ -36,7 +36,7 @@ prova ponta a ponta é comentar a palavra-chave de uma conta que nunca interagiu
 > 2. Escrevo um exercício em Python que testa uma dessas teses com dado público —
 > o código roda em segundos e você replica.
 >
-> A desta semana está aqui: [LINK]
+> A desta semana está aqui: https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
 >
 > Nela tem o racha do Copom que mostrei no carrossel, com a passagem exata de cada
 > carta, e o exercício que mede quanto do steepener a curva já pagou — o mesmo
@@ -55,14 +55,29 @@ procura para separar quem veio da DM de quem veio do link da bio. Marcar como
 🔑 Todo link que o ManyChat entrega numa DM carrega `mcp_token=` na URL — é assim
 que o `monitors/manychat_entrega.py` mede a entrega.
 
-## Decisão pendente: para onde o link aponta
+## O link: URL fixa, conteúdo que muda sozinho
 
-O produto ainda não está publicado no Woo. Duas opções, e é decisão do Vitor:
+```
+https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
+```
 
-1. **Página de captura** com a síntese desta semana em troca do e-mail — alimenta o
-   Boletim e mede interesse antes de existir produto. É o que o teste pede.
-2. **Página do produto** quando existir — mas aí o carrossel deixa de ser teste e
-   vira lançamento, e a copy do slide 8 muda.
+**Essa URL nunca muda.** O pipeline sobrescreve o arquivo toda terça, depois de
+gerar a edição — o passo "Publicar o PDF no GCS" no workflow. Assim o fluxo do
+ManyChat é criado UMA vez e continua entregando o material da semana corrente,
+sem ninguém trocar link em painel.
 
-⚠️ Enquanto o destino não estiver definido e testado, **o `[LINK]` acima é
-placeholder** e o fluxo não deve ir ao ar.
+Cada edição também fica guardada num endereço datado
+(`.../cartas/2026-09-09.pdf`), para quem recebeu o link numa semana conseguir
+reabrir aquela edição depois.
+
+Verificado em 2026-09-09: as duas URLs respondem **HTTP 200 / application/pdf**.
+
+⚠️ Se a publicação falhar numa semana, o passo é `continue-on-error` — a edição
+não é perdida (o PDF já foi gerado e enviado por WhatsApp), mas **o link público
+fica com a versão anterior**. Conferir a data na capa do PDF ao checar.
+
+### A captura de e-mail
+
+A DM leva para a landing do ConvertKit, que entrega essa URL depois do
+formulário. A landing aponta para o link fixo, então ela também é criada uma vez
+só — a API do Kit não cria formulário (404 em v3 e v4), é trabalho de painel.
