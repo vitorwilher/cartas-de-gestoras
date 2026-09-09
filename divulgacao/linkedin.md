@@ -59,9 +59,11 @@ link vai direto no texto.
   envelhece no dia seguinte e não se sustenta se a composição de gestoras mudar
   (a Kinea caiu do PDF de 09/09 por rate limit na coleta).
 - **Landing:** `https://analisemacro.kit.com/sintese-semanal-das-cartas-das-gestoras`
-  (form `9899518`, criado em 09/09). Verificado: HTTP 200. Existe também o
-  `9794131` — `/sintese-das-cartas-das-gestoras`, de 12/08 — que serve a MESMA
-  página; usar o novo e arquivar o antigo, para não dividir a métrica.
+  (form `9899518`, criado em 09/09). Verificado: HTTP 200, e o formulário nativo
+  captura **e-mail, nome e telefone** (`email_address`, `fields[first_name]`,
+  `fields[phone]` — conferidos no JS do form). Existe também o `9794131` —
+  `/sintese-das-cartas-das-gestoras`, de 12/08 — que serve a MESMA página; usar o
+  novo e arquivar o antigo, para não dividir a métrica.
 - ⚠️ A landing precisa entregar a **URL fixa do PDF**
   (`storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf`) na sequência
   de boas-vindas. Como o pipeline sobrescreve esse arquivo toda terça, quem se

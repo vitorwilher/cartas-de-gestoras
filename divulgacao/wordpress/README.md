@@ -78,5 +78,23 @@ não usar.
    semana recebe a edição corrente — sem trocar nada no painel.
 2. **Esta página x a landing do Kit.** Já existe
    `analisemacro.kit.com/sintese-semanal-das-cartas-das-gestoras` (form 9899518),
-   no ar. Manter as duas divide a métrica: decidir qual é a oficial. A do
-   WordPress captura telefone; a do Kit, não.
+   no ar. Manter as duas divide a métrica: decidir qual é a oficial.
+
+   ⚠️ **As duas capturam telefone.** O form NATIVO do Kit já traz
+   `email_address`, `fields[first_name]` e `fields[phone]` — verificado no JS do
+   formulário (`/ec3285530c/index.js`) em 09/09/2026. A limitação de só passar
+   email e first_name é da integração **Elementor→ConvertKit**, que não se aplica
+   a um form do próprio Kit.
+
+   A diferença real entre as duas é outra:
+
+   | | Kit (9899518) | WordPress (78368) |
+   |---|---|---|
+   | Telefone | sim, nativo | sim, via ponte |
+   | Trabalho para manter | nenhum | snippet + form Elementor |
+   | Controle de design | limitado ao Kit | total |
+   | UTM no assinante | não | sim (ponte id 8 já existente) |
+   | Pixel/CAPI da Meta | não | sim, o do site |
+
+   Se o objetivo é só captar, **a do Kit já resolve e não precisa de manutenção**.
+   A do WordPress se justifica por design próprio, UTM e rastreamento de anúncio.
