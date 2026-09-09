@@ -33,7 +33,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
 PAGINA_CAPTURA = 78405
-PAGINA_OBRIGADO = 78403
+PAGINA_OBRIGADO = 78419
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
 WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
          "%20S%C3%ADntese%20das%20Cartas%20das%20Gestoras%20e%20quero%20receber"
@@ -438,7 +438,7 @@ def layout_obrigado() -> list:
         ], fundo="#F4F7FA", pad_v=72),
 
         secao([
-            titulo("Quer receber também no WhatsApp?", align="center", tamanho=34, mb=8),
+            titulo("Receba também no WhatsApp", align="center", tamanho=34, mb=8),
             texto('<p style="text-align:center;font-size:19px">Manda um <strong>"Oi"</strong> '
                   'que eu te envio o PDF por lá na hora — e, se quiser, a síntese de toda '
                   'semana chega no mesmo lugar.</p>'),
