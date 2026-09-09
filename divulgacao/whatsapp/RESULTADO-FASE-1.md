@@ -26,6 +26,23 @@ landing — a chave da automação.
 
 Payload completo (anonimizado): `evento-add-talk-exemplo.json`.
 
+## Confirmado com DOIS remetentes
+
+Não foi acaso: dois eventos independentes, com 3 minutos de diferença, cada um
+com seu próprio contato, lead e talk.
+
+| # | Hora | contact_id | entity_id | talk_id | Quem |
+|---|---|---|---|---|---|
+| 1 | 21:44:56 | 28771643 | 23711835 | 106564 | Alan |
+| 2 | 21:47:57 | 28771685 | 23711881 | 106565 | Luiz |
+
+Os dois com `origin=waba` e `is_read=0`. Em ambos, `GET /contacts/{id}` devolveu
+nome e telefone corretos.
+
+**O que isso prova:** o `talk_id` é sequencial e cada conversa gera um evento
+próprio — dá para tratar cada lead individualmente, que é o que a automação
+precisa.
+
 ## Achados que custariam tempo depois
 
 ⚠️ **O Kommo EXIGE barra no final da URL do webhook.** Sem ela, recusa com
