@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "wa-escuta",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-03-10",
+  "kv_namespaces": [
+    { "binding": "EVENTOS", "id": "b3ea761db2064192b6adf7b8ec532afc" }
+  ],
+  "observability": { "enabled": true }
+}

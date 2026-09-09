@@ -1,0 +1,11 @@
+{
+ "total": 1,
+ "eventos": [
+  {
+   "recebido_em": "2026-09-09T21:44:56.682Z",
+   "metodo": "POST",
+   "content_type": "application/x-www-form-urlencoded",
+   "corpo": "account%5Bsubdomain%5D=analisemacro&account%5Bid%5D=34345327&account%5B_links%5D%5Bself%5D=https%3A%2F%2Fanalisemacro.amocrm.com&talk%5Badd%5D%5B0%5D%5Btalk_id%5D=106564&talk%5Badd%5D%5B0%5D%5Bcreated_at%5D=1788990296&talk%5Badd%5D%5B0%5D%5Bupdated_at%5D=1788990296&talk%5Badd%5D%5B0%5D%5Brate%5D=0&talk%5Badd%5D%5B0%5D%5Bcontact_id%5D=<ID>&talk%5Badd%5D%5B0%5D%5Bchat_id%5D=18123519-a003-4c1b-90a8-ad98fd76865a&talk%5Badd%5D%5B0%5D%5Bentity_id%5D=23711835&talk%5Badd%5D%5B0%5D%5Bentity_type%5D=lead&talk%5Badd%5D%5B0%5D%5Bis_in_work%5D=1&talk%5Badd%5D%5B0%5D%5Bis_read%5D=0&talk%5Badd%5D%5B0%5D%5Borigin%5D=waba"
+  }
+ ]
+}

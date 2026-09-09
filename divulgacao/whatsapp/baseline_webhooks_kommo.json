@@ -1,0 +1,33 @@
+{
+ "_total_items": 2,
+ "_embedded": {
+  "webhooks": [
+   {
+    "id": 43542927,
+    "destination": "https://woocom.kommo.com/crm/webhooks",
+    "created_at": 1743107267,
+    "updated_at": 1743107267,
+    "account_id": 34345327,
+    "created_by": 12914399,
+    "sort": 1,
+    "disabled": false,
+    "settings": [
+     "add_unsorted"
+    ]
+   },
+   {
+    "id": 47393560,
+    "destination": "https://amblack-webhook-745802949237.southamerica-east1.run.app/kommo",
+    "created_at": 1783107584,
+    "updated_at": 1783107584,
+    "account_id": 34345327,
+    "created_by": 12914399,
+    "sort": 1,
+    "disabled": false,
+    "settings": [
+     "add_unsorted"
+    ]
+   }
+  ]
+ }
+}

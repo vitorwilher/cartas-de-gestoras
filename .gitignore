@@ -38,3 +38,7 @@ mcp/.wrangler/
 
 # Carrossel: HTML intermediário (os PNGs ficam versionados como entregável)
 divulgacao/carrossel/carrossel.html
+
+# Worker de escuta: dependências e build
+divulgacao/whatsapp/escuta/node_modules/
+divulgacao/whatsapp/escuta/.wrangler/
