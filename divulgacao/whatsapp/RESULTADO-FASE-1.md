@@ -75,3 +75,57 @@ não permite remover.
 
 Guardar o evento com o telefone resolvido, para cruzar com o lead da landing.
 Ainda sem enviar nada a ninguém.
+
+
+---
+
+# Fase 2 — resultado: FUNCIONOU
+
+Executada em 2026-09-09, logo após a fase 1.
+
+## O que o Worker faz agora
+
+Ao receber o evento, ele **resolve quem escreveu e de onde veio**:
+
+1. `GET /contacts/{contact_id}` no Kommo → nome e telefone (com cache de 24h,
+   para não repetir consulta do mesmo contato)
+2. Procura esse telefone na tag Mercado Financeiro do ConvertKit
+3. Guarda tudo no KV — **sem enviar nada a ninguém**
+
+## Testado nos dois cenários
+
+| Cenário | Resultado |
+|---|---|
+| Telefone **fora** da base do Kit | `veio_da_landing: false`, com `estado: nao_encontrado` |
+| Mesmo telefone **dentro** da base | `veio_da_landing: true`, achado na página 11 |
+
+O segundo teste foi feito criando um assinante com o telefone do Alan, e ele foi
+removido em seguida.
+
+## Dois achados que custariam horas
+
+⚠️ **O Kit IGNORA `per_page` acima de 50.** Pedir 100 devolve 50, e `total_pages`
+é calculado sobre 50. Meu código parava "quando vinha menos que o pedido" — o que
+encerrava a busca na primeira página, **sempre**. O lead estava na página 11 de 11
+e nunca era encontrado. Agora a paginação usa `total_pages`.
+
+⚠️ **A API do Kit não busca por campo custom.** Não há como perguntar "quem tem
+este telefone?" — só listar e varrer. Por isso a busca é na TAG do projeto (532
+pessoas) e não na base inteira (5.118).
+
+## A melhoria que vale fazer depois
+
+Varrer 11 páginas a cada mensagem funciona, mas é frágil: cresce com a lista e
+depende da API do Kit estar no ar.
+
+**O certo é o formulário gravar o telefone no nosso KV no momento do cadastro.**
+Aí a consulta é instantânea, exata e não depende de ninguém. Exige um ajuste na
+ponte PHP — vale quando a fase 3 começar.
+
+## Estado
+
+| | |
+|---|---|
+| Worker | `wa-escuta.analisemacro.workers.dev` — ouve, resolve e registra |
+| Segredos | KOMMO_TOKEN, KOMMO_SUBDOMAIN, CONVERTKIT_SECRET (no Worker) |
+| Envio de mensagem | **nenhum** — continua só observando |
