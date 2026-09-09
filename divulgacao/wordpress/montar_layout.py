@@ -350,13 +350,13 @@ def layout_captura() -> list:
             colunas([
                 [
                     texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">SÍNTESE SEMANAL</p>', tamanho=14),
-                    titulo("Leia as cartas das 12 maiores gestoras do Brasil sem ler as doze", tag="h1", tamanho=46, mb=6),
+                    titulo("Leia as cartas das 12 maiores gestoras do Brasil toda semana", tag="h1", tamanho=44, mb=6),
                     texto("<p>Toda semana, a síntese das cartas novas — a tese de cada casa, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ], gap=40, pesos=[34, 66]),
-        ], fundo="#F4F7FA", pad_v=64, largura=1240, css_id="hero"),
+            ], gap=36, pesos=[30, 70]),
+        ], fundo="#F4F7FA", pad_v=64, largura=1320, css_id="hero"),
 
         secao([
             colunas([[numero("12", "gestoras acompanhadas")],

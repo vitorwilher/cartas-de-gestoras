@@ -294,9 +294,26 @@ problema real.
 
 ### Assinatura e divulgação (`assinatura/`, `divulgacao/`)
 
-**Regra permanente, definida pelo Vitor em 2026-09-08: preparar, nunca disparar.**
-Woo, ConvertKit e Instagram recebem rascunho e revisão humana; nenhum script deste
-repositório publica produto, envia e-mail ou posta. Os scripts têm bloqueios
+**Regra geral, definida pelo Vitor em 2026-09-08: preparar, nunca disparar.**
+Woo e Instagram recebem rascunho e revisão humana; nenhum script deste repositório
+publica produto ou posta.
+
+**Exceção, aberta pelo Vitor em 2026-09-09: o e-mail semanal.** Para o pipeline
+rodar sozinho, `broadcast_semanal.py --enviar` AGENDA o broadcast (`send_at` ~30
+min à frente, status `scheduled`) em vez de criar rascunho. A janela é deliberada:
+`scheduled` é cancelável no painel, envio imediato é irreversível. Três guardas
+antes de agendar: a tag precisa ter gente, o `subscriber_filter` precisa constar na
+RELEITURA, e o status precisa ter virado `scheduled` — senão o script falha e manda
+enviar à mão.
+
+⚠️ **Isso exige a API v4** (`api.kit.com/v4`, header `X-Kit-Api-Key`; Bearer dá 401).
+A **v3 aceita `subscriber_filter`, responde 200 e descarta o campo em silêncio** —
+volta `null`. Um broadcast criado pela v3 sai para a lista INTEIRA (5.118), não para
+a tag do projeto. Na CI o secret é `CONVERT_KIT_V4`.
+
+⚠️ **A leitura de tags do Kit atrasa por indexação.** Logo após marcar alguém,
+`/v4/tags/<id>/subscribers` pode voltar vazio enquanto o painel já mostra a tag. Não
+concluir que a marcação falhou a partir de uma leitura só. Os scripts têm bloqueios
 explícitos para isso — `preparar_disparo.py` se recusa a criar o broadcast enquanto
 a copy tiver placeholder de checkout.
 

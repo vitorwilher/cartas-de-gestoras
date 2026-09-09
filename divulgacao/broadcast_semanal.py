@@ -5,9 +5,10 @@
 promete. O WhatsApp entrega só para quem escreveu (janela de 24h); o e-mail
 alcança todos, sem template, sem custo por conversa e sem risco de qualidade.
 
-Por decisão do Vitor (2026-09-09), o broadcast NASCE COMO RASCUNHO. Nada é
-enviado sem revisão — a regra "preparar, nunca disparar" continua valendo para
-comunicação em massa.
+Por padrão o broadcast NASCE COMO RASCUNHO. Com `--enviar` (decisão do Vitor em
+2026-09-09, para o pipeline rodar sozinho toda terça) ele é AGENDADO para daqui a
+alguns minutos — não disparado no ato. A diferença importa: enquanto está
+`scheduled`, dá para cancelar no painel. Um envio imediato é irreversível.
 
 ⚠️ Usa a API **v4** (`api.kit.com/v4`, header `X-Kit-Api-Key`). A v3 aceita o
 `subscriber_filter` no POST e no PUT, responde 200 e **descarta o campo em
@@ -18,6 +19,7 @@ script confere a leitura depois de escrever e falha se não bater.
 Uso:
     python divulgacao/broadcast_semanal.py --dry-run   # mostra o que enviaria
     python divulgacao/broadcast_semanal.py            # cria o rascunho no Kit
+    python divulgacao/broadcast_semanal.py --enviar    # agenda o envio (pipeline)
 """
 
 from __future__ import annotations
@@ -26,7 +28,7 @@ import argparse
 import os
 import re
 import sys
-from datetime import date
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import httpx
@@ -116,6 +118,10 @@ adapta e discorda — que é o ponto.</p>
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--enviar", action="store_true",
+                    help="agenda o envio (padrão: só cria o rascunho)")
+    ap.add_argument("--espera", type=int, default=15, metavar="MIN",
+                    help="minutos até o disparo, para dar tempo de cancelar (padrão: 15)")
     args = ap.parse_args()
 
     data, gestoras, conceito = edicao_mais_recente()
@@ -150,12 +156,19 @@ def main() -> int:
     # e basta um clique errado no painel para ele sair assim.
     filtro = [{"all": [{"type": "tag", "ids": [TAG_PROJETO]}]}]
 
+    # send_at é o ÚNICO campo que dispara o envio (`public` controla a publicação
+    # no site, não o e-mail). None mantém rascunho; uma data futura agenda e o
+    # status vira `scheduled`, cancelável no painel até a hora marcada.
+    quando = None
+    if args.enviar:
+        quando = (datetime.now(timezone.utc)
+                  + timedelta(minutes=args.espera)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
     r = httpx.post(f"{BASE}/broadcasts", timeout=90, headers=headers, json={
         "subject": assunto,
         "content": html,
-        # public=False e send_at=None mantêm como RASCUNHO: nada sai sem revisão.
         "public": False,
-        "send_at": None,
+        "send_at": quando,
         "subscriber_filter": filtro,
     })
     if r.status_code not in (200, 201):
@@ -176,9 +189,28 @@ def main() -> int:
         print("   NÃO ENVIE: defina o segmento no painel antes.", file=sys.stderr)
         return 1
 
-    print(f"\nRascunho criado: id {bid}")
-    print(f"Segmento confirmado na leitura: tag {TAG_PROJETO} — {total} destinatário(s).")
-    print("\nRevise e envie em https://app.kit.com/campaigns")
+    corpo_lido = conferido.json().get("broadcast", {})
+    situacao = corpo_lido.get("status")
+
+    if not args.enviar:
+        print(f"\nRascunho criado: id {bid}")
+        print(f"Segmento confirmado: tag {TAG_PROJETO} — {total} destinatário(s).")
+        print("\nRevise e envie em https://app.kit.com/campaigns")
+        return 0
+
+    # O agendamento também se confirma na leitura: se o Kit tivesse ignorado o
+    # send_at (como a v3 fazia com o filtro), o broadcast ficaria de rascunho e
+    # a edição da semana não sairia — em silêncio, que é o pior desfecho.
+    if situacao != "scheduled":
+        print(f"\n🔴 Broadcast {bid} criado, mas NÃO agendou (status={situacao}).",
+              file=sys.stderr)
+        print("   Envie pelo painel: https://app.kit.com/campaigns", file=sys.stderr)
+        return 1
+
+    print(f"\nBroadcast {bid} AGENDADO para {corpo_lido.get('send_at')}"
+          f" (~{args.espera} min).")
+    print(f"Segmento confirmado: tag {TAG_PROJETO} — {total} destinatário(s).")
+    print("Para cancelar antes da hora: https://app.kit.com/campaigns")
     return 0
 
 
