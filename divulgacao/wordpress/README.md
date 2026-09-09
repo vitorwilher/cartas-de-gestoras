@@ -16,6 +16,22 @@ partir do formulário. Está verificado no payload real e documentado no
 
 Sem a ponte, **o telefone não chega ao Kit**.
 
+## ⚠️ O que esta página É e o que NÃO é
+
+**É o CONTEÚDO da landing, não o design.** O texto segue a anatomia da página do
+Livro Linguagem Econômica (id `73683`), que é o padrão da casa: hero com promessa
+específica → o que você recebe → para quem é → o argumento → quem escreve (com
+credenciais e citação) → formulário.
+
+**NÃO tem layout.** A página do livro é montada no **Elementor**, e o Elementor
+guarda o layout em `_elementor_data` — um post meta que a REST API **expõe a
+chave mas não o valor**, e que não dá para escrever de fora com segurança. O que
+criei via API são blocos Gutenberg: o texto certo, na ordem certa, sem desenho.
+
+O caminho a partir daqui é abrir no Elementor e montar as seções sobre esse
+texto — ou, mais rápido, **duplicar a página do livro** (73683) e trocar o
+conteúdo, herdando o layout inteiro pronto.
+
 ## Passo a passo
 
 ### 1. Montar o formulário no Elementor
