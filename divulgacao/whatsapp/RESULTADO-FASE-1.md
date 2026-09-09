@@ -176,6 +176,25 @@ quando uma mensagem não chega — sem ele, não há o que investigar.
 
 | | |
 |---|---|
-| Lista de permissão | só o número do Vitor, no primeiro teste |
+| Lista de permissão | Vitor, Alan e Luiz |
 | Envio | **ativo** para a lista |
 | Fora da lista | registrado, sem envio |
+
+## Disparo real (09/09)
+
+Com autorização do Vitor, o PDF foi enviado para os três:
+
+| Quem | Telefone | Resultado |
+|---|---|---|
+| Vitor | 5521967216813 | HTTP 200 + wamid |
+| Alan | 5513991145811 | HTTP 200 + wamid |
+| Luiz | 553588195504 | HTTP 200 + wamid |
+
+⚠️ **`wamid` significa "aceito pela Meta", não "entregue".** Confirmação real
+exigiria webhook de status, que não temos. Vale perguntar aos três se o PDF
+chegou.
+
+⚠️ **O telefone do Luiz tem 10 dígitos** (`553588195504`, sem o 9 depois do DDD).
+Eu quase o cadastrei como `5535988195504`, acrescentando um 9 que não existe — a
+mensagem simplesmente não chegaria. **Sempre conferir o telefone como o Kommo
+guarda**, não como parece que deveria ser.
