@@ -32,7 +32,7 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
-PAGINA_CAPTURA = 78391
+PAGINA_CAPTURA = 78395
 PAGINA_OBRIGADO = 78388
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
 WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
@@ -269,7 +269,14 @@ def formulario():
             "button_text": "Quero receber a síntese",
             "button_size": "lg",
             "button_align": "stretch",
-            "submit_actions": ["redirect"],
+            # "email" grava o envio e faz o Elementor aceitar o submit; sem uma
+            # ação de processamento ele responde "Erro do Formulário".
+            "submit_actions": ["email", "redirect"],
+            "email_to": "analisemacro.cloud@gmail.com",
+            "email_subject": "Novo lead — Cartas de Gestoras",
+            "email_content": "[all-fields]",
+            "email_from_name": "Análise Macro",
+            "email_reply_to": "analisemacro.cloud@gmail.com",
             "redirect_to": "https://analisemacro.com.br/conteudo/cartas-das-gestoras-obrigado/",
             "button_background_color": AZUL,
             "button_typography_typography": "custom",
@@ -282,7 +289,7 @@ def formulario():
     }
 
 
-def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column"):
+def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column", css_id=None):
     s = {
         "content_width": "boxed",
         "boxed_width": _px(largura),
@@ -293,6 +300,8 @@ def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column"):
     if fundo:
         s["background_background"] = "classic"
         s["background_color"] = fundo
+    if css_id:
+        s["_element_id"] = css_id
     return {"id": _id(), "elType": "container", "settings": s, "elements": filhos}
 
 
@@ -307,7 +316,7 @@ def layout_captura() -> list:
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ], gap=36, pesos=[42, 58]),
+            ], gap=32, pesos=[38, 62]),
         ], fundo="#F4F7FA", pad_v=64),
 
         secao([
@@ -372,7 +381,7 @@ def layout_captura() -> list:
             texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba o PDF na hora.</p>'),
             caixa([formulario()], pad=40),
             texto('<p style="text-align:center"><small>Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
-        ], fundo="#F4F7FA", pad_v=80),
+        ], fundo="#F4F7FA", pad_v=80, css_id="form"),
     ]
 
 

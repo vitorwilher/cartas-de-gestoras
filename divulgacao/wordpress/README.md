@@ -13,7 +13,7 @@ a antiga em definitivo (para liberar o slug).
 
 | Página | id | Slug |
 |---|---|---|
-| Captura | `78391` | `/conteudo/cartas-das-gestoras/` — **no ar** |
+| Captura | `78395` | `/conteudo/cartas-das-gestoras/` — **no ar** |
 | Obrigado | `78388` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
 
 Editar: `analisemacro.com.br/wp-admin/post.php?post=<id>&action=edit`
@@ -137,6 +137,32 @@ herdando o layout inteiro.
 | Campos no Kit | `phone` (676333), `whatsapp` (1142293) |
 | WhatsApp da casa | `wa.me/5521971167250` (o mesmo da página do livro) |
 | PDF (URL fixa) | `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf` |
+
+## Estado do cadastro (testado em 09/09/2026)
+
+✅ **A captura está OPERACIONAL.** A ponte foi instalada como snippet **id 11**,
+escopo `global`, ativa.
+
+**Teste feito:** disparei o hook `elementor_pro/forms/new_record` no ambiente real
+do WordPress, com um record igual ao que o formulário produz. Resultado no Kit:
+
+| Campo | Valor gravado |
+|---|---|
+| `first_name` | Teste Ponte Real |
+| `fields.phone` | `5521988887777` (DDI acrescentado) |
+| `fields.whatsapp` | `5521988887777` |
+| Tag | **Mercado Financeiro (22406993)** |
+| Sequência | 2888305 |
+
+O assinante de teste foi removido depois.
+
+⚠️ **Não dá para testar o envio simulando um POST** — o site tem **hCaptcha**
+ativo, que intercepta `admin-ajax.php`. É proteção funcionando; o teste de
+verdade é preencher o formulário no navegador.
+
+⚠️ O formulário precisa de `submit_actions` com uma ação de PROCESSAMENTO. Só
+`["redirect"]` faz o Elementor responder *"O Envio Falhou devido a um Erro do
+Formulário"*. Agora é `["email", "redirect"]`.
 
 ## Falta
 
