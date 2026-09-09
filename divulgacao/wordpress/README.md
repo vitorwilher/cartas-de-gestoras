@@ -172,3 +172,34 @@ Formulário"*. Agora é `["email", "redirect"]`.
 - [ ] Testar o fluxo ponta a ponta com um e-mail real
 - [ ] **Publicar as duas páginas** (autorizado pelo Vitor em 09/09)
 - [ ] Conferir se a sequência 2888305 entrega a URL fixa do PDF no e-mail
+
+
+---
+
+## Como o lead recebe a síntese TODA SEMANA
+
+A página de obrigado promete "a próxima chega toda terça". Quem cumpre isso é o
+**broadcast por e-mail**, não o WhatsApp.
+
+| Canal | Alcance | Quando |
+|---|---|---|
+| WhatsApp | só quem escreveu (janela de 24h) | na hora, uma vez |
+| **E-mail (broadcast)** | **todos os leads da tag** | **toda terça** |
+
+`divulgacao/broadcast_semanal.py` lê a edição mais recente, extrai as gestoras e o
+conceito do exercício, e cria o broadcast **como rascunho**. O workflow o chama a
+cada execução.
+
+🔴 **A API v3 do Kit NÃO grava o `subscriber_filter`** — testado: volta `null`.
+Sem definir o segmento no painel, o e-mail vai para a **lista inteira** (5.118)
+em vez dos leads da tag do projeto. O script imprime esse aviso em vermelho ao
+criar o rascunho.
+
+**Passo obrigatório antes de enviar:** Broadcasts → o rascunho → *Send to* → tag
+`Leads - Cartas Semanais` (23251247).
+
+## Sobre o Boletim AM
+
+O e-mail da sequência dizia que o lead passaria a receber o Boletim AM. **Por
+decisão do Vitor (09/09), essa frase sai** — o lead recebe só a síntese, o que dá
+uma comunicação mais focada. A ponte não aplica nenhuma tag do Boletim.

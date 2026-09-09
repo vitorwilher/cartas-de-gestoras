@@ -82,6 +82,19 @@ jobs:
           GCS_CREDENTIALS_PATH=/tmp/gcs.json python divulgacao/publicar_pdf.py
           rm -f /tmp/gcs.json
 
+      # O broadcast NASCE COMO RASCUNHO — a regra "preparar, nunca disparar" vale
+      # para comunicação em massa. O Vitor revisa e envia no painel do Kit.
+      - name: Preparar o broadcast da semana (rascunho)
+        continue-on-error: true
+        env:
+          CONVERTKIT_API_SECRET: ${{ secrets.CONVERTKIT_API_SECRET }}
+        run: |
+          if [ -z "$CONVERTKIT_API_SECRET" ]; then
+            echo "CONVERTKIT_API_SECRET ausente; pulando o broadcast." >&2
+            exit 0
+          fi
+          python divulgacao/broadcast_semanal.py
+
       - name: Commitar síntese e estado
         run: |
           git config user.name "github-actions[bot]"
