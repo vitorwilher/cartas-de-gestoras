@@ -42,3 +42,7 @@ divulgacao/carrossel/carrossel.html
 # Worker de escuta: dependências e build
 divulgacao/whatsapp/escuta/node_modules/
 divulgacao/whatsapp/escuta/.wrangler/
+
+# Artefatos de render do paper
+paper/paper_files/
+paper/.quarto/
