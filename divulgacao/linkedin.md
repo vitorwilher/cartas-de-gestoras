@@ -46,7 +46,7 @@ link vai direto no texto.
 > Não é para você concordar com as gestoras. É para conseguir checar.
 >
 > Dynamo, IP, Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO e
-> Dahlia. É de graça, e chega no seu e-mail:
+> Dahlia. Para receber, é só deixar seu e-mail aqui:
 >
 > https://analisemacro.kit.com/sintese-semanal-das-cartas-das-gestoras
 >

@@ -126,7 +126,7 @@ def html(d: dict) -> str:
   <div class="esq">
     <div class="marca"><img src="{_logo()}"><span>Análise Macro</span></div>
     <div>
-      <div class="kicker">Toda semana, de graça</div>
+      <div class="kicker">Síntese semanal</div>
       <h1>As cartas das 12 maiores gestoras do Brasil,<br><em>destrinchadas em Python.</em></h1>
       <ul>
         <li><span class="dot"></span><span>A <b>tese de cada casa</b> e o mecanismo que a sustenta</span></li>
