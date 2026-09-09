@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="880" viewBox="0 0 1120 880" font-family="Inter,Helvetica,Arial,sans-serif">
+  <defs>
+    <marker id="s" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#475569"/></marker>
+    <marker id="sv" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2f9e44"/></marker>
+    <marker id="so" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e8590c"/></marker>
+  </defs>
+  <rect width="1120" height="880" fill="#ffffff"/>
+
+  <text x="36" y="42" font-size="23" font-weight="700" fill="#0f172a">Hub de WhatsApp — arquitetura para qualquer projeto de captação</text>
+  <text x="36" y="70" font-size="13.5" fill="#64748b">A WABA aceita UM webhook, e hoje ele está com o Kommo. A solução inverte isso: quem recebe é o nosso Worker,</text>
+  <text x="36" y="89" font-size="13.5" fill="#64748b">que lê o número de destino e decide para onde vai cada mensagem.</text>
+
+  <!-- 1 ENTRADA -->
+  <text x="36" y="132" font-size="13" font-weight="700" fill="#1971c2">1 · ENTRADA</text>
+  <rect x="36" y="146" width="252" height="104" rx="9" fill="#e7f5ff" stroke="#1971c2" stroke-width="1.6"/>
+  <text x="54" y="172" font-size="14.5" font-weight="700" fill="#0f172a">Landing de captação</text>
+  <text x="54" y="195" font-size="12" fill="#475569">WordPress + Elementor</text>
+  <text x="54" y="213" font-size="12" fill="#475569">nome · e-mail · telefone</text>
+  <text x="54" y="231" font-size="12" fill="#94a3b8">uma por projeto</text>
+
+  <rect x="36" y="268" width="252" height="96" rx="9" fill="#e7f5ff" stroke="#1971c2" stroke-width="1.6"/>
+  <text x="54" y="294" font-size="14.5" font-weight="700" fill="#0f172a">Página de obrigado</text>
+  <text x="54" y="317" font-size="12" fill="#475569">botão wa.me com texto pronto</text>
+  <text x="54" y="335" font-size="12" font-weight="600" fill="#2f9e44">→ o LEAD manda "Oi"</text>
+  <text x="54" y="353" font-size="11.5" fill="#94a3b8">abre a janela de 24h, sem template</text>
+
+  <!-- 2 HUB -->
+  <text x="352" y="132" font-size="13" font-weight="700" fill="#6741d9">2 · O HUB (Cloudflare Worker)</text>
+  <rect x="352" y="146" width="336" height="330" rx="9" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.8"/>
+  <text x="370" y="172" font-size="13.5" font-weight="700" fill="#0f172a">wa-hub.analisemacro.workers.dev</text>
+  <text x="370" y="193" font-size="11.5" fill="#64748b">webhook ÚNICO da WABA · mesma stack</text>
+  <text x="370" y="210" font-size="11.5" fill="#64748b">dos 4 MCPs que já rodam em produção</text>
+
+  <rect x="370" y="228" width="300" height="58" rx="7" fill="#ffffff" stroke="#0f172a" stroke-width="1.4"/>
+  <text x="386" y="250" font-size="12.5" font-weight="700" fill="#0f172a">ROTEADOR</text>
+  <text x="386" y="270" font-size="11.5" fill="#475569">lê o número de destino e o mapa de projetos</text>
+
+  <rect x="370" y="300" width="300" height="56" rx="7" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.4"/>
+  <text x="386" y="322" font-size="12.5" font-weight="700" fill="#0f172a">É lead de captação?</text>
+  <text x="386" y="342" font-size="11.5" fill="#475569">responde o PDF e agenda o D+1</text>
+
+  <rect x="370" y="370" width="300" height="52" rx="7" fill="#fff4e6" stroke="#e8590c" stroke-width="1.4"/>
+  <text x="386" y="391" font-size="12.5" font-weight="700" fill="#0f172a">É atendimento?</text>
+  <text x="386" y="410" font-size="11.5" fill="#475569">repassa ao Kommo, intacto</text>
+
+  <rect x="370" y="434" width="300" height="30" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="386" y="454" font-size="11.5" fill="#64748b">KV — quem escreveu, quando, de que projeto</text>
+
+  <!-- 3 DESTINOS -->
+  <text x="752" y="132" font-size="13" font-weight="700" fill="#2f9e44">3 · DESTINOS</text>
+  <rect x="752" y="146" width="252" height="84" rx="9" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.6"/>
+  <text x="770" y="172" font-size="14" font-weight="700" fill="#0f172a">Resposta automática</text>
+  <text x="770" y="194" font-size="12" fill="#475569">PDF na hora + boas-vindas</text>
+  <text x="770" y="213" font-size="11.5" fill="#94a3b8">dentro da janela aberta pelo lead</text>
+
+  <rect x="752" y="248" width="252" height="84" rx="9" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.6"/>
+  <text x="770" y="274" font-size="14" font-weight="700" fill="#0f172a">Follow-up D+1</text>
+  <text x="770" y="296" font-size="12" fill="#475569">"o que você faz?"</text>
+  <text x="770" y="315" font-size="11.5" fill="#94a3b8">cron nativo do Workers</text>
+
+  <rect x="752" y="350" width="252" height="84" rx="9" fill="#fff4e6" stroke="#e8590c" stroke-width="1.6"/>
+  <text x="770" y="376" font-size="14" font-weight="700" fill="#0f172a">Kommo → Raiane</text>
+  <text x="770" y="398" font-size="12" fill="#475569">card no board, com histórico</text>
+  <text x="770" y="417" font-size="11.5" fill="#94a3b8">a rotina dela não muda</text>
+
+  <rect x="752" y="452" width="252" height="70" rx="9" fill="#e7f5ff" stroke="#1971c2" stroke-width="1.6"/>
+  <text x="770" y="478" font-size="14" font-weight="700" fill="#0f172a">ConvertKit</text>
+  <text x="770" y="500" font-size="12" fill="#475569">tag + sequência de e-mail</text>
+
+  <!-- setas -->
+  <path d="M290 198 L346 198" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
+  <text x="292" y="190" font-size="11" fill="#64748b">cadastro</text>
+  <path d="M290 316 L346 300" stroke="#475569" stroke-width="1.8" fill="none" marker-end="url(#s)"/>
+  <text x="292" y="333" font-size="11" fill="#64748b">"Oi" do lead</text>
+  <path d="M672 300 L748 190" stroke="#2f9e44" stroke-width="1.8" fill="none" marker-end="url(#sv)"/>
+  <path d="M672 328 L748 290" stroke="#2f9e44" stroke-width="1.8" fill="none" marker-end="url(#sv)"/>
+  <path d="M672 396 L748 392" stroke="#e8590c" stroke-width="1.8" fill="none" marker-end="url(#so)"/>
+  <path d="M162 250 L162 540 L744 540 L744 490" stroke="#1971c2" stroke-width="1.6" fill="none" stroke-dasharray="5 4" marker-end="url(#s)"/>
+  <text x="330" y="533" font-size="11" fill="#1971c2">ponte PHP — já testada (snippet 11)</text>
+
+  <!-- pronto -->
+  <rect x="36" y="576" width="652" height="152" rx="9" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="54" y="602" font-size="13.5" font-weight="700" fill="#2f9e44">JÁ ESTÁ PRONTO — não precisa construir</text>
+  <text x="54" y="626" font-size="12" fill="#0f172a">✓ Token System User com whatsapp_business_messaging — não expira</text>
+  <text x="54" y="647" font-size="12" fill="#0f172a">✓ 4 Cloudflare Workers em produção (nucleos, imersão, MPP, cartas)</text>
+  <text x="54" y="668" font-size="12" fill="#0f172a">✓ Ponte WordPress → ConvertKit testada (nome, telefone e tag chegam)</text>
+  <text x="54" y="689" font-size="12" fill="#0f172a">✓ PDF em URL fixa no GCS, atualizada pelo pipeline toda terça</text>
+  <text x="54" y="710" font-size="12" fill="#0f172a">✓ Kommo com API e token longo já no .env</text>
+
+  <!-- falta -->
+  <rect x="708" y="576" width="296" height="152" rx="9" fill="#fff4e6" stroke="#e8590c" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="726" y="602" font-size="13.5" font-weight="700" fill="#e8590c">O QUE FALTA</text>
+  <text x="726" y="628" font-size="12" fill="#0f172a">1. Número novo na WABA</text>
+  <text x="726" y="650" font-size="12" fill="#0f172a">2. Trocar o webhook: Kommo → hub</text>
+  <text x="726" y="672" font-size="12" fill="#0f172a">3. Escrever o Worker (~200 linhas)</text>
+  <text x="726" y="694" font-size="12" fill="#0f172a">4. Mapa de projetos no KV</text>
+  <text x="726" y="716" font-size="11.5" fill="#94a3b8">nada disso é infra nova</text>
+
+  <!-- escala -->
+  <rect x="36" y="750" width="968" height="98" rx="9" fill="#f3f0ff" stroke="#6741d9" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="54" y="776" font-size="13.5" font-weight="700" fill="#6741d9">POR QUE VALE PARA QUALQUER PROJETO</text>
+  <text x="54" y="800" font-size="12.5" fill="#0f172a">O hub não sabe o que é "Cartas de Gestoras". Ele lê o número de destino e um mapa de projetos guardado no KV.</text>
+  <text x="54" y="821" font-size="12.5" fill="#0f172a">Projeto novo = uma linha nova no mapa: landing, PDF, tag do Kit, sequência. Zero código, zero deploy.</text>
+</svg>
