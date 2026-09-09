@@ -32,8 +32,8 @@ UA = ("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/120.0 Safari/537.36")
 AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
-PAGINA_CAPTURA = 78384
-PAGINA_OBRIGADO = 78382
+PAGINA_CAPTURA = 78391
+PAGINA_OBRIGADO = 78388
 PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
 WHATS = ("https://wa.me/5521971167250?text=Oi!%20Acabei%20de%20me%20inscrever%20na"
          "%20S%C3%ADntese%20das%20Cartas%20das%20Gestoras%20e%20quero%20receber"
@@ -45,6 +45,9 @@ AZUL = "#0098DA"     # global "secondary"
 CINZA = "#54595F"    # global "text"
 IMG_GRAFICO = "https://analisemacro.com.br/wp-content/uploads/2026/09/cartas-gestoras-exercicio.png"
 IMG_GRAFICO_ID = 78378
+# Mesma foto que a landing do Livro Linguagem Econômica usa.
+IMG_VITOR = "https://analisemacro.com.br/wp-content/uploads/2026/08/vitor-wilher-cientista-chefe.png"
+IMG_VITOR_ID = 73691
 
 
 def _id() -> str:
@@ -152,17 +155,17 @@ def caixa(filhos, fundo="#FFFFFF", borda=True, pad=32):
     return {"id": _id(), "elType": "container", "settings": s, "elements": filhos}
 
 
-def colunas(cols, gap=28):
+def colunas(cols, gap=28, pesos=None):
     """Container flex em linha — as colunas viram empilhadas no celular."""
     filhos = []
-    for c in cols:
+    for i, c in enumerate(cols):
         # `width` em % e `content_width: full`: com width em px 0 o container
         # colapsava e as colunas empilhavam.
         filhos.append({
             "id": _id(), "elType": "container",
             "settings": {
                 "content_width": "full",
-                "width": {"unit": "%", "size": round(100 / max(len(cols), 1), 2), "sizes": []},
+                "width": {"unit": "%", "size": (pesos[i] if pesos else round(100 / max(len(cols), 1), 2)), "sizes": []},
                 "width_mobile": {"unit": "%", "size": 100, "sizes": []},
                 "flex_gap": {"unit": "px", "size": 12, "column": "12", "row": "12"},
             },
@@ -238,6 +241,47 @@ def lista(itens, icone="fas fa-check"):
     }
 
 
+def formulario():
+    """Widget Form do Elementor: nome, e-mail e telefone (todos obrigatórios).
+
+    O `form_id` DEVE ser "cartasgestoras" — é por ele que a ponte PHP reconhece
+    o submit. Com outro valor a ponte ignora em silêncio e o telefone se perde.
+
+    A ação nativa "ConvertKit" do Elementor não é usada: ela só escreve email e
+    first_name. Quem leva os dados ao Kit é a ponte (ver README).
+    """
+    return {
+        "id": _id(), "elType": "widget", "widgetType": "form",
+        "settings": {
+            "form_name": "cartasgestoras",
+            "form_id": "cartasgestoras",
+            "form_fields": [
+                {"_id": "nome", "field_type": "text", "field_label": "Nome",
+                 "placeholder": "Seu nome", "required": "true", "width": "100",
+                 "custom_id": "nome"},
+                {"_id": "email", "field_type": "email", "field_label": "E-mail",
+                 "placeholder": "seu@email.com", "required": "true", "width": "100",
+                 "custom_id": "email"},
+                {"_id": "telefone", "field_type": "tel", "field_label": "WhatsApp",
+                 "placeholder": "(21) 90000-0000", "required": "true", "width": "100",
+                 "custom_id": "telefone"},
+            ],
+            "button_text": "Quero receber a síntese",
+            "button_size": "lg",
+            "button_align": "stretch",
+            "submit_actions": ["redirect"],
+            "redirect_to": "https://analisemacro.com.br/conteudo/cartas-das-gestoras-obrigado/",
+            "button_background_color": AZUL,
+            "button_typography_typography": "custom",
+            "button_typography_font_size": _px(19),
+            "button_typography_font_weight": "700",
+            "field_typography_typography": "custom",
+            "field_typography_font_size": _px(17),
+            "row_gap": _px(16),
+        },
+    }
+
+
 def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column"):
     s = {
         "content_width": "boxed",
@@ -263,7 +307,7 @@ def layout_captura() -> list:
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ]),
+            ], gap=36, pesos=[42, 58]),
         ], fundo="#F4F7FA", pad_v=64),
 
         secao([
@@ -297,10 +341,12 @@ def layout_captura() -> list:
             titulo("Para quem é", align="center", mb=8),
             divisor(),
             colunas([
-                [lista(["Analistas e gestores que acompanham as cartas",
-                        "Profissionais de mercado que leem duas ou três por mês"], icone="fas fa-user-tie")],
-                [lista(["Economistas que querem testar em código o que leem em prosa",
-                        "Quem usa Python e quer aplicá-lo a dados brasileiros"], icone="fas fa-chart-line")],
+                [caixa([icone_texto("fas fa-chart-pie", "Analistas e gestores",
+                    "Você já acompanha as cartas — aqui vê as teses lado a lado, com o mecanismo de cada uma exposto.")])],
+                [caixa([icone_texto("fas fa-briefcase", "Profissionais de mercado",
+                    "Lê duas ou três cartas por mês e sabe que está perdendo justamente a comparação.")])],
+                [caixa([icone_texto("fas fa-terminal", "Quem programa em Python",
+                    "Quer aplicar o que sabe a dados de mercado brasileiros, com código que roda de verdade.")])],
             ]),
         ], fundo="#F4F7FA"),
 
@@ -314,16 +360,17 @@ def layout_captura() -> list:
 
         secao([
             colunas([
+                [imagem(IMG_VITOR, IMG_VITOR_ID, largura=88)],
                 [titulo("Quem escreve", mb=6), divisor(),
-                 texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e IA Generativa pela PUC-Rio e doutorado em Economia em curso na EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de 5.000 alunos.</p>")],
-                [caixa([texto('<p style="margin:0;font-style:italic;font-size:18px">"Todo mês eu abria seis ou sete cartas e lia duas. O que se perde não é o conteúdo de cada uma — é a comparação, que é onde está o valor. O exercício em Python existe porque ler a tese não basta: é preciso medir se ela já está no preço."</p>')], fundo="#EAF6FC")],
-            ]),
+                 texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e IA Generativa pela PUC-Rio e doutorado em Economia em curso na EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de 5.000 alunos.</p>"),
+                 caixa([texto('<p style="margin:0;font-style:italic;font-size:17px">"Todo mês eu abria seis ou sete cartas e lia duas. O que se perde não é o conteúdo de cada uma — é a comparação, que é onde está o valor."</p>')], fundo="#EAF6FC", pad=22)],
+            ], pesos=[32, 68]),
         ], fundo="#F4F7FA"),
 
         secao([
             titulo("Receba a síntese desta semana", align="center", tamanho=38, mb=8),
             texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba o PDF na hora.</p>'),
-            caixa([texto('<p style="text-align:center;color:#B00020"><strong>[ARRASTE AQUI O WIDGET FORM DO ELEMENTOR — id do formulário: cartasgestoras, campos nome/email/telefone, redirect para /conteudo/cartas-das-gestoras-obrigado/]</strong></p>')], pad=40),
+            caixa([formulario()], pad=40),
             texto('<p style="text-align:center"><small>Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
         ], fundo="#F4F7FA", pad_v=80),
     ]
@@ -356,13 +403,16 @@ def layout_obrigado() -> list:
                   tamanho=15),
         ], pad_v=64),
 
+        # SEM link do PDF aqui: por decisão do Vitor (09/09), o download chega só
+        # pelo e-mail e pelo WhatsApp. A imagem fica como prévia do que vem.
         secao([
-            titulo("Comece pelo exercício", align="center", tamanho=30, mb=8),
-            texto('<p style="text-align:center">No PDF, procure a seção <em>Exercício da '
-                  'semana</em>: lá está o código Python que testa uma das teses das '
-                  'gestoras com dado público. Roda em segundos, e você adapta para a tese '
-                  f'que quiser checar. <a href="{PDF}">Este gráfico saiu de lá</a>.</p>'),
+            titulo("O que vem no PDF", align="center", tamanho=30, mb=8),
+            texto('<p style="text-align:center">Além da síntese das cartas, cada edição '
+                  'traz um exercício em Python que testa uma das teses com dado público. '
+                  'Roda em segundos — e você adapta para a tese que quiser checar.</p>'),
             imagem(IMG_GRAFICO, IMG_GRAFICO_ID),
+            texto('<p style="text-align:center"><small>O gráfico acima saiu do exercício '
+                  'da edição desta semana.</small></p>', tamanho=15),
         ], fundo="#F4F7FA"),
     ]
 
