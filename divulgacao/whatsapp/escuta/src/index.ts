@@ -220,13 +220,18 @@ export default {
             registro.envio = envio;
             // A nota é o que a Raiane vê. Sem ela, o atendimento fica cego
             // para o que a automação fez.
-            const quando = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+            // Nota CURTA: no celular a tela é estreita, e o wamid (longo) só
+            // serve para abrir chamado na Meta — algo raro. Ele fica no nosso
+            // KV, que é onde iríamos procurar de qualquer forma.
+            const quando = new Date().toLocaleString("pt-BR", {
+              timeZone: "America/Sao_Paulo",
+              day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit",
+            });
             const texto = envio.wamid
-              ? `🤖 Automação: PDF da síntese das cartas enviado por WhatsApp em ${quando}.\n`
-                + `Mensagem: ${envio.wamid}\n`
-                + `Este envio saiu pela Cloud API e NÃO aparece na thread do chat.`
-              : `🤖 Automação: FALHA ao enviar o PDF em ${quando}. `
-                + `HTTP ${envio.http}${envio.erro ? " — " + envio.erro : ""}`;
+              ? `🤖 PDF da síntese enviado por WhatsApp — ${quando}\n`
+                + `(envio automático; não aparece na conversa acima)`
+              : `⚠️ FALHA ao enviar o PDF — ${quando}\n`
+                + `HTTP ${envio.http}${envio.erro ? ": " + envio.erro : ""}`;
             registro.nota_kommo = await registrarNoKommo(env, leadId, texto);
           } else {
             registro.envio = { pulado: "fora da lista de permissão" };

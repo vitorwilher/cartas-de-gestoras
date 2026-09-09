@@ -221,10 +221,14 @@ resposta cai no Kommo — parecendo que ele fala sozinho, sobre algo que não es
 Toda vez que envia, o Worker cria uma **nota no lead**:
 
 ```
-🤖 Automação: PDF da síntese das cartas enviado por WhatsApp em 09/09/2026, 19:10.
-Mensagem: wamid.HBgNNTUx...
-Este envio saiu pela Cloud API e NÃO aparece na thread do chat.
+🤖 PDF da síntese enviado por WhatsApp — 09/09, 19:17
+(envio automático; não aparece na conversa acima)
 ```
+
+A primeira versão tinha 3 linhas e 60 caracteres de `wamid` no meio. No celular,
+que é onde a Raiane trabalha, isso ocuparia meia tela sem servir para a leitura.
+**O `wamid` fica no nosso KV** — é lá que procuraríamos se precisasse abrir
+chamado na Meta, o que é raro.
 
 Falha também é registrada, com o HTTP e o erro — para não haver silêncio.
 
