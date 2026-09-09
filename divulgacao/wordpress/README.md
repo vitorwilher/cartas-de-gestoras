@@ -59,6 +59,39 @@ em 02-03/09/2026, todos iguais).
 **Testado de verdade em 09/09/2026:** a chamada à sequência devolveu HTTP 200,
 estado `active`, com `phone` e `whatsapp` gravados. O assinante de teste foi removido.
 
+## Convive com o que já está no ar?
+
+Sim. Três snippets estão ativos em produção (conferidos na API do Code Snippets
+em 09/09/2026), todos do **Boletim AM**:
+
+| id | Escopo | O que faz |
+|---|---|---|
+| 5 | `front-end` | copia a UTM da URL para os campos do Elementor |
+| 8 | `global` | grava a UTM no assinante do Kit (prioridade 20) |
+| 10 | `global` | aplica as tags de categoria (prioridade 30) |
+
+**Nenhum deles serve para nós:** o id 8 abre com
+`if ( 'boletimam' !== $form_id && 'boletimam' !== $form_name ) return;` — só
+processa o form do Boletim e ignora qualquer outro. Por isso a ponte nova existe.
+
+**Por que não quebra:**
+
+- A ponte nova tem o filtro espelhado (`cartasgestoras`), então as duas nunca
+  processam o mesmo submit.
+- Múltiplos handlers no mesmo hook é o padrão do WordPress — os ids 8 e 10 já
+  dividem `elementor_pro/forms/new_record` sem conflito.
+- Falha aberta por design: erro cai em `error_log` e retorna, sem interromper o
+  cadastro nem propagar exceção.
+
+⚠️ **Prioridade 40, não 30.** O snippet 10 já ocupa a 30, e prioridade igual deixa
+a ordem indefinida. São formulários diferentes (seria inofensivo), mas ordem
+definida é mais fácil de depurar.
+
+⚠️ **Erro de sintaxe PHP pode derrubar o site.** O Code Snippets desativa o
+snippet em vez de gerar fatal, mas o risco real é errar ao colar. Ativar em
+horário de baixo tráfego e **testar um cadastro no Boletim AM logo depois**, para
+confirmar que as pontes antigas seguem funcionando.
+
 ## Montar o formulário (Elementor)
 
 Na página 78368, três campos:

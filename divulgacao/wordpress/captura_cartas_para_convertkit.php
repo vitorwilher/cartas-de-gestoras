@@ -118,4 +118,7 @@ add_action( 'elementor_pro/forms/new_record', function ( $record, $handler ) {
 		error_log( '[CARTAS->CK] tag falhou: ' . $resp2->get_error_message() );
 	}
 
-}, 30, 2 );   // prioridade 30: depois da ação ConvertKit e da ponte de UTM (20)
+}, 40, 2 );   // prioridade 40: depois da ponte de UTM (20) e das Categorias (30).
+              // Nao usar 30: o snippet id 10 ja ocupa, e prioridade igual deixa a
+              // ordem indefinida. Sao formularios diferentes, entao seria inofensivo,
+              // mas ordem definida e mais facil de depurar depois.
