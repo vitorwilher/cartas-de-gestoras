@@ -257,6 +257,38 @@ seção, **o mecanismo** — a cadeia causal que faz a aposta se pagar — e nã
 do mês. Quando a carta é meramente descritiva (caso recorrente da Alaska), o prompt
 manda dizer isso explicitamente em vez de inflar a seção com paráfrase.
 
+### Dimensionar o consenso (`analises/peso_das_teses.py`)
+
+A seção "Convergências e divergências" dizia *quantas* casas defendem cada tese.
+Contar trata Dynamo (R$ 20 bi) e Dahlia (R$ 4,6 bi) como iguais. Agora o prompt
+recebe o **peso patrimonial** de cada casa e pode escrever "quatro casas, somando
+R$ 58 bi sob mandato compatível, veem o ciclo virando; duas, com R$ 12 bi,
+discordam" — mostra se o consenso é da maioria ou de quem carrega o risco. É um
+cruzamento que nenhuma carta individual faz, e nasce de `analises/`.
+
+⚠️ **NUNCA usar o PL total da gestora para dimensionar uma tese.** O PL da CVM
+soma todos os fundos da casa, e a composição varia brutalmente (medido 11/09/2026):
+
+| Casa | PL total | em juro/macro |
+|---|---|---|
+| Kinea | R$ 177,3 bi | R$ 9,3 bi (**5%**) — o resto é crédito e previdência |
+| Dynamo | R$ 20,0 bi | R$ 0,0 bi (**0%**) — 96% é ações |
+| Alaska | R$ 8,8 bi | R$ 0,0 bi (**0%**) |
+| Kapitalo | R$ 42,4 bi | R$ 29,5 bi (70%) |
+
+Uma conta sobre juro somando PL total faria a Kinea dominar com R$ 177 bi que
+estão em crédito imobiliário. A solução: a CVM classifica por FUNDO
+(`Classificacao_Anbima`), então cada eixo de tese recebe só o PL dos fundos com
+mandato compatível.
+
+⚠️ **Mandato não é posição.** A classe diz o que o fundo PODE fazer, não o que
+fez — um macro pode estar zerado em juro. Por isso o prompt exige escrever "sob
+mandato compatível", nunca "apostando". A regra está no `SYSTEM_PROMPT`.
+
+`contexto_patrimonial()` em `cartas.py` lê `analises/peso_das_teses_prompt.txt`.
+**Falha ali nunca derruba a síntese** — avisa no stderr e a edição sai sem os
+números, como era antes. Mesmo princípio da falha isolada por gestora.
+
 ### O exercício da semana (`exercicios/`)
 
 Dois estágios de LLM: `escolher_conceito` lê a síntese e nomeia o mecanismo dominante
@@ -317,6 +349,54 @@ concluir que a marcação falhou a partir de uma leitura só. Os scripts têm bl
 explícitos para isso — `preparar_disparo.py` se recusa a criar o broadcast enquanto
 a copy tiver placeholder de checkout.
 
+⚠️ **O atraso vale na direção inversa também, e é pior.** Depois de REMOVER uma tag
+(`DELETE /v4/tags/<tag>/subscribers/<sub>`, responde 204), a lista
+`GET /v4/tags/<id>/subscribers` **segue mostrando quem já saiu** — em 11/09/2026
+ainda listava as 28 pessoas removidas depois de 110s, com o total da tag intacto.
+A leitura que diz a verdade é `GET /v4/subscribers/<id>/tags`, por assinante, que
+já refletia a remoção em segundos. Se as duas discordarem, a do assinante vence.
+Nunca repetir a escrita com base na lista da tag.
+
+### Tag no Kit é gatilho, não rótulo (incidente de 11/09/2026)
+
+A ponte da landing aplicava três tags. A terceira, `13265211` ("Leads - Exercícios"),
+estava documentada — no comentário do código e no README — como segmentação "pelo
+formato". **Era falso:** a tag tem funil próprio e inscrevia o lead no **Boletim AM**,
+que nem a landing nem a página de obrigado mencionam. As duas páginas prometem só a
+síntese semanal das cartas.
+
+Por que importa além do incômodo: quem chega pela landing é lead frio de Instagram
+e LinkedIn. E-mail de produto que a pessoa não conhece, na primeira semana, é o
+caminho curto para marcar spam — e spam de lead novo castiga a reputação do domínio
+inteiro, **inclusive a entrega desta própria síntese**. O risco não fica contido na
+landing.
+
+Corrigido: tag removida do snippet no ar e dos **28** leads que a ganharam por essa
+via entre 09/09 e 11/09. Os **8** que já tinham a tag de origem anterior (a mais
+antiga de dez/2025) foram **preservados** — consentiram noutra isca, e removê-la
+apagaria consentimento legítimo. Ao limpar marcação indevida, sempre separar quem
+veio pela porta errada de quem já estava lá.
+
+**Regra que fica:** antes de acrescentar qualquer tag a uma ponte de captura,
+conferir em *Automations → Visual automations* o que está pendurado nela, e conferir
+se a copy promete aquilo. Para oferecer outro produto, o caminho é **checkbox
+opcional na landing, desmarcado** — nunca tag embutida no código.
+
+⚠️ **Pendência:** a API do Kit **não expõe as automações visuais** (`/v3/automations/rules`
+dá 404), então não dá para auditar isso por código. Falta conferir no painel o que
+está pendurado em **"Mercado Financeiro" (22406993)**, que a ponte continua aplicando.
+
+**Validado de ponta a ponta em 11/09/2026**, com submit real do formulário: o lead
+recebeu só `Leads - Cartas Semanais` + `Mercado Financeiro`, com `phone` e `whatsapp`
+gravados com DDI, e a sequência disparou o e-mail da síntese — nenhum e-mail do
+Boletim. A ponte segue funcionando depois da edição.
+
+⚠️ **Ao verificar um teste desses, buscar o assinante POR E-MAIL**
+(`/v4/subscribers?email_address=...`). A listagem `?sort_order=desc` está defasada
+pela indexação e **omitiu um cadastro feito 9 minutos antes** — o que me levou a
+afirmar, errado, que o teste não havia chegado ao Kit. Ausência em listagem do Kit
+nunca é prova de que algo não aconteceu.
+
 **Fatos verificados em 2026-09-08 (conferir de novo antes de usar):**
 
 | Fato | Valor | Fonte |
@@ -335,6 +415,34 @@ O acesso ao MCP é derivado por HMAC do id da assinatura
 (`ASSINANTES_HMAC_SECRET`): token reproduzível sem tabela de correspondência e
 revogável trocando o segredo. `pending-cancel` mantém acesso — a pessoa cancelou,
 mas o período pago ainda corre.
+
+### A ponte da landing é editável por API (Code Snippets)
+
+A ponte PHP que a landing usa não vive só no repositório: quem executa é o plugin
+**Code Snippets** do WordPress, e ele **tem REST API**. A ponte é o snippet **id 11**
+("Cartas de Gestoras -> ConvertKit (captura)", ativo, escopo `global`), em
+`/wp-json/code-snippets/v1/snippets/11`. Credenciais: `WP_FRONT_*` no `.env` do
+`../ROI_Diagnostico` (usuário `claude-bot`). Editado por essa via em 11/09/2026.
+
+⚠️ **O snippet no ar contém o API Secret REAL do Kit**, que o arquivo versionado
+(`divulgacao/wordpress/captura_cartas_para_convertkit.php`) guarda como placeholder.
+Ao editar: baixar o código do ar e alterar só o trecho necessário. **Nunca** subir o
+arquivo do repositório por cima — o secret se perde e a captura para.
+
+Três armadilhas, todas verificadas (as três produzem falso resultado, não erro):
+
+1. **Sem `User-Agent` de navegador, tudo responde 403** — inclusive `wp/v2/users/me`.
+   É o WAF do gocache, não permissão. O corpo vem vazio e parece erro de credencial.
+2. **O POST exige o `id` no corpo JSON**, não só na URL. Sem ele o plugin responde
+   **200 devolvendo o código ANTIGO** e não grava nada. Conferir se o `code` da
+   resposta reflete o que foi enviado.
+3. **A releitura sem cache-buster serve cópia velha do CDN.** Logo após gravar, o
+   GET devolvia o conteúdo anterior com o `modified` antigo. Usar `?nocache=<ts>` +
+   `Cache-Control: no-cache`, e comparar `modified` e o tamanho do `code` — nunca só
+   o texto. (`per_page=200` devolve 400; listar sem `per_page`.)
+
+Mesmo espírito da seção do WordPress no `../Newsletters`: **status 200 nunca é prova
+de efeito**. Aqui o 200 mentiu duas vezes seguidas, por motivos diferentes.
 
 ### A URL fixa do PDF (`divulgacao/publicar_pdf.py`)
 
@@ -424,8 +532,26 @@ Drive, editar, e o Vitor sobe por "Gerenciar versões" para preservar o ID.
   estivesse vazia — por isso o guard do workflow checa as duas
 - [x] **Fluxo `GESTORAS` no ManyChat criado** (Vitor, 09/09) e carrossel publicado:
   https://www.instagram.com/p/DdFcVNRla6q/ — `divulgacao/publicar_instagram.py`
+
+  🔴 **ESTE CARROSSEL VIROU O PADRÃO DE CONTEÚDO DE INSTAGRAM DA CASA INTEIRA**
+  (decisão do Vitor, 11/09/2026). `divulgacao/carrossel.py` deixou de ser só o
+  gerador desta edição: é a **peça de referência** que orienta toda a produção do
+  @analisemacro, iscas incluídas. A regra completa está no CLAUDE.md do
+  **ROI_Diagnostico**, seção "O PADRÃO DE CONTEÚDO DO INSTAGRAM"; o estudo que a
+  sustenta é https://claude.ai/code/artifact/aa906dae-3b55-446d-94c8-093a2e6b591d
+  (59 posts, 30 dias).
+
+  ⚠️ **Ao mexer em `carrossel.py`, você está mexendo no padrão da casa.** O que
+  foi canonizado: bullets (nunca parágrafo) · `_limpar()` + `_titulo()` como
+  doutrina de gráfico (título E medida são obrigatórios — sem eles o gráfico não
+  se explica no feed) · a ordem dos 10 slides, com o slide "o caminho que eu fiz"
+  · CTA com palavra-chave **e** pergunta, sem preço · `ocupar_o_slide()` para que
+  bullets curtos não deixem metade do slide vazia.
 - [x] **Landing publicada** em `/projetos/cartas-das-gestoras/` — captura nome,
-  e-mail e WhatsApp, aplica as 3 tags no Kit e inicia a sequência
+  e-mail e WhatsApp, aplica **2 tags** no Kit (projeto + Mercado Financeiro) e
+  inicia a sequência. Eram 3 até 11/09; ver "Tag no Kit é gatilho, não rótulo"
+- [ ] **Auditar as automações de "Mercado Financeiro" (22406993)** no painel do
+  Kit — é a tag que a ponte ainda aplica, e a API não expõe automação visual
 - [x] **Envio automático do e-mail semanal** — `broadcast_semanal.py --enviar`
   agenda para +30 min, com guardas de frescor e duplicata (ver testes)
 - [ ] Publicar o produto no Woo e **testar o carrinho ao vivo**, lendo o preço na
