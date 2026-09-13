@@ -21,6 +21,18 @@ agendamento em nuvem (GitHub Actions) com entrega por WhatsApp.
 Brasil: Dynamo, IP, Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea,
 Neo e Dahlia.
 
+**Ampliada para 15 em 2026-09-11**, pela apuração de `analises/`: a lista do post
+cobria só **4 das 50 maiores gestoras independentes** do país (13% do PL desse
+grupo). Entraram **Genoa**, **Sparta** e **Opportunity** — mensais, ativas, com
+carta de tese pública, somando R$ 109 bi. A Sparta traz **crédito privado**, eixo
+que só a Occam cobria em parte e que vale 34% do patrimônio da indústria.
+
+Ficaram de fora por **ausência real de carta pública**, não por barreira técnica:
+SPX e Verde (distribuem por e-mail/BTG/Empiricus), Absolute e Pátria (só lâminas
+e artigos de marketing). A **Atmos** publica ensaios densos, no nível de
+Dynamo/IP, mas **parou na carta 33 (1H25)** — a 34 dá 404; revisitar antes de
+incluir.
+
 ## Objetivo de negócio
 
 Entregar, numa cadência fixa, uma **síntese das cartas novas** publicadas pelas
@@ -42,7 +54,7 @@ gestoras desde a última execução, com:
 
 | Periodicidade | Gestoras |
 |---|---|
-| **Mensal** (10) | Alaska, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Adam, Legacy, Kapitalo |
+| **Mensal** (13) | Alaska, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Adam, Legacy, Kapitalo, **Genoa**, **Sparta**, **Opportunity** |
 | **Irregular** (2) | **Dynamo** (~2-4/ano), **IP Capital Partners** (~1/ano) |
 
 As duas irregulares são justamente as de maior densidade editorial: publicam
@@ -114,15 +126,17 @@ Para cada gestora em gestoras/gestoras.yml:
 verificado site a site — é o achado que torna o projeto viável com `httpx` +
 `BeautifulSoup`, sem Playwright/Selenium.
 
-Cinco estratégias, escolhidas por site (campo `estrategia` no catálogo):
+Sete estratégias, escolhidas por site (campo `estrategia` no catálogo):
 
 | Estratégia | Gestoras | Quando usar |
 |---|---|---|
 | `wp_rest` | Bahia, JGP, Kinea, IP | API REST do WordPress (`/wp-json/wp/v2/`) — JSON estruturado, contorna JS e HTML pesado |
 | `rss` | Dynamo, NEO, Dahlia | O feed contém as cartas como itens |
-| `html` | Occam, Adam, Kapitalo | `href` diretos no HTML servido |
+| `html` | Occam, Adam, Kapitalo, **Genoa** | `href` diretos no HTML servido |
 | `ajax` | Legacy | Endpoint `admin-ajax.php`, sem nonce nem auth |
 | `url_previsivel` | Alaska | URL derivável da data (tratar 404 do mês corrente) |
+| `url_serial` | **Sparta** | URL por contador AAAAMM, **quando a listagem HTML está desatualizada** |
+| `url_fixa` | **Opportunity** | Um único PDF em URL sobrescrita; o identificador vem do CONTEÚDO |
 
 **Regra de ouro da coleta: NUNCA construir a URL do PDF por template** — exceto
 na Alaska e, com ressalvas, na Adam. Os nomes de arquivo têm sufixos ad-hoc
@@ -153,6 +167,22 @@ arquivo.** Há divergências reais e documentadas: na Kapitalo, o item rotulado
   expõe cartas de **2026 em diante** — o histórico anterior foi removido.
 - **Kinea/NEO**: a carta macro é **HTML inline, sem PDF** — o extrator de PDF
   não se aplica; o texto vem do próprio corpo do post.
+- **Sparta**: a **tabela da página está congelada** — em 11/09/2026 o último
+  `href` listado era `CartaMensal_202512`, mas os PDFs de 2026 existem (202606,
+  202607, 202608 = HTTP 200 `application/pdf`). Um coletor de `href` perderia 8
+  meses **sem erro nenhum**, só devolvendo menos itens. É a única exceção em que
+  templar a URL é MAIS confiável que a página — daí a estratégia `url_serial`.
+- **Opportunity**: não há listagem nem histórico, só **um PDF numa URL fixa,
+  sobrescrita** a cada mês. A URL não identifica a carta: usá-la como
+  identificador faria o pipeline nunca detectar novidade. `descobrir_url_fixa`
+  tira o identificador do **conteúdo** (a data na capa), com `Last-Modified` de
+  desempate.
+- **Genoa**: o rótulo do link é só `"PDF"` e a data ("Carta Mensal /
+  Agosto/2026") vive no **avô** do `<a>`, não no pai. Sem subir um nível na
+  árvore, as 78 cartas caíam todas no fallback de hoje — **falha silenciosa**,
+  sem exceção. `descobrir_html` agora sobe um nível só quando o contexto
+  imediato não tem nome de mês, para não alterar Occam/Adam/Kapitalo (conferido:
+  contagens idênticas antes e depois).
 
 ## Restrições críticas
 
