@@ -63,7 +63,9 @@ em 02-03/09/2026, todos iguais).
 1. `/v3/sequences/2888305/subscribe` — inscreve na **mesma sequência** que a
    landing nativa do Kit dispara, gravando `first_name`, `phone` e `whatsapp`.
    Assim as duas portas de entrada entregam a mesma régua de e-mail.
-2. `/v3/tags/22406993/subscribe` — a tag Mercado Financeiro, que segmenta broadcast.
+2. `/v3/tags/<id>/subscribe` — duas tags: `23251247` ("Leads - Cartas Semanais",
+   que decide o envio do PDF) e `22406993` (Mercado Financeiro, que segmenta
+   broadcast). Nenhuma outra — ver a correção de 11/09 no fim deste documento.
 
 **Testado de verdade em 09/09/2026:** a chamada à sequência devolveu HTTP 200,
 estado `active`, com `phone` e `whatsapp` gravados. O assinante de teste foi removido.
@@ -202,4 +204,19 @@ criar o rascunho.
 
 O e-mail da sequência dizia que o lead passaria a receber o Boletim AM. **Por
 decisão do Vitor (09/09), essa frase sai** — o lead recebe só a síntese, o que dá
-uma comunicação mais focada. A ponte não aplica nenhuma tag do Boletim.
+uma comunicação mais focada.
+
+⚠️ **Correção de 11/09/2026.** Esta seção afirmava que "a ponte não aplica nenhuma
+tag do Boletim". **Era falso, e foi o que fez o problema passar despercebido.** A
+ponte aplicava `13265211` ("Leads - Exercícios"), descrita no comentário do código
+como segmentação "pelo formato" — mas essa tag tem funil próprio e inscrevia o
+lead no Boletim AM, que nem a landing nem a página de obrigado mencionam.
+
+Corrigido: tag removida do snippet 11 no ar (confirmado em 5 leituras com
+cache-buster) e dos 28 leads que a receberam por essa via entre 09/09 e 11/09. Os
+8 que já tinham a tag de origem anterior foram preservados — consentiram em outra
+isca. A ponte hoje aplica só `23251247` (projeto) e `22406993` (Mercado Financeiro).
+
+**Regra que fica:** tag no Kit é gatilho, não rótulo. Antes de acrescentar
+qualquer tag aqui, conferir em Automations → Visual automations o que está
+pendurado nela, e conferir se a copy da landing promete aquilo.

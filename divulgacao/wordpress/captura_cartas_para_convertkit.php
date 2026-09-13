@@ -45,17 +45,26 @@ add_action( 'elementor_pro/forms/new_record', function ( $record, $handler ) {
 	// Conferidos na API do Kit em 09/09/2026.
 	$SEQUENCIA = 2888305;    // "Cartas Semanais: Síntese Semanal das Cartas das Gestoras"
 
-	// TRÊS tags, com papéis diferentes:
+	// DUAS tags, com papéis diferentes:
 	//   - PROJETO identifica quem veio DESTA landing. É a ÚNICA que a automação
 	//     de WhatsApp consulta para decidir se responde com o PDF.
-	//   - As outras duas alimentam segmentação e broadcast: uma pelo tema
-	//     (Mercado Financeiro, 534 pessoas) e outra pelo formato (Exercícios).
+	//   - TEMA alimenta segmentação e broadcast (Mercado Financeiro), e não
+	//     dispara sequência por si.
 	// Usar uma guarda-chuva como critério de envio mandaria PDF para gente que
 	// nunca ouviu falar deste projeto.
+	//
+	// ⚠️ NÃO acrescentar aqui tag que tenha automação pendurada. Tag no Kit não
+	// é rótulo passivo, é gatilho. "Leads - Exercícios" (13265211) esteve nesta
+	// lista de 09/09 a 11/09/2026 e inscrevia o lead no Boletim AM — que a copy
+	// da landing e da página de obrigado NUNCA menciona. As duas prometem só a
+	// síntese semanal das cartas; qualquer outro e-mail é envio não consentido,
+	// e lead frio que recebe o que não pediu marca spam, o que castiga a
+	// reputação do domínio inteiro — inclusive a entrega desta própria síntese.
+	// Para oferecer outro produto, o caminho é checkbox opcional na landing,
+	// desmarcado, não tag embutida na ponte.
 	$TAG_PROJETO = 23251247;   // "Leads - Cartas Semanais"  ← decide o envio
 	$TAGS_TEMA   = array(
 		22406993,   // "Mercado Financeiro"
-		13265211,   // "Leads - Exercícios"
 	);
 	$secret    = '<<<API_SECRET_DO_CONVERTKIT>>>';
 
