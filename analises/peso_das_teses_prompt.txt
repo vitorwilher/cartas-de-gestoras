@@ -1,0 +1,22 @@
+PESO PATRIMONIAL DAS CASAS, POR TIPO DE MANDATO (CVM, data-base 2025).
+Use para dimensionar convergências: 'N casas, somando R$ X bi sob mandato
+compatível, defendem...'. REGRAS:
+  - Cite o PL do EIXO da tese, nunca o PL total da casa.
+  - Mandato NÃO é posição: diz o que o fundo PODE fazer, não o que fez.
+    Escreva 'sob mandato compatível', nunca 'apostando'.
+  - Se a tese não casar com nenhum eixo, não invente número.
+
+casa            total  juro/macro  crédito   bolsa  exterior
+Kinea           177.3         9.3     44.9     0.3       2.3
+Kapitalo         42.4        29.5      0.0     0.8       4.8
+Legacy           25.1        17.5      1.2     0.3       1.0
+Dynamo           20.0         0.0      0.0    19.3       0.7
+Occam            14.0         2.7      5.8     1.7       0.0
+JGP              13.8         8.3      0.0     0.5       1.3
+Alaska            8.8         0.0      0.0     7.8       0.1
+Bahia Asset       6.4         3.2      0.1     0.7       2.1
+NEO               5.9         3.1      0.6     1.2       0.1
+Dahlia            4.6         3.4      0.0     0.3       0.0
+IP Capital        4.2         0.5      0.0     3.4       0.1
+Adam              3.7         0.6      0.0     0.0       0.9
+(valores em R$ bilhões)

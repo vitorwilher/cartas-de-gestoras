@@ -46,3 +46,14 @@ divulgacao/whatsapp/escuta/.wrangler/
 # Artefatos de render do paper
 paper/paper_files/
 paper/.quarto/
+
+# Análises: os dados BRUTOS da CVM não são versionados (70 MB, redistribuição é
+# da CVM, e o download é reprodutível pelos scripts). Versionamos os DERIVADOS:
+# os scripts, o relatório e — importante — `peso_das_teses_prompt.txt`, que a
+# síntese lê em tempo de execução na CI.
+analises/cad_fi.csv
+analises/cad_adm_cart_*.csv
+analises/registro_*.csv
+analises/*.zip
+# Contém nome, cargo e perfil de pessoas reais (LGPD): fica só local.
+analises/linkedin_x_gestoras.csv

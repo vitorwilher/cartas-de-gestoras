@@ -1,0 +1,772 @@
+{
+  "gerado_em": "2026-09-11",
+  "fonte": "CVM Dados Abertos — registro_fundo_classe.zip + cad_adm_cart_pj.csv",
+  "universo": {
+    "gestoras_pj_autorizadas_ativas": 1547,
+    "gestoras_com_fundo_sob_gestao": 1260,
+    "gestoras_autorizadas_sem_fundo": 287,
+    "fundos_em_funcionamento": 33445,
+    "fundos_com_PL_informado": 24788,
+    "pct_fundos_sem_PL": 25.9,
+    "classes_em_funcionamento": 33676,
+    "pl_total_trilhoes": 13.267,
+    "obs_pl": "soma sobre os fundos COM PL informado, após remover 3 fundos de PL impossível e deduplicar multi-gestor"
+  },
+  "concentracao_pct_do_PL": {
+    "top5_pct": 51.6,
+    "top10_pct": 61.68,
+    "top20_pct": 69.62,
+    "top50_pct": 80.67,
+    "top100_pct": 87.98,
+    "top200_pct": 93.99
+  },
+  "mediana_fundos_por_gestora": 6.0,
+  "mediana_pl_por_gestora_milhoes": 427.8,
+  "por_porte": [
+    {
+      "faixa_porte": "F1 · 100 bi+",
+      "n_gestoras": 14,
+      "pl": 8723903747774.02
+    },
+    {
+      "faixa_porte": "F2 · 10 a 100 bi",
+      "n_gestoras": 108,
+      "pl": 3194569399056.5103
+    },
+    {
+      "faixa_porte": "F3 · 1 a 10 bi",
+      "n_gestoras": 339,
+      "pl": 1169149161323.76
+    },
+    {
+      "faixa_porte": "F4 · 100 mi a 1 bi",
+      "n_gestoras": 404,
+      "pl": 167956919356.51
+    },
+    {
+      "faixa_porte": "F5 · abaixo de 100 mi",
+      "n_gestoras": 279,
+      "pl": 11324021448.38
+    },
+    {
+      "faixa_porte": "F6 · sem PL informado",
+      "n_gestoras": 116,
+      "pl": -7929443.609999999
+    }
+  ],
+  "divisao_macro": [
+    {
+      "macro": "Renda Fixa",
+      "n_classes": 6012,
+      "pl": 7273474724283.55,
+      "pl_pct": 34.167546236134534
+    },
+    {
+      "macro": "Multimercado",
+      "n_classes": 10856,
+      "pl": 6651621337058.74,
+      "pl_pct": 31.24635586076089
+    },
+    {
+      "macro": "Previdência",
+      "n_classes": 4407,
+      "pl": 3638057084386.37,
+      "pl_pct": 17.089972585656053
+    },
+    {
+      "macro": "Não classificado",
+      "n_classes": 8367,
+      "pl": 2860153508407.71,
+      "pl_pct": 13.435727894220303
+    },
+    {
+      "macro": "Ações",
+      "n_classes": 3769,
+      "pl": 744601052034.42,
+      "pl_pct": 3.4978042596231695
+    },
+    {
+      "macro": "Outros (FII/FIDC/FIP e afins)",
+      "n_classes": 201,
+      "pl": 107635073992.86,
+      "pl_pct": 0.5056216604427752
+    },
+    {
+      "macro": "Cambial",
+      "n_classes": 64,
+      "pl": 12127905978.13,
+      "pl_pct": 0.05697150316227522
+    }
+  ],
+  "top_classificacoes_anbima": [
+    {
+      "Classificacao_Anbima": "Multimercados Livre",
+      "n_classes": 4038,
+      "pl": 5343325974431.28
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Baixa Grau de Invest.",
+      "n_classes": 497,
+      "pl": 1785931305665.02
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Baixa Soberano",
+      "n_classes": 250,
+      "pl": 1268516426132.63
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Livre Crédito Livre",
+      "n_classes": 3168,
+      "pl": 1183935321076.21
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Livre Grau de Invest.",
+      "n_classes": 886,
+      "pl": 1029023860937.14
+    },
+    {
+      "Classificacao_Anbima": "Previdência RF Duração Baixa Grau de Inv",
+      "n_classes": 117,
+      "pl": 974776943128.02
+    },
+    {
+      "Classificacao_Anbima": "Multimercados Invest. no Exterior",
+      "n_classes": 5249,
+      "pl": 890916882283.97
+    },
+    {
+      "Classificacao_Anbima": "Previdência RF Duração Livre Grau de Inv",
+      "n_classes": 354,
+      "pl": 670958455252.12
+    },
+    {
+      "Classificacao_Anbima": "Previdência Multimercado Livre",
+      "n_classes": 2551,
+      "pl": 643716924678.31
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Média Grau de Invest.",
+      "n_classes": 124,
+      "pl": 571469401809.5701
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Simples",
+      "n_classes": 169,
+      "pl": 474476963838.84
+    },
+    {
+      "Classificacao_Anbima": "Previdência RF Duração Livre Crédito Liv",
+      "n_classes": 432,
+      "pl": 473761794191.48
+    },
+    {
+      "Classificacao_Anbima": "Previdência RF Duração Baixa Soberano",
+      "n_classes": 20,
+      "pl": 390269456747.43994
+    },
+    {
+      "Classificacao_Anbima": "Ações Livre",
+      "n_classes": 1983,
+      "pl": 383844875714.77
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Livre Soberano",
+      "n_classes": 322,
+      "pl": 306276279647.73
+    },
+    {
+      "Classificacao_Anbima": "Ações Invest. no Exterior",
+      "n_classes": 1156,
+      "pl": 251099620333.37
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Alta Grau de Invest.",
+      "n_classes": 42,
+      "pl": 207250579594.69
+    },
+    {
+      "Classificacao_Anbima": "Renda Fixa Duração Baixa Crédito Livre",
+      "n_classes": 47,
+      "pl": 186196798437.39
+    },
+    {
+      "Classificacao_Anbima": "Previdência RF Duração Média Grau de Inv",
+      "n_classes": 107,
+      "pl": 175871303844.13
+    },
+    {
+      "Classificacao_Anbima": "Multimercados Macro",
+      "n_classes": 679,
+      "pl": 175591295966.5
+    }
+  ],
+  "por_publico_alvo": [
+    {
+      "Publico_Alvo": "Profissional",
+      "n_classes": 16013,
+      "pl": 12131806312326.07
+    },
+    {
+      "Publico_Alvo": "Público Geral",
+      "n_classes": 5344,
+      "pl": 5332841674020.62
+    },
+    {
+      "Publico_Alvo": "Qualificado",
+      "n_classes": 3561,
+      "pl": 1074218322029.43
+    }
+  ],
+  "por_controle_acionario": [
+    {
+      "CONTROLE_ACIONARIO": "PRIVADO",
+      "n_gestoras": 1192,
+      "pl": 12024256637545.03
+    },
+    {
+      "CONTROLE_ACIONARIO": "PRIVADO HOLDING",
+      "n_gestoras": 1,
+      "pl": 38814309200.98
+    }
+  ],
+  "por_uf": [
+    {
+      "UF": "SP",
+      "n_gestoras": 869,
+      "pl": 8463148127915.07
+    },
+    {
+      "UF": "RJ",
+      "n_gestoras": 178,
+      "pl": 3407024556968.48
+    },
+    {
+      "UF": "DF",
+      "n_gestoras": 12,
+      "pl": 67711456280.37
+    },
+    {
+      "UF": "RS",
+      "n_gestoras": 28,
+      "pl": 51299957356.58
+    },
+    {
+      "UF": "PR",
+      "n_gestoras": 27,
+      "pl": 49308265997.08
+    },
+    {
+      "UF": "MG",
+      "n_gestoras": 39,
+      "pl": 33394952318.22
+    },
+    {
+      "UF": "SC",
+      "n_gestoras": 14,
+      "pl": 25358038328.12
+    },
+    {
+      "UF": "CE",
+      "n_gestoras": 3,
+      "pl": 19508062728.12
+    },
+    {
+      "UF": "ES",
+      "n_gestoras": 3,
+      "pl": 11184965306.17
+    },
+    {
+      "UF": "PE",
+      "n_gestoras": 5,
+      "pl": 3570073926.76
+    }
+  ],
+  "as_12_do_produto_por_grupo": [
+    {
+      "grupo": "Kinea",
+      "n_pj": 2,
+      "n_fundos": 361,
+      "pl": 177324992789.91,
+      "pl_bi": 177.32,
+      "share_industria_pct": 1.3366
+    },
+    {
+      "grupo": "Kapitalo",
+      "n_pj": 3,
+      "n_fundos": 110,
+      "pl": 42429190537.54,
+      "pl_bi": 42.43,
+      "share_industria_pct": 0.3198
+    },
+    {
+      "grupo": "Legacy",
+      "n_pj": 1,
+      "n_fundos": 108,
+      "pl": 25152326233.37,
+      "pl_bi": 25.15,
+      "share_industria_pct": 0.1896
+    },
+    {
+      "grupo": "Dynamo",
+      "n_pj": 2,
+      "n_fundos": 15,
+      "pl": 20040956140.25,
+      "pl_bi": 20.04,
+      "share_industria_pct": 0.1511
+    },
+    {
+      "grupo": "Occam",
+      "n_pj": 2,
+      "n_fundos": 73,
+      "pl": 14038867763.57,
+      "pl_bi": 14.04,
+      "share_industria_pct": 0.1058
+    },
+    {
+      "grupo": "JGP",
+      "n_pj": 3,
+      "n_fundos": 83,
+      "pl": 13839010739.62,
+      "pl_bi": 13.84,
+      "share_industria_pct": 0.1043
+    },
+    {
+      "grupo": "Alaska",
+      "n_pj": 1,
+      "n_fundos": 27,
+      "pl": 8779388221.37,
+      "pl_bi": 8.78,
+      "share_industria_pct": 0.0662
+    },
+    {
+      "grupo": "Bahia Asset",
+      "n_pj": 2,
+      "n_fundos": 38,
+      "pl": 6387236351.84,
+      "pl_bi": 6.39,
+      "share_industria_pct": 0.0481
+    },
+    {
+      "grupo": "NEO",
+      "n_pj": 3,
+      "n_fundos": 63,
+      "pl": 5874431981.440001,
+      "pl_bi": 5.87,
+      "share_industria_pct": 0.0443
+    },
+    {
+      "grupo": "Dahlia",
+      "n_pj": 1,
+      "n_fundos": 67,
+      "pl": 4592173811.25,
+      "pl_bi": 4.59,
+      "share_industria_pct": 0.0346
+    },
+    {
+      "grupo": "IP Capital",
+      "n_pj": 1,
+      "n_fundos": 28,
+      "pl": 4236810176.95,
+      "pl_bi": 4.24,
+      "share_industria_pct": 0.0319
+    },
+    {
+      "grupo": "Adam",
+      "n_pj": 1,
+      "n_fundos": 36,
+      "pl": 3681209493.94,
+      "pl_bi": 3.68,
+      "share_industria_pct": 0.0277
+    }
+  ],
+  "as_12_do_produto_por_pj": [
+    {
+      "grupo": "Kinea",
+      "nome": "KINEA INVESTIMENTOS LTDA.",
+      "n_fundos": 333,
+      "pl_total": 169134204316.56,
+      "share_pct": 1.2748589646875708,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Kapitalo",
+      "nome": "KAPITALO INVESTIMENTOS",
+      "n_fundos": 104,
+      "pl_total": 37212581167.79,
+      "share_pct": 0.2804920086544316,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Legacy",
+      "nome": "LEGACY CAPITAL",
+      "n_fundos": 108,
+      "pl_total": 25152326233.37,
+      "share_pct": 0.18958713118336726,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Dynamo",
+      "nome": "DYNAMO",
+      "n_fundos": 12,
+      "pl_total": 19982490844.34,
+      "share_pct": 0.1506191943411644,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "JGP",
+      "nome": "JGP GESTÃO DE RECURSOS LTDA",
+      "n_fundos": 49,
+      "pl_total": 11385102827.35,
+      "share_pct": 0.08581587894646715,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Occam",
+      "nome": "NOVA OCCAM BRASIL GESTAO DE RECURSOS LTDA.",
+      "n_fundos": 29,
+      "pl_total": 9118556784.01,
+      "share_pct": 0.0687316554808164,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Alaska",
+      "nome": "ALASKA ASSET MANAGEMENT",
+      "n_fundos": 27,
+      "pl_total": 8779388221.37,
+      "share_pct": 0.0661751525879272,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Kinea",
+      "nome": "KINEA PRIVATE EQUITY INVESTIMENTOS S/A",
+      "n_fundos": 28,
+      "pl_total": 8190788473.35,
+      "share_pct": 0.061738547535694875,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Bahia Asset",
+      "nome": "BAHIA AM RENDA FIXA LTDA",
+      "n_fundos": 26,
+      "pl_total": 5259833517.29,
+      "share_pct": 0.03964630300167363,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Kapitalo",
+      "nome": "KAPITALO CICLO",
+      "n_fundos": 5,
+      "pl_total": 5155789459.67,
+      "share_pct": 0.038862064827524835,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Occam",
+      "nome": "OCCAM BRASIL",
+      "n_fundos": 44,
+      "pl_total": 4920310979.56,
+      "share_pct": 0.0370871320008249,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Dahlia",
+      "nome": "DAHLIA CAPITAL GESTÃO DE RECURSOS LTDA.",
+      "n_fundos": 67,
+      "pl_total": 4592173811.25,
+      "share_pct": 0.03461377888838033,
+      "UF": "SP"
+    },
+    {
+      "grupo": "NEO",
+      "nome": "NEO MULTIMERCADO",
+      "n_fundos": 40,
+      "pl_total": 4514280211.59,
+      "share_pct": 0.03402665132172637,
+      "UF": "SP"
+    },
+    {
+      "grupo": "IP Capital",
+      "nome": "INVESTIDOR PROFISSIONAL GESTÃO DE RECURSOS LTDA",
+      "n_fundos": 28,
+      "pl_total": 4236810176.95,
+      "share_pct": 0.03193520469493463,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Adam",
+      "nome": "ADAMCAPITAL GESTÃO DE RECURSOS LTDA.",
+      "n_fundos": 36,
+      "pl_total": 3681209493.94,
+      "share_pct": 0.027747332026694667,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "JGP",
+      "nome": "JGP Equities Gestão de Recursos Ltda.",
+      "n_fundos": 27,
+      "pl_total": 1938892197.77,
+      "share_pct": 0.014614513426648464,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "NEO",
+      "nome": "NEO EQUITIES",
+      "n_fundos": 10,
+      "pl_total": 1360151769.85,
+      "share_pct": 0.010252223576749112,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Bahia Asset",
+      "nome": "BAHIA AM RENDA VARIÁVEL LTDA",
+      "n_fundos": 12,
+      "pl_total": 1127402834.55,
+      "share_pct": 0.00849786485381846,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "JGP",
+      "nome": "JGP REAL ESTATE GESTÃO DE RECURSOS LTDA.",
+      "n_fundos": 7,
+      "pl_total": 515015714.5,
+      "share_pct": 0.003881961092603279,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "Kapitalo",
+      "nome": "KAPITALO NEXO",
+      "n_fundos": 1,
+      "pl_total": 60819910.08,
+      "share_pct": 0.00045843363209879296,
+      "UF": "SP"
+    },
+    {
+      "grupo": "Dynamo",
+      "nome": "DYNAMO V.C. ADMINISTRAÇÃO DE RECURSOS LTDA",
+      "n_fundos": 3,
+      "pl_total": 58465295.91,
+      "share_pct": 0.000440685589973697,
+      "UF": "RJ"
+    },
+    {
+      "grupo": "NEO",
+      "nome": "SPECIAL SITUATIONS NEO GESTAO DE RECURSOS LTDA",
+      "n_fundos": 13,
+      "pl_total": 0.0,
+      "share_pct": 0.0,
+      "UF": "SP"
+    }
+  ],
+  "top30_gestoras": [
+    {
+      "nome": "BB GESTÃO DE RECURSOS DTVM SA",
+      "n_fundos": 920,
+      "pl_total": 2333870481545.25,
+      "share_pct": 17.591685359212356,
+      "UF": "RJ"
+    },
+    {
+      "nome": "ITAU UNIBANCO ASSET MANAGEMENT LTDA.",
+      "n_fundos": 3465,
+      "pl_total": 1749894670090.7,
+      "share_pct": 13.18993349948732,
+      "UF": "SP"
+    },
+    {
+      "nome": "BANCO BRADESCO S.A.",
+      "n_fundos": 1975,
+      "pl_total": 1406357990749.21,
+      "share_pct": 10.600505671288902,
+      "UF": "SP"
+    },
+    {
+      "nome": "CAIXA DTVM",
+      "n_fundos": 416,
+      "pl_total": 782063222818.84,
+      "share_pct": 5.894847317204854,
+      "UF": "SP"
+    },
+    {
+      "nome": "SANTANDER BRASIL GESTÃO DE RECURSOS LTDA",
+      "n_fundos": 574,
+      "pl_total": 573463767479.0,
+      "share_pct": 4.322516712975312,
+      "UF": "SP"
+    },
+    {
+      "nome": "BRASILPREV SEGUROS E PREVIDÊNCIA S.A",
+      "n_fundos": 361,
+      "pl_total": 438491921750.93,
+      "share_pct": 3.3051585257170863,
+      "UF": NaN
+    },
+    {
+      "nome": "APEX GROUP INVESTIMENTOS LTDA.",
+      "n_fundos": 101,
+      "pl_total": 352455203552.38,
+      "share_pct": 2.6566517264511704,
+      "UF": "SP"
+    },
+    {
+      "nome": "BTG PACTUAL ASSET MANAGEMENT S/A DTVM",
+      "n_fundos": 502,
+      "pl_total": 203444516969.37,
+      "share_pct": 1.5334749545366775,
+      "UF": "RJ"
+    },
+    {
+      "nome": "BTG PACTUAL FAMILY OFFICE",
+      "n_fundos": 1684,
+      "pl_total": 173234711049.91,
+      "share_pct": 1.3057667741983472,
+      "UF": "SP"
+    },
+    {
+      "nome": "KINEA INVESTIMENTOS LTDA.",
+      "n_fundos": 333,
+      "pl_total": 169134204316.56,
+      "share_pct": 1.2748589646875708,
+      "UF": "SP"
+    },
+    {
+      "nome": "CAIXA DE PREVIDÊNCIA DOS FUNCIONÁRIOS DO BANCO DO BRASIL - PREVI",
+      "n_fundos": 12,
+      "pl_total": 163152183639.30002,
+      "share_pct": 1.2297691336970415,
+      "UF": NaN
+    },
+    {
+      "nome": "Sicredi Asset Management Ltda.",
+      "n_fundos": 68,
+      "pl_total": 144160409553.9,
+      "share_pct": 1.0866175249143661,
+      "UF": "SP"
+    },
+    {
+      "nome": "XP VISTA",
+      "n_fundos": 189,
+      "pl_total": 133329581498.72,
+      "share_pct": 1.004979524505575,
+      "UF": "SP"
+    },
+    {
+      "nome": "UBS BRASIL ADMINISTRADORA DE VALORES MOBILIÁRIOS LTDA.",
+      "n_fundos": 705,
+      "pl_total": 100850882759.95,
+      "share_pct": 0.7601694317403604,
+      "UF": "SP"
+    },
+    {
+      "nome": "SAFRA ASSET CORRETORA",
+      "n_fundos": 643,
+      "pl_total": 96558875477.6,
+      "share_pct": 0.7278181756327128,
+      "UF": "SP"
+    },
+    {
+      "nome": "FUNDAÇÃO DOS ECONOMIÁRIOS FEDERAIS - FUNCEF",
+      "n_fundos": 23,
+      "pl_total": 92475526674.36,
+      "share_pct": 0.697039695024417,
+      "UF": NaN
+    },
+    {
+      "nome": "SAFRA DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.",
+      "n_fundos": 152,
+      "pl_total": 88437922756.53,
+      "share_pct": 0.6666060191674085,
+      "UF": "SP"
+    },
+    {
+      "nome": "REAG JUS GESTÃO DE ATIVOS JUDICIAIS LTDA.",
+      "n_fundos": 31,
+      "pl_total": 84727898773.31999,
+      "share_pct": 0.6386414962412905,
+      "UF": "SP"
+    },
+    {
+      "nome": "CAIXA VIDA E PREVIDÊNCIA S/A",
+      "n_fundos": 50,
+      "pl_total": 77119851928.75,
+      "share_pct": 0.581295397841173,
+      "UF": NaN
+    },
+    {
+      "nome": "FUNDACAO CESP",
+      "n_fundos": 61,
+      "pl_total": 72669790519.42,
+      "share_pct": 0.5477527995002939,
+      "UF": NaN
+    },
+    {
+      "nome": "BNP PARIBAS ASSET MANAGEMENT BRASIL LTDA",
+      "n_fundos": 164,
+      "pl_total": 72332848089.42,
+      "share_pct": 0.5452130762124772,
+      "UF": "SP"
+    },
+    {
+      "nome": "BW GESTÃO DE INVESTIMENTOS LTDA.",
+      "n_fundos": 19,
+      "pl_total": 71261629069.92,
+      "share_pct": 0.537138700153112,
+      "UF": "SP"
+    },
+    {
+      "nome": "PÁTRIA INVESTIMENTOS LTDA.",
+      "n_fundos": 99,
+      "pl_total": 67690040436.93,
+      "share_pct": 0.5102176417820837,
+      "UF": "SP"
+    },
+    {
+      "nome": "BTG PACTUAL GESTORA DE RECURSOS LTDA",
+      "n_fundos": 102,
+      "pl_total": 66248683422.98,
+      "share_pct": 0.4993533289248792,
+      "UF": "SP"
+    },
+    {
+      "nome": "ICATU VANGUARDA GESTÃO DE RECURSOS LTDA",
+      "n_fundos": 245,
+      "pl_total": 62596325631.02,
+      "share_pct": 0.4718234682905876,
+      "UF": "RJ"
+    },
+    {
+      "nome": "ABSOLUTE GESTAO DE INVESTIMENTOS LTDA",
+      "n_fundos": 113,
+      "pl_total": 62093527739.08,
+      "share_pct": 0.4680335997506558,
+      "UF": "SP"
+    },
+    {
+      "nome": "BROOKFIELD BRASIL ASSET MANAGEMENT INVESTIMENTOS LTDA",
+      "n_fundos": 14,
+      "pl_total": 61159700971.990005,
+      "share_pct": 0.46099482583558365,
+      "UF": "SP"
+    },
+    {
+      "nome": "SPX GESTÃO DE RECURSOS LTDA",
+      "n_fundos": 206,
+      "pl_total": 60578727647.13,
+      "share_pct": 0.4566157053943045,
+      "UF": "RJ"
+    },
+    {
+      "nome": "OLIVEIRA TRUST SERVICER S/A",
+      "n_fundos": 89,
+      "pl_total": 58524905157.3,
+      "share_pct": 0.4411348981642299,
+      "UF": "RJ"
+    },
+    {
+      "nome": "FUNDAÇÃO PETROBRAS DE SEGURIDADE SOCIAL - PETROS",
+      "n_fundos": 16,
+      "pl_total": 53437121272.19,
+      "share_pct": 0.4027854293354084,
+      "UF": NaN
+    }
+  ]
+}

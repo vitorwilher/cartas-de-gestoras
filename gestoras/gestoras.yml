@@ -209,6 +209,70 @@ gestoras:
       criação da pasta, não da carta (K10 em /2022/09/, Kappa/Zeta em /2020/02/),
       então não há como construir URL por template.
 
+  # ------------------------------------- ACRÉSCIMOS DE 2026-09-11 (mensais)
+  # Entraram pela apuração de `analises/`: a lista original (post de Instagram)
+  # cobria só 4 das 50 maiores gestoras INDEPENDENTES do país. Estas três somam
+  # R$ 109 bi, são mensais, ativas e publicam carta com tese — verificado site a
+  # site em 2026-09-11. Ficaram DE FORA, por ausência real de carta pública:
+  # SPX e Verde (só por e-mail/distribuidor), Absolute e Pátria (só lâminas e
+  # artigos). Atmos publica ensaio denso mas PAROU na carta 33 (1H25); a 34 dá
+  # 404 — revisitar antes de incluir.
+
+  - nome: Genoa Capital
+    site: https://www.genoacapital.com.br
+    listagem: https://www.genoacapital.com.br/relatorios.html
+    estrategia: html
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {}
+    notas: >
+      A mais simples do catálogo: href diretos no HTML, sem JS, sem paginação,
+      sem cadastro. Série mensal ININTERRUPTA desde set/2020 — a mais regular
+      entre as verificadas. Padrão observado
+      docs/CartaMensalGenoaCapital_<Mes3><AA>.pdf (Ago26), mas EXTRAIR O HREF, não
+      templar: a regra de ouro do projeto vale aqui, o padrão só está documentado
+      para diagnóstico. Macro com tese, não relatório de performance.
+
+  - nome: Sparta
+    site: https://www.sparta.com.br
+    listagem: https://www.sparta.com.br/cartas-mensais/
+    estrategia: url_serial
+    periodicidade: mensal
+    formato: pdf
+    url_template: https://www.sparta.com.br/uploads/CartaMensal_{ano}{mes}.pdf
+    meses_para_tras: 4
+    ultima_carta: {}
+    notas: >
+      Traz CRÉDITO PRIVADO ao catálogo — eixo que só a Occam cobria em parte, e
+      que é 34% do patrimônio da indústria. Tese de verdade (debêntures
+      incentivadas vs. não incentivadas), não lâmina.
+      ARMADILHA CRÍTICA, e a razão da estratégia `url_serial`: a TABELA DA PÁGINA
+      ESTÁ CONGELADA — em 2026-09-11 o último href listado era CartaMensal_202512,
+      mas os PDFs de 2026 EXISTEM (202606/07/08 = HTTP 200 application/pdf).
+      Um coletor de href perderia 8 meses SEM ERRO NENHUM, só devolvendo menos
+      itens. É a exceção que confirma a regra de ouro: aqui templar a URL é mais
+      confiável que a página. O padrão AAAAMM foi testado de 202412 a 202608.
+      ARMADILHA 2: os href da tabela vêm com aspas escapadas quebradas
+      (' href='...') dentro de um wpDataTable — arrebenta parser ingênuo.
+
+  - nome: Opportunity
+    site: https://www.opportunity.com.br
+    listagem: https://www.opportunity.com.br/Content/pdf/carta_gestor/CartaGestao_Total.pdf
+    estrategia: url_fixa
+    periodicidade: mensal
+    formato: pdf
+    ultima_carta: {}
+    notas: >
+      CASO ÚNICO NO CATÁLOGO: não existe página de listagem nem arquivo histórico.
+      Há UM PDF numa URL FIXA, SOBRESCRITA a cada edição — mesma ideia da URL fixa
+      que o próprio projeto usa no GCS para a edição da semana.
+      CONSEQUÊNCIA: a URL NÃO identifica a carta. Usá-la como identificador faria
+      o pipeline ver a mesma carta para sempre e nunca detectar novidade. Por isso
+      `descobrir_url_fixa` deriva o identificador do CONTEÚDO — a data impressa na
+      capa ("Carta de Gestão / Opportunity Macro / Agosto 2026"), com o
+      Last-Modified do servidor como desempate (verificado: 04/09/2026, coerente).
+      Macro global com tese; 7 páginas na edição de ago/2026.
+
   # ------------------------------------------------- IRREGULARES / ANUAIS
   # Publicam ensaios temáticos, não relatórios periódicos de performance.
   # São as cartas de maior densidade editorial do conjunto.

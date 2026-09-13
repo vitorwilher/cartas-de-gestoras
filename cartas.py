@@ -30,6 +30,7 @@ import time
 import unicodedata
 from dataclasses import dataclass, field
 from datetime import date, datetime
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Iterable
 from urllib.parse import quote, urljoin, urlparse
@@ -81,6 +82,13 @@ def sem_acentos(valor: str) -> str:
     return "".join(
         c for c in unicodedata.normalize("NFKD", valor) if not unicodedata.combining(c)
     ).lower()
+
+
+# Detecta se um trecho já contém nome de mês (sem acento, minúsculo). Usado para
+# decidir se vale subir na árvore do HTML atrás do rótulo com a data.
+_TEM_MES = re.compile(
+    r"\b(" + "|".join(sem_acentos(m) for m in MESES_PT if m) + r")\b"
+)
 
 
 def texto_limpo(valor: str) -> str:
@@ -250,6 +258,14 @@ class Coletor:
             contexto = texto_limpo(a.get_text(" ") + " " + (a.parent.get_text(" ") if a.parent else ""))
             if ".pdf" not in href.lower().split("?", 1)[0]:
                 continue
+            # Na Genoa o rótulo do link é só "PDF" e a data ("Carta Mensal /
+            # Agosto/2026") vive no AVÔ, não no pai. Sem subir um nível, toda
+            # carta cairia no fallback de hoje e as 78 ficariam com a mesma data
+            # — falha silenciosa, sem exceção nenhuma. Só sobe quando o contexto
+            # imediato não tem mês, para não mudar o comportamento das demais.
+            if a.parent is not None and a.parent.parent is not None \
+                    and not _TEM_MES.search(sem_acentos(contexto)):
+                contexto = texto_limpo(a.parent.parent.get_text(" "))
             if cfg["nome"] == "Occam Brasil" and "carta mensal" not in sem_acentos(contexto):
                 continue
             if cfg["nome"] == "Kapitalo Investimentos" and "carta" not in sem_acentos(contexto + href):
@@ -315,6 +331,83 @@ class Coletor:
                 f"Carta Mensal — {MESES_PT[mes].title()} de {ano}", url, "pdf",
             ))
         return resultado
+
+    def descobrir_url_serial(self, cfg: dict[str, Any]) -> list[Carta]:
+        """URL com contador AAAAMM, para quando a listagem HTML está desatualizada.
+
+        Nasceu da Sparta: a tabela da página congelou em 202512, mas os PDFs de
+        2026 existem no mesmo padrão e simplesmente não foram listados. Um
+        coletor de `href` perderia 8 meses de cartas SEM ERRO NENHUM — só
+        devolveria menos itens. É a exceção que confirma a regra de ouro: aqui
+        templar a URL é mais confiável que confiar na página.
+
+        Varre do mês corrente para trás; 404 é resposta esperada (a carta do mês
+        ainda não saiu), não falha.
+        """
+        hoje = date.today()
+        janela = int(cfg.get("meses_para_tras", 3))
+        resultado: list[Carta] = []
+        for deslocamento in range(janela):
+            total = hoje.year * 12 + hoje.month - 1 - deslocamento
+            ano, mes0 = divmod(total, 12)
+            mes = mes0 + 1
+            url = cfg["url_template"].format(ano=ano, mes=f"{mes:02d}", aa=str(ano)[2:])
+            resposta = self.client.get(url)
+            time.sleep(self.pausa)
+            if resposta.status_code == 404:
+                continue
+            resposta.raise_for_status()
+            if not resposta.content.startswith(b"%PDF"):
+                continue
+            resultado.append(Carta(
+                date(ano, mes, 1), url, cfg["nome"], "principal",
+                f"Carta Mensal — {MESES_PT[mes].title()} de {ano}", url, "pdf",
+            ))
+        return resultado
+
+    def descobrir_url_fixa(self, cfg: dict[str, Any]) -> list[Carta]:
+        """Um único PDF numa URL que é SOBRESCRITA a cada edição (Opportunity).
+
+        ⚠️ Aqui a URL NÃO identifica a carta — ela é sempre a mesma. Usar a URL
+        como identificador faria o pipeline ver a mesma carta para sempre e
+        nunca detectar novidade.
+
+        O identificador sai do CONTEÚDO: a data impressa na capa ("Agosto 2026"),
+        que é a regra de ouro da data do projeto aplicada ao caso extremo. O
+        `Last-Modified` do servidor serve de desempate quando o texto falha
+        (verificado: devolve data coerente com a publicação).
+        """
+        resposta = self.get(cfg["listagem"])
+        if not resposta.content.startswith(b"%PDF"):
+            raise RuntimeError(
+                f"{cfg['nome']}: a URL fixa não devolveu PDF "
+                f"(content-type={resposta.headers.get('content-type')!r})."
+            )
+
+        texto_capa = ""
+        try:
+            with pdfplumber.open(io.BytesIO(resposta.content)) as pdf:
+                texto_capa = " ".join(
+                    (p.extract_text() or "") for p in pdf.pages[:2]
+                )
+        except Exception as exc:  # noqa: BLE001 — extrair data é best-effort
+            print(f"  [aviso] {cfg['nome']}: não consegui ler a capa ({exc}); "
+                  f"caindo no Last-Modified.", file=sys.stderr)
+
+        fallback = date.today()
+        cabecalho = resposta.headers.get("last-modified", "")
+        if cabecalho:
+            try:
+                fallback = parsedate_to_datetime(cabecalho).date()
+            except (TypeError, ValueError):
+                pass
+
+        referencia = data_do_texto(texto_capa[:600], fallback)
+        return [Carta(
+            referencia, f"{cfg['nome']}-{referencia:%Y-%m}", cfg["nome"], "principal",
+            f"Carta de Gestão — {MESES_PT[referencia.month].title()} de {referencia.year}",
+            cfg["listagem"], "pdf",
+        )]
 
     def _pdf_em_pagina(self, url: str) -> str:
         if not url:
@@ -436,6 +529,20 @@ Estrutura:
 - Termine com "## Convergências e divergências", comparando apenas gestoras presentes.
   Aqui o valor é apontar onde o consenso se forma e onde racha, e o que a divergência
   revela sobre premissas diferentes — não listar quem concorda com quem.
+  **DIMENSIONE o consenso.** Quando o bloco PESO PATRIMONIAL estiver no contexto,
+  não diga apenas quantas casas estão de cada lado: diga quanto patrimônio sob
+  mandato compatível cada lado representa. "Quatro casas, somando R$ 58 bi sob
+  mandato de juro e macro, veem o ciclo virando; duas, com R$ 12 bi, discordam"
+  informa muito mais que "quatro contra duas" — mostra se o consenso é da maioria
+  ou de quem carrega o risco. Regras inegociáveis ao usar esses números:
+    · Use o PL do EIXO correspondente à tese, NUNCA o PL total da casa. A Kinea
+      tem R$ 177 bi totais e só R$ 9,3 bi em juro/macro; usar o total numa conta
+      sobre juro atribui a ela patrimônio que está em crédito imobiliário.
+    · Mandato não é posição. Escreva "sob mandato compatível com a tese", jamais
+      "apostando" ou "posicionado" — a CVM diz o que o fundo PODE fazer, e só a
+      carta diz o que ele fez.
+    · Se a tese em discussão não corresponder a nenhum eixo da tabela, compare
+      sem número. Não force o cruzamento.
 - Ao final, depois dessa seção, inclua um comentário HTML exatamente no formato
   `<!-- resumo_whatsapp: TEXTO -->`: uma síntese executiva específica da edição,
   em uma única linha, sem Markdown, com no máximo 450 caracteres.
@@ -468,7 +575,30 @@ def montar_corpus(cartas: list[Carta]) -> str:
     return "\n\n---\n\n".join(blocos)
 
 
+def contexto_patrimonial() -> str:
+    """Tabela de PL por casa e por eixo de mandato, vinda da CVM.
+
+    É o que permite dimensionar o consenso ("N casas somando R$ X bi") em vez de
+    só contá-lo. Gerada por `analises/peso_das_teses.py`.
+
+    Falha aqui NUNCA derruba a síntese — mesmo princípio da falha isolada por
+    gestora. Sem o arquivo, a edição sai sem os números de peso, que é o
+    comportamento de antes desta função existir.
+    """
+    caminho = Path(__file__).parent / "analises" / "peso_das_teses_prompt.txt"
+    try:
+        texto = caminho.read_text(encoding="utf8").strip()
+    except OSError as e:
+        print(f"[peso] contexto patrimonial indisponível ({e}); "
+              f"a síntese sai sem dimensionar o consenso.", file=sys.stderr)
+        return ""
+    if not texto:
+        return ""
+    return f"\n\n---\n\n{texto}\n"
+
+
 def sintetizar(cartas: list[Carta]) -> str:
+    corpus = montar_corpus(cartas) + contexto_patrimonial()
     with Anthropic().messages.stream(
         model=MODEL,
         # 64k de saída e effort "high": com `max`, o Fable 5.1 gasta o orçamento
@@ -478,7 +608,7 @@ def sintetizar(cartas: list[Carta]) -> str:
         thinking={"type": "adaptive"},
         output_config={"effort": "high"},
         system=SYSTEM_PROMPT,
-        messages=[{"role": "user", "content": montar_corpus(cartas)}],
+        messages=[{"role": "user", "content": corpus}],
     ) as stream:
         final = stream.get_final_message()
 
