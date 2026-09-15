@@ -75,49 +75,6 @@ def _titulo(ax, titulo: str, medida: str):
             fontsize=22, color=MUTED, va="bottom")
 
 
-def grafico_divergencia() -> str:
-    """A capa: o racha do Copom, que é o que a manchete promete.
-
-    Ilustração do CONCEITO — as cartas dizem a direção ("ciclo segue" × "pausa"),
-    não uma trajetória ponto a ponto. Por isso o gráfico não leva escala de data
-    fechada nem afirma valores futuros: mostra a forma da divergência.
-    """
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    meses = list(range(7))
-    rotulos = ["hoje", "", "+6m", "", "+12m", "", "+18m"]
-    ciclo = [14.00, 13.75, 13.50, 13.25, 13.00, 12.75, 12.50]
-    pausa = [14.00, 14.00, 14.00, 13.75, 13.50, 13.25, 13.00]
-
-    fig, ax = plt.subplots(figsize=(9.6, 7.0))
-    ax.fill_between(meses, ciclo, pausa, color=BLUE, alpha=0.10, zorder=1)
-    ax.plot(meses, ciclo, color=BLUE, lw=6, marker="o", markersize=13,
-            solid_capstyle="round", zorder=3)
-    ax.plot(meses, pausa, color=NAVY, lw=6, marker="o", markersize=13,
-            linestyle=(0, (5, 3)), solid_capstyle="round", zorder=3)
-
-    ax.text(6.15, ciclo[-1], "Bahia\nOccam\nLegacy", fontsize=24, color=BLUE,
-            fontweight="bold", va="center", linespacing=1.2)
-    ax.text(6.15, pausa[-1], "Kinea", fontsize=24, color=NAVY,
-            fontweight="bold", va="center")
-    ax.annotate("a pausa", (2, 14.0), xytext=(1.75, 14.30), fontsize=25,
-                color=NAVY, fontweight="bold", ha="center",
-                arrowprops=dict(arrowstyle="-", color=MUTED, lw=2))
-
-    _limpar(ax, eixo_y_direita=False)
-    ax.set_xticks(meses)
-    ax.set_xticklabels(rotulos)
-    ax.set_yticks([12.5, 13.0, 13.5, 14.0])
-    ax.set_yticklabels(["12,5", "13,0", "13,5", "14,0%"])
-    ax.set_xlim(-0.3, 8.3)
-    ax.set_ylim(12.2, 14.55)
-    _titulo(ax, "Duas leituras da mesma inflação",
-            "para onde vai a Selic, segundo cada casa")
-    return _fig_para_uri(fig)
-
-
 def dados_do_exercicio() -> dict:
     """Roda a parte de DADOS do exercício da edição mais recente.
 
@@ -140,29 +97,33 @@ def dados_do_exercicio() -> dict:
         raise SystemExit(f"{digests[0].name} não tem bloco python no exercício")
 
     codigo = achado.group(1)
-    marca = "# 5. Gráfico"
-    codigo = codigo[:codigo.index(marca)] if marca in codigo else codigo
+    # O exercício é reescrito a cada edição, então o comentário que abre a seção
+    # de gráfico muda de texto. Cortamos no primeiro marcador que existir — e, na
+    # falta de todos, no primeiro `plt.subplots`, que é onde a paisagem começa.
+    for marca in ("# 5. Gráfico", "# ---- Gráfico", "# --- Gráfico",
+                  "# Gráfico", "fig, ", "plt.subplots"):
+        if marca in codigo:
+            codigo = codigo[:codigo.index(marca)]
+            break
 
     ns: dict = {"__name__": "__main__"}
     with contextlib.redirect_stdout(_io.StringIO()):
         exec(compile(codigo, "exercicio", "exec"), ns)
 
     # O exercício é escrito pelo modelo a cada edição, então os nomes das variáveis
-    # variam. Normalizamos o que os gráficos usam, com alternativas conhecidas, e
-    # falhamos alto se algo essencial não estiver lá — melhor do que um KeyError
-    # no meio do render.
-    alias = {
-        "atual_bps": ("atual_bps", "atual", "inclinacao_atual"),
-        "percentil": ("percentil", "percentil_hist"),
-        "mediana": ("mediana", "mediana_bps"),
-        "p10": ("p10",), "p90": ("p90",),
-        "taxa_curta": ("taxa_curta",), "taxa_longa": ("taxa_longa",),
-        "TENOR_CURTO": ("TENOR_CURTO",), "TENOR_LONGO": ("TENOR_LONGO",),
-        "hist": ("hist",), "curva_hoje": ("curva_hoje",), "ultima": ("ultima",),
+    # variam. Só duas grandezas são UNIVERSAIS, porque o SYSTEM_PROMPT do exercício sempre
+    # pede "o ponto de hoje contra a distribuição passada": o valor atual e o
+    # percentil dele. Tudo o mais varia com o tema da semana, então o namespace
+    # inteiro volta e cada gráfico pega o que precisa — em vez de uma lista fixa
+    # que quebrava a cada edição nova (era o caso em 15/09, com o exercício de
+    # diversificação: 12 variáveis "faltando" que simplesmente não existiam ali).
+    universais = {
+        "valor_hoje": ("dr_hoje", "atual_bps", "atual", "inclinacao_atual", "valor_hoje"),
+        "percentil": ("pct_hoje", "percentil", "percentil_hist"),
     }
-    dados = {}
+    dados = {k: v for k, v in ns.items() if not k.startswith("__")}
     faltando = []
-    for chave, candidatos in alias.items():
+    for chave, candidatos in universais.items():
         for nome in candidatos:
             if nome in ns:
                 dados[chave] = ns[nome]
@@ -172,89 +133,132 @@ def dados_do_exercicio() -> dict:
     if faltando:
         raise SystemExit(
             f"O exercício de {digests[0].name} não expõe: {', '.join(faltando)}. "
-            "Os gráficos do carrossel dependem dessas variáveis — ajuste os alias "
+            "Todo exercício precisa do valor de hoje e do percentil — é o que o "
+            "SYSTEM_PROMPT pede. Acrescente o nome usado nesta edição aos alias "
             "em dados_do_exercicio()."
         )
     return dados
 
 
-def grafico_historico(d: dict) -> str:
-    """A inclinação no tempo — a história é 'onde estamos contra a história'."""
+def grafico_divergencia() -> str:
+    """A capa: três posições em Brasil que parecem diferentes e não são.
+
+    Ilustração do CONCEITO — as três pernas do livro Brasil e o canal único que
+    as liga (o prêmio de risco-país). Sem escala fechada: o ponto é a forma da
+    dependência, não um valor medido. O dado real vem nos slides 6 e 7.
+    """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    hist = d["hist"]
-    x, y = hist.index, hist["inclinacao_bps"]
-    atual, p10, p90 = d["atual_bps"], d["p10"], d["p90"]
+    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
+    ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.axis("off")
 
-    fig, ax = plt.subplots(figsize=(9.6, 7.2))
-    ax.axhspan(p10, p90, color=BLUE, alpha=0.09, zorder=1)
-    ax.plot(x, y, color=BLUE, lw=2.6, zorder=3, solid_capstyle="round")
-    ax.axhline(d["mediana"], color=MUTED, lw=2, linestyle=(0, (6, 5)), zorder=2)
+    pernas = [("Bolsa", 1.9), ("Juro", 5.0), ("Real", 8.1)]
+    for nome, x in pernas:
+        ax.add_patch(plt.Circle((x, 7.0), 0.92, color=BLUE, alpha=0.16, zorder=2))
+        ax.text(x, 7.0, nome, ha="center", va="center",
+                fontsize=27, color=NAVY, fontweight="bold", zorder=3)
+        ax.plot([x, 5.0], [6.0, 3.6], color=MUTED, lw=2.4, ls=(0, (4, 3)), zorder=1)
 
-    # O ponto de hoje é o assunto: círculo grande, halo branco e rótulo colado.
-    ax.plot([x[-1]], [atual], "o", color="white", markersize=30, zorder=5)
-    ax.plot([x[-1]], [atual], "o", color=NAVY, markersize=21, zorder=6)
-    # Rótulo ACIMA do ponto: abaixo ele colidia com os rótulos de ano.
-    ax.annotate(f"hoje: +{atual:.0f} bps", (x[-1], atual),
-                xytext=(-14, 96), textcoords="offset points",
-                fontsize=28, color=NAVY, fontweight="bold",
-                ha="right", va="bottom",
-                arrowprops=dict(arrowstyle="-", color=NAVY, lw=2.2,
-                                connectionstyle="arc3,rad=-0.25"))
-    ax.text(0.015, 0.965, "faixa dos 80% do tempo", transform=ax.transAxes,
-            fontsize=20, color=MUTED, va="top")
+    ax.add_patch(plt.Circle((5.0, 2.6), 1.35, color=NAVY, zorder=2))
+    ax.text(5.0, 2.85, "MESMO", ha="center", va="center",
+            fontsize=21, color="white", fontweight="bold", zorder=3)
+    ax.text(5.0, 2.25, "EVENTO", ha="center", va="center",
+            fontsize=21, color="white", fontweight="bold", zorder=3)
+    ax.text(5.0, 0.55, "risco-país", ha="center", va="center",
+            fontsize=23, color=MUTED, style="italic")
 
-    _limpar(ax)
-    ax.margins(x=0.02)
-    ax.set_yticks([0, 100, 200, 300])
-    ax.set_yticklabels(["0", "100", "200", "300 bps"])
-    _titulo(ax, "Inclinação da curva: 7 anos − 2 anos",
-            "quanto o juro longo paga a mais que o curto")
+    ax.text(0, 9.55, "Três posições, um só canal de risco",
+            fontsize=30, color=NAVY, fontweight="bold", va="bottom")
+    ax.text(0, 9.05, "as três apostas em Brasil da Kapitalo",
+            fontsize=22, color=MUTED, va="bottom")
+    fig.tight_layout()
     return _fig_para_uri(fig)
 
 
-def grafico_curva(d: dict) -> str:
-    """A curva de hoje — a história é o degrau entre os dois vértices."""
+def grafico_diversificacao(d: dict) -> str:
+    """A razão de diversificação no tempo: quantas apostas o livro tem de fato.
+
+    É o gráfico-chave da edição. O teto (1,73 = três pernas independentes) e o
+    piso (1,00 = uma aposta só) enquadram a leitura, e o ponto de hoje é o
+    assunto — círculo com halo, rótulo colado.
+    """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    curva = d["curva_hoje"].sort_values("prazo")
-    x, y = list(curva["prazo"]), list(curva["taxa"])
-    tc, tl = d["TENOR_CURTO"], d["TENOR_LONGO"]
-    yc, yl = d["taxa_curta"], d["taxa_longa"]
+    dr = d["dr"].dropna()
+    hoje = float(d["valor_hoje"])
+    pct = float(d["percentil"])
 
-    fig, ax = plt.subplots(figsize=(9.6, 7.2))
-    ax.plot(x, y, color=BLUE, lw=5, marker="o", markersize=11,
-            solid_capstyle="round", zorder=3)
+    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
+    ax.plot(dr.index, dr.values, color=BLUE, lw=2.6)
+    ax.axhline(1.73, color=MUTED, lw=2.0, ls=(0, (5, 4)))
+    # Rótulo à DIREITA e acima: à esquerda ele caía sobre a própria série, que
+    # nesta amostra passa de 1,9 em 2021.
+    ax.text(dr.index[-1], 1.745, "1,73 = três apostas independentes",
+            fontsize=21, color=MUTED, va="bottom", ha="right")
+    ax.axhline(1.0, color="#C0392B", lw=2.0, ls=(0, (2, 3)))
+    ax.text(dr.index[0], 1.015, "1,00 = uma aposta só",
+            fontsize=21, color="#C0392B", va="bottom")
 
-    # A inclinação é o assunto: faixa entre os dois vértices + seta grossa.
-    ax.axvspan(tc, tl, color=BLUE, alpha=0.07, zorder=1)
-    for t, v in ((tc, yc), (tl, yl)):
-        ax.plot([t], [v], "o", color="white", markersize=26, zorder=4)
-        ax.plot([t], [v], "o", color=NAVY, markersize=18, zorder=5)
-    # Seta dupla entre os dois vértices: é o "degrau" que a aposta persegue.
-    ax.annotate("", xy=(tl, yl), xytext=(tl, yc),
-                arrowprops=dict(arrowstyle="<|-|>", color=NAVY, lw=3,
-                                mutation_scale=22, shrinkA=0, shrinkB=0))
-    ax.text(tl - 0.28, (yc + yl) / 2, f"+{d['atual_bps']:.0f} bps",
-            fontsize=31, color=NAVY, fontweight="bold", ha="right", va="center")
-    # Rótulos dos vértices: o de 2 anos vai ABAIXO e à esquerda, senão cai em
-    # cima da curva, que sobe justamente ali.
-    ax.text(tc - 0.25, yc - 0.16, f"{tc:.0f} anos", fontsize=22, color=MUTED,
-            ha="right", va="top")
-    ax.text(tl, yl + 0.07, f"{tl:.0f} anos", fontsize=22, color=MUTED,
-            ha="center", va="bottom")
+    ax.scatter([dr.index[-1]], [hoje], s=700, color="white", zorder=4)
+    ax.scatter([dr.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
+    ax.annotate(f"hoje: {hoje:.2f}".replace(".", ","),
+                xy=(dr.index[-1], hoje), xytext=(-18, -52),
+                textcoords="offset points", ha="right",
+                fontsize=28, color=NAVY, fontweight="bold")
 
     _limpar(ax)
-    ax.margins(x=0.04, y=0.16)
-    ax.set_xticks([])
-    ax.set_yticks([13.6, 14.0, 14.4])
-    ax.set_yticklabels(["13,6", "14,0", "14,4%"])
-    _titulo(ax, "A curva de juros hoje",
-            "taxa dos prefixados do Tesouro, por prazo")
+    _titulo(ax, "Três posições em Brasil valem 2 apostas",
+            "razão de diversificação · janela de 63 dias úteis")
+    fig.tight_layout()
+    return _fig_para_uri(fig)
+
+
+def grafico_cauda(d: dict) -> str:
+    """O teste da condição de quebra: o que cada perna faz nos piores dias do real.
+
+    Duas barras por perna (piores 5% × demais dias). É o cruzamento que nenhuma
+    carta faz sozinha — e o argumento visual mais forte da edição.
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    # O exercício JÁ entrega em % ao dia (0,32 = 0,32%). Multiplicar por 100 aqui
+    # produzia "-225,33%" de queda diária no real — número impossível que passaria
+    # no feed como erro grosseiro de quem publicou.
+    piores = d["media_piores"]
+    resto = d["media_resto"]
+    nomes = ["Bolsa", "Juro", "Real"]
+    x = np.arange(len(nomes))
+    larg = 0.36
+
+    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
+    ax.bar(x - larg / 2, piores.values, larg, color="#C0392B", label="5% piores dias do real")
+    ax.bar(x + larg / 2, resto.values, larg, color=BLUE, alpha=0.55, label="demais dias")
+    ax.axhline(0, color=NAVY, lw=1.8)
+
+    # Rótulo da barra negativa vai DENTRO da barra, em branco: fora dela ele
+    # colidia com o nome da perna no eixo x.
+    for i, v in enumerate(piores.values):
+        dentro = v < -0.5
+        ax.text(i - larg / 2,
+                v * 0.5 if dentro else (v - 0.06 if v < 0 else v + 0.04),
+                f"{v:+.2f}%".replace(".", ","),
+                ha="center", va="center" if dentro else ("top" if v < 0 else "bottom"),
+                fontsize=23, color="white" if dentro else "#C0392B",
+                fontweight="bold")
+
+    ax.set_xticks(x); ax.set_xticklabels(nomes, fontsize=25, color=NAVY)
+    ax.legend(fontsize=20, frameon=False, loc="lower left")
+    _limpar(ax)
+    _titulo(ax, "No dia em que o real quebra, a bolsa não salva",
+            "retorno médio diário por perna · % ao dia")
+    fig.tight_layout()
     return _fig_para_uri(fig)
 
 
@@ -262,55 +266,59 @@ def slides(d: dict) -> list[dict]:
     """Os 10 slides, na ordem em que a história se sustenta.
 
     A regra que organiza tudo: **nenhum gráfico aparece antes de o leitor ter
-    contexto para lê-lo**. A capa mostra a divergência entre as casas, que é o
-    que a manchete promete; o gráfico da inclinação da curva só entra depois do
-    slide que explica o que é um steepener — antes disso, "48 bps" não significa
-    nada para quem passa o polegar.
+    contexto para lê-lo**. A capa mostra as três pernas ligadas ao mesmo canal de
+    risco — o conceito que a manchete promete; a série da razão de diversificação
+    só entra depois do slide que explica o que ela mede, porque antes disso "1,45"
+    não significa nada para quem passa o polegar.
 
-    O fecho não promete a síntese — promete o MÉTODO. Resumir carta é
-    commodity; o que ninguém mais entrega é o caminho da tese até o código que a
-    testa. O penúltimo slide mostra esse caminho em 4 passos, e só então o CTA
-    oferece o exercício junto com a síntese.
+    O fecho não promete a síntese — promete o MÉTODO. Resumir carta é commodity;
+    o que ninguém mais entrega é o caminho da tese até o código que a testa.
 
     Bullets, não parágrafos. Sem preço e sem oferta: o público está em nível 1-2
     de consciência, e nível 5 no primeiro toque é o erro documentado que rendeu
     174 mensagens e zero respostas na campanha de Claude Code T2.
+
+    Jargão de mesa fica no PDF, não aqui: "livro" (trading book) faz o leitor
+    parar para decodificar, e no feed cada palavra tem dois segundos.
     """
-    bps = f"{d['atual_bps']:.0f}"
-    pct = f"{d['percentil']:.0f}"
+    dr = f"{float(d['valor_hoje']):.2f}".replace(".", ",")
+    pct = f"{float(d['percentil']):.0f}"
+    perdeu_bolsa = f"{float(d['freq_perda'].iloc[0]):.0f}"  # já vem em %
     return [
         {
             "kind": "capa",
-            "hook": "Quatro gestoras leram a *mesma* inflação. Duas fizeram a aposta oposta.",
+            "hook": "A Kapitalo comprou Brasil em *três* frentes. O risco é *um* só.",
             "src": grafico_divergencia(),
         },
         {
             "kind": "lista",
-            "title": "No que elas *concordam*",
+            "title": "As *três* posições",
             "variant": "check",
             "items": [
-                "Núcleos de serviços ainda pressionados",
-                "Expectativas com viés de alta",
-                "Atividade desacelerando",
-                "Eleição empatada",
+                "Comprada em bolsa brasileira",
+                "Aplicada em juro local (NTN-B)",
+                "Comprada em real",
+                "Três instrumentos. Três teses diferentes?",
             ],
         },
         {
             "kind": "lista",
-            "title": "Onde *racha*: o Copom",
+            "title": "O problema: o *mesmo* gatilho",
             "variant": "diamond",
             "items": [
-                "*Bahia, Occam e Legacy:* o ciclo de cortes segue",
-                "*Kinea:* pausa, até haver clareza sobre o orçamento",
-                "Mesmo diagnóstico. Conclusão oposta.",
+                "Todas dependem do Brasil ser reprecificado para melhor",
+                "*Crise de confiança:* o prêmio de risco-país sobe",
+                "Bolsa cai, curva abre, dólar dispara — juntos",
             ],
         },
         {
             "kind": "definicao",
-            "title": "A diferença não é sobre inflação",
+            "title": "Como se mede isso",
             "rows": [
-                {"term": "Legacy e Occam", "desc": "o BC reage aos dados de atividade"},
-                {"term": "Kinea", "desc": "o BC reage à incerteza fiscal pós-eleitoral"},
+                {"term": "Razão de diversificação",
+                 "desc": "soma das volatilidades ÷ volatilidade da carteira"},
+                {"term": "1,73", "desc": "teto: três apostas realmente independentes"},
+                {"term": "1,00", "desc": "piso: as três são uma aposta só"},
             ],
         },
         {
@@ -318,31 +326,31 @@ def slides(d: dict) -> list[dict]:
             "title": "E isso *custa dinheiro*",
             "variant": "diamond",
             "items": [
-                "Bahia e Occam carregam o mesmo trade",
-                "*Steepener:* ganham se o juro longo subir mais que o curto",
-                "A pausa da Kinea é o cenário em que a perna curta perde",
+                "Você dimensiona como se fossem três apostas",
+                "*Mas carrega o risco de menos que isso*",
+                "A conta aparece justamente no dia ruim",
             ],
         },
         {
             "kind": "capa",
-            "hook": "É esse *degrau* que elas estão comprando 👇",
+            "hook": f"Medido: *{dr}* — no percentil {pct} desde 2019 👇",
             "hint": False,
-            "src": grafico_curva(d),
+            "src": grafico_diversificacao(d),
         },
         {
             "kind": "capa",
-            "hook": f"E ele está em +{bps} bps — no *percentil {pct}* desde 2010.",
+            "hook": "E no dia em que o real quebra?",
             "hint": False,
-            "src": grafico_historico(d),
+            "src": grafico_cauda(d),
         },
         {
             "kind": "lista",
-            "title": "O que isso quer dizer",
+            "title": "O que o dado diz",
             "variant": "diamond",
             "items": [
-                "O degrau está na média histórica",
-                "A aposta *não* está barata na entrada",
-                "E você não precisou acreditar em ninguém para saber disso",
+                f"Nos 5% piores dias do real, a bolsa perdeu em *{perdeu_bolsa}%* deles",
+                "A proteção some justo quando faria falta",
+                "*A própria Kapitalo* nomeou essa condição de quebra",
             ],
         },
         {
@@ -350,10 +358,10 @@ def slides(d: dict) -> list[dict]:
             "title": "O caminho que eu fiz aqui",
             "variant": "number",
             "items": [
-                "Li a tese: Bahia e Occam tomadas em inclinação",
-                "Achei o *mecanismo*: se paga quando o longo sobe mais que o curto",
+                "Li a tese: Kapitalo ampliou Brasil em três frentes",
+                "Achei o *mecanismo*: as três dependem do mesmo evento",
                 "Escrevi o código que mede isso com dado público",
-                "*Este gráfico saiu daí* — e roda em 6 segundos",
+                "*Este gráfico saiu daí* — e roda em segundos",
             ],
         },
         {
@@ -361,7 +369,7 @@ def slides(d: dict) -> list[dict]:
             "title": "Te mando o código junto",
             # A pergunta no fim puxa comentário de quem não vai digitar a
             # palavra-chave — e comentário é o que o algoritmo lê como alcance.
-            "paragraph": f"Toda semana leio as cartas das 12 maiores gestoras, destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a desta semana — síntese e código — no seu direct. E me conta: qual tese você queria ver testada?",
+            "paragraph": f"Toda semana leio as cartas das 15 maiores gestoras, destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a desta semana — síntese e código — no seu direct. E me conta: qual tese você queria ver testada?",
             "cta": f"Comente {PALAVRA_CHAVE}",
         },
     ]
@@ -409,7 +417,9 @@ def main() -> int:
 
     print("Rodando o exercício da edição para obter os dados...")
     dados = dados_do_exercicio()
-    print(f"  inclinação {dados['atual_bps']:.0f} bps, percentil {dados['percentil']:.0f}")
+    # Genérico: a grandeza muda a cada edição, só "valor de hoje + percentil" é fixo.
+    print(f"  valor de hoje {float(dados['valor_hoje']):.2f}, "
+          f"percentil {float(dados['percentil']):.0f}")
 
     SAIDA.mkdir(parents=True, exist_ok=True)
     lista = slides(dados)

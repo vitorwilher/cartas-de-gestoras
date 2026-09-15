@@ -109,7 +109,7 @@ Adiante, cada carta é destrinchada por tese, mecanismo, números e condição d
 
 **Onde a NEO e a Genoa não entram.** A NEO não posiciona; a Genoa não data. Ambas funcionam aqui como premissa, não como aposta: a NEO delimita o mapa de risco (Hormuz, Warsh, eleição aberta), a Genoa fixa o piso estrutural do câmbio. Não há eixo de mandato compatível para dimensioná-las contra as demais, e não forço o cruzamento.
 
-## Exercício da semana: três apostas ou uma? Decompondo o risco de um livro Brasil
+## Exercício da semana: três apostas ou uma? Decompondo o risco de três posições em Brasil
 
 ### Por que isto importa esta semana
 
@@ -121,7 +121,7 @@ Uma carteira de três pernas não é necessariamente três apostas. A volatilida
 
 O segundo objeto é a **contribuição de risco** de cada perna, $CR_i = w_i (\Sigma w)_i / \sigma_p^2$. Somam 1 e mostram quem manda na variância — é a versão *ex ante* da tabela de atribuição por fator que o K10 publica *ex post*.
 
-O mecanismo que interessa é a instabilidade dessas medidas. Em regime normal, bolsa, NTN-B e real têm correlações moderadas e o livro parece diversificado. Numa crise de confiança, o canal é único — prêmio de risco-país sobe — e os três preços caem juntos: bolsa derrete, curva abre (IMA-B cai), dólar sobe. A diversificação medida em janela cheia superestima a que existe na cauda. Por isso o exercício mede a DR em janela rolante e, separadamente, o que as pernas de bolsa e juro fizeram nos 5% piores dias do real.
+O mecanismo que interessa é a instabilidade dessas medidas. Em regime normal, bolsa, NTN-B e real têm correlações moderadas e o conjunto parece diversificado. Numa crise de confiança, o canal é único — prêmio de risco-país sobe — e os três preços caem juntos: bolsa derrete, curva abre (IMA-B cai), dólar sobe. A diversificação medida em janela cheia superestima a que existe na cauda. Por isso o exercício mede a DR em janela rolante e, separadamente, o que as pernas de bolsa e juro fizeram nos 5% piores dias do real.
 
 Pesos: uso paridade de volatilidade (peso inversamente proporcional à vol de cada perna na amostra completa). Não é o peso da Kapitalo — a carta não o revela —, mas é o ponto de partida neutro que qualquer *risk parity* usaria, e torna a comparação de contribuições de risco legível: se as pernas fossem descorrelacionadas, cada uma contribuiria com um terço.
 
@@ -184,7 +184,7 @@ print(f"Datas comuns: {len(precos)} | maior série isolada: {max(len(ibov), len(
 
 ret = np.log(precos).diff().dropna()  # única linha descartada aqui é a primeira (diff)
 
-# Pernas expressas na DIREÇÃO do livro: comprado bolsa, aplicado juro (comprado IMA-B),
+# Pernas expressas na DIREÇÃO do bloco: comprado bolsa, aplicado juro (comprado IMA-B),
 # comprado real (= vendido USD/BRL, por isso o sinal trocado).
 pernas = pd.DataFrame({
     "Bolsa (comprado Ibov)":   ret["bolsa"],
@@ -255,7 +255,7 @@ ax.annotate(f"hoje: {dr_hoje:.2f}\npercentil {pct_hoje:.0f}%",
             xy=(dr.index[-1], dr_hoje), xytext=(-110, 25), textcoords="offset points",
             fontsize=10, arrowprops=dict(arrowstyle="->", color="#c0504d"))
 ax.set_ylabel("Razão de diversificação\n(soma das vols ponderadas / vol do portfólio)")
-ax.set_title("1. Quanta diversificação o livro Brasil entrega, trimestre a trimestre", loc="left", fontsize=11)
+ax.set_title("1. Quanta diversificação o bloco Brasil entrega, trimestre a trimestre", loc="left", fontsize=11)
 ax.legend(fontsize=8, loc="upper left", ncol=2)
 ax.grid(alpha=0.3)
 
@@ -266,7 +266,7 @@ for c, cor in zip(corrs.columns, cores):
 ax.axhline(0, color="black", lw=0.8)
 ax.set_ylabel(f"Correlação de retornos diários ({JANELA} d.u.)")
 ax.set_ylim(-1, 1)
-ax.set_title("2. Correlações entre as pernas (positivo = movem juntas na direção do livro)", loc="left", fontsize=11)
+ax.set_title("2. Correlações entre as pernas (positivo = movem juntas na direção do bloco)", loc="left", fontsize=11)
 ax.legend(fontsize=8, loc="lower left", ncol=3)
 ax.grid(alpha=0.3)
 
@@ -292,28 +292,28 @@ ax.legend(fontsize=8, loc="lower left")
 ax.grid(alpha=0.3, axis="y")
 ax.margins(y=0.35)
 
-fig.suptitle(f"Livro Brasil em paridade de vol (bolsa / juro / real) — "
+fig.suptitle(f"Bloco Brasil em paridade de vol (bolsa / juro / real) — "
              f"{pernas.index[0].date()} a {pernas.index[-1].date()}", fontsize=12, y=0.995)
 fig.tight_layout()
 plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
 print("\nGráfico salvo em grafico-exercicio.png")
 ```
 
-![Painel 1: razão de diversificação de um livro comprado em Ibovespa, comprado no ETF de IMA-B e vendido em USD/BRL, com pesos por paridade de volatilidade, calculada em janela rolante de 63 dias úteis; a linha tracejada é a mediana da série, a faixa cinza cobre os percentis 10 a 90, as linhas pontilhadas marcam DR = 1 (uma aposta só) e DR = 1,73 (três pernas independentes), e o ponto vermelho anota o valor de hoje e seu percentil histórico. Painel 2: correlações rolantes de 63 dias úteis entre os pares Bolsa x Juro, Bolsa x Real e Juro x Real, cada perna expressa na direção da posição, com o valor mais recente na legenda. Painel 3: retorno médio diário de cada perna nos 5% piores dias do real (barras vermelhas, com o número de dias e o limiar de queda impresso na legenda) contra os demais dias (barras azuis), anotando em cada barra vermelha a frequência com que a perna também perdeu nesses dias. O intervalo exato da amostra aparece no título da figura.](grafico-exercicio.png)
+![Painel 1: razão de diversificação de um bloco comprado em Ibovespa, comprado no ETF de IMA-B e vendido em USD/BRL, com pesos por paridade de volatilidade, calculada em janela rolante de 63 dias úteis; a linha tracejada é a mediana da série, a faixa cinza cobre os percentis 10 a 90, as linhas pontilhadas marcam DR = 1 (uma aposta só) e DR = 1,73 (três pernas independentes), e o ponto vermelho anota o valor de hoje e seu percentil histórico. Painel 2: correlações rolantes de 63 dias úteis entre os pares Bolsa x Juro, Bolsa x Real e Juro x Real, cada perna expressa na direção da posição, com o valor mais recente na legenda. Painel 3: retorno médio diário de cada perna nos 5% piores dias do real (barras vermelhas, com o número de dias e o limiar de queda impresso na legenda) contra os demais dias (barras azuis), anotando em cada barra vermelha a frequência com que a perna também perdeu nesses dias. O intervalo exato da amostra aparece no título da figura.](grafico-exercicio.png)
 
 ### Como o gráfico foi construído
 
-A perna de juro usa o ETF `IMAB11.SA` porque é o único preço diário e público de uma carteira de NTN-B; ele encurta a amostra ao seu próprio início de negociação, e por isso o intervalo real é impresso no título da figura em vez de prometido na legenda. A perna de câmbio é `-Δlog(USD/BRL)`: o sinal trocado converte a cotação do Yahoo (`BRL=X`, dólares em reais) na posição efetiva do livro, comprado em real, de modo que "correlação positiva" no painel 2 significa "as pernas ganham e perdem juntas". As três séries são alinhadas por interseção de datas (o portfólio exige as três no mesmo dia), e o script imprime quantas observações sobraram em relação à maior série isolada; os pesos por paridade de volatilidade são fixos, estimados na amostra cheia, para que a variação da razão de diversificação reflita só a matriz de covariância e não uma rebalanceamento.
+A perna de juro usa o ETF `IMAB11.SA` porque é o único preço diário e público de uma carteira de NTN-B; ele encurta a amostra ao seu próprio início de negociação, e por isso o intervalo real é impresso no título da figura em vez de prometido na legenda. A perna de câmbio é `-Δlog(USD/BRL)`: o sinal trocado converte a cotação do Yahoo (`BRL=X`, dólares em reais) na posição efetiva do bloco, comprado em real, de modo que "correlação positiva" no painel 2 significa "as pernas ganham e perdem juntas". As três séries são alinhadas por interseção de datas (o portfólio exige as três no mesmo dia), e o script imprime quantas observações sobraram em relação à maior série isolada; os pesos por paridade de volatilidade são fixos, estimados na amostra cheia, para que a variação da razão de diversificação reflita só a matriz de covariância e não uma rebalanceamento.
 
 ### Como ler o resultado
 
-O painel 1 responde à pergunta do título. Se a razão de diversificação de hoje estiver perto da mediana e a mediana estiver mais próxima de 1 do que de 1,73, o livro Brasil vale menos de duas apostas independentes na média do tempo — o que é coerente com a leitura da própria Kapitalo de que os três preços dependem de um mesmo evento, a eleição. Se hoje estiver no decil inferior, a diversificação já encolheu antes do evento, e o tamanho combinado das três pernas está sendo dimensionado com uma correlação que subestima a de crise. Um valor de hoje acima do percentil 75 diria o contrário: que o mercado, em agosto, tratou bolsa, curva e câmbio como histórias parcialmente distintas — o cenário em que aumentar as três ao mesmo tempo custa menos risco do que parece.
+O painel 1 responde à pergunta do título. Se a razão de diversificação de hoje estiver perto da mediana e a mediana estiver mais próxima de 1 do que de 1,73, o bloco Brasil vale menos de duas apostas independentes na média do tempo — o que é coerente com a leitura da própria Kapitalo de que os três preços dependem de um mesmo evento, a eleição. Se hoje estiver no decil inferior, a diversificação já encolheu antes do evento, e o tamanho combinado das três pernas está sendo dimensionado com uma correlação que subestima a de crise. Um valor de hoje acima do percentil 75 diria o contrário: que o mercado, em agosto, tratou bolsa, curva e câmbio como histórias parcialmente distintas — o cenário em que aumentar as três ao mesmo tempo custa menos risco do que parece.
 
-O painel 3 é o teste direto da condição de quebra. As barras vermelhas mostram o retorno médio de bolsa e IMA-B nos dias em que o real caiu além do limiar de 5%, e a anotação mostra em que fração desses dias cada perna também perdeu. Se ambas as pernas exibem médias negativas com frequência de perda bem acima de 50%, a "crise de confiança com depreciação significativa" que a Kapitalo nomeia não é um risco de uma perna — é o dia em que o livro inteiro perde de uma vez, e a razão de diversificação do painel 1, mesmo em seu melhor momento, é uma média que não descreve essa cauda. Se, ao contrário, a perna de juro mostrar média próxima de zero nos piores dias do real, há um argumento empírico para a NTN-B como amortecedor, o que reforça a escolha da Opportunity de expressar Brasil via título indexado em vez de bolsa. O que mudaria a conclusão: uma frequência de perda conjunta abaixo de 60% para a perna de juro na cauda, ou uma DR de hoje acima de 1,4, indicariam que a carteira comporta mais risco nominal do que a leitura "é tudo eleição" sugere.
+O painel 3 é o teste direto da condição de quebra. As barras vermelhas mostram o retorno médio de bolsa e IMA-B nos dias em que o real caiu além do limiar de 5%, e a anotação mostra em que fração desses dias cada perna também perdeu. Se ambas as pernas exibem médias negativas com frequência de perda bem acima de 50%, a "crise de confiança com depreciação significativa" que a Kapitalo nomeia não é um risco de uma perna — é o dia em que o bloco inteiro perde de uma vez, e a razão de diversificação do painel 1, mesmo em seu melhor momento, é uma média que não descreve essa cauda. Se, ao contrário, a perna de juro mostrar média próxima de zero nos piores dias do real, há um argumento empírico para a NTN-B como amortecedor, o que reforça a escolha da Opportunity de expressar Brasil via título indexado em vez de bolsa. O que mudaria a conclusão: uma frequência de perda conjunta abaixo de 60% para a perna de juro na cauda, ou uma DR de hoje acima de 1,4, indicariam que a carteira comporta mais risco nominal do que a leitura "é tudo eleição" sugere.
 
 ### Vá além
 
-Repita o cálculo trocando os pesos fixos de paridade de vol por pesos reestimados a cada janela (paridade de vol rolante) e compare a contribuição de risco de cada perna ao longo do tempo com a tabela de atribuição do K10 (commodities, bolsa, juros, moedas). Uma variante mais dura: substitua o corte de 5% do real por um corte de 5% do portfólio inteiro e veja qual perna domina os piores dias do livro — se for sempre a mesma, o livro tem um fator, não três, e o *hedge* natural é reduzir essa perna, não adicionar outra.
+Repita o cálculo trocando os pesos fixos de paridade de vol por pesos reestimados a cada janela (paridade de vol rolante) e compare a contribuição de risco de cada perna ao longo do tempo com a tabela de atribuição do K10 (commodities, bolsa, juros, moedas). Uma variante mais dura: substitua o corte de 5% do real por um corte de 5% do portfólio inteiro e veja qual perna domina os piores dias do bloco — se for sempre a mesma, o bloco tem um fator, não três, e o *hedge* natural é reduzir essa perna, não adicionar outra.
 
 ## Cartas originais
 

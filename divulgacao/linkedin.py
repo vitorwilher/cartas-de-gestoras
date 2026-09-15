@@ -37,27 +37,34 @@ W, H = 1200, 627
 
 
 def grafico_horizontal(d: dict) -> str:
-    """A série da inclinação, em proporção larga e com o ponto de hoje no centro
-    da atenção. Mesma medida do PDF e do carrossel."""
+    """A razão de diversificação em proporção larga, com o ponto de hoje em foco.
+
+    Mesma medida do PDF e do carrossel — se os três divergirem, quem lê os três
+    percebe. O teto (1,73) e o piso (1,00) enquadram a leitura sem exigir legenda.
+    """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    hist = d["hist"]
-    x, y = hist.index, hist["inclinacao_bps"]
-    atual, p10, p90 = d["atual_bps"], d["p10"], d["p90"]
+    dr = d["dr"].dropna()
+    hoje = float(d["valor_hoje"])
 
     fig, ax = plt.subplots(figsize=(7.4, 5.4))
-    ax.axhspan(p10, p90, color=BLUE, alpha=0.09, zorder=1)
-    ax.plot(x, y, color=BLUE, lw=2.2, zorder=3)
-    ax.axhline(d["mediana"], color=MUTED, lw=1.6, linestyle=(0, (6, 5)), zorder=2)
-    ax.plot([x[-1]], [atual], "o", color="white", markersize=22, zorder=5)
-    ax.plot([x[-1]], [atual], "o", color=NAVY, markersize=15, zorder=6)
-    ax.annotate(f"hoje: +{atual:.0f} bps", (x[-1], atual),
-                xytext=(-12, 74), textcoords="offset points",
+    ax.plot(dr.index, dr.values, color=BLUE, lw=2.2, zorder=3)
+    ax.axhline(1.73, color=MUTED, lw=1.6, linestyle=(0, (6, 5)), zorder=2)
+    ax.text(dr.index[-1], 1.75, "1,73 = três apostas independentes",
+            fontsize=14, color=MUTED, va="bottom", ha="right")
+    ax.axhline(1.0, color="#C0392B", lw=1.5, linestyle=(0, (2, 3)), zorder=2)
+    ax.text(dr.index[0], 1.02, "1,00 = uma aposta só",
+            fontsize=14, color="#C0392B", va="bottom")
+
+    ax.plot([dr.index[-1]], [hoje], "o", color="white", markersize=22, zorder=5)
+    ax.plot([dr.index[-1]], [hoje], "o", color=NAVY, markersize=15, zorder=6)
+    ax.annotate(f"hoje: {hoje:.2f}".replace(".", ","), (dr.index[-1], hoje),
+                xytext=(-14, -58), textcoords="offset points",
                 fontsize=20, color=NAVY, fontweight="bold", ha="right",
                 arrowprops=dict(arrowstyle="-", color=NAVY, lw=1.8,
-                                connectionstyle="arc3,rad=-0.25"))
+                                connectionstyle="arc3,rad=0.25"))
 
     for lado in ("top", "right", "left", "bottom"):
         ax.spines[lado].set_visible(False)
@@ -66,11 +73,9 @@ def grafico_horizontal(d: dict) -> str:
     ax.set_axisbelow(True)
     ax.yaxis.tick_right()
     ax.margins(x=0.02)
-    ax.set_yticks([0, 100, 200, 300])
-    ax.set_yticklabels(["0", "100", "200", "300 bps"])
-    ax.set_title("Inclinação da curva: 7 anos − 2 anos", fontsize=20,
+    ax.set_title("Três posições em Brasil valem 2 apostas", fontsize=20,
                  color=NAVY, fontweight="bold", loc="left", pad=32)
-    ax.text(0, 1.04, "exemplo do exercício desta semana",
+    ax.text(0, 1.04, "razão de diversificação · exercício desta semana",
             transform=ax.transAxes, fontsize=15, color=MUTED, va="bottom")
 
     buf = io.BytesIO()
@@ -78,6 +83,7 @@ def grafico_horizontal(d: dict) -> str:
                 facecolor="white", edgecolor="none")
     plt.close(fig)
     return "data:image/png;base64," + base64.b64encode(buf.getvalue()).decode()
+
 
 
 def _logo() -> str:
@@ -96,7 +102,6 @@ def html(d: dict) -> str:
     O gráfico continua: é a prova visual de que existe código de verdade por trás.
     Mas entra como amostra do que se recebe, não como o assunto.
     """
-    bps = f"{d['atual_bps']:.0f}"
     return f"""<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><style>
   * {{ margin:0; padding:0; box-sizing:border-box; }}
   .card {{ width:{W}px; height:{H}px; background:#FFFFFF; display:flex;
@@ -127,14 +132,14 @@ def html(d: dict) -> str:
     <div class="marca"><img src="{_logo()}"><span>Análise Macro</span></div>
     <div>
       <div class="kicker">Síntese semanal</div>
-      <h1>As cartas das 12 maiores gestoras do Brasil,<br><em>destrinchadas em Python.</em></h1>
+      <h1>As cartas das 15 maiores gestoras do Brasil,<br><em>destrinchadas em Python.</em></h1>
       <ul>
         <li><span class="dot"></span><span>A <b>tese de cada casa</b> e o mecanismo que a sustenta</span></li>
         <li><span class="dot"></span><span>Onde o consenso se forma — e <b>onde racha</b></span></li>
         <li><span class="dot"></span><span>Um <b>exercício em Python</b> que testa uma das teses</span></li>
       </ul>
     </div>
-    <div class="pe">Dynamo · IP · Alaska · Kapitalo · Adam · Legacy · Bahia · Occam · JGP · Kinea · NEO · Dahlia</div>
+    <div class="pe">Dynamo · IP · Alaska · Kapitalo · Adam · Legacy · Bahia · Occam · JGP · Kinea · NEO · Dahlia · Genoa · Sparta · Opportunity</div>
   </div>
   <div class="dir"><img src="{grafico_horizontal(d)}"></div>
 </div>
@@ -148,7 +153,7 @@ def main() -> int:
 
     print("Rodando o exercício da edição para obter os dados...")
     d = dados_do_exercicio()
-    print(f"  inclinação {d['atual_bps']:.0f} bps, percentil {d['percentil']:.0f}")
+    print(f"  valor de hoje {float(d['valor_hoje']):.2f}, percentil {float(d['percentil']):.0f}")
 
     SAIDA.mkdir(parents=True, exist_ok=True)
     destino = SAIDA / "linkedin.html"

@@ -67,26 +67,29 @@ essencial — melhor do que um KeyError no meio do render.
 
 ## Legenda do post
 
-> Quatro gestoras publicaram carta em agosto e concordam em quase tudo: núcleos de
-> serviços pressionados, expectativas com viés de alta, atividade desacelerando,
-> eleição empatada.
+> A Kapitalo ampliou a posição em Brasil em três frentes ao mesmo tempo: comprou
+> bolsa, aplicou em juro local e comprou real.
 >
-> Aí chega o Copom e elas se separam. Bahia, Occam e Legacy veem o ciclo de cortes
-> seguindo. A Kinea vê pausa.
+> Parecem três apostas diferentes. Não são.
 >
-> A diferença não é sobre inflação — é sobre a que o Banco Central reage. E tem
-> preço: Bahia e Occam carregam o mesmo steepener, e a pausa que a Kinea projeta é
-> exatamente o cenário em que a perna curta desse trade perde.
+> As três dependem do mesmo evento — o Brasil ser reprecificado para melhor. Se
+> vier uma crise de confiança, o canal é único: o prêmio de risco-país sobe, e
+> bolsa, curva e câmbio andam juntos. A própria carta da Kapitalo nomeia isso como
+> a condição em que a tese quebra.
 >
 > Mas aqui está a parte que interessa a quem quer aprender:
 >
-> Você não precisa acreditar em nenhuma delas. Dá para ler a tese, achar o
-> mecanismo que a sustenta e escrever o código que mede se ele já está no preço.
-> Foi o que fiz no slide 6 e 7 — dado público do Tesouro Direto, seis segundos de
-> execução, e a resposta: +48 bps, percentil 45 desde 2010. O degrau está na média
-> histórica. A aposta não está barata na entrada.
+> Você não precisa acreditar na gestora nem em mim. Dá para ler a tese, achar o
+> mecanismo e escrever o código que mede se ele se sustenta. Foi o que fiz nos
+> slides 6 e 7 — dado público, segundos de execução.
 >
-> É isso que eu faço toda semana: leio as cartas das 12 maiores gestoras do Brasil,
+> A resposta: a razão de diversificação está em 1,45, contra um teto de 1,73 se as
+> três pernas fossem independentes. Três posições valem cerca de duas apostas.
+>
+> E o número mais desconfortável: nos 5% piores dias do real, a bolsa perdeu em
+> 40% deles. A proteção some justamente no dia em que faria falta.
+>
+> É isso que eu faço toda semana: leio as cartas das 15 maiores gestoras do Brasil,
 > destrincho as teses e escrevo um exercício em Python que testa uma delas.
 >
 > Comenta GESTORAS que eu mando a desta semana — a síntese e o código — no direct.
