@@ -14,7 +14,9 @@ pandas>=2.2.0
 requests>=2.32.0
 python-bcb>=0.3.0
 yfinance>=0.2.40
-pyettj>=1.0.0
+# A série 1.x NUNCA existiu: a última no PyPI é a 0.4.2. Um `>=1.0.0` chutado
+# derrubou o run de 15/09 no `pip install`, antes da coleta começar.
+pyettj>=0.4.0
 
 # Publicação do PDF na URL fixa do GCS (divulgacao/publicar_pdf.py).
 gcsfs>=2024.6.0
