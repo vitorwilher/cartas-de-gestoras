@@ -670,12 +670,26 @@ __FONTES__
 """
 
 
-def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "") -> Path:
+def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "",
+                 ilegiveis: list[Carta] | None = None) -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     hoje = date.today()
     fontes = "\n".join(
         f"- **{c.gestora} — {c.titulo}** ([original]({c.url}))" for c in cartas
     )
+    # Carta que saiu mas não pôde ser lida (PDF escaneado) é anunciada com o link:
+    # o assinante precisa saber que ela existe, senão a ausência parece cobertura
+    # completa. O texto diz o motivo para não soar como falha de curadoria.
+    if ilegiveis:
+        avisos = "\n".join(
+            f"- **{c.gestora} — {c.titulo}** ([original]({c.url}))" for c in ilegiveis
+        )
+        fontes += (
+            "\n\n### Publicada nesta janela, fora da síntese\n\n"
+            "O PDF não expõe camada de texto (documento escaneado), então não foi"
+            " possível analisá-lo automaticamente. O original está aqui:\n\n"
+            f"{avisos}"
+        )
     if exercicio:
         # O texto do exercício referencia grafico-exercicio.png. Rodamos o código
         # para produzir a figura AO LADO do .qmd; se falhar, tiramos a referência —
@@ -860,6 +874,7 @@ def executar(args: argparse.Namespace) -> int:
 
     coletor = Coletor(pausa=args.pausa)
     processadas: list[Carta] = []
+    ilegiveis: list[Carta] = []
     try:
         for carta in novas:
             try:
@@ -868,11 +883,18 @@ def executar(args: argparse.Namespace) -> int:
                 processadas.append(carta)
             except Exception as exc:
                 print(f"[aviso] extração de {carta.gestora}: {exc}", file=sys.stderr)
+                ilegiveis.append(carta)
     finally:
         coletor.close()
     if not processadas:
-        print("Nenhuma carta pôde ser extraída; estado preservado.", file=sys.stderr)
-        return 1
+        # Sem nada sintetizável não há edição — mas o estado AVANÇA sobre as
+        # ilegíveis. Preservá-lo fazia a mesma carta ser retentada toda terça,
+        # falhando igual: um PDF escaneado da Adam deixou os runs de 18/08 e
+        # 25/08 vermelhos, e teria travado todas as seguintes.
+        print("Nenhuma carta pôde ser extraída; marcando como vistas.", file=sys.stderr)
+        atualizar_estado(catalogo, ilegiveis)
+        salvar_catalogo(catalogo)
+        return 0
 
     resumo_documento, resumo_executivo = resumo_para_whatsapp(sintetizar(processadas))
     exercicio = ""
@@ -881,7 +903,7 @@ def executar(args: argparse.Namespace) -> int:
         if resultado is not None:
             conceito, exercicio = resultado
             print(f"Exercício da semana: {conceito}")
-    qmd = escrever_qmd(resumo_documento, processadas, exercicio)
+    qmd = escrever_qmd(resumo_documento, processadas, exercicio, ilegiveis)
     print(f"Gerado: {qmd}")
     pdf = renderizar(qmd) if args.pdf else None
     if pdf:
@@ -890,7 +912,9 @@ def executar(args: argparse.Namespace) -> int:
         if not pdf:
             raise ValueError("--send exige --pdf")
         enviar_whatsapp(pdf, processadas, resumo_executivo)
-    atualizar_estado(catalogo, processadas)
+    # As ilegíveis entram no estado junto com as sintetizadas: já foram anunciadas
+    # no documento, e retentá-las repetiria a mesma falha toda semana.
+    atualizar_estado(catalogo, [*processadas, *ilegiveis])
     salvar_catalogo(catalogo)
     print("Estado atualizado em gestoras/gestoras.yml")
     return 0

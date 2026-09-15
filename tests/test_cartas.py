@@ -6,7 +6,8 @@ import unittest
 import yaml
 
 from cartas import (
-    Carta, data_do_texto, marcadores, salvar_catalogo, selecionar_novas,
+    Carta, atualizar_estado, data_do_texto, escrever_qmd, marcadores,
+    salvar_catalogo, selecionar_novas,
     serie_do_titulo, resumo_para_whatsapp,
 )
 
@@ -168,3 +169,56 @@ class TestSalvarCatalogoMultilinha(unittest.TestCase):
         # As notas das duas gestoras precisam sobreviver.
         self.assertIn("Primeira execução ainda não rodou.", texto)
         self.assertIn("URL previsível.", texto)
+
+
+class TestCartaIlegivel(unittest.TestCase):
+    """Um PDF escaneado não pode represar o pipeline.
+
+    Em 18/08 e 25/08 a Adam publicou uma carta escaneada, única do delta. O
+    estado era preservado, então toda terça seguinte retentava a mesma carta,
+    falhava igual e deixava o run vermelho — indefinidamente.
+    """
+
+    def test_ilegivel_avanca_o_estado(self):
+        # O que travava: a carta falha na extração e mesmo assim precisa entrar
+        # no marcador, senão volta na próxima execução.
+        catalogo = {"gestoras": [{"nome": "Gestora", "ultima_carta": ""}]}
+        ilegivel = carta("ago", 8)
+
+        atualizar_estado(catalogo, [ilegivel])
+
+        self.assertEqual(catalogo["gestoras"][0]["ultima_carta"], {"principal": "ago"})
+
+    def test_ilegivel_nao_reaparece_na_execucao_seguinte(self):
+        # A prova do represamento: com o estado avançado, o mesmo item some do delta.
+        catalogo = {"gestoras": [{"nome": "Gestora", "ultima_carta": ""}]}
+        itens = [carta("ago", 8)]
+
+        atualizar_estado(catalogo, itens)
+        cfg = catalogo["gestoras"][0]
+
+        self.assertEqual(selecionar_novas(itens, cfg), [])
+
+    def test_qmd_anuncia_a_carta_ilegivel_com_link(self):
+        # O assinante precisa saber que a carta existe; ausência silenciosa
+        # pareceria cobertura completa.
+        ilegivel = carta("ago", 8)
+        caminho = escrever_qmd("Síntese qualquer.", [carta("set", 9)], "", [ilegivel])
+        try:
+            texto = caminho.read_text(encoding="utf-8")
+        finally:
+            caminho.unlink(missing_ok=True)
+
+        self.assertIn("fora da síntese", texto)
+        self.assertIn(ilegivel.url, texto)
+        self.assertIn("escaneado", texto)
+
+    def test_qmd_sem_ilegiveis_nao_cria_a_secao(self):
+        # Sem carta ilegível o documento não pode ganhar seção vazia.
+        caminho = escrever_qmd("Síntese qualquer.", [carta("set", 9)])
+        try:
+            texto = caminho.read_text(encoding="utf-8")
+        finally:
+            caminho.unlink(missing_ok=True)
+
+        self.assertNotIn("fora da síntese", texto)
