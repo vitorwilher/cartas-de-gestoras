@@ -75,13 +75,17 @@ jobs:
           SOCIAL_GCS_BUCKET: ${{ secrets.SOCIAL_GCS_BUCKET }}
           GCS_CREDENTIALS_JSON: ${{ secrets.GCS_CREDENTIALS_JSON }}
         run: |
+          # `exit 0` aqui faria o `outcome` do passo virar `success` e o resumo
+          # anunciaria publicação que não houve. O status vai num output próprio.
           if [ -z "$GCS_CREDENTIALS_JSON" ] || [ -z "$SOCIAL_GCS_BUCKET" ]; then
             echo "::warning::PDF NÃO publicado no GCS — falta GCS_CREDENTIALS_JSON ou SOCIAL_GCS_BUCKET. O link público segue com a edição anterior."
+            echo "status=pulado (secrets ausentes)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           printf '%s' "$GCS_CREDENTIALS_JSON" > /tmp/gcs.json
           GCS_CREDENTIALS_PATH=/tmp/gcs.json python divulgacao/publicar_pdf.py
           rm -f /tmp/gcs.json
+          echo "status=success" >> "$GITHUB_OUTPUT"
 
       # O e-mail da semana, para a tag deste projeto (Leads - Cartas Semanais).
       # É AGENDADO para ~30 min à frente, não disparado no ato: enquanto está
@@ -104,11 +108,15 @@ jobs:
           faltando=""
           [ -z "$CONVERT_KIT_V4" ] && faltando="$faltando CONVERT_KIT_V4"
           [ -z "$CONVERTKIT_API_SECRET" ] && faltando="$faltando CONVERTKIT_API_SECRET"
+          # Idem ao passo do GCS: sair com 0 aqui daria `success` no resumo sem
+          # e-mail nenhum. O status real vai num output próprio.
           if [ -n "$faltando" ]; then
             echo "::warning::E-mail da semana NÃO enviado — secrets ausentes:$faltando"
+            echo "status=pulado (secrets ausentes)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           python divulgacao/broadcast_semanal.py --enviar --espera 30
+          echo "status=success" >> "$GITHUB_OUTPUT"
 
       # Um passo `continue-on-error` que falha deixa o run VERDE. Sem este
       # resumo, "PDF não publicado" e "e-mail não enviado" seriam invisíveis:
@@ -117,19 +125,26 @@ jobs:
       - name: Resumo da execução
         if: always()
         run: |
+          # O `status` do passo distingue "pulou por falta de secret" de "fez".
+          # Vazio significa que o passo morreu antes de gravá-lo: vale o outcome.
+          gcs="${{ steps.gcs.outputs.status }}"
+          email="${{ steps.email.outputs.status }}"
+          [ -z "$gcs" ] && gcs="${{ steps.gcs.outcome }}"
+          [ -z "$email" ] && email="${{ steps.email.outcome }}"
+
           {
             echo "## Cartas das Gestoras — $(date -u +'%d/%m/%Y')"
             echo ""
             echo "| Etapa | Resultado |"
             echo "|---|---|"
-            echo "| PDF no GCS | ${{ steps.gcs.outcome }} |"
-            echo "| E-mail da semana | ${{ steps.email.outcome }} |"
+            echo "| PDF no GCS | $gcs |"
+            echo "| E-mail da semana | $email |"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          if [ "${{ steps.email.outcome }}" != "success" ]; then
-            echo "::warning::O e-mail da semana NÃO saiu (${{ steps.email.outcome }}). Verifique o log do passo."
+          if [ "$email" != "success" ]; then
+            echo "::warning::O e-mail da semana NÃO saiu ($email). Verifique o log do passo."
           fi
-          if [ "${{ steps.gcs.outcome }}" != "success" ]; then
+          if [ "$gcs" != "success" ]; then
             echo "::warning::O PDF não foi publicado no GCS — o link público está servindo a edição anterior."
           fi
 
