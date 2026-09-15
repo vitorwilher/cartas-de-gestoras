@@ -199,15 +199,27 @@ class TestCartaIlegivel(unittest.TestCase):
 
         self.assertEqual(selecionar_novas(itens, cfg), [])
 
+    def _qmd(self, *args) -> str:
+        """Gera o .qmd num diretório temporário e devolve o texto.
+
+        `escrever_qmd` grava em OUTPUT_DIR com o nome da data de HOJE — o mesmo
+        arquivo da edição real. Sem este desvio, rodar a suíte numa terça
+        sobrescreve e apaga a edição do dia (aconteceu em 15/09).
+        """
+        import cartas
+        original = cartas.OUTPUT_DIR
+        with tempfile.TemporaryDirectory() as tmp:
+            cartas.OUTPUT_DIR = Path(tmp)
+            try:
+                return cartas.escrever_qmd(*args).read_text(encoding="utf-8")
+            finally:
+                cartas.OUTPUT_DIR = original
+
     def test_qmd_anuncia_a_carta_ilegivel_com_link(self):
         # O assinante precisa saber que a carta existe; ausência silenciosa
         # pareceria cobertura completa.
         ilegivel = carta("ago", 8)
-        caminho = escrever_qmd("Síntese qualquer.", [carta("set", 9)], "", [ilegivel])
-        try:
-            texto = caminho.read_text(encoding="utf-8")
-        finally:
-            caminho.unlink(missing_ok=True)
+        texto = self._qmd("Síntese qualquer.", [carta("set", 9)], "", [ilegivel])
 
         self.assertIn("fora da síntese", texto)
         self.assertIn(ilegivel.url, texto)
@@ -215,10 +227,6 @@ class TestCartaIlegivel(unittest.TestCase):
 
     def test_qmd_sem_ilegiveis_nao_cria_a_secao(self):
         # Sem carta ilegível o documento não pode ganhar seção vazia.
-        caminho = escrever_qmd("Síntese qualquer.", [carta("set", 9)])
-        try:
-            texto = caminho.read_text(encoding="utf-8")
-        finally:
-            caminho.unlink(missing_ok=True)
+        texto = self._qmd("Síntese qualquer.", [carta("set", 9)])
 
         self.assertNotIn("fora da síntese", texto)
