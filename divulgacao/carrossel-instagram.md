@@ -96,6 +96,18 @@ essencial — melhor do que um KeyError no meio do render.
 >
 > E me conta: qual tese você queria ver testada?
 
+## Publicado
+
+- **15/09/2026:** https://www.instagram.com/p/DdUg1OiG8My/
+- Palavra-chave `GESTORAS` na legenda (mesma do fluxo do ManyChat).
+
+⚠️ A Graph API devolveu `400 "Only photo or video can be accepted as media type."`
+em 3 dos 10 slides, em posições diferentes a cada rodada — imagens idênticas entre
+si (1080x1350 PNG RGB). É falha TRANSITÓRIA da Meta ao baixar a imagem, não defeito
+do arquivo: a mesma URL passa segundos depois. `InstagramConnector._post` ganhou
+retry por causa disso; sem ele, um hiccup em qualquer filho aborta o carrossel
+inteiro deixando containers órfãos.
+
 ## Checklist antes de publicar
 
 - [ ] 🔴 **Criar o fluxo `GESTORAS` no painel do ManyChat** — a API não cria. Sem
