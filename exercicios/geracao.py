@@ -57,6 +57,27 @@ Estrutura:
    Sem `!pip install` (não é notebook); liste as dependências em texto antes do
    bloco. Toda leitura de rede leva timeout explícito.
 
+   **Use a biblioteca, nunca raspe o site.** Cada fonte tem um caminho oficial:
+   - curva de juros / ETTJ / DI futuro / taxa a termo → `from pyettj import ettj;
+     ettj.get_ettj("DD/MM/AAAA")`. **NUNCA** montar request para
+     `www2.bmf.com.br/pages/portal/...lum-taxas-referenciais-bmf` — esse endpoint
+     responde HTTP 200 com página VAZIA (sem tabela), então o código falha sem
+     erro de rede e o exercício sai sem gráfico. Aconteceu em 15/09/2026.
+     `get_ettj` levanta HolidayError em fim de semana/feriado: trate voltando ao
+     dia útil anterior.
+   - séries do Banco Central (Selic, IPCA, câmbio, crédito) → `from bcb import sgs`.
+     **NUNCA use a série 7 (Ibovespa) do SGS: ela está CONGELADA desde 30/09/2019**
+     e o BCB a devolve normalmente, sem erro — alinhar qualquer coisa com ela
+     trunca a amostra em 2019 e o gráfico sai com sete anos de atraso exibindo
+     "hoje". Para Ibovespa use `yfinance` (`^BVSP`).
+   - preços de ativos → `yfinance`
+
+   **Toda série precisa passar por um teste de frescor.** Depois de baixar, cheque
+   que a última data está a menos de ~10 dias da data de hoje; se não estiver, a
+   fonte morreu em silêncio — troque de fonte ou levante erro explicando. Um HTTP
+   200 não prova que o dado está atualizado. Isso já derrubou dois exercícios:
+   a curva da B3 (página vazia) e o Ibovespa do SGS (série parada em 2019).
+
    **O exercício SEMPRE produz um gráfico** — é ele que faz o argumento visual.
    Regras invioláveis:
    - **Nunca `plt.show()`**: bloqueia esperando alguém fechar a janela e trava o
@@ -67,6 +88,14 @@ Estrutura:
      desenho o ponto de hoje contra a distribuição passada.
    - Rotule os eixos em português, com unidade. Anote no próprio gráfico o número
      que sustenta a conclusão.
+   - **Nunca descarte amostra sem perceber.** `DataFrame.dropna()` sem argumento
+     exige TODAS as colunas preenchidas: com três séries móveis, um buraco isolado
+     em qualquer uma apaga a linha inteira. Em 15/09/2026 isso cortou 847 das 1.358
+     observações e o painel mostrou só o último ano, enquanto a legenda prometia
+     quatro. Use `dropna(how="all")` ou descarte coluna a coluna, e **confira o
+     alcance real da série que plotou antes de descrevê-lo na legenda** — a legenda
+     é conferida contra a figura, e divergência ali derruba a credibilidade do
+     documento inteiro.
 
 4. **O gráfico no texto** — logo após o bloco de código, insira a linha
    `![Legenda](grafico-exercicio.png)` para que a imagem entre no PDF.

@@ -109,6 +109,212 @@ Adiante, cada carta é destrinchada por tese, mecanismo, números e condição d
 
 **Onde a NEO e a Genoa não entram.** A NEO não posiciona; a Genoa não data. Ambas funcionam aqui como premissa, não como aposta: a NEO delimita o mapa de risco (Hormuz, Warsh, eleição aberta), a Genoa fixa o piso estrutural do câmbio. Não há eixo de mandato compatível para dimensioná-las contra as demais, e não forço o cruzamento.
 
+## Exercício da semana: três apostas ou uma? Decompondo o risco de um livro Brasil
+
+### Por que isto importa esta semana
+
+A Kapitalo ampliou o bloco Brasil do K10 em três frentes ao mesmo tempo — comprou bolsa brasileira, está aplicada em juro local e comprada em real — e nomeou a condição de quebra em uma frase: "crise de confiança que gere uma depreciação cambial significativa". O exercício pergunta o que qualquer gestor de risco perguntaria diante dessa carteira: quantas apostas independentes existem ali de fato, e o que sobra da diversificação justamente no dia em que o real cai?
+
+### O conceito
+
+Uma carteira de três pernas não é necessariamente três apostas. A volatilidade do portfólio, $\sigma_p = \sqrt{w'\Sigma w}$, só é menor que a soma ponderada das volatilidades individuais, $\sum_i w_i \sigma_i$, na medida em que as correlações são menores que 1. A **razão de diversificação** $DR = \sum_i w_i\sigma_i / \sigma_p$ resume isso em um número: vale 1 quando as pernas se movem juntas (uma aposta só) e $\sqrt{N}$ quando são independentes e têm o mesmo risco. Para três pernas, o teto é 1,73.
+
+O segundo objeto é a **contribuição de risco** de cada perna, $CR_i = w_i (\Sigma w)_i / \sigma_p^2$. Somam 1 e mostram quem manda na variância — é a versão *ex ante* da tabela de atribuição por fator que o K10 publica *ex post*.
+
+O mecanismo que interessa é a instabilidade dessas medidas. Em regime normal, bolsa, NTN-B e real têm correlações moderadas e o livro parece diversificado. Numa crise de confiança, o canal é único — prêmio de risco-país sobe — e os três preços caem juntos: bolsa derrete, curva abre (IMA-B cai), dólar sobe. A diversificação medida em janela cheia superestima a que existe na cauda. Por isso o exercício mede a DR em janela rolante e, separadamente, o que as pernas de bolsa e juro fizeram nos 5% piores dias do real.
+
+Pesos: uso paridade de volatilidade (peso inversamente proporcional à vol de cada perna na amostra completa). Não é o peso da Kapitalo — a carta não o revela —, mas é o ponto de partida neutro que qualquer *risk parity* usaria, e torna a comparação de contribuições de risco legível: se as pernas fossem descorrelacionadas, cada uma contribuiria com um terço.
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Fontes: Ibovespa (`^BVSP`), ETF de IMA-B (`IMAB11.SA`, com `B5P211.SA` como alternativa se a primeira falhar no teste de frescor) e dólar (`BRL=X`, cotação USD/BRL), todos via Yahoo Finance com timeout explícito. Roda em terminal e grava `grafico-exercicio.png`.
+
+```python
+# Dependências: pandas, numpy, matplotlib, yfinance (já instaladas no ambiente).
+import socket
+socket.setdefaulttimeout(30)          # nenhuma leitura de rede fica pendurada sem limite
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")                 # backend sem janela: script de terminal, nunca plt.show()
+import matplotlib.pyplot as plt
+import yfinance as yf
+
+HOJE   = pd.Timestamp.today().normalize()
+INICIO = "2019-01-01"
+JANELA = 63                           # ~1 trimestre em dias úteis
+CAUDA  = 0.05                         # 5% piores dias do real definem a "crise" empírica
+
+def baixar(tickers, nome):
+    """Baixa fechamento ajustado no Yahoo, testa frescor (<=10 dias) e aceita tickers alternativos."""
+    erros = []
+    for t in tickers:
+        try:
+            df = yf.download(t, start=INICIO, progress=False, auto_adjust=True, timeout=30)
+        except Exception as e:
+            erros.append(f"{t}: {e}")
+            continue
+        if df.empty:
+            erros.append(f"{t}: retorno vazio")
+            continue
+        px = df["Close"]
+        if isinstance(px, pd.DataFrame):          # yfinance recente devolve colunas MultiIndex
+            px = px.iloc[:, 0]
+        px = px.dropna()
+        if px.index.tz is not None:
+            px.index = px.index.tz_localize(None)
+        atraso = (HOJE - px.index[-1]).days
+        if atraso > 10:                           # HTTP 200 não prova dado atualizado
+            erros.append(f"{t}: última data {px.index[-1].date()} ({atraso} dias atrás)")
+            continue
+        print(f"[ok] {nome:<7} via {t:<10} {px.index[0].date()} -> {px.index[-1].date()} ({len(px)} obs)")
+        return px.rename(nome)
+    raise RuntimeError(f"Nenhuma fonte válida para {nome}: " + " | ".join(erros))
+
+ibov   = baixar(["^BVSP"], "bolsa")
+imab   = baixar(["IMAB11.SA", "B5P211.SA"], "juro")
+usdbrl = baixar(["BRL=X"], "usdbrl")
+
+# Interseção de datas: o portfólio exige as três pernas no mesmo dia.
+# O descarte é intencional e reportado (feriados BR em que BRL=X negociou, etc.).
+precos = pd.concat([ibov, imab, usdbrl], axis=1, join="inner")
+print(f"Datas comuns: {len(precos)} | maior série isolada: {max(len(ibov), len(imab), len(usdbrl))} "
+      f"| intervalo {precos.index[0].date()} -> {precos.index[-1].date()}")
+
+ret = np.log(precos).diff().dropna()  # única linha descartada aqui é a primeira (diff)
+
+# Pernas expressas na DIREÇÃO do livro: comprado bolsa, aplicado juro (comprado IMA-B),
+# comprado real (= vendido USD/BRL, por isso o sinal trocado).
+pernas = pd.DataFrame({
+    "Bolsa (comprado Ibov)":   ret["bolsa"],
+    "Juro (aplicado, IMA-B)":  ret["juro"],
+    "Real (vendido USD/BRL)": -ret["usdbrl"],
+})
+nomes = list(pernas.columns)
+
+# Pesos por paridade de volatilidade na amostra cheia
+vol_cheia = pernas.std() * np.sqrt(252)
+w = (1.0 / vol_cheia); w = w / w.sum()
+print("\nVol anualizada por perna (%):\n", (vol_cheia * 100).round(1).to_string())
+print("\nPesos (paridade de vol):\n", (w * 100).round(1).to_string())
+
+# ---- Medidas rolantes: razão de diversificação, contribuição de risco, correlações ----
+X = pernas.values
+wv = w.values
+datas, dr, contrib, corrs = [], [], [], []
+for i in range(JANELA, len(X) + 1):
+    R = X[i - JANELA:i]
+    C = np.cov(R, rowvar=False) * 252
+    sig = np.sqrt(np.diag(C))
+    var_p = wv @ C @ wv
+    dr.append((wv * sig).sum() / np.sqrt(var_p))
+    contrib.append(wv * (C @ wv) / var_p)
+    cc = np.corrcoef(R, rowvar=False)
+    corrs.append([cc[0, 1], cc[0, 2], cc[1, 2]])
+    datas.append(pernas.index[i - 1])
+
+dr = pd.Series(dr, index=datas, name="DR")
+contrib = pd.DataFrame(contrib, index=datas, columns=nomes)
+corrs = pd.DataFrame(corrs, index=datas, columns=["Bolsa x Juro", "Bolsa x Real", "Juro x Real"])
+
+dr_hoje = dr.iloc[-1]
+pct_hoje = (dr < dr_hoje).mean() * 100
+print(f"\nRazão de diversificação ({JANELA}d) hoje: {dr_hoje:.2f} | mediana: {dr.median():.2f} "
+      f"| mín: {dr.min():.2f} | máx: {dr.max():.2f} | percentil de hoje: {pct_hoje:.0f}%")
+print("Contribuição de risco hoje (%):\n", (contrib.iloc[-1] * 100).round(1).to_string())
+print("Correlações hoje:\n", corrs.iloc[-1].round(2).to_string())
+
+# ---- Teste de cauda: o que bolsa e juro fizeram nos 5% piores dias do real ----
+perna_real = pernas[nomes[2]]
+lim = perna_real.quantile(CAUDA)
+piores = perna_real <= lim
+port = pernas @ w
+media_piores = pernas[piores].mean() * 100
+media_resto  = pernas[~piores].mean() * 100
+freq_perda   = (pernas[piores] < 0).mean() * 100
+print(f"\nDias na cauda: {piores.sum()} (real caiu >= {abs(lim)*100:.2f}% no dia)")
+print("Retorno médio diário nos piores dias do real (%):\n", media_piores.round(2).to_string())
+print("Retorno médio diário nos demais dias (%):\n", media_resto.round(2).to_string())
+print("Frequência com que a perna TAMBÉM perdeu nesses dias (%):\n", freq_perda.round(0).to_string())
+print(f"Portfólio: média nos piores dias {port[piores].mean()*100:.2f}% | demais dias {port[~piores].mean()*100:.2f}%")
+
+# ---- Gráfico ----
+fig, axes = plt.subplots(3, 1, figsize=(11, 13.5))
+cores = ["#1f4e79", "#c0504d", "#4f8a3a"]
+
+# Painel 1: razão de diversificação rolante contra a própria distribuição
+ax = axes[0]
+ax.plot(dr.index, dr.values, color="#333333", lw=1.4, label=f"Razão de diversificação ({JANELA} d.u.)")
+ax.axhline(dr.median(), color="gray", ls="--", lw=1, label=f"Mediana = {dr.median():.2f}")
+ax.axhspan(dr.quantile(0.10), dr.quantile(0.90), color="gray", alpha=0.15, label="Faixa 10%-90%")
+ax.axhline(1.0, color="#c0504d", ls=":", lw=1.2, label="DR = 1 (uma aposta só)")
+ax.axhline(np.sqrt(3), color="#4f8a3a", ls=":", lw=1.2, label="DR = 1,73 (três pernas independentes)")
+ax.scatter([dr.index[-1]], [dr_hoje], color="#c0504d", zorder=5, s=50)
+ax.annotate(f"hoje: {dr_hoje:.2f}\npercentil {pct_hoje:.0f}%",
+            xy=(dr.index[-1], dr_hoje), xytext=(-110, 25), textcoords="offset points",
+            fontsize=10, arrowprops=dict(arrowstyle="->", color="#c0504d"))
+ax.set_ylabel("Razão de diversificação\n(soma das vols ponderadas / vol do portfólio)")
+ax.set_title("1. Quanta diversificação o livro Brasil entrega, trimestre a trimestre", loc="left", fontsize=11)
+ax.legend(fontsize=8, loc="upper left", ncol=2)
+ax.grid(alpha=0.3)
+
+# Painel 2: correlações rolantes entre as pernas, na direção da posição
+ax = axes[1]
+for c, cor in zip(corrs.columns, cores):
+    ax.plot(corrs.index, corrs[c], lw=1.3, color=cor, label=f"{c} (hoje {corrs[c].iloc[-1]:+.2f})")
+ax.axhline(0, color="black", lw=0.8)
+ax.set_ylabel(f"Correlação de retornos diários ({JANELA} d.u.)")
+ax.set_ylim(-1, 1)
+ax.set_title("2. Correlações entre as pernas (positivo = movem juntas na direção do livro)", loc="left", fontsize=11)
+ax.legend(fontsize=8, loc="lower left", ncol=3)
+ax.grid(alpha=0.3)
+
+# Painel 3: retorno médio de cada perna nos piores dias do real vs demais dias
+ax = axes[2]
+x = np.arange(len(nomes))
+larg = 0.38
+b1 = ax.bar(x - larg/2, media_piores.values, larg, color="#c0504d",
+            label=f"{int(CAUDA*100)}% piores dias do real (n = {piores.sum()}, queda >= {abs(lim)*100:.2f}%)")
+b2 = ax.bar(x + larg/2, media_resto.values, larg, color="#9dc3e6", label="Demais dias")
+for bar, v, f in zip(b1, media_piores.values, freq_perda.values):
+    ax.annotate(f"{v:+.2f}%\nperdeu em {f:.0f}% dos dias", xy=(bar.get_x() + bar.get_width()/2, v),
+                xytext=(0, -28 if v < 0 else 6), textcoords="offset points", ha="center", fontsize=8.5)
+for bar, v in zip(b2, media_resto.values):
+    ax.annotate(f"{v:+.2f}%", xy=(bar.get_x() + bar.get_width()/2, v),
+                xytext=(0, 6 if v >= 0 else -14), textcoords="offset points", ha="center", fontsize=8.5)
+ax.axhline(0, color="black", lw=0.8)
+ax.set_xticks(x); ax.set_xticklabels(nomes, fontsize=9)
+ax.set_ylabel("Retorno médio diário da perna (%)")
+ax.set_title("3. Condição de quebra da Kapitalo: o que as outras pernas fazem quando o real cai forte",
+             loc="left", fontsize=11)
+ax.legend(fontsize=8, loc="lower left")
+ax.grid(alpha=0.3, axis="y")
+ax.margins(y=0.35)
+
+fig.suptitle(f"Livro Brasil em paridade de vol (bolsa / juro / real) — "
+             f"{pernas.index[0].date()} a {pernas.index[-1].date()}", fontsize=12, y=0.995)
+fig.tight_layout()
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("\nGráfico salvo em grafico-exercicio.png")
+```
+
+![Painel 1: razão de diversificação de um livro comprado em Ibovespa, comprado no ETF de IMA-B e vendido em USD/BRL, com pesos por paridade de volatilidade, calculada em janela rolante de 63 dias úteis; a linha tracejada é a mediana da série, a faixa cinza cobre os percentis 10 a 90, as linhas pontilhadas marcam DR = 1 (uma aposta só) e DR = 1,73 (três pernas independentes), e o ponto vermelho anota o valor de hoje e seu percentil histórico. Painel 2: correlações rolantes de 63 dias úteis entre os pares Bolsa x Juro, Bolsa x Real e Juro x Real, cada perna expressa na direção da posição, com o valor mais recente na legenda. Painel 3: retorno médio diário de cada perna nos 5% piores dias do real (barras vermelhas, com o número de dias e o limiar de queda impresso na legenda) contra os demais dias (barras azuis), anotando em cada barra vermelha a frequência com que a perna também perdeu nesses dias. O intervalo exato da amostra aparece no título da figura.](grafico-exercicio.png)
+
+### Como o gráfico foi construído
+
+A perna de juro usa o ETF `IMAB11.SA` porque é o único preço diário e público de uma carteira de NTN-B; ele encurta a amostra ao seu próprio início de negociação, e por isso o intervalo real é impresso no título da figura em vez de prometido na legenda. A perna de câmbio é `-Δlog(USD/BRL)`: o sinal trocado converte a cotação do Yahoo (`BRL=X`, dólares em reais) na posição efetiva do livro, comprado em real, de modo que "correlação positiva" no painel 2 significa "as pernas ganham e perdem juntas". As três séries são alinhadas por interseção de datas (o portfólio exige as três no mesmo dia), e o script imprime quantas observações sobraram em relação à maior série isolada; os pesos por paridade de volatilidade são fixos, estimados na amostra cheia, para que a variação da razão de diversificação reflita só a matriz de covariância e não uma rebalanceamento.
+
+### Como ler o resultado
+
+O painel 1 responde à pergunta do título. Se a razão de diversificação de hoje estiver perto da mediana e a mediana estiver mais próxima de 1 do que de 1,73, o livro Brasil vale menos de duas apostas independentes na média do tempo — o que é coerente com a leitura da própria Kapitalo de que os três preços dependem de um mesmo evento, a eleição. Se hoje estiver no decil inferior, a diversificação já encolheu antes do evento, e o tamanho combinado das três pernas está sendo dimensionado com uma correlação que subestima a de crise. Um valor de hoje acima do percentil 75 diria o contrário: que o mercado, em agosto, tratou bolsa, curva e câmbio como histórias parcialmente distintas — o cenário em que aumentar as três ao mesmo tempo custa menos risco do que parece.
+
+O painel 3 é o teste direto da condição de quebra. As barras vermelhas mostram o retorno médio de bolsa e IMA-B nos dias em que o real caiu além do limiar de 5%, e a anotação mostra em que fração desses dias cada perna também perdeu. Se ambas as pernas exibem médias negativas com frequência de perda bem acima de 50%, a "crise de confiança com depreciação significativa" que a Kapitalo nomeia não é um risco de uma perna — é o dia em que o livro inteiro perde de uma vez, e a razão de diversificação do painel 1, mesmo em seu melhor momento, é uma média que não descreve essa cauda. Se, ao contrário, a perna de juro mostrar média próxima de zero nos piores dias do real, há um argumento empírico para a NTN-B como amortecedor, o que reforça a escolha da Opportunity de expressar Brasil via título indexado em vez de bolsa. O que mudaria a conclusão: uma frequência de perda conjunta abaixo de 60% para a perna de juro na cauda, ou uma DR de hoje acima de 1,4, indicariam que a carteira comporta mais risco nominal do que a leitura "é tudo eleição" sugere.
+
+### Vá além
+
+Repita o cálculo trocando os pesos fixos de paridade de vol por pesos reestimados a cada janela (paridade de vol rolante) e compare a contribuição de risco de cada perna ao longo do tempo com a tabela de atribuição do K10 (commodities, bolsa, juros, moedas). Uma variante mais dura: substitua o corte de 5% do real por um corte de 5% do portfólio inteiro e veja qual perna domina os piores dias do livro — se for sempre a mesma, o livro tem um fator, não três, e o *hedge* natural é reduzir essa perna, não adicionar outra.
+
 ## Cartas originais
 
 - **NEO Investimentos — Cartas do Gestor – Agosto 2026** ([original](https://www.neo.com.br/cartas-do-gestor-agosto-2026/))
