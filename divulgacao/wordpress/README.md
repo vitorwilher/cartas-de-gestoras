@@ -13,10 +13,24 @@ a antiga em definitivo (para liberar o slug).
 
 | Página | id | Slug |
 |---|---|---|
-| Captura | `78395` | `/conteudo/cartas-das-gestoras/` — **no ar** |
-| Obrigado | `78388` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
+| Captura | `78405` | `/conteudo/cartas-das-gestoras/` — **no ar** |
+| Obrigado | `78421` | `/conteudo/cartas-das-gestoras-obrigado/` — **no ar** |
 
 Editar: `analisemacro.com.br/wp-admin/post.php?post=<id>&action=edit`
+
+⚠️ **Os ids 78395/78388 do README estavam MORTOS** (404 na REST) — as páginas foram
+recriadas depois. Os corretos são os de `montar_layout.py`, que é a fonte de verdade.
+Conferir por `GET /wp-json/wp/v2/pages/<id>` antes de gravar: escrever na página
+errada foi o que já custou uma recriação.
+
+⚠️ **A URL canônica é `/conteudo/...`**; `/projetos/cartas-das-gestoras/` responde 301
+para ela. Links de divulgação devem usar a canônica.
+
+## Atualizada em 15/09/2026 — de 12 para 15 gestoras
+
+H1, contador do hero, seção "por que ler as quinze juntas", lista de gestoras
+(+ Genoa, Sparta, Opportunity) e a nota de cadência (treze mensais). Conferido na
+URL limpa: as strings novas presentes e as antigas ausentes.
 
 ## O fluxo (desenho do Vitor, 09/09)
 

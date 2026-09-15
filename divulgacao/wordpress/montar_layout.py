@@ -352,7 +352,7 @@ def layout_captura() -> list:
             colunas([
                 [
                     texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">SÍNTESE SEMANAL</p>', tamanho=14),
-                    titulo("Leia as cartas das 12 maiores gestoras do Brasil toda semana", tag="h1", tamanho=44, mb=6),
+                    titulo("Leia as cartas das 15 maiores gestoras do Brasil toda semana", tag="h1", tamanho=44, mb=6),
                     texto("<p>Toda semana, a síntese das cartas novas — a tese de cada casa, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
@@ -361,7 +361,7 @@ def layout_captura() -> list:
         ], fundo="#F4F7FA", pad_v=64, largura=1320, css_id="hero"),
 
         secao([
-            colunas([[numero("12", "gestoras acompanhadas")],
+            colunas([[numero("15", "gestoras acompanhadas")],
                      [numero("1x", "por semana, toda terça")],
                      [numero("6s", "para rodar o exercício")]], gap=20),
         ], pad_v=48),
@@ -381,7 +381,7 @@ def layout_captura() -> list:
 
         secao([
             colunas([
-                [titulo("Por que ler as doze juntas", mb=6), divisor(),
+                [titulo("Por que ler as quinze juntas", mb=6), divisor(),
                  texto("<p>Uma carta isolada mostra a visão de uma casa. Doze mostram onde o mercado brasileiro concorda — e onde a mesma leitura vira apostas incompatíveis.</p>")],
                 [caixa([texto('<p style="margin:0"><strong>Um caso real, de setembro:</strong> três gestoras olhando dados diferentes — inadimplência, recuperações judiciais e reestruturações de crédito — descreveram o mesmo ciclo virando.</p><p style="margin:10px 0 0"><em>Nenhuma delas disse isso sozinha. O sinal só apareceu com as cartas lado a lado.</em></p>', tamanho=17)], fundo="#EAF6FC")],
             ]),
@@ -403,8 +403,8 @@ def layout_captura() -> list:
         secao([
             titulo("As gestoras acompanhadas", align="center", tamanho=30, mb=8),
             caixa([
-                texto('<p style="text-align:center;font-size:19px;margin:0"><strong>Dynamo · IP Capital Partners · Alaska · Kapitalo · Adam Capital · Legacy Capital<br>Bahia Asset · Occam Brasil · JGP · Kinea · NEO Investimentos · Dahlia Capital</strong></p>'),
-                texto('<p style="text-align:center;margin:12px 0 0">As cartas não têm cadência única: dez são mensais, e Dynamo e IP publicam ensaios temáticos irregulares — justamente os de maior densidade.</p>', tamanho=16),
+                texto('<p style="text-align:center;font-size:19px;margin:0"><strong>Dynamo · IP Capital Partners · Alaska · Kapitalo · Adam Capital · Legacy Capital<br>Bahia Asset · Occam Brasil · JGP · Kinea · NEO Investimentos · Dahlia Capital<br>Genoa Capital · Sparta · Opportunity</strong></p>'),
+                texto('<p style="text-align:center;margin:12px 0 0">As cartas não têm cadência única: treze são mensais, e Dynamo e IP publicam ensaios temáticos irregulares — justamente os de maior densidade. A Sparta traz crédito privado, eixo que responde por um terço do patrimônio da indústria.</p>', tamanho=16),
             ]),
         ]),
 
