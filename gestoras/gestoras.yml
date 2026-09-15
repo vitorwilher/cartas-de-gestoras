@@ -118,7 +118,7 @@ gestoras:
     estrategia: rss
     periodicidade: mensal
     formato: html
-    ultima_carta: {principal: 'https://www.neo.com.br/cartas-do-gestor-julho-2026/'}
+    ultima_carta: {principal: 'https://www.neo.com.br/cartas-do-gestor-agosto-2026/'}
     url_template: https://www.neo.com.br/cartas-do-gestor-{mes_extenso}-{ano}/
     notas: >
       ATENÇÃO ao domínio: é neo.com.br, NÃO neoinvestimentos.com.br. A página
@@ -136,7 +136,7 @@ gestoras:
     estrategia: rss
     periodicidade: mensal
     formato: pdf+html
-    ultima_carta: {principal: 'https://www.dahliacapital.com.br/post/cila-e-car%C3%ADbdis'}
+    ultima_carta: {principal: 'https://www.dahliacapital.com.br/post/a-for%C3%A7a-das-institui%C3%A7%C3%B5es'}
     notas: >
       Wix (não WordPress). O feed blog-feed.xml MISTURA cartas com posts
       institucionais ("História da Dahlia", "Como nasce uma tese"), muitos com
@@ -195,7 +195,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: 'https://www.kapitalo.com.br/wp-content/uploads/2022/09/Carta-do-Gestor_K10-Julho2026.pdf'}
+    ultima_carta: {principal: 'https://www.kapitalo.com.br/wp-content/uploads/2022/09/kapitalo_cartamensal_K10_agosto_V9.pdf'}
     notas: >
       /cartas-do-gestor é um HUB, não uma listagem — as cartas vivem em 5 sub-páginas,
       uma por fundo: /carta-do-gestor/k10 (85 PDFs, mensal), /kapa-e-zeta (mensal;
@@ -224,7 +224,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {}
+    ultima_carta: {principal: 'https://www.genoacapital.com.br/docs/BP_Servicos_Digitais_Jan2025.pdf'}
     notas: >
       A mais simples do catálogo: href diretos no HTML, sem JS, sem paginação,
       sem cadastro. Série mensal ININTERRUPTA desde set/2020 — a mais regular
@@ -241,7 +241,7 @@ gestoras:
     formato: pdf
     url_template: https://www.sparta.com.br/uploads/CartaMensal_{ano}{mes}.pdf
     meses_para_tras: 4
-    ultima_carta: {}
+    ultima_carta: {principal: 'https://www.sparta.com.br/uploads/CartaMensal_202608.pdf'}
     notas: >
       Traz CRÉDITO PRIVADO ao catálogo — eixo que só a Occam cobria em parte, e
       que é 34% do patrimônio da indústria. Tese de verdade (debêntures
@@ -261,7 +261,7 @@ gestoras:
     estrategia: url_fixa
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {}
+    ultima_carta: {principal: Opportunity-2026-08}
     notas: >
       CASO ÚNICO NO CATÁLOGO: não existe página de listagem nem arquivo histórico.
       Há UM PDF numa URL FIXA, SOBRESCRITA a cada edição — mesma ideia da URL fixa
