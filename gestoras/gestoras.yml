@@ -231,7 +231,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: 'https://www.genoacapital.com.br/docs/CartaMensalGenoaCapital_Jul26.pdf'}
+    ultima_carta: {principal: 'https://www.genoacapital.com.br/docs/CartaMensalGenoaCapital_Ago26.pdf'}
     notas: >
       A mais simples do catálogo: href diretos no HTML, sem JS, sem paginação,
       sem cadastro. Série mensal ININTERRUPTA desde set/2020 — a mais regular
@@ -341,7 +341,7 @@ gestoras:
     regiao: internacional
     periodicidade: irregular
     formato: pdf
-    ultima_carta: ""
+    ultima_carta: {principal: 'https://www.oaktreecapital.com/insights/memo/shall-we-repeal-the-laws-of-economics---part-iii'}
     notas: >
       Memos do Howard Marks, ~6 a 10 por ano. A listagem traz "Sep 22, 2026" ao
       lado de cada link /insights/memo/<slug>. Os PDFs do topo ("The Complete
@@ -359,7 +359,7 @@ gestoras:
     regiao: internacional
     periodicidade: trimestral
     formato: pdf
-    ultima_carta: ""
+    ultima_carta: {principal: 'https://www.gmo.com/globalassets/articles/quarterly-letter/2026/gmo-quarterly-letter_2q-2026.pdf'}
     notas: >
       Só a Quarterly Letter (Grantham/Inker); os "Insights" avulsos ficam de fora.
       A biblioteca linka apenas a edição corrente, cuja página (dividida em
@@ -380,7 +380,7 @@ gestoras:
     regiao: internacional
     periodicidade: irregular
     formato: html
-    ultima_carta: {principal: 'https://www.bridgewater.com/research-and-insights/the-macro-implications-of-the-ai-capex-boom'}
+    ultima_carta: {principal: 'https://www.bridgewater.com/greg-jensen-and-nir-bar-dea-on-the-importance-of-ai-regulation'}
     notas: >
       A listagem NÃO é cronológica e mistura artigos com vídeos, podcasts e páginas
       temáticas. Cada cartão <ps-promo> declara data-content-type (article | video |
