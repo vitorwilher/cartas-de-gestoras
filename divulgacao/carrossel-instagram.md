@@ -1,6 +1,6 @@
 # Carrossel de Instagram — Cartas de Gestoras
 
-**Status: PNGs da edição de 23/09 gerados, NÃO publicados.**
+**Status: edição de 23/09 PUBLICADA** — https://www.instagram.com/p/DdpUMufEWmF/
 
 - **Arquivos:** `divulgacao/carrossel/slide-01.png` … `slide-10.png` (1080×1350)
 - **Gerador:** `python divulgacao/carrossel.py` (reexecuta o exercício da edição)
@@ -69,6 +69,7 @@ private equity da GMO e a regulação de IA da Bridgewater.
 
 ## Publicado
 
+- **23/09/2026:** https://www.instagram.com/p/DdpUMufEWmF/ — 10 slides e legenda conferidos pela Graph API
 - **15/09/2026:** https://www.instagram.com/p/DdUg1OiG8My/
 - Palavra-chave `GESTORAS` na legenda (mesma do fluxo do ManyChat).
 
