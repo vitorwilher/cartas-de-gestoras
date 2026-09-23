@@ -32,6 +32,20 @@ H1, contador do hero, seção "por que ler as quinze juntas", lista de gestoras
 (+ Genoa, Sparta, Opportunity) e a nota de cadência (treze mensais). Conferido na
 URL limpa: as strings novas presentes e as antigas ausentes.
 
+## Atualizada em 23/09/2026 — internacionais, cadência e hero menor
+
+- **+ Oaktree, GMO e Bridgewater** (piloto internacional): H1, subtítulo, contador
+  (18), caixa de convergências, "Por que ler as cartas juntas" e a lista, com a
+  ressalva de que as de fora entram quando publicam e vêm em inglês.
+- **"15 maiores gestoras do Brasil" saiu**: não se sustenta — a lista original
+  cobria 4 das 50 maiores independentes. Agora "15 gestoras brasileiras".
+- **"toda terça" saiu** das duas páginas (pedido do Vitor): a edição sai na semana
+  em que há carta nova, e semana quieta não tem edição.
+- **Gráfico do hero reduzido**: coluna do gráfico 64% -> 56%, texto 34% -> 42%.
+- Corrigido o "Doze mostram" que sobrou da atualização de 15/09.
+
+Conferido na URL limpa: strings novas presentes, antigas ausentes.
+
 ## O fluxo (desenho do Vitor, 09/09)
 
 ```

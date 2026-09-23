@@ -269,10 +269,10 @@ def estilo_da_pagina():
     return {
         "id": _id(), "elType": "widget", "widgetType": "html",
         "settings": {"html": """<style>
-/* HERO: gráfico ocupa a maior parte da largura */
+/* HERO: gráfico em destaque, mas sem engolir o texto (reduzido em 23/09) */
 #hero > .e-con-inner, #hero { max-width: 1240px !important; }
-#hero .e-child:first-child { flex: 0 0 34% !important; max-width: 34% !important; }
-#hero .e-child:last-child  { flex: 0 0 64% !important; max-width: 64% !important; }
+#hero .e-child:first-child { flex: 0 0 42% !important; max-width: 42% !important; }
+#hero .e-child:last-child  { flex: 0 0 56% !important; max-width: 56% !important; }
 #hero img { width: 100% !important; max-width: none !important; }
 @media (max-width: 767px) {
   #hero .e-child { flex: 0 0 100% !important; max-width: 100% !important; }
@@ -352,28 +352,28 @@ def layout_captura() -> list:
             colunas([
                 [
                     texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">SÍNTESE SEMANAL</p>', tamanho=14),
-                    titulo("Leia as cartas das 15 maiores gestoras do Brasil toda semana", tag="h1", tamanho=44, mb=6),
-                    texto("<p>Toda semana, a síntese das cartas novas — a tese de cada casa, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
+                    titulo("Leia as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater toda semana", tag="h1", tamanho=44, mb=6),
+                    texto("<p>Toda semana, a síntese das cartas novas — das brasileiras e, quando publicam, das três casas de fora: a tese de cada uma, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
                     botao("Quero receber a síntese", "#form", align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ], gap=36, pesos=[30, 70]),
+            ], gap=36, pesos=[42, 56]),
         ], fundo="#F4F7FA", pad_v=64, largura=1320, css_id="hero"),
 
         secao([
-            colunas([[numero("15", "gestoras acompanhadas")],
-                     [numero("1x", "por semana, toda terça")],
+            colunas([[numero("18", "gestoras acompanhadas")],
+                     [numero("1x", "por semana, quando há carta nova")],
                      [numero("6s", "para rodar o exercício")]], gap=20),
         ], pad_v=48),
 
         secao([
-            titulo("O que você recebe toda semana", align="center", mb=8),
+            titulo("O que você recebe em cada edição", align="center", mb=8),
             divisor(),
             colunas([
                 [caixa([icone_texto("fas fa-lightbulb", "A tese e o mecanismo",
                     "Não o resumo do mês: a cadeia causal que faz a aposta se pagar, e a condição exata em que ela quebra.")])],
                 [caixa([icone_texto("fas fa-code-branch", "Convergências e divergências",
-                    "Onde as casas concordam, onde discordam, e o que a divergência revela sobre premissas diferentes.")])],
+                    "Onde as casas concordam, onde discordam, e onde a leitura de fora bate ou colide com a daqui.")])],
                 [caixa([icone_texto("fab fa-python", "O exercício em Python",
                     "Código comentado que testa uma das teses com dado do Tesouro Direto e do Banco Central. Roda em segundos.")])],
             ]),
@@ -381,8 +381,8 @@ def layout_captura() -> list:
 
         secao([
             colunas([
-                [titulo("Por que ler as quinze juntas", mb=6), divisor(),
-                 texto("<p>Uma carta isolada mostra a visão de uma casa. Doze mostram onde o mercado brasileiro concorda — e onde a mesma leitura vira apostas incompatíveis.</p>")],
+                [titulo("Por que ler as cartas juntas", mb=6), divisor(),
+                 texto("<p>Uma carta isolada mostra a visão de uma casa. Lidas juntas, mostram onde o mercado brasileiro concorda — e onde a mesma leitura vira apostas incompatíveis. As casas de fora trazem o contraponto: juro americano, dólar e IA vistos de onde o capital global decide.</p>")],
                 [caixa([texto('<p style="margin:0"><strong>Um caso real, de setembro:</strong> três gestoras olhando dados diferentes — inadimplência, recuperações judiciais e reestruturações de crédito — descreveram o mesmo ciclo virando.</p><p style="margin:10px 0 0"><em>Nenhuma delas disse isso sozinha. O sinal só apareceu com as cartas lado a lado.</em></p>', tamanho=17)], fundo="#EAF6FC")],
             ]),
         ]),
@@ -404,7 +404,8 @@ def layout_captura() -> list:
             titulo("As gestoras acompanhadas", align="center", tamanho=30, mb=8),
             caixa([
                 texto('<p style="text-align:center;font-size:19px;margin:0"><strong>Dynamo · IP Capital Partners · Alaska · Kapitalo · Adam Capital · Legacy Capital<br>Bahia Asset · Occam Brasil · JGP · Kinea · NEO Investimentos · Dahlia Capital<br>Genoa Capital · Sparta · Opportunity</strong></p>'),
-                texto('<p style="text-align:center;margin:12px 0 0">As cartas não têm cadência única: treze são mensais, e Dynamo e IP publicam ensaios temáticos irregulares — justamente os de maior densidade. A Sparta traz crédito privado, eixo que responde por um terço do patrimônio da indústria.</p>', tamanho=16),
+                texto(f'<p style="text-align:center;font-size:19px;margin:14px 0 0"><span style="color:{AZUL};font-weight:700;letter-spacing:1.2px;font-size:14px">INTERNACIONAIS</span><br><strong>Oaktree Capital · GMO · Bridgewater</strong></p>'),
+                texto('<p style="text-align:center;margin:12px 0 0">As cartas não têm cadência única: treze são mensais, e Dynamo e IP publicam ensaios temáticos irregulares — justamente os de maior densidade. A Sparta traz crédito privado, eixo que responde por um terço do patrimônio da indústria. As internacionais entram quando publicam — a GMO é trimestral, Oaktree e Bridgewater são irregulares — e os originais em inglês chegam sintetizados em português.</p>', tamanho=16),
             ]),
         ]),
 
@@ -438,7 +439,8 @@ def layout_obrigado() -> list:
             titulo("Pronto. Sua inscrição está confirmada.", tag="h1",
                    tamanho=44, align="center", mb=6),
             texto('<p style="text-align:center;font-size:20px">A síntese desta semana '
-                  'está a caminho do seu e-mail — e a próxima chega toda terça.</p>'),
+                  'está a caminho do seu e-mail — e a próxima chega na semana em que houver '
+                  'carta nova das gestoras acompanhadas.</p>'),
         ], fundo="#F4F7FA", pad_v=72),
 
         secao([
