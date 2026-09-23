@@ -268,7 +268,16 @@ class Coletor:
                 contexto = texto_limpo(a.parent.parent.get_text(" "))
             if cfg["nome"] == "Occam Brasil" and "carta mensal" not in sem_acentos(contexto):
                 continue
+            # A página da Genoa mistura cartas com white papers sem mês no rótulo.
+            # Sem data, o item caía no fallback de hoje, virava sempre o "mais
+            # recente" e o delta parava nele: a série travava sem erro nenhum.
+            if cfg["nome"] == "Genoa Capital" and "carta mensal" not in sem_acentos(contexto):
+                continue
             if cfg["nome"] == "Kapitalo Investimentos" and "carta" not in sem_acentos(contexto + href):
+                continue
+            # A página da Adam lista, sob o mesmo rótulo, os Relatórios Gerenciais
+            # por fundo. Só a carta interessa; o nome do arquivo é o que distingue.
+            if cfg["nome"] == "Adam Capital" and "carta" not in Path(urlparse(href).path).name.lower():
                 continue
             titulo = contexto[:240] or Path(urlparse(href).path).stem
             fonte_data = contexto
@@ -283,7 +292,9 @@ class Coletor:
                 kapitalo_mes_anterior = mes_rotulo
                 data_referencia = date(kapitalo_ano, mes_rotulo, 1)
             elif cfg["nome"] == "Adam Capital":
-                fonte_data += " " + Path(urlparse(href).path).name
+                # "Carta_Mensal_AGOSTO_2026.pdf": o "_" é caractere de palavra e
+                # anula o \b da busca do mês — a carta caía no fallback de hoje.
+                fonte_data += " " + re.sub(r"[_\-.]+", " ", Path(urlparse(href).path).name)
             resultado.append(Carta(
                 data_referencia or data_do_texto(fonte_data), href, cfg["nome"],
                 serie_do_titulo(cfg["nome"], contexto), titulo, href, "pdf",

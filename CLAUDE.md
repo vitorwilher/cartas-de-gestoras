@@ -183,6 +183,13 @@ arquivo.** Há divergências reais e documentadas: na Kapitalo, o item rotulado
   sem exceção. `descobrir_html` agora sobe um nível só quando o contexto
   imediato não tem nome de mês, para não alterar Occam/Adam/Kapitalo (conferido:
   contagens idênticas antes e depois).
+- **Item sem data trava a série** (achado em 23/09/2026): na Genoa, um *white
+  paper* sem mês no rótulo caiu no fallback de hoje, virou o "mais recente" e
+  entrou na edição de 15/09 **no lugar da carta de agosto**. Como a data de hoje
+  sempre vence, o delta pararia nele para sempre, sem erro. Mesmo mecanismo,
+  latente, na Adam: `_AGOSTO_2026` no nome do arquivo anula o `\b` da regex.
+  Filtro por "carta mensal" (Genoa) e por "carta" no arquivo (Adam, que também
+  listava 6 Relatórios Gerenciais). **Uma data igual a hoje no coletor é sintoma.**
 
 ## Restrições críticas
 

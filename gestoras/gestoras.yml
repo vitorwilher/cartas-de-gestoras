@@ -224,7 +224,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: 'https://www.genoacapital.com.br/docs/BP_Servicos_Digitais_Jan2025.pdf'}
+    ultima_carta: {principal: 'https://www.genoacapital.com.br/docs/CartaMensalGenoaCapital_Jul26.pdf'}
     notas: >
       A mais simples do catálogo: href diretos no HTML, sem JS, sem paginação,
       sem cadastro. Série mensal ININTERRUPTA desde set/2020 — a mais regular
