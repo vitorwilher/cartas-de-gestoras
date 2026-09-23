@@ -51,7 +51,7 @@ def extrair_fontes(corpo: str) -> list[dict]:
 
 def extrair_gestoras(sintese: str) -> list[str]:
     """As seções de nível 2, menos as que não são gestoras."""
-    ignorar = {"convergências e divergências", "cartas originais"}
+    ignorar = {"convergências e divergências", "cartas originais", "o olhar de fora"}
     achadas = []
     for m in re.finditer(r"(?m)^## (.+)$", sintese):
         nome = m.group(1).strip()

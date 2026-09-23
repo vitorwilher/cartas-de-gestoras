@@ -18,6 +18,13 @@
 #                     html       -> parsear os href da página de listagem
 #                     url_previsivel -> gerar a URL pela data (tratar 404)
 #                     ajax       -> endpoint admin-ajax do WordPress
+#                     html_posts -> cartões de listagem com data em inglês
+#                                   (`padrao_link` + `seletor` CSS opcional)
+#                     pdf_da_pagina -> listagem aponta a página da edição
+#                                   corrente, que traz o PDF (`padrao_pdf`)
+#   regiao          brasil (padrão, se ausente) | internacional. As
+#                   internacionais têm seção própria na síntese e NÃO recebem
+#                   peso patrimonial (a tabela é da CVM)
 #   periodicidade   mensal | trimestral | semestral | irregular
 #                   NÃO é uniforme entre gestoras — ver CLAUDE.md
 #   formato         pdf | html | pdf+html
@@ -318,3 +325,68 @@ gestoras:
       O RSS existe mas traz artigos de blog, NÃO as cartas (ao contrário da Dynamo).
       URL não construível: IP_RG_ + período + sufixo livre.
       Plugin userpro (área logada) existe mas não bloqueia os relatórios públicos.
+
+  # --------------------------------------------- INTERNACIONAIS (piloto)
+  # Piloto aberto em 2026-09-23, a partir de outro post do Ricardo Peruffo
+  # (11 gestoras do mundo). Entraram as três mais densas em tese macro e que não
+  # exigem browser. Das outras oito, Fundsmith e Pershing Square respondem 403
+  # com o desafio "Just a moment..." da Cloudflare — ficam de fora pela mesma
+  # regra que proíbe Playwright no projeto. Berkshire deu timeout desta máquina.
+
+  - nome: Oaktree Capital
+    site: https://www.oaktreecapital.com
+    listagem: https://www.oaktreecapital.com/insights/memos
+    estrategia: html_posts
+    padrao_link: /insights/memo/
+    regiao: internacional
+    periodicidade: irregular
+    formato: pdf
+    ultima_carta: ""
+    notas: >
+      Memos do Howard Marks, ~6 a 10 por ano. A listagem traz "Sep 22, 2026" ao
+      lado de cada link /insights/memo/<slug>. Os PDFs do topo ("The Complete
+      Collection", "The Best of") não têm data e são descartados. ARMADILHA: na
+      página do memo o link do PDF é href="javascript:openPDF('Título','URL')";
+      `_pdf_no_soup` extrai a URL de dentro do javascript. A página também linka
+      PDFs de memos ANTIGOS citados no texto — o do próprio memo vem primeiro.
+
+  - nome: GMO
+    site: https://www.gmo.com
+    listagem: https://www.gmo.com/americas/research-library/
+    estrategia: pdf_da_pagina
+    padrao_link: _gmoquarterlyletter/
+    padrao_pdf: quarterly-letter/.*\.pdf
+    regiao: internacional
+    periodicidade: trimestral
+    formato: pdf
+    ultima_carta: ""
+    notas: >
+      Só a Quarterly Letter (Grantham/Inker); os "Insights" avulsos ficam de fora.
+      A biblioteca linka apenas a edição corrente, cuja página (dividida em
+      "part-1-...") traz o PDF inteiro em
+      /globalassets/articles/quarterly-letter/AAAA/gmo-quarterly-letter_<N>q-AAAA.pdf.
+      O TRIMESTRE NÃO APARECE NO TEXTO da página, só no nome do arquivo — por isso a
+      data vem dele (exceção à regra, como na Adam). A biblioteca também tem uma API
+      (/api/articles/getArticlesResearchLibrary) que não foi explorada.
+      A carta do 2Q26 tem 16 páginas e 45,5 mil caracteres: o MAX_TEXT_CHARS (45 mil)
+      corta só o fim da última página. Carta mais longa perderia conteúdo.
+
+  - nome: Bridgewater
+    site: https://www.bridgewater.com
+    listagem: https://www.bridgewater.com/research-and-insights
+    estrategia: html_posts
+    padrao_link: 'bridgewater\.com/'
+    seletor: ps-promo[data-content-type="article"]
+    regiao: internacional
+    periodicidade: irregular
+    formato: html
+    ultima_carta: {principal: 'https://www.bridgewater.com/research-and-insights/the-macro-implications-of-the-ai-capex-boom'}
+    notas: >
+      A listagem NÃO é cronológica e mistura artigos com vídeos, podcasts e páginas
+      temáticas. Cada cartão <ps-promo> declara data-content-type (article | video |
+      external | oneOffPage): só "article" tem texto; vídeo tem ~800 palavras de
+      moldura e nenhum conteúdo. Sem RSS (404) e o sitemap não lista os artigos.
+      Texto inline, sem PDF. Nem todo artigo mora em /research-and-insights/ (o de
+      27/08 está na raiz do site): o filtro é o seletor, não o caminho do link. O marcador inicial foi posto no artigo de 07/01/2026
+      para que a estreia traga os dois de agosto — o de 27/08 é curto (~650
+      palavras), o de 04/08 é o ensaio.

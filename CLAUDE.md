@@ -33,6 +33,18 @@ e artigos de marketing). A **Atmos** publica ensaios densos, no nível de
 Dynamo/IP, mas **parou na carta 33 (1H25)** — a 34 dá 404; revisitar antes de
 incluir.
 
+**Piloto internacional aberto em 2026-09-23**, a partir de outro post do Peruffo
+(11 gestoras do mundo): entraram **Oaktree** (memos do Howard Marks), **GMO**
+(Quarterly Letter) e **Bridgewater** (artigos de Research & Insights) — as mais
+densas em tese macro e que não exigem browser. Campo `regiao: internacional` no
+catálogo. Na síntese elas têm **seção própria, depois das brasileiras**, com um
+item extra ("Leitura para o Brasil", sempre sinalizado como interpretação) e o
+fechamento "## O olhar de fora"; **não recebem peso patrimonial** (a tabela é da
+CVM). Fora do piloto: **Fundsmith e Pershing Square dão 403 com o desafio da
+Cloudflare** (exigiriam Playwright), Berkshire deu timeout local (URL previsível,
+anual — testar da CI), e Pabrai, Marcellus, Oakmark, AQR e DoubleLine não foram
+mapeadas. ⚠️ A landing e a copy ainda falam em "15 gestoras brasileiras".
+
 ## Objetivo de negócio
 
 Entregar, numa cadência fixa, uma **síntese das cartas novas** publicadas pelas
@@ -126,7 +138,7 @@ Para cada gestora em gestoras/gestoras.yml:
 verificado site a site — é o achado que torna o projeto viável com `httpx` +
 `BeautifulSoup`, sem Playwright/Selenium.
 
-Sete estratégias, escolhidas por site (campo `estrategia` no catálogo):
+Nove estratégias, escolhidas por site (campo `estrategia` no catálogo):
 
 | Estratégia | Gestoras | Quando usar |
 |---|---|---|
@@ -137,6 +149,8 @@ Sete estratégias, escolhidas por site (campo `estrategia` no catálogo):
 | `url_previsivel` | Alaska | URL derivável da data (tratar 404 do mês corrente) |
 | `url_serial` | **Sparta** | URL por contador AAAAMM, **quando a listagem HTML está desatualizada** |
 | `url_fixa` | **Opportunity** | Um único PDF em URL sobrescrita; o identificador vem do CONTEÚDO |
+| `html_posts` | **Oaktree**, **Bridgewater** | Cartões de listagem com data em inglês; item sem data é DESCARTADO |
+| `pdf_da_pagina` | **GMO** | A listagem aponta a edição corrente, cuja página traz o PDF |
 
 **Regra de ouro da coleta: NUNCA construir a URL do PDF por template** — exceto
 na Alaska e, com ressalvas, na Adam. Os nomes de arquivo têm sufixos ad-hoc

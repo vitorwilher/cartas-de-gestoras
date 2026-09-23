@@ -107,6 +107,24 @@ def data_do_texto(valor: str, fallback: date | None = None) -> date:
     return fallback or date.today()
 
 
+_DATA_EN = re.compile(
+    r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2}),\s+(20\d{2})\b"
+)
+
+
+def data_em_ingles(valor: str) -> date | None:
+    """"Sep 22, 2026" / "August 4, 2026" -> date. None quando não há data.
+
+    Devolve None em vez de cair no fallback de hoje: um item sem data datado
+    com hoje vira sempre o "mais recente" e trava o delta (caso Genoa, 23/09).
+    """
+    achado = _DATA_EN.search(sem_acentos(texto_limpo(valor)))
+    if not achado:
+        return None
+    mes, dia, ano = achado.groups()
+    return date(int(ano), MESES[mes], int(dia))
+
+
 def _mes_anterior(valor: date) -> date:
     total = valor.year * 12 + valor.month - 2
     ano, mes0 = divmod(total, 12)
@@ -132,6 +150,7 @@ class Carta:
     url: str = field(compare=False)
     formato: str = field(compare=False, default="pdf")
     texto: str = field(compare=False, default="")
+    regiao: str = field(compare=False, default="brasil")
 
     def resumo_json(self) -> dict[str, str]:
         return {
@@ -175,6 +194,8 @@ class Coletor:
         estrategia = cfg["estrategia"]
         metodo = getattr(self, f"descobrir_{estrategia}")
         cartas = metodo(cfg)
+        for carta in cartas:
+            carta.regiao = cfg.get("regiao", "brasil")
         unicas = {c.identificador: c for c in cartas if c.url}
         return sorted(unicas.values(), reverse=True)
 
@@ -300,6 +321,63 @@ class Coletor:
                 serie_do_titulo(cfg["nome"], contexto), titulo, href, "pdf",
             ))
         return resultado
+
+    def descobrir_html_posts(self, cfg: dict[str, Any]) -> list[Carta]:
+        """Listagem de posts com data em inglês no cartão (Oaktree, Bridgewater).
+
+        `seletor` (CSS) escolhe os cartões; sem ele, o cartão é o pai de cada link
+        que casa `padrao_link`. Cartão sem data é DESCARTADO, nunca datado com hoje.
+        """
+        soup = BeautifulSoup(self.get(cfg["listagem"]).text, "html.parser")
+        padrao = re.compile(cfg["padrao_link"])
+        if cfg.get("seletor"):
+            cartoes = [
+                (c, next((a for a in c.find_all("a", href=True) if padrao.search(a["href"])), None))
+                for c in soup.select(cfg["seletor"])
+            ]
+        else:
+            cartoes = [(a.parent, a) for a in soup.find_all("a", href=padrao)]
+        resultado: list[Carta] = []
+        for cartao, link in cartoes:
+            if cartao is None or link is None:
+                continue
+            data = data_em_ingles(cartao.get_text(" "))
+            if data is None:
+                continue
+            titulos = [texto_limpo(a.get_text(" ")) for a in cartao.find_all("a", href=True)
+                       if padrao.search(a["href"])]
+            titulo = next((t for t in titulos if t), "") or Path(urlparse(link["href"]).path).name
+            href = urljoin(cfg["site"], link["href"])
+            resultado.append(Carta(data, href, cfg["nome"], "principal", titulo, href, cfg["formato"]))
+        return resultado
+
+    def descobrir_pdf_da_pagina(self, cfg: dict[str, Any]) -> list[Carta]:
+        """Carta trimestral da GMO: a listagem só aponta a edição corrente.
+
+        A página da carta traz o PDF inteiro (`padrao_pdf`). O trimestre não está
+        escrito em lugar nenhum do texto da página, só no nome do arquivo
+        (`gmo-quarterly-letter_2q-2026.pdf`) — exceção à regra da data do texto,
+        como na Adam. Sem trimestre reconhecível, nada é devolvido.
+        """
+        soup = BeautifulSoup(self.get(cfg["listagem"]).text, "html.parser")
+        link = soup.find("a", href=re.compile(cfg["padrao_link"]))
+        if link is None:
+            return []
+        pagina = urljoin(cfg["site"], link["href"])
+        soup = BeautifulSoup(self.get(pagina).text, "html.parser")
+        pdf = soup.find("a", href=re.compile(cfg["padrao_pdf"]))
+        if pdf is None:
+            return []
+        href = urljoin(cfg["site"], pdf["href"])
+        trimestre = re.search(r"([1-4])q-?(20\d{2})", Path(urlparse(href).path).name, re.I)
+        if not trimestre:
+            return []
+        q, ano = int(trimestre.group(1)), int(trimestre.group(2))
+        titulo_pagina = soup.find("meta", property="og:title")
+        titulo = f"Quarterly Letter {q}Q {ano}"
+        if titulo_pagina and titulo_pagina.get("content"):
+            titulo += f" — {texto_limpo(titulo_pagina['content'])}"
+        return [Carta(date(ano, 3 * q, 1), href, cfg["nome"], "principal", titulo, href, "pdf")]
 
     def descobrir_ajax(self, cfg: dict[str, Any]) -> list[Carta]:
         # O endpoint configurado aponta sempre para o ano vigente.
@@ -428,8 +506,16 @@ class Coletor:
     @staticmethod
     def _pdf_no_soup(soup: BeautifulSoup) -> str:
         for a in soup.find_all("a", href=True):
-            if ".pdf" in a["href"].lower().split("?", 1)[0]:
-                return a["href"]
+            href = a["href"]
+            # Oaktree: href="javascript:openPDF('Título','https://.../memo.pdf')".
+            # Devolver o href cru faria o urljoin montar uma URL inválida.
+            if href.lower().startswith("javascript:"):
+                embutida = re.search(r"https?://[^'\"]+?\.pdf[^'\"]*", href, re.I)
+                if embutida:
+                    return embutida.group(0)
+                continue
+            if ".pdf" in href.lower().split("?", 1)[0]:
+                return href
         return ""
 
     @staticmethod
@@ -508,7 +594,8 @@ def atualizar_estado(catalogo: dict[str, Any], processadas: Iterable[Carta]) -> 
 
 
 SYSTEM_PROMPT = """Você é um analista de investimentos que ensina profissionais do mercado
-financeiro a DESTRINCHAR TECNICAMENTE as teses das gestoras brasileiras.
+financeiro a DESTRINCHAR TECNICAMENTE as teses das gestoras brasileiras — e, quando
+houver, das grandes gestoras internacionais que o corpus trouxer.
 
 O leitor é do mercado: ele já sabe o que é duration, carrego e long&short. Ele não
 paga por um resumo do que a carta diz — ele paga para entender COMO se analisa uma
@@ -537,7 +624,10 @@ Estrutura:
   ISSO explicitamente e explique o que a ausência de tese sugere sobre o mandato do
   fundo. Não infle uma seção vazia com paráfrase.
 - Quando houver mais de uma série da mesma gestora, identifique-as claramente.
-- Termine com "## Convergências e divergências", comparando apenas gestoras presentes.
+- Cada documento traz o campo "Região". As seções acima são das gestoras de região
+  "brasil"; as de região "internacional" seguem regras próprias, descritas adiante.
+- Depois das brasileiras, "## Convergências e divergências", comparando apenas
+  gestoras BRASILEIRAS presentes. Se houver menos de duas, omita esta seção.
   Aqui o valor é apontar onde o consenso se forma e onde racha, e o que a divergência
   revela sobre premissas diferentes — não listar quem concorda com quem.
   **DIMENSIONE o consenso.** Quando o bloco PESO PATRIMONIAL estiver no contexto,
@@ -554,6 +644,22 @@ Estrutura:
       carta diz o que ele fez.
     · Se a tese em discussão não corresponder a nenhum eixo da tabela, compare
       sem número. Não force o cruzamento.
+- **Gestoras internacionais** (região "internacional"), SOMENTE quando o corpus
+  as trouxer. Vêm DEPOIS das brasileiras e da seção de convergências, uma seção
+  de nível 2 por gestora, com o título exatamente "## <Gestora> — internacional".
+  Mesma estrutura de cinco itens, mais um sexto:
+  6. **Leitura para o Brasil** — por qual canal a tese chega aos ativos
+     brasileiros (dólar, juro longo americano, prêmio de risco de emergentes,
+     commodities, fluxo estrangeiro na bolsa). É SEMPRE interpretação sua:
+     sinalize como tal, e diga "sem canal relevante" quando não houver um.
+  Os textos são em inglês: escreva em português e traduza os termos, mas
+  preserve entre parênteses o título original e expressões que o próprio autor
+  cunhou (ex.: "second-level thinking" do Howard Marks).
+  O bloco PESO PATRIMONIAL é da CVM e cobre só as brasileiras: NUNCA atribua
+  patrimônio a uma gestora internacional.
+- Havendo gestora internacional, feche com "## O olhar de fora": onde as teses
+  de fora coincidem ou colidem com as das brasileiras desta edição (ou entre si,
+  se não houver brasileiras). É a ponte que o leitor brasileiro não faz sozinho.
 - Ao final, depois dessa seção, inclua um comentário HTML exatamente no formato
   `<!-- resumo_whatsapp: TEXTO -->`: uma síntese executiva específica da edição,
   em uma única linha, sem Markdown, com no máximo 450 caracteres.
@@ -579,7 +685,7 @@ def montar_corpus(cartas: list[Carta]) -> str:
     for i, carta in enumerate(cartas, 1):
         blocos.append(
             f"### Documento {i}\n"
-            f"Gestora: {carta.gestora}\nSérie: {carta.serie}\n"
+            f"Gestora: {carta.gestora}\nRegião: {carta.regiao}\nSérie: {carta.serie}\n"
             f"Título: {carta.titulo}\nData de referência: {carta.data_referencia.isoformat()}\n"
             f"URL original: {carta.url}\n\n{carta.texto}"
         )

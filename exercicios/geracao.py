@@ -65,6 +65,12 @@ Estrutura:
      erro de rede e o exercício sai sem gráfico. Aconteceu em 15/09/2026.
      `get_ettj` levanta HolidayError em fim de semana/feriado: trate voltando ao
      dia útil anterior.
+     **Formato da saída (pyettj 0.4.x): tabela LONGA, uma linha por vértice e
+     curva**, colunas `refdate, curva, descricao, dias_corridos, dias_uteis,
+     taxa, vertice`. A curva DI x pré é `curva == "PRE"`; `taxa` já vem em
+     DECIMAL (0.1365 = 13,65% a.a., base 252). NÃO procure coluna "DI x pré 252"
+     nem divida por 100: esse era o formato largo antigo, e o código que o
+     assume quebra com IndexError (23/09/2026).
    - séries do Banco Central (Selic, IPCA, câmbio, crédito) → `from bcb import sgs`.
      **NUNCA use a série 7 (Ibovespa) do SGS: ela está CONGELADA desde 30/09/2019**
      e o BCB a devolve normalmente, sem erro — alinhar qualquer coisa com ela
