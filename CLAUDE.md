@@ -514,6 +514,10 @@ quem recebeu o link numa semana conseguir reabrir aquela edição depois.
 Reaproveita o bucket e as credenciais do `../ROI_Diagnostico` (`SOCIAL_GCS_BUCKET`,
 `GCS_CREDENTIALS_PATH`), no molde do `social/assets_gcs.py` de lá.
 
+⚠️ **A URL fixa sobe com `Cache-Control: public, max-age=60`** (desde 23/09). Com
+o padrão do GCS (1 h), um nó de borda ainda servia a edição anterior logo depois da
+troca — e o e-mail sai 30 min depois apontando para ela. A datada fica no padrão.
+
 ⚠️ O passo é `continue-on-error`: falha na publicação **não derruba a edição** (o
 PDF já foi gerado e enviado por WhatsApp), mas deixa o link público com a versão
 anterior. Ao conferir, olhar a data na capa do PDF.
@@ -636,6 +640,11 @@ saíram do papel e o pipeline **entrega sem intervenção humana**.
 3. `broadcast_semanal.py --enviar --espera 30` — **agenda** o e-mail para a tag
    do projeto
 4. **Resumo da execução** — escreve o resultado de cada canal no Summary do run
+
+**Edição extra** (fora do cron): `gh workflow run cartas.yml -f nota="..."`. A
+`nota` vira uma caixa "Nota desta edição" dentro de "Nesta edição" no PDF e um
+parágrafo no e-mail. O cron roda sem nota. Usada em 23/09 para anunciar as
+internacionais e corrigir a Genoa de 15/09.
 
 ⚠️ O passo 4 existe porque um `continue-on-error` que falha deixa o run **verde**:
 sem ele, "e-mail não enviado" era visualmente idêntico a "enviado".
