@@ -714,8 +714,13 @@ def contexto_patrimonial() -> str:
     return f"\n\n---\n\n{texto}\n"
 
 
-def sintetizar(cartas: list[Carta]) -> str:
+def sintetizar(cartas: list[Carta], nota: str = "") -> str:
     corpus = montar_corpus(cartas) + contexto_patrimonial()
+    if nota:
+        # O modelo precisa saber da nota para "Nesta edição" não contradizê-la;
+        # o texto da nota entra no documento por fora, em escrever_qmd.
+        corpus += (f"\n\n---\n\nNOTA EDITORIAL DESTA EDIÇÃO (contexto, não é documento; "
+                   f"o leitor já a lê numa caixa acima da síntese — não a repita):\n{nota}\n")
     with Anthropic().messages.stream(
         model=MODEL,
         # 64k de saída e effort "high": com `max`, o Fable 5.1 gasta o orçamento
@@ -788,7 +793,7 @@ __FONTES__
 
 
 def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "",
-                 ilegiveis: list[Carta] | None = None) -> Path:
+                 ilegiveis: list[Carta] | None = None, nota: str = "") -> Path:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     hoje = date.today()
     fontes = "\n".join(
@@ -814,6 +819,15 @@ def escrever_qmd(resumo: str, cartas: list[Carta], exercicio: str = "",
         if gerar_grafico(exercicio, OUTPUT_DIR / NOME_GRAFICO) is None:
             exercicio = remover_referencia(exercicio)
     corpo = f"{resumo}\n\n{exercicio}" if exercicio else resumo
+    if nota:
+        # Caixa, não seção: um título ## seria lido como gestora pelo e-mail e
+        # pelo catálogo do MCP, que listam as gestoras pelos títulos de nível 2.
+        # Vai DENTRO de "Nesta edição": cada ## abre página nova no am-livro, e
+        # a caixa antes do primeiro título ficava sozinha numa página em branco.
+        caixa = f'::: {{.saiba-mais title="Nota desta edição"}}\n{nota}\n:::\n\n'
+        corpo, n = re.subn(r"(?m)^(## Nesta edição[^\n]*\n)", lambda m: m.group(1) + "\n" + caixa, corpo, count=1)
+        if not n:
+            corpo = caixa + corpo
     data_extenso = f"{hoje.day} de {MESES_PT[hoje.month]} de {hoje.year}"
     nomes = sorted({c.gestora.split()[0] for c in cartas})
     subtitulo = "Teses, mecanismos e riscos — " + (
@@ -1013,14 +1027,14 @@ def executar(args: argparse.Namespace) -> int:
         salvar_catalogo(catalogo)
         return 0
 
-    resumo_documento, resumo_executivo = resumo_para_whatsapp(sintetizar(processadas))
+    resumo_documento, resumo_executivo = resumo_para_whatsapp(sintetizar(processadas, args.nota))
     exercicio = ""
     if not args.sem_exercicio:
         resultado = exercicio_da_semana(resumo_documento)
         if resultado is not None:
             conceito, exercicio = resultado
             print(f"Exercício da semana: {conceito}")
-    qmd = escrever_qmd(resumo_documento, processadas, exercicio, ilegiveis)
+    qmd = escrever_qmd(resumo_documento, processadas, exercicio, ilegiveis, args.nota)
     print(f"Gerado: {qmd}")
     pdf = renderizar(qmd) if args.pdf else None
     if pdf:
@@ -1044,6 +1058,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--send", action="store_true", help="envia o PDF pelo WhatsApp (exige --pdf)")
     parser.add_argument("--sem-exercicio", action="store_true", help="pula o exercício em Python da semana")
     parser.add_argument("--pausa", type=float, default=0.5, help="pausa educada entre requests (segundos)")
+    parser.add_argument("--nota", default="", help="nota editorial da edição (caixa no topo do PDF)")
     args = parser.parse_args()
     if args.send and not args.pdf:
         parser.error("--send exige --pdf")

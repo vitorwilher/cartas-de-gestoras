@@ -25,6 +25,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import html
 import os
 import re
 import sys
@@ -97,14 +98,14 @@ def edicao_mais_recente() -> tuple[str, list[str], str]:
     return data, gestoras, conceito
 
 
-def corpo(data: str, gestoras: list[str], conceito: str) -> str:
+def corpo(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
     a, m, d = data.split("-")
     quando = f"{int(d)} de {MESES[int(m)]}"
     lista = ", ".join(gestoras[:-1]) + f" e {gestoras[-1]}" if len(gestoras) > 1 else (gestoras[0] if gestoras else "")
     return f"""<p>Olá, {{{{ subscriber.first_name }}}}.</p>
 
 <p>Saiu a síntese das cartas desta semana, com <strong>{lista}</strong>.</p>
-
+{f"{chr(10)}<p>{html.escape(nota)}</p>{chr(10)}" if nota else ""}
 <p>Como sempre: a tese de cada casa e o mecanismo que a sustenta, onde o consenso
 se forma e onde racha — e o exercício em Python da semana{f", sobre <strong>{conceito}</strong>" if conceito else ""}.</p>
 
@@ -150,12 +151,13 @@ def main() -> int:
                     help="minutos até o disparo, para dar tempo de cancelar (padrão: 15)")
     ap.add_argument("--idade-maxima", type=int, default=2, metavar="DIAS",
                     help="recusa enviar edição mais velha que isso (padrão: 2 dias)")
+    ap.add_argument("--nota", default="", help="nota editorial, parágrafo logo após a abertura")
     args = ap.parse_args()
 
     data, gestoras, conceito = edicao_mais_recente()
     a, m, d = data.split("-")
     assunto = f"Cartas das gestoras — edição de {int(d)} de {MESES[int(m)]}"
-    html = corpo(data, gestoras, conceito)
+    html_email = corpo(data, gestoras, conceito, args.nota)
 
     headers = cabecalhos()
     total = alcance(headers)
@@ -169,7 +171,7 @@ def main() -> int:
 
     if args.dry_run:
         print("\n--- corpo ---")
-        print(html)
+        print(html_email)
         print("\n[dry-run] Nada foi criado.", file=sys.stderr)
         return 0
 
@@ -225,7 +227,7 @@ def main() -> int:
 
     r = httpx.post(f"{BASE}/broadcasts", timeout=90, headers=headers, json={
         "subject": assunto,
-        "content": html,
+        "content": html_email,
         "public": False,
         "send_at": quando,
         "subscriber_filter": filtro,

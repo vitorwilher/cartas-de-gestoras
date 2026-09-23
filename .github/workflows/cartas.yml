@@ -5,6 +5,11 @@ on:
     # Terças, 10:00 UTC = 07:00 em São Paulo (UTC-3).
     - cron: "0 10 * * 2"
   workflow_dispatch:
+    inputs:
+      nota:
+        description: "Nota editorial da edição (caixa no PDF + parágrafo no e-mail). Vazio no cron."
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -62,7 +67,9 @@ jobs:
           WHATSAPP_TO_NUMBER: ${{ secrets.WHATSAPP_TO_NUMBER }}
           WHATSAPP_WABA_ID: "1421867178829333"
           WHATSAPP_CARTAS_TEMPLATE: "sintese_cartas_gestoras"
-        run: python cartas.py --pdf --send
+          # Via env, nunca interpolada no script: a nota é texto livre.
+          NOTA: ${{ inputs.nota }}
+        run: python cartas.py --pdf --send ${NOTA:+--nota "$NOTA"}
 
       # A URL do PDF é FIXA (cartas/edicao-atual.pdf): o ManyChat e a landing do
       # ConvertKit apontam sempre para ela, e o arquivo é sobrescrito aqui toda
@@ -101,6 +108,7 @@ jobs:
         env:
           CONVERT_KIT_V4: ${{ secrets.CONVERT_KIT_V4 }}
           CONVERTKIT_API_SECRET: ${{ secrets.CONVERTKIT_API_SECRET }}
+          NOTA: ${{ inputs.nota }}
         run: |
           # As DUAS credenciais são necessárias: sem CONVERTKIT_API_SECRET o
           # script não consegue contar a tag e aborta como se estivesse vazia.
@@ -115,7 +123,7 @@ jobs:
             echo "status=pulado (secrets ausentes)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          python divulgacao/broadcast_semanal.py --enviar --espera 30
+          python divulgacao/broadcast_semanal.py --enviar --espera 30 ${NOTA:+--nota "$NOTA"}
           echo "status=success" >> "$GITHUB_OUTPUT"
 
       # Um passo `continue-on-error` que falha deixa o run VERDE. Sem este
