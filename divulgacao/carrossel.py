@@ -117,17 +117,22 @@ def dados_do_exercicio() -> dict:
     # inteiro volta e cada gráfico pega o que precisa — em vez de uma lista fixa
     # que quebrava a cada edição nova (era o caso em 15/09, com o exercício de
     # diversificação: 12 variáveis "faltando" que simplesmente não existiam ali).
+    # Candidatos são EXPRESSÕES avaliadas no namespace do exercício: em 23/09 o
+    # valor de hoje só existia como `ult["corr"]`, campo de uma Series.
     universais = {
-        "valor_hoje": ("dr_hoje", "atual_bps", "atual", "inclinacao_atual", "valor_hoje"),
-        "percentil": ("pct_hoje", "percentil", "percentil_hist"),
+        "valor_hoje": ("dr_hoje", "atual_bps", "atual", "inclinacao_atual", "valor_hoje",
+                       "ult['corr']"),
+        "percentil": ("pct_hoje", "percentil", "percentil_hist", "pct_corr"),
     }
     dados = {k: v for k, v in ns.items() if not k.startswith("__")}
     faltando = []
     for chave, candidatos in universais.items():
         for nome in candidatos:
-            if nome in ns:
-                dados[chave] = ns[nome]
+            try:
+                dados[chave] = eval(nome, {}, ns)  # noqa: S307 — nomes fixos, acima
                 break
+            except Exception:
+                continue
         else:
             faltando.append(chave)
     if faltando:
@@ -140,124 +145,135 @@ def dados_do_exercicio() -> dict:
     return dados
 
 
-def grafico_divergencia() -> str:
-    """A capa: três posições em Brasil que parecem diferentes e não são.
+def _virg(x: float, casas: int = 2) -> str:
+    return f"{x:+.{casas}f}".replace(".", ",")
 
-    Ilustração do CONCEITO — as três pernas do livro Brasil e o canal único que
-    as liga (o prêmio de risco-país). Sem escala fechada: o ponto é a forma da
-    dependência, não um valor medido. O dado real vem nos slides 6 e 7.
+
+# Fundo branco atrás de rótulo que cai sobre a série: sem ele "mediana" e
+# "hoje" ficavam ilegíveis no meio das linhas (visto na prancha de 23/09).
+_FUNDO = dict(boxstyle="round,pad=0.25", facecolor="white", edgecolor="none", alpha=0.92)
+
+
+def _eixo_virgula(ax, casas: int = 1):
+    """Peça em português usa vírgula decimal — o eixo também."""
+    from matplotlib.ticker import FuncFormatter
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.{casas}f}".replace(".", ",")))
+
+
+def grafico_sinal(d: dict) -> str:
+    """A capa: o mesmo seguro em dois momentos, com o sinal trocado.
+
+    Dado real, não ilustração — mas só dois números, para a capa se ler em dois
+    segundos: o fundo de março de 2020 (o seguro pagando) e o ponto de hoje. A
+    série inteira só entra no slide 6, depois de o slide 4 dizer o que é a medida.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    corr = d["painel"]["corr"]
+    data_min, v_min = corr.idxmin(), float(corr.min())
+    v_hoje = float(d["valor_hoje"])
+    meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+    rot_min = f"{meses[data_min.month - 1]}/{data_min.year}"
+
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.set_xlim(0, 10); ax.set_ylim(0, 10); ax.axis("off")
-
-    pernas = [("Bolsa", 1.9), ("Juro", 5.0), ("Real", 8.1)]
-    for nome, x in pernas:
-        ax.add_patch(plt.Circle((x, 7.0), 0.92, color=BLUE, alpha=0.16, zorder=2))
-        ax.text(x, 7.0, nome, ha="center", va="center",
-                fontsize=27, color=NAVY, fontweight="bold", zorder=3)
-        ax.plot([x, 5.0], [6.0, 3.6], color=MUTED, lw=2.4, ls=(0, (4, 3)), zorder=1)
-
-    ax.add_patch(plt.Circle((5.0, 2.6), 1.35, color=NAVY, zorder=2))
-    ax.text(5.0, 2.85, "MESMO", ha="center", va="center",
-            fontsize=21, color="white", fontweight="bold", zorder=3)
-    ax.text(5.0, 2.25, "EVENTO", ha="center", va="center",
-            fontsize=21, color="white", fontweight="bold", zorder=3)
-    ax.text(5.0, 0.55, "risco-país", ha="center", va="center",
-            fontsize=23, color=MUTED, style="italic")
-
-    ax.text(0, 9.55, "Três posições, um só canal de risco",
-            fontsize=30, color=NAVY, fontweight="bold", va="bottom")
-    ax.text(0, 9.05, "as três apostas em Brasil da Kapitalo",
-            fontsize=22, color=MUTED, va="bottom")
+    xs = [0, 1]
+    vals = [v_min, v_hoje]
+    cores = [BLUE, "#C0392B"]
+    ax.bar(xs, vals, width=0.56, color=cores)
+    ax.axhline(0, color=NAVY, lw=2.2)
+    ax.text(0, v_min - 0.03, _virg(v_min), ha="center", va="top",
+            fontsize=40, color=BLUE, fontweight="bold")
+    ax.text(1, v_hoje + 0.03, _virg(v_hoje), ha="center", va="bottom",
+            fontsize=40, color="#C0392B", fontweight="bold")
+    ax.text(0, 0.05, f"{rot_min}\nprotegia", ha="center", va="bottom",
+            fontsize=25, color=NAVY)
+    ax.text(1, -0.05, "hoje\nanda junto", ha="center", va="top",
+            fontsize=25, color=NAVY)
+    ax.set_xlim(-0.6, 1.6)
+    ax.set_ylim(v_min - 0.2, max(v_hoje, 0.2) + 0.17)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    _limpar(ax)
+    ax.grid(False)
+    _titulo(ax, "O seguro mudou de sinal",
+            "correlação Ibovespa × Treasury longo em reais · 6 meses")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
 
-def grafico_diversificacao(d: dict) -> str:
-    """A razão de diversificação no tempo: quantas apostas o livro tem de fato.
+def grafico_correlacao(d: dict) -> str:
+    """A série inteira da correlação, com zero, mediana e o ponto de hoje.
 
-    É o gráfico-chave da edição. O teto (1,73 = três pernas independentes) e o
-    piso (1,00 = uma aposta só) enquadram a leitura, e o ponto de hoje é o
-    assunto — círculo com halo, rótulo colado.
+    A faixa acima de zero é o assunto: é onde o Treasury deixa de proteger. O
+    ponto de hoje ganha halo e rótulo colado, como nos carrosséis anteriores.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    dr = d["dr"].dropna()
+    corr = d["painel"]["corr"].dropna()
     hoje = float(d["valor_hoje"])
-    pct = float(d["percentil"])
+    med = float(d["med_corr"])
 
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.plot(dr.index, dr.values, color=BLUE, lw=2.6)
-    ax.axhline(1.73, color=MUTED, lw=2.0, ls=(0, (5, 4)))
-    # Rótulo à DIREITA e acima: à esquerda ele caía sobre a própria série, que
-    # nesta amostra passa de 1,9 em 2021.
-    ax.text(dr.index[-1], 1.745, "1,73 = três apostas independentes",
-            fontsize=21, color=MUTED, va="bottom", ha="right")
-    ax.axhline(1.0, color="#C0392B", lw=2.0, ls=(0, (2, 3)))
-    ax.text(dr.index[0], 1.015, "1,00 = uma aposta só",
-            fontsize=21, color="#C0392B", va="bottom")
+    ax.fill_between(corr.index, 0, corr.values, where=corr.values > 0,
+                    color="#C0392B", alpha=0.16, lw=0)
+    ax.plot(corr.index, corr.values, color=BLUE, lw=2.2)
+    ax.axhline(0, color=NAVY, lw=1.8)
+    ax.axhline(med, color=MUTED, lw=2.0, ls=(0, (5, 4)))
+    ax.text(corr.index[0], med - 0.03, f"mediana {_virg(med)}",
+            fontsize=21, color=MUTED, va="top", bbox=_FUNDO, zorder=6)
+    ax.text(corr.index[0], 0.30, "acima de zero:\nsoma risco",
+            fontsize=21, color="#C0392B", va="center")
 
-    ax.scatter([dr.index[-1]], [hoje], s=700, color="white", zorder=4)
-    ax.scatter([dr.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
-    ax.annotate(f"hoje: {hoje:.2f}".replace(".", ","),
-                xy=(dr.index[-1], hoje), xytext=(-18, -52),
-                textcoords="offset points", ha="right",
-                fontsize=28, color=NAVY, fontweight="bold")
+    ax.scatter([corr.index[-1]], [hoje], s=700, color="white", zorder=4)
+    ax.scatter([corr.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
+    # O rótulo vai para o vazio no alto do gráfico (2018-2023 fica abaixo de 0,3);
+    # colado ao ponto ele cobria a série ou o eixo zero.
+    ax.annotate(f"hoje: {_virg(hoje)}", xy=(corr.index[-1], hoje),
+                xytext=(corr.index[int(len(corr) * 0.45)], 0.33),
+                textcoords="data", ha="left", va="center",
+                fontsize=28, color=NAVY, fontweight="bold", bbox=_FUNDO, zorder=6,
+                arrowprops=dict(arrowstyle="-", color=NAVY, lw=1.6))
 
     _limpar(ax)
-    _titulo(ax, "Três posições em Brasil valem 2 apostas",
-            "razão de diversificação · janela de 63 dias úteis")
+    _eixo_virgula(ax)
+    _titulo(ax, "Acima de 89% dos dias desde 2012",
+            "correlação móvel · 126 dias úteis · retornos diários")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
 
-def grafico_cauda(d: dict) -> str:
-    """O teste da condição de quebra: o que cada perna faz nos piores dias do real.
+def grafico_beneficio(d: dict) -> str:
+    """Quanto risco a carteira 50/50 ainda apaga — hoje contra a própria história.
 
-    Duas barras por perna (piores 5% × demais dias). É o cruzamento que nenhuma
-    carta faz sozinha — e o argumento visual mais forte da edição.
+    É a ressalva honesta em forma de gráfico: a mistura ainda diversifica (o
+    dólar ajuda), só que perto do mínimo da série. Sem ela o carrossel diria que
+    o Treasury "não protege nada", o que o próprio dado desmente.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    import numpy as np
 
-    # O exercício JÁ entrega em % ao dia (0,32 = 0,32%). Multiplicar por 100 aqui
-    # produzia "-225,33%" de queda diária no real — número impossível que passaria
-    # no feed como erro grosseiro de quem publicou.
-    piores = d["media_piores"]
-    resto = d["media_resto"]
-    nomes = ["Bolsa", "Juro", "Real"]
-    x = np.arange(len(nomes))
-    larg = 0.36
+    ben = d["painel"]["beneficio"].dropna()
+    hoje = float(d["ult"]["beneficio"])
+    med = float(ben.median())
 
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.bar(x - larg / 2, piores.values, larg, color="#C0392B", label="5% piores dias do real")
-    ax.bar(x + larg / 2, resto.values, larg, color=BLUE, alpha=0.55, label="demais dias")
-    ax.axhline(0, color=NAVY, lw=1.8)
-
-    # Rótulo da barra negativa vai DENTRO da barra, em branco: fora dela ele
-    # colidia com o nome da perna no eixo x.
-    for i, v in enumerate(piores.values):
-        dentro = v < -0.5
-        ax.text(i - larg / 2,
-                v * 0.5 if dentro else (v - 0.06 if v < 0 else v + 0.04),
-                f"{v:+.2f}%".replace(".", ","),
-                ha="center", va="center" if dentro else ("top" if v < 0 else "bottom"),
-                fontsize=23, color="white" if dentro else "#C0392B",
-                fontweight="bold")
-
-    ax.set_xticks(x); ax.set_xticklabels(nomes, fontsize=25, color=NAVY)
-    ax.legend(fontsize=20, frameon=False, loc="lower left")
+    ax.plot(ben.index, ben.values, color=BLUE, lw=2.2)
+    ax.axhline(med, color=MUTED, lw=2.0, ls=(0, (5, 4)))
+    ax.text(ben.index[0], med + 0.8, f"mediana {med:.0f}%".replace(".", ","),
+            fontsize=21, color=MUTED, va="bottom", bbox=_FUNDO, zorder=6)
+    ax.scatter([ben.index[-1]], [hoje], s=700, color="white", zorder=4)
+    ax.scatter([ben.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
+    ax.annotate(f"hoje: {hoje:.0f}%".replace(".", ","), xy=(ben.index[-1], hoje),
+                xytext=(-20, -58), textcoords="offset points", ha="right",
+                fontsize=28, color=NAVY, fontweight="bold", bbox=_FUNDO, zorder=6)
     _limpar(ax)
-    _titulo(ax, "No dia em que o real quebra, a bolsa não salva",
-            "retorno médio diário por perna · % ao dia")
+    _titulo(ax, "A mistura ainda protege, bem menos",
+            "% do risco apagado pela correlação · carteira 50/50")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
@@ -265,60 +281,57 @@ def grafico_cauda(d: dict) -> str:
 def slides(d: dict) -> list[dict]:
     """Os 10 slides, na ordem em que a história se sustenta.
 
-    A regra que organiza tudo: **nenhum gráfico aparece antes de o leitor ter
-    contexto para lê-lo**. A capa mostra as três pernas ligadas ao mesmo canal de
-    risco — o conceito que a manchete promete; a série da razão de diversificação
-    só entra depois do slide que explica o que ela mede, porque antes disso "1,45"
-    não significa nada para quem passa o polegar.
+    Edição de 23/09: o exercício mede se o Treasury longo, convertido a reais,
+    ainda protege a bolsa brasileira. A regra que organiza tudo continua a mesma:
+    **nenhum gráfico aparece antes de o leitor ter contexto para lê-lo**. A capa
+    mostra só dois números (março de 2020 e hoje); a série inteira entra depois
+    do slide que explica o que a correlação mede.
 
-    O fecho não promete a síntese — promete o MÉTODO. Resumir carta é commodity;
-    o que ninguém mais entrega é o caminho da tese até o código que a testa.
-
-    Bullets, não parágrafos. Sem preço e sem oferta: o público está em nível 1-2
-    de consciência, e nível 5 no primeiro toque é o erro documentado que rendeu
-    174 mensagens e zero respostas na campanha de Claude Code T2.
-
-    Jargão de mesa fica no PDF, não aqui: "livro" (trading book) faz o leitor
-    parar para decodificar, e no feed cada palavra tem dois segundos.
+    Bullets, não parágrafos. Sem preço, sem oferta e sem emoji. Sem o jargão
+    "livro" (carteira de mesa), que faz o leitor parar para decodificar.
     """
-    dr = f"{float(d['valor_hoje']):.2f}".replace(".", ",")
-    pct = f"{float(d['percentil']):.0f}"
-    perdeu_bolsa = f"{float(d['freq_perda'].iloc[0]):.0f}"  # já vem em %
+    corr = d["painel"]["corr"]
+    hoje = _virg(float(d["valor_hoje"]))
+    med = _virg(float(d["med_corr"]))
+    v_min = _virg(float(corr.min()))
+    ano_min = corr.idxmin().year
+    desde_2024 = f"{(corr.loc['2024':] > 0).mean() * 100:.0f}"
+    ben_hoje = f"{float(d['ult']['beneficio']):.0f}"
+    ben_med = f"{float(d['painel']['beneficio'].median()):.0f}"
     return [
         {
             "kind": "capa",
-            "hook": "A Kapitalo comprou Brasil em *três* frentes. O risco é *um* só.",
-            "src": grafico_divergencia(),
+            "hook": "O seguro *mais clássico* do investidor brasileiro mudou de sinal.",
+            "src": grafico_sinal(d),
         },
         {
             "kind": "lista",
-            "title": "As *três* posições",
+            "title": "No que as cartas *concordam*",
             "variant": "check",
             "items": [
-                "Comprada em bolsa brasileira",
-                "Aplicada em juro local (NTN-B)",
-                "Comprada em real",
-                "Três instrumentos. Três teses diferentes?",
+                "Genoa: o Fed corre risco de subir juros ainda em 2026",
+                "Howard Marks (Oaktree): o juro longo americano está alto por fundamento",
+                "Inflação, déficit e demanda por capital — não acidente",
             ],
         },
         {
             "kind": "lista",
-            "title": "O problema: o *mesmo* gatilho",
+            "title": "Onde isso pesa: *o seguro*",
             "variant": "diamond",
             "items": [
-                "Todas dependem do Brasil ser reprecificado para melhor",
-                "*Crise de confiança:* o prêmio de risco-país sobe",
-                "Bolsa cai, curva abre, dólar dispara — juntos",
+                "Para se proteger do Brasil, compra-se Treasury longo em dólar",
+                "A lógica: na crise, o real cai e o Treasury sobe",
+                "*Com juro americano subindo*, o Treasury pode cair junto",
             ],
         },
         {
             "kind": "definicao",
             "title": "Como se mede isso",
             "rows": [
-                {"term": "Razão de diversificação",
-                 "desc": "soma das volatilidades ÷ volatilidade da carteira"},
-                {"term": "1,73", "desc": "teto: três apostas realmente independentes"},
-                {"term": "1,00", "desc": "piso: as três são uma aposta só"},
+                {"term": "Correlação negativa",
+                 "desc": "o Treasury sobe quando a bolsa cai: protege"},
+                {"term": "Perto de zero", "desc": "só dilui o risco"},
+                {"term": "Positiva", "desc": "os dois caem juntos: soma risco"},
             ],
         },
         {
@@ -326,31 +339,32 @@ def slides(d: dict) -> list[dict]:
             "title": "E isso *custa dinheiro*",
             "variant": "diamond",
             "items": [
-                "Você dimensiona como se fossem três apostas",
-                "*Mas carrega o risco de menos que isso*",
-                "A conta aparece justamente no dia ruim",
+                "A carteira mista fica mais arriscada do que parece",
+                "O peso certo em Treasury depende do sinal",
+                "*A proteção falha justo quando a inflação americana sobe*",
             ],
         },
         {
             "kind": "capa",
-            "hook": f"Medido: *{dr}* — no percentil {pct} desde 2019 👇",
+            "hook": f"Medido: *{hoje}*. A mediana desde 2012 é {med}.",
             "hint": False,
-            "src": grafico_diversificacao(d),
+            "src": grafico_correlacao(d),
         },
         {
             "kind": "capa",
-            "hook": "E no dia em que o real quebra?",
+            "hook": "Ainda protege alguma coisa?",
             "hint": False,
-            "src": grafico_cauda(d),
+            "src": grafico_beneficio(d),
         },
         {
             "kind": "lista",
             "title": "O que o dado diz",
             "variant": "diamond",
             "items": [
-                f"Nos 5% piores dias do real, a bolsa perdeu em *{perdeu_bolsa}%* deles",
-                "A proteção some justo quando faria falta",
-                "*A própria Kapitalo* nomeou essa condição de quebra",
+                f"Desde 2024, a correlação ficou positiva em *{desde_2024}%* dos dias",
+                f"Em {ano_min} ela chegou a {v_min}: ali o seguro pagou",
+                f"A mistura ainda apaga *{ben_hoje}%* do risco, contra {ben_med}% típicos",
+                "Janela de 6 meses: é retrato, não previsão",
             ],
         },
         {
@@ -358,10 +372,10 @@ def slides(d: dict) -> list[dict]:
             "title": "O caminho que eu fiz aqui",
             "variant": "number",
             "items": [
-                "Li a tese: Kapitalo ampliou Brasil em três frentes",
-                "Achei o *mecanismo*: as três dependem do mesmo evento",
-                "Escrevi o código que mede isso com dado público",
-                "*Este gráfico saiu daí* — e roda em segundos",
+                "Li as cartas: Genoa e Marks veem juro americano alto",
+                "Achei o *mecanismo*: o seguro depende do sinal da correlação",
+                "Medi com dado público: Ibovespa × Treasury em reais",
+                "*Estes gráficos saíram daí* — e o código roda em segundos",
             ],
         },
         {
@@ -369,7 +383,7 @@ def slides(d: dict) -> list[dict]:
             "title": "Te mando o código junto",
             # A pergunta no fim puxa comentário de quem não vai digitar a
             # palavra-chave — e comentário é o que o algoritmo lê como alcance.
-            "paragraph": f"Toda semana leio as cartas das 15 maiores gestoras, destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a desta semana — síntese e código — no seu direct. E me conta: qual tese você queria ver testada?",
+            "paragraph": f"Leio as cartas de 15 gestoras brasileiras e, agora, de Oaktree, GMO e Bridgewater. Destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a edição — síntese e código — no seu direct. E me conta: você ainda usa Treasury como seguro?",
             "cta": f"Comente {PALAVRA_CHAVE}",
         },
     ]

@@ -58,13 +58,19 @@ def _fs():
     return gcsfs.GCSFileSystem(token=caminho)
 
 
-def publicar(local: Path, chave: str) -> str:
-    """Sobe o arquivo e devolve a URL pública."""
+def publicar(local: Path, chave: str, cache: str | None = None) -> str:
+    """Sobe o arquivo e devolve a URL pública.
+
+    `cache` vira o Cache-Control do objeto. A URL fixa precisa de cache CURTO: com
+    o padrão do GCS (max-age=3600), em 23/09/2026 um nó de borda ainda servia a
+    edição anterior logo depois da troca — e o e-mail sai 30 minutos depois.
+    """
     chave = chave.lstrip("/")
     ctype = mimetypes.guess_type(str(local))[0] or "application/pdf"
     fs = _fs()
+    extra = {"fixed_key_metadata": {"cache_control": cache}} if cache else {}
     with open(local, "rb") as src, fs.open(f"{BUCKET}/{chave}", "wb",
-                                           content_type=ctype) as dst:
+                                           content_type=ctype, **extra) as dst:
         dst.write(src.read())
     return f"{BASE}/{chave}"
 
@@ -92,7 +98,8 @@ def main() -> int:
         return 0
 
     publicar(pdf, chave_datada)
-    publicar(pdf, CHAVE_FIXA)
+    # A datada nunca muda de conteúdo e pode ficar em cache; a fixa muda a cada edição.
+    publicar(pdf, CHAVE_FIXA, cache="public, max-age=60")
     print("\nPublicado. O link do ManyChat e da landing não mudam.")
     return 0
 

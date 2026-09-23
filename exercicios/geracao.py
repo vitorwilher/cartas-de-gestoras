@@ -44,6 +44,11 @@ Trecho da síntese que motiva o exercício:
 {contexto}
 
 Escreva em Markdown para Quarto, começando com "## Exercício da semana: <título>".
+O título viaja para o sumário, o assunto do e-mail e as peças de divulgação: escreva-o
+SEM jargão de mesa — nada de "livro" (trading book), "book", "tomado/dado". Diga
+"carteira", "posição", "juro sobe/cai". O jargão cabe no corpo, explicado na primeira
+vez (em 23/09/2026 o título "quanto o livro internacional ainda protege o livro
+Brasil?" chegou assim ao e-mail dos leads).
 Estrutura:
 1. **Por que isto importa esta semana** — ligue explicitamente à tese de uma gestora
    citada na síntese. Uma frase ou duas.

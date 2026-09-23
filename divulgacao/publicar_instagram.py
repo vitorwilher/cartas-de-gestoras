@@ -55,7 +55,10 @@ def legenda() -> str:
     if not m:
         raise SystemExit(f"Bloco '## Legenda do post' não achado em {FONTE_LEGENDA}")
     linhas = [re.sub(r"^> ?", "", l) for l in m.group(1).strip().splitlines()]
-    return "\n".join(linhas).strip()
+    # As quebras do .md são de largura de editor, não de texto: juntá-las com
+    # "\n" publicava frases partidas no meio. Parágrafo é a linha vazia.
+    paragrafos = re.split(r"\n\s*\n", "\n".join(linhas).strip())
+    return "\n\n".join(" ".join(p.split()) for p in paragrafos)
 
 
 def subir(arquivos: list[Path], prefixo: str) -> list[str]:

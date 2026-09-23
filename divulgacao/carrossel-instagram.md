@@ -1,100 +1,71 @@
-# Carrossel de Instagram — teste do produto Cartas de Gestoras
+# Carrossel de Instagram — Cartas de Gestoras
 
-**Status: PNGs gerados, NÃO publicado.**
+**Status: PNGs da edição de 23/09 gerados, NÃO publicados.**
 
-Este é o **teste que precede a construção do produto** (decisão do Vitor em
-2026-09-09): antes de publicar a assinatura no Woo, medir se o conteúdo desperta
-interesse no Instagram.
-
-- **Arquivos:** `divulgacao/carrossel/slide-01.png` … `slide-08.png` (1080×1350)
-- **Gerador:** `python divulgacao/carrossel.py`
+- **Arquivos:** `divulgacao/carrossel/slide-01.png` … `slide-10.png` (1080×1350)
+- **Gerador:** `python divulgacao/carrossel.py` (reexecuta o exercício da edição)
+- **Publicar:** `python divulgacao/publicar_instagram.py` (dry-run por padrão)
 - **Palavra-chave da DM:** `GESTORAS` — ver `manychat-gestoras.md`
 
-## Por que este ângulo
+🔴 **Antes de publicar, colar no painel do ManyChat a DM revista em 23/09.** A que
+está no ar ainda diz "12 maiores gestoras" e cita o carrossel do Copom de 09/09 —
+quem comentar GESTORAS neste post receberia um texto sobre outro assunto.
 
-O carrossel mostra **as convergências e divergências da semana**, não o exercício.
-O racha sobre o Copom é a melhor história disponível: quatro casas leem a mesma
-inflação e duas chegam a apostas incompatíveis — e isso só aparece lendo as cartas
-juntas, que é exatamente a promessa do produto.
+## Por que este ângulo (edição de 23/09)
 
-Abre com **cena**, não com rótulo: está medido no canal que série aberta por
-rótulo engaja metade. Sem preço e sem oferta — o público do Instagram está em
-nível 1-2 de consciência, e entregar nível 5 a quem está no 2 é o erro documentado
-que rendeu 174 mensagens e zero respostas em Claude Code T2.
+**"O seguro do investidor brasileiro mudou de sinal."** O exercício da edição mede
+se o Treasury longo americano, convertido a reais, ainda protege a bolsa brasileira.
+A resposta tem um contraste que se lê em dois segundos: −0,52 em março de 2020
+(protegia) contra +0,17 hoje (anda junto). E ele nasce das cartas: a Genoa vê o Fed
+podendo subir juros, e Marks vê o juro longo americano alto por fundamento.
 
-## Os 9 slides
+Um ângulo só. Ficaram de fora a crítica de Marks às recompras do Tesouro, o
+private equity da GMO e a regulação de IA da Bridgewater.
 
-**A regra que organiza a ordem:** nenhum gráfico aparece antes de o leitor ter
-contexto para lê-lo. Foi o erro da versão anterior — a capa trazia a série da
-inclinação da curva enquanto a manchete falava de inflação e gestoras, e "48 bps"
-não significa nada para quem passa o polegar sem saber do que é a medida.
+## Os 10 slides
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + gráfico | A divergência do Copom: duas trajetórias de Selic, cada casa nomeada na ponta |
-| 2 | lista ✓ | No que elas concordam — 4 bullets |
-| 3 | lista | Onde racha: o Copom — 3 bullets |
-| 4 | definição | A diferença não é sobre inflação: Legacy/Occam × Kinea |
-| 5 | lista | E isso custa dinheiro — o *steepener* explicado, **antes** dos gráficos de curva |
-| 6 | capa + gráfico | "É esse degrau que elas estão comprando" — a curva de hoje |
-| 7 | capa + gráfico | "+48 bps, percentil 45" — a inclinação contra a própria história |
-| 8 | lista | O que isso quer dizer — e você não precisou acreditar em ninguém |
-| 9 | lista numerada | **O caminho que eu fiz aqui** — tese → mecanismo → código → gráfico |
-| 10 | CTA | "Te mando o código junto" + `GESTORAS` + pergunta |
-
-### O eixo do fecho: o método, não a síntese
-
-Resumir carta é commodity — qualquer um faz, e a IA faz de graça. O que ninguém
-mais entrega é **o caminho da tese até o código que a testa**. Por isso o slide 9
-mostra esse caminho em quatro passos numerados, e só então o CTA oferece o
-exercício *junto* com a síntese.
-
-A versão anterior fechava com "Quer a síntese desta semana?" — prometia justamente
-a parte replicável por qualquer um. O ativo é o script que roda.
-
-**Todo gráfico leva título e subtítulo dizendo o que a medida é** (ex.: "Inclinação
-da curva: 7 anos − 2 anos" / "quanto o juro longo paga a mais que o curto"). Num
-carrossel não há legenda nem texto de apoio: o gráfico precisa se apresentar.
-
-⚠️ **Os números vêm do próprio exercício.** `carrossel.py` reexecuta o bloco de
-código da edição mais recente (cortando antes da parte de gráfico) e lê as
-variáveis de lá. Se o carrossel dissesse 48 bps e o PDF outra coisa, a
-inconsistência seria checável por quem lê os dois.
-
-⚠️ O exercício é reescrito pelo modelo a cada edição e os **nomes das variáveis
-mudam**. `dados_do_exercicio()` normaliza por alias e **falha alto** se faltar algo
-essencial — melhor do que um KeyError no meio do render.
+| 1 | capa + gráfico | "O seguro mais clássico do investidor brasileiro mudou de sinal" — duas barras: mar/2020 (−0,52) e hoje (+0,17) |
+| 2 | lista ✓ | No que as cartas concordam: Genoa (Fed pode subir) e Marks (juro longo por fundamento) |
+| 3 | lista | Onde isso pesa: a lógica do seguro e por que ela falha com juro americano subindo |
+| 4 | definição | Correlação negativa / perto de zero / positiva — **antes** dos gráficos de série |
+| 5 | lista | Por que custa dinheiro |
+| 6 | capa + gráfico | A série da correlação desde 2012, com zero, mediana e o ponto de hoje |
+| 7 | capa + gráfico | O risco que a carteira 50/50 ainda apaga: 23% hoje, 30% na mediana |
+| 8 | lista | O que o dado diz — inclui a ressalva "janela de 6 meses: retrato, não previsão" |
+| 9 | lista numerada | O caminho que eu fiz |
+| 10 | CTA | GESTORAS + "você ainda usa Treasury como seguro?" |
 
 ## Legenda do post
 
-> A Kapitalo ampliou a posição em Brasil em três frentes ao mesmo tempo: comprou
-> bolsa, aplicou em juro local e comprou real.
+> Em março de 2020, quem tinha Treasury longo americano sem hedge de câmbio estava
+> protegido: a bolsa brasileira caía, e o Treasury em reais subia. A correlação
+> entre os dois chegou a −0,52.
 >
-> Parecem três apostas diferentes. Não são.
+> Hoje ela está em +0,17 — acima de 89% dos dias desde 2012. Desde 2024, ficou
+> positiva em 87% dos dias. O seguro passou a andar junto com o risco que deveria
+> cobrir.
 >
-> As três dependem do mesmo evento — o Brasil ser reprecificado para melhor. Se
-> vier uma crise de confiança, o canal é único: o prêmio de risco-país sobe, e
-> bolsa, curva e câmbio andam juntos. A própria carta da Kapitalo nomeia isso como
-> a condição em que a tese quebra.
+> Duas cartas desta semana ajudam a entender por quê. A Genoa vê risco de o Fed
+> subir juros ainda em 2026. Howard Marks, da Oaktree, escreve que o juro longo
+> americano está alto por fundamento: inflação, déficit e demanda por capital. Num
+> mundo assim, o Treasury pode cair junto com a bolsa.
 >
-> Mas aqui está a parte que interessa a quem quer aprender:
+> A ressalva: uma carteira 50/50 ainda apaga 23% do risco — o dólar ajuda. Mas a
+> mediana histórica é 30%. E a janela é de seis meses: é retrato, não previsão.
 >
-> Você não precisa acreditar na gestora nem em mim. Dá para ler a tese, achar o
-> mecanismo e escrever o código que mede se ele se sustenta. Foi o que fiz nos
-> slides 6 e 7 — dado público, segundos de execução.
+> Você não precisa acreditar em mim nem nas gestoras. Os slides 6 e 7 saíram de um
+> código em Python com dado público, que roda em segundos.
 >
-> A resposta: a razão de diversificação está em 1,45, contra um teto de 1,73 se as
-> três pernas fossem independentes. Três posições valem cerca de duas apostas.
+> É o que faço toda semana em que sai carta nova: leio as cartas de 15 gestoras
+> brasileiras e, agora, de Oaktree, GMO e Bridgewater, destrincho as teses e escrevo
+> um exercício que testa uma delas.
 >
-> E o número mais desconfortável: nos 5% piores dias do real, a bolsa perdeu em
-> 40% deles. A proteção some justamente no dia em que faria falta.
+> Comenta GESTORAS que eu mando a edição desta semana — a síntese e o código — no
+> direct.
 >
-> É isso que eu faço toda semana: leio as cartas das 15 maiores gestoras do Brasil,
-> destrincho as teses e escrevo um exercício em Python que testa uma delas.
->
-> Comenta GESTORAS que eu mando a desta semana — a síntese e o código — no direct.
->
-> E me conta: qual tese você queria ver testada?
+> E me conta: você ainda usa Treasury como seguro?
 
 ## Publicado
 
@@ -119,13 +90,13 @@ inteiro deixando containers órfãos.
       `{{campaign.name}}` entra na URL e o firewall devolve 403 de tela branca.
       Já custou R\$ 385,72 em nove dias
 
-## Sobre os gráficos
+## Sobre os gráficos (edição de 23/09)
 
-Os slides 6 e 7 são **dados reais**, do mesmo código do exercício que está no PDF:
-curva prefixada do Tesouro Direto em 08/09/2026 e a série da inclinação 7a−2a desde
-2010. A inclinação de **+48 bps no percentil 45** é medida, não estimada.
+Os três gráficos são **dados reais**, do mesmo código do exercício que está no PDF:
+Ibovespa, ETF TLT e dólar do Yahoo Finance, retornos diários desde 2012, correlação
+móvel de 126 dias úteis. A capa mostra só dois pontos da mesma série (o mínimo, em
+17/03/2020, e hoje) — nada ali é ilustrativo.
 
-⚠️ **O gráfico da capa é ilustrativo do conceito.** As cartas dizem a direção
-("ciclo segue" × "pausa"), não uma trajetória de Selic ponto a ponto. Por isso o
-eixo x é relativo (hoje, +6m, +12m, +18m) e não afirma data nem valor futuro —
-mostra a forma da divergência. Se alguém do mercado perguntar, essa é a resposta.
+⚠️ É uma correlação de **janela móvel**: os números mudam a cada pregão. Se o post
+sair dias depois de 23/09, rode `carrossel.py` de novo e confira a legenda contra
+os slides.
