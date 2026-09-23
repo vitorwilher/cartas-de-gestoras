@@ -27,17 +27,19 @@ prova ponta a ponta é comentar a palavra-chave de uma conta que nunca interagiu
 
 > Oi! Vi que você comentou GESTORAS no carrossel.
 >
-> Eu leio as cartas de 15 gestoras brasileiras — Dynamo, IP, Alaska, Kapitalo,
-> Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Genoa, Sparta e
-> Opportunity — e de três casas de fora: Oaktree, GMO e Bridgewater. Toda semana
-> em que sai carta nova, faço duas coisas com elas:
+> A edição desta semana — a síntese das cartas e o código do exercício — chega no
+> seu e-mail assim que você se cadastrar aqui:
 >
-> 1. Destrincho a tese de cada uma: o mecanismo que a sustenta e a condição em que
-> ela quebra.
-> 2. Escrevo um exercício em Python que testa uma dessas teses com dado público —
-> o código roda em segundos e você replica.
+> https://analisemacro.com.br/conteudo/cartas-das-gestoras/?utm_source=manychat&utm_medium=dm&utm_campaign=cartas-de-gestoras
 >
-> A edição mais recente está aqui: https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
+> É gratuito. Depois, sempre que sair carta nova das gestoras que acompanho — 15
+> brasileiras e, agora, Oaktree, GMO e Bridgewater —, a próxima edição chega no
+> mesmo e-mail.
+
+⚠️ **Desde 23/09 a DM leva à LANDING, não ao PDF** (decisão do Vitor): o objetivo é
+o cadastro, que põe o lead na tag e no envio de cada edição. O PDF chega pelo
+e-mail de boas-vindas da sequência 2888305, na hora. A UTM `manychat` é a que o
+`funil_seguidores.py` do ROI usa para separar DM de link da bio.
 
 ⚠️ **Texto revisto em 23/09/2026, precisa ser colado no painel** (a API do ManyChat
 não edita fluxo). Mudou: "12 maiores" virou "15 gestoras brasileiras" (a lista
