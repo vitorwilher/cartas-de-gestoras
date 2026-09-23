@@ -108,3 +108,25 @@ class TestGuardaDeDuplicata(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestGestorasDoEmail(unittest.TestCase):
+    """A lista do e-mail sai dos títulos de nível 2 da edição."""
+
+    def test_secoes_do_bloco_internacional(self):
+        bs = carregar()
+        edicao = (
+            "## Nesta edição\n\ntexto\n\n## Genoa Capital\n\n"
+            "## Convergências e divergências\n\n"
+            "## Oaktree Capital — internacional\n\n## GMO — internacional\n\n"
+            "## O olhar de fora\n\n## Exercício da semana: curva\n\n## Cartas originais\n"
+        )
+        with mock.patch.object(bs, "DIGESTS") as pasta:
+            arquivo = mock.Mock()
+            arquivo.name = "resumo-2026-09-29.qmd"
+            arquivo.read_text.return_value = edicao
+            pasta.glob.return_value = [arquivo]
+            data, gestoras, conceito = bs.edicao_mais_recente()
+        self.assertEqual(gestoras, ["Genoa Capital", "Oaktree Capital", "GMO"])
+        self.assertEqual(conceito, "curva")
+

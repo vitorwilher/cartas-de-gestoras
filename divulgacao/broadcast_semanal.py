@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cria o broadcast da edição da semana no ConvertKit, para a tag do projeto.
 
-É assim que o assinante recebe a síntese toda terça — o que a página de obrigado
+É assim que o assinante recebe a síntese a cada edição — o que a página de obrigado
 promete. O WhatsApp entrega só para quem escreveu (janela de 24h); o e-mail
 alcança todos, sem template, sem custo por conversa e sem risco de qualidade.
 
@@ -88,7 +88,10 @@ def edicao_mais_recente() -> tuple[str, list[str], str]:
         if baixo.startswith("exercício"):
             conceito = nome.split(":", 1)[-1].strip()
             continue
-        if baixo in ("nesta edição", "convergências e divergências", "cartas originais"):
+        # "O olhar de fora" fecha o bloco internacional (23/09): sem ela aqui, o
+        # e-mail listaria a seção como se fosse uma gestora.
+        if baixo in ("nesta edição", "convergências e divergências", "cartas originais",
+                     "o olhar de fora"):
             continue
         gestoras.append(nome.split("—")[0].strip())
     return data, gestoras, conceito

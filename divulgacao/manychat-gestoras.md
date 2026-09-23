@@ -27,20 +27,24 @@ prova ponta a ponta é comentar a palavra-chave de uma conta que nunca interagiu
 
 > Oi! Vi que você comentou GESTORAS no carrossel.
 >
-> Toda semana eu leio as cartas das 12 maiores gestoras do Brasil — Dynamo, IP,
-> Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO e Dahlia — e faço
-> duas coisas com elas:
+> Eu leio as cartas de 15 gestoras brasileiras — Dynamo, IP, Alaska, Kapitalo,
+> Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Genoa, Sparta e
+> Opportunity — e de três casas de fora: Oaktree, GMO e Bridgewater. Toda semana
+> em que sai carta nova, faço duas coisas com elas:
 >
 > 1. Destrincho a tese de cada uma: o mecanismo que a sustenta e a condição em que
 > ela quebra.
 > 2. Escrevo um exercício em Python que testa uma dessas teses com dado público —
 > o código roda em segundos e você replica.
 >
-> A desta semana está aqui: https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
->
-> Nela tem o racha do Copom que mostrei no carrossel, com a passagem exata de cada
-> carta, e o exercício que mede quanto do steepener a curva já pagou — o mesmo
-> gráfico dos slides 6 e 7, com o código inteiro.
+> A edição mais recente está aqui: https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
+
+⚠️ **Texto revisto em 23/09/2026, precisa ser colado no painel** (a API do ManyChat
+não edita fluxo). Mudou: "12 maiores" virou "15 gestoras brasileiras" (a lista
+original cobria 4 das 50 maiores independentes), entraram as três de fora, "toda
+semana" passou a depender de haver carta nova, e saiu o parágrafo que citava o
+carrossel do Copom de 09/09 — a palavra-chave GESTORAS serve a 30 carrosséis do
+calendário, e a DM fixa não pode falar de um só.
 
 ## O link e a UTM
 
@@ -61,8 +65,8 @@ que o `monitors/manychat_entrega.py` mede a entrega.
 https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf
 ```
 
-**Essa URL nunca muda.** O pipeline sobrescreve o arquivo toda terça, depois de
-gerar a edição — o passo "Publicar o PDF no GCS" no workflow. Assim o fluxo do
+**Essa URL nunca muda.** O pipeline sobrescreve o arquivo a cada edição, depois de
+gerá-la — o passo "Publicar o PDF no GCS" no workflow. Assim o fluxo do
 ManyChat é criado UMA vez e continua entregando o material da semana corrente,
 sem ninguém trocar link em painel.
 

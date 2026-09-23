@@ -2,7 +2,7 @@
 """Publica o PDF da edição no GCS, numa URL FIXA que nunca muda.
 
 O fluxo do ManyChat e a landing do ConvertKit apontam sempre para o mesmo
-endereço; o pipeline sobrescreve o arquivo toda terça. Assim o material da
+endereço; o pipeline sobrescreve o arquivo a cada edição. Assim o material da
 semana chega sem ninguém trocar link em painel nenhum.
 
 Além do arquivo fixo, guardamos uma cópia datada — quem recebeu o link numa
