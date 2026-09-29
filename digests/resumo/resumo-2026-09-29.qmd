@@ -1,0 +1,299 @@
+---
+title: "Cartas de *Gestoras*"
+subtitle: "Teses, mecanismos e riscos — Bridgewater, GMO"
+author: "Vitor Wilher"
+date: "2026-09-29"
+date-format: "D [de] MMMM [de] YYYY"
+lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "Edição de 29 de setembro de 2026"
+  tagline: "A verdade está nos dados."
+format:
+  am-livro-typst:
+    toc-depth: 2
+---
+
+## Nesta edição
+
+Esta edição é atípica: o corpus não trouxe nenhuma carta de gestora brasileira. As duas peças disponíveis vêm de casas internacionais — a carta trimestral da GMO, de Ben Inker e John Pease, e um estudo de pesquisa da Bridgewater assinado por Karen Karniol-Tambour, Jeremy Ng e Daniel Hochman. Isso muda o formato do que segue: não há seção de convergências entre casas brasileiras, e o trabalho de ponte com os ativos locais fica inteiramente por conta da nossa interpretação, sinalizada como tal em cada passagem.
+
+O que une os dois textos, apesar de temas tão distantes quanto a bolha de inteligência artificial e o preço do carbono, é uma ideia incômoda para quem foi treinado em fluxo de caixa descontado: preços de ativos e decisões de investimento real respondem a variáveis que não são fundamentos no sentido clássico. Na GMO, a variável é a oferta de ações — quanto papel novo chega ao mercado e quantos compradores existem de fato dispostos a absorvê-lo num mundo dominado por fundos passivos e mandatos amarrados a *benchmark*. Na Bridgewater, a variável é política industrial disfarçada de política climática — como o preço do carbono, ainda baixo na maior parte do mundo, já redesenha onde se constrói uma siderúrgica ou uma fundição de alumínio, e como a Europa exporta essa regra pela fronteira.
+
+A tensão editorial desta semana, portanto, é entre dois relógios. A GMO trabalha com um calendário preciso — vencimentos de *lockup* da SpaceX, IPOs prováveis de OpenAI e Anthropic nos próximos doze meses — e projeta um vento contrário de cerca de 20 pontos percentuais sobre o retorno do S&P 500 em 12 a 18 meses. A Bridgewater trabalha com um relógio de décadas, em que custos equivalentes a 2% a 5% dos lucros corporativos globais vão se materializando aos poucos, com vencedores e perdedores já sendo reprecificados a cada ruído regulatório em Bruxelas. Um texto ensina a pensar em catalisador; o outro, em exposição estrutural.
+
+Adiante, o leitor encontra a dissecação de cada tese, o mecanismo que a sustenta, os números que a ancoram, a leitura — nossa — de por qual canal cada uma chega ao Brasil, e um fechamento sobre onde as duas casas, sem se falarem, dizem a mesma coisa.
+
+## GMO — internacional
+
+**A tese em uma frase.** O gatilho que fura a bolha de IA não será a decepção com a demanda por serviços de IA, mas o excesso de oferta de ações — SpaceX, OpenAI, Anthropic e emissões dos *hyperscalers* — despejado sobre um mercado que perdeu a capacidade de absorver papel novo.
+
+**O mecanismo.** A cadeia causal da GMO tem quatro elos, e vale percorrê-los um a um porque é aí que está o aprendizado.
+
+Primeiro elo: bolhas são "esquemas Ponzi naturais" ("natural Ponzi scheme", na expressão dos autores) — precisam de capital novo em volume crescente para se sustentar, e o sucesso aparente atrai esse capital. Isso implica que a bolha morre quando a oferta do ativo comprado cresce mais rápido que a demanda por ele. A carta distingue dois tipos de morte: pela oferta física do bem (a mania ferroviária britânica, em que o excesso de trilhos derrubou o retorno sobre o capital) e pela oferta financeira do ativo (a bolha da internet em 2000, que, segundo a GMO, rolou por causa da enxurrada de emissões de ações ligadas à internet antes que a decepção com o tráfego ficasse evidente). A aposta é que IA repete o segundo padrão.
+
+Segundo elo: o mercado ficou muito mais sensível a fluxo do que era. Aqui a carta faz o argumento mais original. Em teoria, uma ação é precificada só pelos fluxos de caixa que promete, e qualquer desvio causado por oferta e demanda de papel seria arbitrado por maximizadores de lucro. Mas o mundo real é feito de "maximizadores de lucro restritos" (*constrained profit maximizers*): o gestor de um fundo de ações americanas não pode comprar dívida argentina, não pode zerar a exposição a ações (a regra de nomenclatura da SEC o obriga a manter 80% em ações americanas) e, mesmo dentro do mandato, é limitado por *tracking error* (o quanto seu retorno pode se descolar do índice de referência) e por limites de posição relativos ao *benchmark*. A consequência é dupla: mercados segmentados — com correlação entre ações semelhantes subindo e correlação entre ações dessemelhantes parada em zero, porque ninguém mais compara Microsoft com Exxon — e *benchmarks* importando "de forma bastante irrazoável". O *active share* (parcela do fundo que difere do índice) dos fundos ativos americanos caiu de cerca de 80 centavos por dólar nos anos 1980 para 60 centavos em 2025; somado ao fato de que mais de 50% dos ativos em ações estão em veículos passivos (menos de 10% em 1980), a GMO estima que apenas 30 centavos de cada dólar alocado em ações é usado para comprar e vender de forma oportunista.
+
+Terceiro elo: essa inelasticidade é mensurável. Estudos de choques exógenos de demanda em ações individuais — inclusão em índice, vendas forçadas por fundos — mostram que 1% a mais de demanda eleva o preço em cerca de 1%. Para a GMO, isso já é anômalo ("ações não deveriam ser negociadas como frutos do mar", dado o número de substitutos), mas o efeito cresce quando se sai da ação individual para o mercado agregado, que tem poucos substitutos e quase nenhum alocador disposto a mudar de classe de ativo: 83% dos cerca de US$ 30 trilhões em fundos mútuos e ETFs estão em veículos que só negociam ações americanas, apenas 3% dos fundos com ações (excluindo *target-date*) podem trocar de classe, só cerca de 10% das contas de 401(k) e IRA — que somam US$ 45 trilhões — alteram a alocação em um dado ano, e o fundo soberano norueguês mudou sua meta de ações duas vezes em vinte anos. A estimativa da GMO, misturando fluxos quase exógenos com a literatura acadêmica (Gabaix e Koijen, 2020, colocam o multiplicador em cerca de 5x), é que cada 1% de aumento na oferta de ações reduz o valor do mercado em cerca de 4% nos doze meses seguintes. O Exhibit 2 da carta mostra o mesmo coeficiente para IPOs como fração do mercado, controlando por *earnings yield* (lucro sobre preço) via Frisch–Waugh–Lovell — ou seja, o efeito da oferta segue de pé mesmo descontando o nível de valuation.
+
+Quarto elo: a oferta que vem. Em 12 de junho de 2027 vence o último lote do *lockup* (período contratual em que acionistas pré-IPO não podem vender) de cerca de US$ 2 trilhões em ações da SpaceX. A GMO aposta que a maioria dos acionistas não-Elon vende — funcionários com hipotecas e dívida colateralizada em ações, fundações e *endowments* sem liquidez — e que os compradores, sem caixa ocioso, precisam vender outras ações líquidas para pagar. Se os vendedores da SpaceX recomprassem ações com o dinheiro, seria uma troca neutra; mas se pagam impostos, quitam dívidas, montam veículos de *venture capital* ou "compram caviar", a oferta pública líquida sobe. As vendas não-Elon da SpaceX sozinhas superam 1% do mercado americano; OpenAI (~US$ 1,5 trilhão) e Anthropic (~US$ 2 trilhões) juntas valem cerca de 5% da capitalização investível; e, pela primeira vez em vinte anos com a breve exceção da crise de 2008, há diluição líquida — emissões superando recompras — porque os *hyperscalers* (as gigantes de nuvem e IA) estão financiando o *capex*. O agregado vai de oferta encolhendo cerca de 1% ao ano para oferta crescendo perto de 5%, se não mais.
+
+A conclusão aritmética: com multiplicador 4x, retorno cerca de 20% abaixo da média (a média real sendo aproximadamente 6%) em 12 a 18 meses, só pelo vento contrário da oferta — antes de qualquer consideração sobre valuation, margens ou geopolítica.
+
+**Posicionamento e números.** A carta é de alocação de ativos e não expõe posições nem retornos. Os autores dizem que a tese é "harmless enough to our strategies" para ser compartilhada, o que sinaliza que a GMO não se vê como arbitradora dessa dinâmica, e sim como beneficiária de uma mudança na relação risco-retorno do mercado agregado. Os números relevantes já estão no mecanismo; destaco: IPOs atingiram cerca de 5% da capitalização total em 1999–2000, e a GMO observa que "não é preciso muita oferta nova para sobrecarregar o mercado".
+
+**O que mudou.** A carta não traz comparação explícita com a posição anterior da casa. O único marco temporal é a auto-avaliação: a GMO se considera "muito melhor em identificar bolhas do que em cravar seus topos", e apresenta esta tese como uma exceção — o raro caso em que acredita conhecer o catalisador.
+
+**Riscos.** A própria GMO os nomeia. Primeiro, a demanda pode crescer junto com a oferta e o mercado "evitar tropeçar nos próximos trimestres" — mas os autores argumentam que isso só alimenta o ciclo Ponzi: uma rodada absorvida encoraja mais emissão, até a capacidade de absorção estourar. Segundo, o efeito de *lockup* costuma ser pequeno no dia do vencimento porque nem tudo é vendido de uma vez e porque vendedores a descoberto pré-posicionam sinteticamente a oferta; a GMO admite isso, mas sustenta que o pré-posicionamento é fácil na ação individual e difícil no mercado agregado. Terceiro, um risco não dito mas implícito: o multiplicador de 4x é uma estimativa "blended" de fluxos quase exógenos — se o multiplicador real for menor, ou se os vendedores da SpaceX de fato reciclarem o dinheiro em ações, a conta de 20% se desfaz. A tese quebra, em resumo, se os compradores marginais de ações americanas se mostrarem mais elásticos do que os dados de 401(k) e fundos soberanos sugerem — ou se as IPOs de OpenAI e Anthropic não ocorrerem nos próximos doze meses.
+
+**Leitura para o Brasil.** Interpretação nossa. O canal mais direto é o fluxo estrangeiro em bolsa: o próprio mecanismo da GMO diz que fundos globais — não apenas os exclusivamente americanos — precisam vender "ações líquidas" para financiar compras de SpaceX, e ativos de emergentes são candidatos naturais a fonte de caixa quando o gestor busca liquidez sem sair da classe de ativo. Um segundo canal, mais ambíguo, é o de rotação: se a queda for concentrada nas *darlings* de IA e o resto do mundo não tiver emitido papel, a tese da GMO é, no limite, favorável a mercados sem diluição — mas a carta é sobre o agregado americano e não faz essa distinção, e o histórico de 2000 que ela cita foi de correção generalizada. Um terceiro canal é o dólar e o prêmio de risco de emergentes numa correção de 20% ou mais no S&P 500, que historicamente aperta condições financeiras para o Brasil independentemente da causa. Não há canal relevante por juros ou commodities nesta carta.
+
+## Bridgewater — internacional
+
+**A tese em uma frase.** O preço do carbono, ainda baixo e cobrindo cerca de 30% das emissões globais, já reorganiza custos e decisões de investimento da indústria pesada — e o mecanismo de ajuste de fronteira europeu (CBAM) transformou um risco regional num risco global que a maioria dos investidores subestima.
+
+**O mecanismo.** Antes de dissecá-lo, uma observação de método: este é um documento de pesquisa, não uma carta de fundo. Não há tese posicionada; o próprio disclaimer avisa que as posições reais da Bridgewater "podem, e frequentemente irão, divergir" das conclusões. O que a peça oferece é um arcabouço para medir exposição — e a ausência de posição sugere que a casa trata o tema como fator de risco a ser mapeado em qualquer carteira, não como aposta direcional de um mandato específico.
+
+O mecanismo tem dois canais, explicitamente separados pelos autores.
+
+Canal um: custo financeiro direto. Esquemas de precificação vêm em duas formas — imposto sobre carbono (preço fixo por tonelada) e sistemas de comércio de emissões (ETS, em que o governo fixa a oferta de permissões e o mercado fixa o preço). A cobertura é de cerca de 30% das emissões globais, liderada por China (cerca de 15% das emissões globais, mas a preços muito baixos) e pela União Europeia. O custo para as empresas sobe por três vias: preço mais alto, cobertura mais ampla (de 30% para cerca de 35% até 2030 só com políticas já anunciadas) e retirada gradual das permissões gratuitas (*free allowances*). Na UE, energia, aviação e navegação pagarão integralmente antes de 2030; cimento e alumínio receberão cerca de metade do que recebiam. Mesmo sem atingir *net zero*, a Bridgewater estima pressão inicial equivalente a 2% a 5% dos lucros corporativos globais — "grande parte provavelmente compensada de alguma forma", mas com um cone de resultados largo. A compensação depende de dois amortecedores: repasse ao consumidor (*pass-through*) e redução de emissões. Ambos têm custo: repassar pode perder participação de mercado, sobretudo se o concorrente tem carga de carbono menor; reduzir exige *capex* pesado antecipado. O exemplo é preciso: armadores repassam o custo como sobretaxa no frete; companhias aéreas em rotas competitivas não conseguem e absorvem.
+
+Canal dois: decisão de investimento antecipando a política. Aqui o argumento é que a expectativa de preço futuro já muda o presente. Preço de carbono altera a economia relativa de tecnologias — renovável versus fóssil na geração, forno elétrico a arco versus alto-forno no aço, hidrogênio verde versus cinza. Na UE, o investimento privado em mitigação climática subiu a quase 0,8% do PIB (mais de 5% do investimento empresarial total), crescendo a cada fase de aperto do ETS. Na China, a consolidação do mercado nacional em 2021 acelerou a migração do alumínio de regiões a carvão (Shandong) para fundições hidrelétricas (Yunnan) e eólico-solares (Mongólia Interior) — e a Bridgewater observa que, embora alumínio só tenha entrado no ETS em 2025, o grosso do seu custo é energia, precificada desde 2021. No aço, adicionado em 2025, as regras de "dual carbon" de abril tornaram autoridades locais pessoalmente responsáveis pelas metas, adicionando fricção de aprovação a projetos fósseis; a capacidade nova migra na margem para arco elétrico e ferro de redução direta.
+
+O amplificador é o CBAM (Carbon Border Adjustment Mechanism), uma "tarifa" de carbono sobre importações de aço, alumínio e fertilizantes, criada para evitar *carbon leakage* — a fuga de produção emissora para jurisdições frouxas com reimportação barata. Cobre hoje cerca de 3% das importações extra-UE, podendo chegar a 17% se estendido a automóveis e eletrodomésticos. O ponto de política econômica é que o carbono virou instrumento de "mercantilismo moderno": a carta compila von der Leyen ("a Europa deve proteger suas indústrias"), Lakshmi Mittal (a competitividade europeia em aço está caindo porque "só a Europa tem custo de carbono"), Mark Carney e Ramaphosa, todos enquadrando precificação como competitividade, não como clima. É isso que explica a resiliência do instrumento enquanto subsídios, mandatos de veículos elétricos e metas de eliminação de fósseis são diluídos — e explica a reação de Índia e Vietnã, que criam mercados domésticos para "cobrar o imposto em casa" em vez de pagá-lo a Bruxelas.
+
+**Posicionamento e números.** Sem posições. Os números que ancoram a análise: custo social do carbono acima de US$ 200/tCO2e (Capitals Coalition), muito acima dos preços vigentes; um preço de US$ 100/t equivale a US$ 43 no barril de petróleo (Banco Mundial); pressão de 2% a 5% dos lucros globais nos cenários abaixo de *net zero*. O evento empírico central é fevereiro: quando a Comissão sinalizou estender permissões gratuitas à indústria pesada, cimenteiras que já haviam investido em descarbonização (Heidelberg Materials, Holcim, Buzzi) caíram e químicas que enfrentariam custos altos (BASF, Brenntag, Wacker) subiram; uma segunda rodada, quando Alemanha e Itália pediram reforma mais ampla do ETS e do mercado elétrico, estendeu o movimento a geradoras limpas, que caíram e depois estabilizaram quando ficou claro que mudanças de curto prazo seriam limitadas. A Bridgewater também divulga a ferramenta desenvolvida com a Capitals Coalition (XLTP XTRC no terminal Bloomberg), que ajusta demonstrações financeiras por custos futuros de carbono e compara pares.
+
+**O que mudou.** A peça não compara com publicações anteriores da casa. O único vetor temporal explícito é a ampliação do risco de regional para global "no início deste ano", com a entrada em vigor do CBAM, e a observação de que o cone de incertezas política "continua a se alargar" com o avanço eleitoral de AfD na Alemanha e Reunião Nacional na França.
+
+**Riscos.** A Bridgewater insiste que o risco é bidirecional — e este é o insight mais útil. Quem já descarbonizou perde se a política afrouxar ou atrasar; quem emite muito perde se ela seguir ou acelerar. A tese "quebra" no sentido de que a exposição a ser gerida não é o carbono em si, mas a probabilidade da política: "intensidade de carbono sozinha é uma medida incompleta de risco financeiro", porque ignora margens e capacidade de repasse. Condições que enfraquecem o argumento central: reversão do CBAM por contestação na OMC (a China promete "todas as medidas necessárias"), vitória de plataformas anti-custo de energia na Europa, ou compressão de preços de carbono por excesso de permissões. Condições que o reforçam: UK CBAM em 2027, fase obrigatória do CORSIA (esquema de aviação internacional) em 2027, o Foreign Pollution Fee Act americano de 2025 e a discussão na IMO para navegação.
+
+**Leitura para o Brasil.** Interpretação nossa. O canal é o de exportadores industriais para a Europa e, por extensão, o prêmio relativo entre siderúrgicas e produtoras de alumínio de matrizes elétricas distintas. Aço, alumínio e fertilizantes — os três setores já cobertos pelo CBAM — são todos relevantes na pauta ou na cadeia de custos brasileira. A lógica da Bridgewater sobre a China (alumínio migrando para regiões hidrelétricas porque o custo é sobretudo energia) se aplica em espelho: produtores com matriz elétrica predominantemente renovável tendem a aparecer como vencedores relativos quando a fronteira europeia precifica a intensidade de carbono — mas isso só se paga se a metodologia do CBAM reconhecer a origem da eletricidade, ponto que a carta não detalha. Pelo lado de commodities, um preço de carbono equivalente a US$ 43 no barril é vento contrário estrutural para petróleo, embora a Bridgewater note que *upstream* de óleo e gás e agricultura seguem fora da precificação na maior parte do mundo — o que, para o Brasil, isola o agronegócio deste risco por ora. Sem canal relevante por juros ou câmbio.
+
+## O olhar de fora
+
+Sem cartas brasileiras nesta edição, a ponte é entre as duas casas — e ela é mais sólida do que os temas sugerem.
+
+A coincidência de fundo é epistemológica: ambas rejeitam, com dados, a hipótese de que preços refletem só fundamentos. A GMO mostra que a oferta de papel move o mercado agregado em 4 para 1 porque quase ninguém pode ou quer trocar de classe de ativo. A Bridgewater mostra que a expectativa de uma regra ainda não implementada já realoca *capex* de aço e alumínio entre províncias chinesas. Em ambas, a variável que move o preço é institucional — mandatos, *benchmarks*, regulação — e não uma revisão de fluxo de caixa. Para o leitor brasileiro, acostumado a discutir fiscal e Selic, o lembrete é que o arcabouço de restrições dos players importa tanto quanto a macro.
+
+A segunda coincidência é sobre *capex* financiado por capital externo. A GMO vê os *hyperscalers* emitindo ações para construir capacidade de IA cuja demanda, aposta ela, decepcionará. A Bridgewater vê a Europa induzindo investimento em mitigação de quase 0,8% do PIB com uma regra que ainda dá permissões gratuitas a metade dos setores difíceis. Nos dois casos, há um descolamento temporal entre o investimento real e a confirmação de que ele valia a pena — e nos dois casos o texto sugere que o mercado precifica a mudança antes do fundamento aparecer.
+
+A divergência é de horizonte e de natureza da aposta. A GMO oferece um catalisador datado e uma direção: para baixo, em 12 a 18 meses, com magnitude estimada. A Bridgewater oferece um mapa de risco sem direção — vencedores e perdedores em ambos os sentidos, dependendo de eleições europeias e de disputas na OMC. Vale notar, como leitura nossa, que os dois mecanismos podem se reforçar: uma correção de 20% no mercado americano que restrinja a captação de *capex*, como a GMO prevê, alcançaria também os projetos de descarbonização que a Bridgewater descreve como dependentes de investimento antecipado pesado. Onde a GMO vê o fim do ciclo de oferta de ações, a Bridgewater vê apenas o começo do ciclo de oferta de regulação.
+
+## Exercício da semana: quando o S&P 500 entra em correção, quanto o Brasil cai junto?
+
+### Por que isto importa esta semana
+
+A carta da GMO projeta um vento contrário de cerca de 20 pontos percentuais sobre o S&P 500 em 12 a 18 meses, e a síntese lê o terceiro canal para o Brasil assim: "uma correção de 20% ou mais no S&P 500 historicamente aperta condições financeiras para o Brasil independentemente da causa". Essa frase esconde uma hipótese testável — a de que a relação entre bolsa americana e ativos brasileiros não é a mesma em mercado calmo e em mercado em correção. O exercício mede exatamente isso: o beta do Brasil ao S&P 500 separado por regime.
+
+### O conceito
+
+Um beta estimado numa amostra longa é uma média de dois mundos. No mundo calmo, o fluxo para emergentes responde a diferencial de juros, commodities e histórias locais; a correlação com Nova York é modesta. No mundo em correção, o mecanismo que a GMO descreve entra em cena: gestores que precisam levantar caixa vendem o que é líquido, não o que é caro, e ativos brasileiros — bolsa e real — são fonte de liquidez de um alocador global. O resultado é que a sensibilidade ao S&P 500 não é um número, é uma função do estado do mercado.
+
+Chamar isso de *regime* é dizer que o processo gerador dos retornos muda de parâmetros de forma persistente, não aleatória semana a semana. A abordagem mais sofisticada estima os estados sem observá-los (modelos de Markov ocultos, que a casa já tratou em março de 2025). Aqui usamos uma classificação observável e transparente, que qualquer leitor pode auditar: o S&P 500 está em correção quando negocia mais de 10% abaixo da sua máxima dos últimos 252 pregões. É a definição mais próxima da linguagem da própria carta, que fala em "correção de 20% ou mais" — o limiar de 10% garante amostra suficiente para estimar algo (2008–09, 2011, 2015–16, 2018, 2020, 2022 e o que mais o dado trouxer até hoje).
+
+Com o regime definido, estimamos três coisas: o beta do Ibovespa medido em dólar ao S&P 500 em cada regime (o canal bolsa visto pelo estrangeiro), o beta do câmbio USD/BRL ao S&P 500 em cada regime (o canal moeda) e o beta móvel de 26 semanas, para ver se os saltos do beta coincidem com as janelas de correção. Se a leitura da síntese estiver certa, o beta no regime de correção é claramente maior que no regime calmo — e a conta "20% no S&P" vira algo maior que 20% para o Ibovespa em dólar.
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Os preços vêm do Yahoo Finance via `yfinance`: `^GSPC` (S&P 500), `^BVSP` (Ibovespa em reais) e `BRL=X` (dólar em reais). O Ibovespa em dólar é calculado dividindo um pelo outro.
+
+```python
+# Exercício: beta do Brasil ao S&P 500 condicionado ao regime do próprio S&P 500.
+# Regime "correção" = S&P 500 mais de 10% abaixo da máxima móvel de 252 pregões.
+# Dependências: pandas, numpy, matplotlib, yfinance. Roda em terminal, sem interação.
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")                      # backend sem janela: nunca plt.show()
+import matplotlib.pyplot as plt
+import yfinance as yf
+
+INICIO = "2004-01-01"                      # BRL=X no Yahoo começa no fim de 2003
+LIMIAR_DD = -0.10                          # correção: drawdown abaixo de -10%
+JANELA_MAX = 252                           # pregões para a máxima móvel
+JANELA_BETA = 26                           # semanas para o beta móvel
+HOJE = pd.Timestamp.today().normalize()
+
+def baixar(ticker):
+    """Baixa fechamento ajustado e aplica teste de frescor (última data < 10 dias)."""
+    df = yf.download(ticker, start=INICIO, progress=False,
+                     auto_adjust=True, timeout=30)
+    if df is None or df.empty:
+        raise RuntimeError(f"yfinance devolveu vazio para {ticker}")
+    close = df["Close"]
+    if isinstance(close, pd.DataFrame):    # versões novas devolvem MultiIndex
+        close = close.iloc[:, 0]
+    close = close.dropna()
+    close.index = pd.to_datetime(close.index)
+    if close.index.tz is not None:
+        close.index = close.index.tz_localize(None)
+    atraso = (HOJE - close.index[-1]).days
+    if atraso > 10:
+        raise RuntimeError(f"{ticker}: última observação em {close.index[-1].date()} "
+                           f"({atraso} dias atrás). Fonte parada — não plotar.")
+    print(f"{ticker}: {len(close)} obs, {close.index[0].date()} a {close.index[-1].date()}")
+    return close.rename(ticker)
+
+spx  = baixar("^GSPC")
+ibov = baixar("^BVSP")
+brl  = baixar("BRL=X")
+
+# Alinhamento diário: feriados descasados são preenchidos com o último preço
+# (limite de 5 pregões). As únicas linhas descartadas são as anteriores ao início
+# da série mais curta — imprimimos a contagem para não perder amostra sem perceber.
+diario = pd.concat([spx, ibov, brl], axis=1).sort_index().ffill(limit=5)
+antes = len(diario)
+diario = diario.dropna(how="any")
+print(f"Linhas descartadas no alinhamento diário: {antes - len(diario)} "
+      f"(início efetivo {diario.index[0].date()})")
+
+# Drawdown diário do S&P 500 contra a máxima de 252 pregões
+dd_diario = diario["^GSPC"] / diario["^GSPC"].rolling(JANELA_MAX, min_periods=126).max() - 1
+
+# Frequência semanal (sexta-feira) para reduzir o descasamento de horário de fechamento
+sem = diario.resample("W-FRI").last()
+dd  = dd_diario.resample("W-FRI").last()
+sem["IBOV_USD"] = sem["^BVSP"] / sem["BRL=X"]
+
+ret = pd.DataFrame({
+    "spx":  np.log(sem["^GSPC"]).diff(),
+    "ibov": np.log(sem["IBOV_USD"]).diff(),
+    "brl":  np.log(sem["BRL=X"]).diff(),   # positivo = dólar sobe / real cai
+})
+# Regime medido no fechamento da semana ANTERIOR: classificamos o estado em que o
+# mercado entra na semana, não o estado que a própria semana produz.
+ret["correcao"] = (dd.shift(1) < LIMIAR_DD)
+ret = ret.dropna(subset=["spx", "ibov", "brl"])   # só a primeira linha (diff) some
+print(f"Semanas na amostra: {len(ret)} | em correção: {int(ret['correcao'].sum())} "
+      f"| calmas: {int((~ret['correcao']).sum())}")
+
+def beta_corr(x, y):
+    """Beta por mínimos quadrados e correlação."""
+    b, a = np.polyfit(x, y, 1)
+    return b, a, np.corrcoef(x, y)[0, 1], len(x)
+
+res = {}
+for nome, mask in [("calmo", ~ret["correcao"]), ("correção", ret["correcao"])]:
+    sub = ret[mask]
+    res[nome] = {
+        "ibov": beta_corr(sub["spx"], sub["ibov"]),
+        "brl":  beta_corr(sub["spx"], sub["brl"]),
+    }
+
+# Beta móvel de 26 semanas do Ibovespa em dólar ao S&P 500
+beta_movel = (ret["spx"].rolling(JANELA_BETA).cov(ret["ibov"])
+              / ret["spx"].rolling(JANELA_BETA).var())
+beta_movel_validos = beta_movel.dropna()
+
+# Estado de hoje
+dd_hoje = float(dd_diario.dropna().iloc[-1])
+regime_hoje = "correção" if dd_hoje < LIMIAR_DD else "calmo"
+beta_hoje = float(beta_movel_validos.iloc[-1])
+data_beta_hoje = beta_movel_validos.index[-1]
+
+b_calmo, _, c_calmo, n_calmo = res["calmo"]["ibov"]
+b_corr,  _, c_corr,  n_corr  = res["correção"]["ibov"]
+bfx_calmo = res["calmo"]["brl"][0]
+bfx_corr  = res["correção"]["brl"][0]
+CHOQUE_GMO = -0.20                          # vento contrário de ~20 pp da GMO
+impl_calmo = b_calmo * CHOQUE_GMO
+impl_corr  = b_corr * CHOQUE_GMO
+
+print(f"Beta Ibov(USD) ao S&P: calmo {b_calmo:.2f} (n={n_calmo}) | "
+      f"correção {b_corr:.2f} (n={n_corr})")
+print(f"Beta USD/BRL ao S&P: calmo {bfx_calmo:.2f} | correção {bfx_corr:.2f}")
+print(f"Hoje: drawdown S&P {dd_hoje:.1%} -> regime {regime_hoje}; "
+      f"beta móvel 26 sem. {beta_hoje:.2f} (em {data_beta_hoje.date()})")
+print(f"Ibov em USD implícito para S&P -20%: calmo {impl_calmo:.1%} | correção {impl_corr:.1%}")
+
+# ---------------------------------------------------------------- Gráfico
+fig = plt.figure(figsize=(12, 12))
+gs = fig.add_gridspec(3, 1, height_ratios=[1, 1, 1.25], hspace=0.35)
+ax1 = fig.add_subplot(gs[0]); ax2 = fig.add_subplot(gs[1], sharex=ax1); ax3 = fig.add_subplot(gs[2])
+
+def sombrear(ax, mask):
+    ax.fill_between(mask.index, 0, 1, where=mask.values,
+                    transform=ax.get_xaxis_transform(),
+                    color="firebrick", alpha=0.15, linewidth=0,
+                    label="Regime de correção (S&P > 10% abaixo da máx. 252 pregões)")
+
+# Painel 1: S&P 500 e regimes
+sombrear(ax1, ret["correcao"])
+ax1.plot(sem.index, sem["^GSPC"], color="black", lw=1.2, label="S&P 500 (fechamento semanal)")
+ax1.set_yscale("log")
+ax1.set_ylabel("S&P 500 (pontos, escala log)")
+ax1.set_title("Regimes do S&P 500: drawdown contra a máxima móvel de 252 pregões", loc="left")
+ax1.legend(loc="upper left", fontsize=9)
+ax1.annotate(f"Hoje: drawdown {dd_hoje:.1%} → regime {regime_hoje}",
+             xy=(sem.index[-1], sem["^GSPC"].iloc[-1]), xytext=(-180, -30),
+             textcoords="offset points", fontsize=9,
+             arrowprops=dict(arrowstyle="->", color="gray"))
+
+# Painel 2: beta móvel e betas condicionais
+sombrear(ax2, ret["correcao"])
+ax2.plot(beta_movel_validos.index, beta_movel_validos, color="navy", lw=1.2,
+         label=f"Beta móvel {JANELA_BETA} sem. do Ibovespa em US$ ao S&P 500")
+ax2.axhline(b_calmo, color="steelblue", ls="--", lw=1,
+            label=f"Beta em regime calmo: {b_calmo:.2f} (n={n_calmo} sem.)")
+ax2.axhline(b_corr, color="firebrick", ls="--", lw=1,
+            label=f"Beta em regime de correção: {b_corr:.2f} (n={n_corr} sem.)")
+ax2.axhline(1.0, color="gray", lw=0.8)
+ax2.scatter([data_beta_hoje], [beta_hoje], color="navy", zorder=5)
+ax2.annotate(f"Hoje: {beta_hoje:.2f}", xy=(data_beta_hoje, beta_hoje),
+             xytext=(-60, 15), textcoords="offset points", fontsize=9)
+ax2.set_ylabel("Beta (variação do Ibov em US$ por 1% do S&P 500)")
+ax2.set_title("O beta do Brasil não é um número: é uma função do regime", loc="left")
+ax2.legend(loc="upper left", fontsize=8)
+
+# Painel 3: dispersão semanal por regime, com retas ajustadas
+for nome, cor in [("calmo", "steelblue"), ("correção", "firebrick")]:
+    mask = ret["correcao"] if nome == "correção" else ~ret["correcao"]
+    sub = ret[mask]
+    b, a, c, n = res[nome]["ibov"]
+    ax3.scatter(sub["spx"] * 100, sub["ibov"] * 100, s=8, alpha=0.4, color=cor)
+    xx = np.linspace(sub["spx"].min(), sub["spx"].max(), 50)
+    ax3.plot(xx * 100, (a + b * xx) * 100, color=cor, lw=2,
+             label=f"{nome}: beta {b:.2f}, correlação {c:.2f}, n={n} semanas")
+ax3.axhline(0, color="gray", lw=0.6); ax3.axvline(0, color="gray", lw=0.6)
+ax3.set_xlabel("Retorno semanal do S&P 500 (%)")
+ax3.set_ylabel("Retorno semanal do Ibovespa em US$ (%)")
+ax3.set_title("Retornos semanais por regime e reta de mínimos quadrados", loc="left")
+ax3.legend(loc="upper left", fontsize=9)
+texto = (f"Canal câmbio (beta do USD/BRL ao S&P):\n"
+         f"  calmo {bfx_calmo:+.2f} | correção {bfx_corr:+.2f}\n"
+         f"Choque GMO de {CHOQUE_GMO:.0%} no S&P implica, para o Ibov em US$:\n"
+         f"  com beta calmo {impl_calmo:.1%} | com beta de correção {impl_corr:.1%}")
+ax3.text(0.98, 0.04, texto, transform=ax3.transAxes, fontsize=9, ha="right", va="bottom",
+         family="monospace", bbox=dict(boxstyle="round", fc="white", ec="gray"))
+
+fig.suptitle(f"Beta do Brasil ao S&P 500 por regime — semanal, {ret.index[0].date()} a "
+             f"{ret.index[-1].date()}", x=0.01, ha="left", fontsize=13)
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("Gráfico salvo em grafico-exercicio.png")
+```
+
+![Três painéis, dados semanais (fechamento de sexta-feira) desde o início da série do dólar no Yahoo, em 2004, até a última sexta-feira disponível. Painel superior: S&P 500 em escala logarítmica, com faixas vermelhas nas semanas classificadas como regime de correção — o índice fechou a semana anterior mais de 10% abaixo da sua máxima dos últimos 252 pregões; a anotação mostra o drawdown de hoje e o regime em vigor. Painel do meio: beta móvel de 26 semanas do Ibovespa medido em dólar ao S&P 500 (linha azul), as mesmas faixas de regime, e duas linhas tracejadas horizontais com o beta estimado em toda a amostra de semanas calmas (azul) e de semanas em correção (vermelho), com o número de semanas de cada regime na legenda; o ponto marca o beta móvel de hoje. Painel inferior: dispersão dos retornos semanais do Ibovespa em dólar contra os do S&P 500, coloridos por regime, com a reta de mínimos quadrados de cada regime; a legenda traz beta, correlação e número de semanas, e a caixa de texto traz o beta do USD/BRL ao S&P 500 em cada regime e a queda do Ibovespa em dólar implícita por um choque de -20% no S&P 500 usando cada um dos dois betas.](grafico-exercicio.png)
+
+### Como o gráfico foi construído
+
+Retornos semanais, não diários, porque a B3 fecha antes de Nova York e o beta diário de um ativo brasileiro ao S&P 500 sai subestimado pelo descasamento de horário; em janela semanal o problema quase desaparece. O Ibovespa entra em dólar (`^BVSP` dividido por `BRL=X`) porque é assim que o alocador global do mecanismo da GMO enxerga a posição — o beta em reais mistura o canal bolsa com o canal câmbio, que o exercício quer separar. O regime é classificado pelo drawdown do S&P 500 no fechamento da semana *anterior*, para que a semana não seja rotulada pelo próprio movimento que estamos tentando explicar; o limiar de 10% contra a máxima de 252 pregões é arbitrário, mas é o menor que gera episódios distintos o bastante para a estimativa não depender de 2008 e 2020 apenas. Feriados descasados entre os três mercados são preenchidos com o último preço (limite de cinco pregões), e o script imprime quantas linhas o alinhamento descartou.
+
+### Como ler o resultado
+
+O número que sustenta a leitura da síntese é a diferença entre as duas linhas tracejadas do painel do meio, repetida nas retas do painel inferior. Se o beta em correção supera o beta em regime calmo por uma margem clara — três décimos ou mais — a relação Brasil–S&P 500 é não linear no sentido que importa para a tese da GMO: o Brasil paga mais do que a média histórica sugere justamente quando o choque de oferta de papel se materializa. Nesse caso a conta certa para o Ibovespa em dólar não é "20% vezes o beta de sempre", e sim o valor da caixa de texto calculado com o beta de correção. O sinal do beta do câmbio na mesma caixa mostra qual parte disso vem da moeda: um beta do USD/BRL negativo e maior em módulo no regime de correção significa que o real amplifica a queda para o investidor em dólar, o que é exatamente o "aperto de condições financeiras independente da causa" da síntese.
+
+Dois resultados mudariam a conclusão. Se os dois betas saírem próximos, a noção de regime não acrescenta nada aqui e o canal para o Brasil é linear — o vento contrário de 20 pontos da GMO se traduz por um único número. Se o beta em correção sair abaixo de 1 (ou abaixo do beta calmo), o Brasil teria funcionado historicamente como diversificador em quedas americanas, e a leitura da síntese estaria errada. Repare também no painel do meio se os picos do beta móvel caem dentro das faixas vermelhas ou pouco antes delas: quando o beta sobe antes da faixa começar, a correlação antecipa o regime, e o dado sugere que o momento de reduzir exposição ao canal é antes do drawdown de 10% ser atingido, não depois.
+
+Vale lembrar o que o exercício não faz. Ele mede sensibilidade condicional a correções passadas, de causas variadas; a GMO argumenta que a próxima correção terá uma causa específica — excesso de oferta de ações — e nada garante que a resposta do Brasil a esse tipo de choque seja a mesma da resposta a uma crise de crédito ou a uma pandemia. O beta condicional é a melhor âncora histórica disponível, não uma previsão.
+
+### Vá além
+
+Troque a definição de regime e veja se a conclusão sobrevive. Duas alternativas fáceis dentro do mesmo código: classificar as semanas pela volatilidade realizada de 21 pregões do S&P 500 acima ou abaixo da mediana histórica (regime de vol, em vez de regime de drawdown), e separar apenas as semanas em que o S&P 500 caiu para estimar um *beta de baixa* — a versão mais direta da pergunta "quanto o Brasil cai quando Nova York cai". Se os três recortes apontarem para o mesmo beta em estresse, o número é robusto; se divergirem muito, ele depende da definição e merece ser tratado como intervalo. Quem quiser deixar os dados escolherem os estados pode implementar um modelo de Markov oculto de dois regimes sobre os retornos semanais do S&P 500 apenas com `numpy` (o algoritmo de Baum-Welch cabe em cinquenta linhas) e comparar as probabilidades filtradas com as faixas vermelhas deste gráfico.
+
+## Cartas originais
+
+- **GMO — Quarterly Letter 3Q 2026 — A Catalyst for the AI Bubble Break** ([original](https://www.gmo.com/globalassets/articles/quarterly-letter/2026/gmo-quarterly-letter_3q-2026.pdf))
+- **Bridgewater — Carbon Pricing’s Impact on Global Industry Is Quietly Growing** ([original](https://www.bridgewater.com/research-and-insights/carbon-pricings-impact-on-global-industry-is-quietly-growing))

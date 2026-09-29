@@ -359,7 +359,7 @@ gestoras:
     regiao: internacional
     periodicidade: trimestral
     formato: pdf
-    ultima_carta: {principal: 'https://www.gmo.com/globalassets/articles/quarterly-letter/2026/gmo-quarterly-letter_2q-2026.pdf'}
+    ultima_carta: {principal: 'https://www.gmo.com/globalassets/articles/quarterly-letter/2026/gmo-quarterly-letter_3q-2026.pdf'}
     notas: >
       Só a Quarterly Letter (Grantham/Inker); os "Insights" avulsos ficam de fora.
       A biblioteca linka apenas a edição corrente, cuja página (dividida em
@@ -380,7 +380,7 @@ gestoras:
     regiao: internacional
     periodicidade: irregular
     formato: html
-    ultima_carta: {principal: 'https://www.bridgewater.com/greg-jensen-and-nir-bar-dea-on-the-importance-of-ai-regulation'}
+    ultima_carta: {principal: 'https://www.bridgewater.com/research-and-insights/carbon-pricings-impact-on-global-industry-is-quietly-growing'}
     notas: >
       A listagem NÃO é cronológica e mistura artigos com vídeos, podcasts e páginas
       temáticas. Cada cartão <ps-promo> declara data-content-type (article | video |
