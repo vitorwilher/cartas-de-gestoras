@@ -624,7 +624,7 @@ saíram do papel e o pipeline **entrega sem intervenção humana**.
 
 | Peça | Onde |
 |---|---|
-| Landing de captura | `analisemacro.com.br/projetos/cartas-das-gestoras/` |
+| Landing de captura | `analisemacro.com.br/conteudo/cartas-das-gestoras/` (a `/projetos/` responde 301 para ela) |
 | Página de obrigado | `.../cartas-das-gestoras-obrigado/` |
 | Carrossel publicado | `instagram.com/p/DdFcVNRla6q/` |
 | PDF (URL fixa) | `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf` |
@@ -670,6 +670,19 @@ normal do pipeline, não falha.
 - **Publicar o produto no Woo** e testar o carrinho ao vivo antes de vender
 - A tag tem poucos leads reais: os primeiros envios alcançam pouca gente. É
   esperado — é a landing que precisa acumular
+
+## O workshop pago (01/10/2026)
+
+Decisão do Vitor: a síntese segue **gratuita** (não estamos vendendo a assinatura);
+o que se cobra é o **workshop "Engenharia de IA para Gestores de Recursos"**, que
+abre este pipeline peça por peça. Tudo vive em
+`../ROI_Diagnostico/cursos/imersoes/engenharia-ia-gestores-recursos/` — o README de
+lá tem ids, estado e pendências. Em resumo: slides e público prontos; curso
+LearnDash 73259, produto Woo 73260 e landing 79329 em **rascunho**; ponte do
+formulário `workshopgestores` no Code Snippets **id 14** (tags 24185325 + 22406993).
+
+⚠️ Mudou algo relevante aqui (armadilha nova, canal novo)? O deck conta esta
+história — `slides/workshop/slides.qmd` e `diagramas/diagramas.js` de lá.
 
 ---
 

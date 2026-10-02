@@ -100,7 +100,8 @@ def dados_do_exercicio() -> dict:
     # O exercício é reescrito a cada edição, então o comentário que abre a seção
     # de gráfico muda de texto. Cortamos no primeiro marcador que existir — e, na
     # falta de todos, no primeiro `plt.subplots`, que é onde a paisagem começa.
-    for marca in ("# 5. Gráfico", "# ---- Gráfico", "# --- Gráfico",
+    for marca in ("# ---------------------------------------------------------------- Gráfico",
+                  "# 5. Gráfico", "# ---- Gráfico", "# --- Gráfico",
                   "# Gráfico", "fig, ", "plt.subplots"):
         if marca in codigo:
             codigo = codigo[:codigo.index(marca)]
@@ -121,8 +122,11 @@ def dados_do_exercicio() -> dict:
     # valor de hoje só existia como `ult["corr"]`, campo de uma Series.
     universais = {
         "valor_hoje": ("dr_hoje", "atual_bps", "atual", "inclinacao_atual", "valor_hoje",
-                       "ult['corr']"),
-        "percentil": ("pct_hoje", "percentil", "percentil_hist", "pct_corr"),
+                       "ult['corr']", "beta_hoje"),
+        "percentil": ("pct_hoje", "percentil", "percentil_hist", "pct_corr",
+                      # 29/09: o exercício não calcula percentil; derivamos o do
+                      # beta móvel de hoje contra a própria série.
+                      "(beta_movel_validos < beta_hoje).mean() * 100"),
     }
     dados = {k: v for k, v in ns.items() if not k.startswith("__")}
     faltando = []
@@ -160,120 +164,158 @@ def _eixo_virgula(ax, casas: int = 1):
     ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.{casas}f}".replace(".", ",")))
 
 
-def grafico_sinal(d: dict) -> str:
-    """A capa: o mesmo seguro em dois momentos, com o sinal trocado.
+def _pct(x: float, casas: int = 0) -> str:
+    """Percentual com vírgula e sinal de menos tipográfico: −27%."""
+    return f"{x * 100:.{casas}f}%".replace(".", ",").replace("-", "−")
 
-    Dado real, não ilustração — mas só dois números, para a capa se ler em dois
-    segundos: o fundo de março de 2020 (o seguro pagando) e o ponto de hoje. A
-    série inteira só entra no slide 6, depois de o slide 4 dizer o que é a medida.
+
+def _num(x: float, casas: int = 2) -> str:
+    return f"{x:.{casas}f}".replace(".", ",").replace("-", "−")
+
+
+def regimes(d: dict) -> dict:
+    """Os números da edição de 29/09, lidos do namespace do exercício.
+
+    O beta por regime e o choque implícito vêm direto do exercício. O beta móvel
+    "de hoje" NÃO: o resample semanal rotula a semana corrente, ainda aberta, com a
+    sexta-feira futura — e um beta de 26 semanas com a última semana pela metade
+    oscila muito (0,09 com a semana aberta, 0,30 com a última fechada, medido em
+    01/10). Para a peça usamos só semanas encerradas.
+    """
+    import pandas as pd
+    bm = d["beta_movel_validos"]
+    fechadas = bm[bm.index <= pd.Timestamp.today().normalize()]
+    return {
+        "b_calmo": float(d["b_calmo"]), "b_corr": float(d["b_corr"]),
+        "n_calmo": int(d["n_calmo"]), "n_corr": int(d["n_corr"]),
+        "c_calmo": float(d["c_calmo"]), "c_corr": float(d["c_corr"]),
+        "fx_calmo": float(d["bfx_calmo"]), "fx_corr": float(d["bfx_corr"]),
+        "impl_calmo": float(d["impl_calmo"]), "impl_corr": float(d["impl_corr"]),
+        "dd_hoje": float(d["dd_hoje"]), "data_dd": d["dd_diario"].dropna().index[-1],
+        "beta_hoje": float(fechadas.iloc[-1]), "data_beta": fechadas.index[-1],
+        "pct_beta": float((fechadas < fechadas.iloc[-1]).mean() * 100),
+        "inicio": d["ret"].index[0],
+    }
+
+
+def grafico_choque(d: dict) -> str:
+    """A capa: o mesmo choque de −20% no S&P 500, lido por dois betas.
+
+    Só duas barras, para a capa se ler em dois segundos. É a pergunta da manchete
+    respondida com o número do exercício: −20% em Nova York vira −19% com o beta
+    de mercado calmo e −27% com o beta medido nas correções.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    corr = d["painel"]["corr"]
-    data_min, v_min = corr.idxmin(), float(corr.min())
-    v_hoje = float(d["valor_hoje"])
-    meses = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
-    rot_min = f"{meses[data_min.month - 1]}/{data_min.year}"
-
+    r = regimes(d)
+    vals = [r["impl_calmo"] * 100, r["impl_corr"] * 100]
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    xs = [0, 1]
-    vals = [v_min, v_hoje]
-    cores = [BLUE, "#C0392B"]
-    ax.bar(xs, vals, width=0.56, color=cores)
+    ax.bar([0, 1], vals, width=0.56, color=[BLUE, "#C0392B"])
     ax.axhline(0, color=NAVY, lw=2.2)
-    ax.text(0, v_min - 0.03, _virg(v_min), ha="center", va="top",
-            fontsize=40, color=BLUE, fontweight="bold")
-    ax.text(1, v_hoje + 0.03, _virg(v_hoje), ha="center", va="bottom",
-            fontsize=40, color="#C0392B", fontweight="bold")
-    ax.text(0, 0.05, f"{rot_min}\nprotegia", ha="center", va="bottom",
-            fontsize=25, color=NAVY)
-    ax.text(1, -0.05, "hoje\nanda junto", ha="center", va="top",
-            fontsize=25, color=NAVY)
+    for x, v, cor in ((0, vals[0], BLUE), (1, vals[1], "#C0392B")):
+        ax.text(x, v - 0.8, _pct(v / 100), ha="center", va="top",
+                fontsize=44, color=cor, fontweight="bold")
+    ax.text(0, 0.8, f"com o beta de\nmercado calmo ({_num(r['b_calmo'])})",
+            ha="center", va="bottom", fontsize=23, color=NAVY)
+    ax.text(1, 0.8, f"com o beta medido\nnas correções ({_num(r['b_corr'])})",
+            ha="center", va="bottom", fontsize=23, color=NAVY)
     ax.set_xlim(-0.6, 1.6)
-    ax.set_ylim(v_min - 0.2, max(v_hoje, 0.2) + 0.17)
+    ax.set_ylim(min(vals) - 7, 8)
     ax.set_xticks([])
     ax.set_yticks([])
     _limpar(ax)
     ax.grid(False)
-    _titulo(ax, "O seguro mudou de sinal",
-            "correlação Ibovespa × Treasury longo em reais · 6 meses")
+    _titulo(ax, "Se o S&P 500 cair 20%",
+            "queda implícita do Ibovespa em dólar · beta semanal desde 2004")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
 
-def grafico_correlacao(d: dict) -> str:
-    """A série inteira da correlação, com zero, mediana e o ponto de hoje.
+def grafico_dispersao(d: dict) -> str:
+    """A prova: as semanas de 2004 a hoje, separadas por regime, com a reta de cada um.
 
-    A faixa acima de zero é o assunto: é onde o Treasury deixa de proteger. O
-    ponto de hoje ganha halo e rótulo colado, como nos carrosséis anteriores.
+    Duas nuvens, duas inclinações — e o rótulo de cada reta diz o beta. O leitor
+    não precisa saber o que é mínimos quadrados para ver que a reta vermelha é
+    mais íngreme.
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    ret = d["ret"]
+    r = regimes(d)
+    fig, ax = plt.subplots(figsize=(10.8, 8.6), dpi=100)
+    for regime, cor in (("calmo", BLUE), ("correção", "#C0392B")):
+        mask = ret["correcao"] if regime == "correção" else ~ret["correcao"]
+        sub = ret[mask]
+        b, a, _, _ = d["res"][regime]["ibov"]
+        ax.scatter(sub["spx"] * 100, sub["ibov"] * 100, s=34,
+                   alpha=0.30 if regime == "calmo" else 0.55, color=cor, lw=0)
+        xx = np.linspace(-12, 8, 50) / 100
+        ax.plot(xx * 100, (a + b * xx) * 100, color=cor, lw=5)
+    ax.axhline(0, color=MUTED, lw=1.2)
+    ax.axvline(0, color=MUTED, lw=1.2)
+    ax.text(-11.5, -21.5, f"em correção\nbeta {_num(r['b_corr'])}", fontsize=28,
+            color="#C0392B", fontweight="bold", va="center", bbox=_FUNDO, zorder=6)
+    ax.text(0.8, -18.5, f"mercado calmo\nbeta {_num(r['b_calmo'])}", fontsize=28,
+            color=BLUE, fontweight="bold", va="center", bbox=_FUNDO, zorder=6)
+    ax.set_xlim(-13, 9)
+    ax.set_ylim(-28, 22)
+    _limpar(ax)
+    ax.grid(axis="both", color=LINE, lw=1.4)
+    from matplotlib.ticker import FuncFormatter
+    fmt = FuncFormatter(lambda v, _: f"{v:.0f}%".replace("-", "−"))
+    ax.set_xticks([-10, -5, 0, 5])
+    ax.set_yticks([-20, -10, 0, 10, 20])
+    ax.xaxis.set_major_formatter(fmt)
+    ax.yaxis.set_major_formatter(fmt)
+    _titulo(ax, "Em correção, o Brasil cai mais",
+            "cada ponto é uma semana · S&P 500 (→) × Ibovespa em US$ (↑)")
+    fig.tight_layout()
+    return _fig_para_uri(fig)
+
+
+def grafico_drawdown(d: dict) -> str:
+    """Onde estamos: a distância do S&P 500 até a própria máxima, com a linha dos −10%.
+
+    É o "ponto de hoje contra a história" desta edição: o regime que o exercício
+    usa é observável, e hoje ele diz "calmo". Sem este gráfico o carrossel
+    sugeriria que a correção já está em curso.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    corr = d["painel"]["corr"].dropna()
-    hoje = float(d["valor_hoje"])
-    med = float(d["med_corr"])
-
+    r = regimes(d)
+    # Semanal (sexta), como o regime do exercício: a série diária é tão densa que
+    # a linha cobria o sombreado das correções curtas (2020, 2022). Semanas sem
+    # dado (o buraco do BRL=X no Yahoo, out/2004 a mar/2006) ficam como lacuna.
+    dd = d["dd"] * 100
+    hoje_x, hoje_y = d["dd_diario"].dropna().index[-1], r["dd_hoje"] * 100
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.fill_between(corr.index, 0, corr.values, where=corr.values > 0,
-                    color="#C0392B", alpha=0.16, lw=0)
-    ax.plot(corr.index, corr.values, color=BLUE, lw=2.2)
-    ax.axhline(0, color=NAVY, lw=1.8)
-    ax.axhline(med, color=MUTED, lw=2.0, ls=(0, (5, 4)))
-    ax.text(corr.index[0], med - 0.03, f"mediana {_virg(med)}",
-            fontsize=21, color=MUTED, va="top", bbox=_FUNDO, zorder=6)
-    ax.text(corr.index[0], 0.30, "acima de zero:\nsoma risco",
-            fontsize=21, color="#C0392B", va="center")
-
-    ax.scatter([corr.index[-1]], [hoje], s=700, color="white", zorder=4)
-    ax.scatter([corr.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
-    # O rótulo vai para o vazio no alto do gráfico (2018-2023 fica abaixo de 0,3);
-    # colado ao ponto ele cobria a série ou o eixo zero.
-    ax.annotate(f"hoje: {_virg(hoje)}", xy=(corr.index[-1], hoje),
-                xytext=(corr.index[int(len(corr) * 0.45)], 0.33),
-                textcoords="data", ha="left", va="center",
+    ax.fill_between(dd.index, -10, dd.values, where=(dd.values < -10),
+                    interpolate=True, color="#C0392B", alpha=0.35, lw=0)
+    ax.plot(dd.index, dd.values, color=BLUE, lw=2.2)
+    ax.axhline(-10, color="#C0392B", lw=2.0, ls=(0, (5, 4)))
+    ax.text(dd.index[int(len(dd) * 0.42)], -11.5, "abaixo de −10%: correção",
+            fontsize=22, color="#C0392B", va="top", bbox=_FUNDO, zorder=6)
+    ax.scatter([hoje_x], [hoje_y], s=700, color="white", zorder=4)
+    ax.scatter([hoje_x], [hoje_y], s=380, color=NAVY, zorder=5)
+    # O rótulo vai para a faixa vazia acima de zero: abaixo ele brigava com a
+    # linha dos −10% e com a série.
+    ax.annotate(f"hoje: {_pct(r['dd_hoje'], 1)}", xy=(hoje_x, hoje_y),
+                xytext=(-30, 52), textcoords="offset points", ha="right",
                 fontsize=28, color=NAVY, fontweight="bold", bbox=_FUNDO, zorder=6,
                 arrowprops=dict(arrowstyle="-", color=NAVY, lw=1.6))
-
+    ax.set_ylim(-57, 11)
+    from matplotlib.ticker import FuncFormatter
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.0f}%".replace("-", "−")))
     _limpar(ax)
-    _eixo_virgula(ax)
-    _titulo(ax, "Acima de 89% dos dias desde 2012",
-            "correlação móvel · 126 dias úteis · retornos diários")
-    fig.tight_layout()
-    return _fig_para_uri(fig)
-
-
-def grafico_beneficio(d: dict) -> str:
-    """Quanto risco a carteira 50/50 ainda apaga — hoje contra a própria história.
-
-    É a ressalva honesta em forma de gráfico: a mistura ainda diversifica (o
-    dólar ajuda), só que perto do mínimo da série. Sem ela o carrossel diria que
-    o Treasury "não protege nada", o que o próprio dado desmente.
-    """
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-
-    ben = d["painel"]["beneficio"].dropna()
-    hoje = float(d["ult"]["beneficio"])
-    med = float(ben.median())
-
-    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.plot(ben.index, ben.values, color=BLUE, lw=2.2)
-    ax.axhline(med, color=MUTED, lw=2.0, ls=(0, (5, 4)))
-    ax.text(ben.index[0], med + 0.8, f"mediana {med:.0f}%".replace(".", ","),
-            fontsize=21, color=MUTED, va="bottom", bbox=_FUNDO, zorder=6)
-    ax.scatter([ben.index[-1]], [hoje], s=700, color="white", zorder=4)
-    ax.scatter([ben.index[-1]], [hoje], s=380, color=NAVY, zorder=5)
-    ax.annotate(f"hoje: {hoje:.0f}%".replace(".", ","), xy=(ben.index[-1], hoje),
-                xytext=(-20, -58), textcoords="offset points", ha="right",
-                fontsize=28, color=NAVY, fontweight="bold", bbox=_FUNDO, zorder=6)
-    _limpar(ax)
-    _titulo(ax, "A mistura ainda protege, bem menos",
-            "% do risco apagado pela correlação · carteira 50/50")
+    _titulo(ax, "E hoje? Nova York segue calma",
+            "S&P 500: distância da máxima de 252 pregões · %")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
@@ -281,57 +323,53 @@ def grafico_beneficio(d: dict) -> str:
 def slides(d: dict) -> list[dict]:
     """Os 10 slides, na ordem em que a história se sustenta.
 
-    Edição de 23/09: o exercício mede se o Treasury longo, convertido a reais,
-    ainda protege a bolsa brasileira. A regra que organiza tudo continua a mesma:
-    **nenhum gráfico aparece antes de o leitor ter contexto para lê-lo**. A capa
-    mostra só dois números (março de 2020 e hoje); a série inteira entra depois
-    do slide que explica o que a correlação mede.
+    Edição de 29/09: só GMO e Bridgewater publicaram, e o exercício mede quanto do
+    "vento contrário de 20 pontos" que a GMO projeta para o S&P 500 chega ao
+    Brasil — o beta do Ibovespa em dólar ao S&P 500, separado por regime. A regra
+    continua a mesma: **nenhum gráfico aparece antes do contexto**. A capa mostra
+    só duas barras (a pergunta respondida); a dispersão e o drawdown entram
+    depois do slide que define beta e regime.
 
-    Bullets, não parágrafos. Sem preço, sem oferta e sem emoji. Sem o jargão
-    "livro" (carteira de mesa), que faz o leitor parar para decodificar.
+    Bullets, não parágrafos. Sem preço, sem oferta e sem emoji.
     """
-    corr = d["painel"]["corr"]
-    hoje = _virg(float(d["valor_hoje"]))
-    med = _virg(float(d["med_corr"]))
-    v_min = _virg(float(corr.min()))
-    ano_min = corr.idxmin().year
-    desde_2024 = f"{(corr.loc['2024':] > 0).mean() * 100:.0f}"
-    ben_hoje = f"{float(d['ult']['beneficio']):.0f}"
-    ben_med = f"{float(d['painel']['beneficio'].median()):.0f}"
+    r = regimes(d)
+    fx_c, fx_k = _num(abs(r["fx_calmo"])), _num(abs(r["fx_corr"]))
     return [
         {
             "kind": "capa",
-            "hook": "O seguro *mais clássico* do investidor brasileiro mudou de sinal.",
-            "src": grafico_sinal(d),
+            "hook": "A GMO vê 20 pontos de vento contra o S&P 500. *Quanto disso chega ao Brasil?*",
+            "src": grafico_choque(d),
         },
         {
             "kind": "lista",
-            "title": "No que as cartas *concordam*",
+            "title": "O que a *GMO* argumenta",
             "variant": "check",
             "items": [
-                "Genoa: o Fed corre risco de subir juros ainda em 2026",
-                "Howard Marks (Oaktree): o juro longo americano está alto por fundamento",
-                "Inflação, déficit e demanda por capital — não acidente",
+                "O gatilho da bolha de IA não é a demanda: é a oferta de ações",
+                "SpaceX, OpenAI, Anthropic e emissões das gigantes de nuvem",
+                "Pela conta da casa, ~20 pontos a menos no S&P 500 em 12 a 18 meses",
             ],
         },
         {
             "kind": "lista",
-            "title": "Onde isso pesa: *o seguro*",
+            "title": "Onde isso pesa: *o Brasil*",
             "variant": "diamond",
             "items": [
-                "Para se proteger do Brasil, compra-se Treasury longo em dólar",
-                "A lógica: na crise, o real cai e o Treasury sobe",
-                "*Com juro americano subindo*, o Treasury pode cair junto",
+                "Na correção, o gestor global vende o que é líquido, não o que é caro",
+                "Bolsa e real brasileiros viram fonte de caixa",
+                "*A conta “20% × beta de sempre” pode sair curta*",
             ],
         },
         {
             "kind": "definicao",
             "title": "Como se mede isso",
             "rows": [
-                {"term": "Correlação negativa",
-                 "desc": "o Treasury sobe quando a bolsa cai: protege"},
-                {"term": "Perto de zero", "desc": "só dilui o risco"},
-                {"term": "Positiva", "desc": "os dois caem juntos: soma risco"},
+                {"term": "Beta",
+                 "desc": "quanto o Ibovespa em dólar anda para cada 1% do S&P 500"},
+                {"term": "Correção",
+                 "desc": "S&P 500 mais de 10% abaixo da máxima de 252 pregões"},
+                {"term": "Beta por regime",
+                 "desc": "o mesmo beta, medido só nas semanas calmas ou só nas de correção"},
             ],
         },
         {
@@ -339,32 +377,32 @@ def slides(d: dict) -> list[dict]:
             "title": "E isso *custa dinheiro*",
             "variant": "diamond",
             "items": [
-                "A carteira mista fica mais arriscada do que parece",
-                "O peso certo em Treasury depende do sinal",
-                "*A proteção falha justo quando a inflação americana sobe*",
+                "O beta médio mistura dois mundos",
+                "O hedge dimensionado pela média fica curto na hora que importa",
+                "*Para quem mede em dólar, a bolsa e o real caem juntos*",
             ],
         },
         {
             "kind": "capa",
-            "hook": f"Medido: *{hoje}*. A mediana desde 2012 é {med}.",
+            "hook": f"Medido: *{_num(r['b_corr'])}* em correção, {_num(r['b_calmo'])} no calmo.",
             "hint": False,
-            "src": grafico_correlacao(d),
+            "src": grafico_dispersao(d),
         },
         {
             "kind": "capa",
-            "hook": "Ainda protege alguma coisa?",
+            "hook": f"Hoje o S&P 500 está a *{_pct(abs(r['dd_hoje']), 1)}* da máxima.",
             "hint": False,
-            "src": grafico_beneficio(d),
+            "src": grafico_drawdown(d),
         },
         {
             "kind": "lista",
             "title": "O que o dado diz",
             "variant": "diamond",
             "items": [
-                f"Desde 2024, a correlação ficou positiva em *{desde_2024}%* dos dias",
-                f"Em {ano_min} ela chegou a {v_min}: ali o seguro pagou",
-                f"A mistura ainda apaga *{ben_hoje}%* do risco, contra {ben_med}% típicos",
-                "Janela de 6 meses: é retrato, não previsão",
+                f"Em correção, o beta sobe de {_num(r['b_calmo'])} para *{_num(r['b_corr'])}*",
+                f"O dólar sobe {fx_k}% a cada 1% de queda do S&P (calmo: {fx_c}%)",
+                "*Hoje o regime é calmo* — a correção não começou",
+                f"{r['n_corr']} semanas de correção desde 2004, de causas variadas: âncora, não previsão",
             ],
         },
         {
@@ -372,9 +410,9 @@ def slides(d: dict) -> list[dict]:
             "title": "O caminho que eu fiz aqui",
             "variant": "number",
             "items": [
-                "Li as cartas: Genoa e Marks veem juro americano alto",
-                "Achei o *mecanismo*: o seguro depende do sinal da correlação",
-                "Medi com dado público: Ibovespa × Treasury em reais",
+                "Li a carta da GMO: 20 pontos contra o S&P 500",
+                "Achei o *mecanismo*: venda forçada do que é líquido",
+                "Medi com dado público: Ibovespa em dólar × S&P, semanal desde 2004",
                 "*Estes gráficos saíram daí* — e o código roda em segundos",
             ],
         },
@@ -383,7 +421,7 @@ def slides(d: dict) -> list[dict]:
             "title": "Te mando o código junto",
             # A pergunta no fim puxa comentário de quem não vai digitar a
             # palavra-chave — e comentário é o que o algoritmo lê como alcance.
-            "paragraph": f"Leio as cartas de 15 gestoras brasileiras e, agora, de Oaktree, GMO e Bridgewater. Destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a edição — síntese e código — no seu direct. E me conta: você ainda usa Treasury como seguro?",
+            "paragraph": f"Leio as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater. Destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a edição — síntese e código — no seu direct. E me conta: na sua conta de risco, o beta do Brasil é um número só?",
             "cta": f"Comente {PALAVRA_CHAVE}",
         },
     ]
