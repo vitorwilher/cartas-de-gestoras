@@ -88,7 +88,10 @@ def garantir_download(c: httpx.Client, titulo: str, url_arquivo: str) -> int:
         if html.unescape(d["title"]["rendered"]) == titulo:
             return d["id"]
     novo = _ok(c.post(f"{LOJA}/wp-json/download-monitor/v1/download", headers={**UA, **DLM},
-                      json={"title": titulo, "status": "publish", "_members_only": "yes"}),
+                      json={"title": titulo, "status": "publish", "_members_only": "yes",
+                            # Fora de dlm_uploads o plugin não serve o arquivo (devolve HTML);
+                            # a REST não consegue gravar lá, então ele só confere o login e redireciona.
+                            "_redirect_only": "yes"}),
                f"criação do download {titulo}")
     _ok(c.post(f"{LOJA}/wp-json/download-monitor/v1/version", headers={**UA, **DLM},
                json={"download_id": novo["download_id"], "version": "1", "url": url_arquivo}),
