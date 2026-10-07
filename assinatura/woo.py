@@ -28,41 +28,37 @@ load_dotenv(ROI_ENV)
 load_dotenv()  # um .env local, se houver, tem precedência
 
 PRECO_MENSAL = "97.00"
-SLUG = "cartas-de-gestoras"
-NOME = "Cartas de Gestoras — assinatura mensal"
+SLUG = "sintese-das-cartas-das-gestoras"
+NOME = "Síntese das Cartas das Gestoras — assinatura mensal"
 
 DESCRICAO_CURTA = (
-    "Toda semana, a síntese técnica das cartas das 12 maiores gestoras do Brasil "
-    "— com o exercício em Python que mostra como verificar cada tese."
+    "Toda semana, a síntese técnica das cartas de 15 gestoras brasileiras e de "
+    "Oaktree, GMO e Bridgewater — com o exercício em Python que verifica a tese."
 )
 
 DESCRICAO = """<p><strong>Você não paga para saber o que as gestoras disseram. Você paga
 para aprender a destrinchar tecnicamente o que elas disseram.</strong></p>
 
-<p>Toda terça, o pipeline lê as cartas novas das 12 maiores gestoras do Brasil
-(Dynamo, IP, Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO e
-Dahlia) e entrega:</p>
+<p>Toda terça, o pipeline lê as cartas novas de 15 gestoras brasileiras (Dynamo, IP,
+Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Genoa, Sparta
+e Opportunity) e de três internacionais (Oaktree, GMO e Bridgewater), e entrega:</p>
 
 <ul>
-  <li><strong>A tese de cada gestora e o mecanismo por trás dela</strong> — não o
-  resumo do mês, mas a cadeia causal que faz a aposta se pagar e a condição em que
-  ela quebra.</li>
-  <li><strong>Convergências e divergências</strong> — onde o consenso se forma,
-  onde racha, e o que a divergência revela sobre premissas diferentes.</li>
-  <li><strong>Um exercício em Python</strong> — código que roda, com dados
-  públicos brasileiros, verificando o mecanismo da semana. É a prova de que dá
-  para checar a tese em vez de acreditar nela.</li>
-  <li><strong>Acesso via MCP</strong> — consulte o histórico direto do Claude Code
-  ou do Codex, com as ferramentas do servidor da Análise Macro.</li>
-  <li><strong>Entrega no WhatsApp</strong> — o PDF chega assim que sai.</li>
+  <li><strong>A tese de cada gestora e o mecanismo por trás dela</strong>: a cadeia
+  causal que faz a aposta se pagar e a condição em que ela quebra.</li>
+  <li><strong>Convergências e divergências</strong>: onde o consenso se forma, onde
+  racha, e quanto patrimônio sob mandato compatível está de cada lado.</li>
+  <li><strong>Um exercício em Python</strong>: código que roda, com dados públicos,
+  verificando o mecanismo da semana.</li>
+  <li><strong>O histórico completo</strong>: todas as edições ficam na sua área do
+  aluno.</li>
 </ul>
 
-<p>As cartas não são todas mensais: Dynamo e IP publicam ensaios temáticos
-irregulares, e são justamente os de maior densidade. A cadência semanal existe
-para não perder nenhum — quando não há carta nova, não há edição.</p>
+<p>As cartas não são todas mensais: Dynamo e IP publicam ensaios irregulares. Quando
+nenhuma gestora publica na semana, não há edição.</p>
 
-<p><em>As cartas originais pertencem às respectivas gestoras. A assinatura dá
-acesso à análise, sempre com o link para o documento original.</em></p>
+<p><em>As cartas originais pertencem às respectivas gestoras. A assinatura dá acesso
+à análise, sempre com o link para o documento original.</em></p>
 """
 
 

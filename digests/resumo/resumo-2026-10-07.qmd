@@ -1,0 +1,364 @@
+---
+title: "Cartas de *Gestoras*"
+subtitle: "Teses, mecanismos e riscos — 6 gestoras nesta edição"
+author: "Vitor Wilher"
+date: "2026-10-07"
+date-format: "D [de] MMMM [de] YYYY"
+lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "Edição de 7 de outubro de 2026"
+  tagline: "A verdade está nos dados."
+format:
+  am-livro-typst:
+    toc-depth: 2
+---
+
+## Nesta edição
+
+Setembro de 2026 foi o mês em que o mundo desenvolvido e o Brasil andaram em direções opostas. Lá fora, o Federal Reserve subiu o juro em 25 pontos-base pela primeira vez desde 2023, em decisão unânime sob o novo presidente Kevin Warsh, acompanhado do BCE e do BoJ num aperto sincronizado do G10; o Treasury de 10 anos rompeu 5% pela primeira vez em duas décadas, o Brent acumulou alta de 42% no trimestre com o conflito EUA–Irã e o dólar se fortaleceu contra quase tudo. Aqui dentro, o Copom cortou a Selic em 25 pontos-base, o Ibovespa subiu 5,03%, a curva de DI fechou entre 26 e 61 pontos-base e o real ficou parado — tudo isso embalado por uma leitura eleitoral que migrou, ao longo do mês, de "empate técnico" para "oposição à frente", com Flávio Bolsonaro terminando o primeiro turno cerca de dois pontos acima de Lula, segundo a Bahia.
+
+Publicaram seis casas: quatro com mandato macro (Kinea, Bahia, Opportunity e Occam), uma especialista em crédito (Sparta, mais a série de crédito da própria Occam) e uma gestora de ações *long-only* sem tese macro explícita (Alaska). A tensão central que atravessa as cartas macro é a mesma: o rali brasileiro é uma aposta de que a eleição entrega um ajuste fiscal grande o suficiente para descolar a ponta longa local de um Treasury acima de 5%. Bahia e Opportunity carregam essa aposta aplicados em juros; Kinea a dimensiona (precisa de 2% do PIB de primário) e a expressa taticamente em bolsa; Occam a monetiza e reduz risco. A divergência não é sobre o cenário — é sobre quanto do cenário já está no preço e quanto se deve confiar numa promessa que nenhuma campanha detalhou.
+
+No crédito, a tensão é paralela e igualmente instrutiva: as debêntures incentivadas abriram cerca de 40 pontos-base de spread sem nenhum evento de crédito. Sparta e Occam concordam que o problema é de fluxo e preço, não de fundamento, mas divergem sobre quanto tempo o passivo dos fundos ainda vai pressionar antes que o comprador marginal apareça.
+
+Adiante, cada carta é destrinchada pelo mecanismo que sustenta a aposta, pelas condições em que ela se paga e pelo que a derrubaria; ao final, a seção de convergências dimensiona o consenso pelo patrimônio sob mandato compatível.
+
+## Kinea Investimentos
+
+**A tese em uma frase.** A eleição brasileira só termina para o mercado quando o vencedor disser, com números, como fecha a conta fiscal — e a carteira se posiciona taticamente para a hipótese de que ele diga, sem apostar que dirá.
+
+**O mecanismo.** A Kinea constrói a cadeia causal com uma simulação: para estabilizar a trajetória da dívida bruta, já no maior nível fora da pandemia, é preciso um superávit primário ao redor de 2% do PIB, contra o superávit "apenas simbólico" projetado no Orçamento de 2027. Só com a dívida estabilizada "abre-se espaço para que os juros reais finalmente cedam". Ou seja: o juro real longo brasileiro embute prêmio de risco fiscal, e esse prêmio só comprime quando houver um instrumento crível para o ajuste. O problema, diz a carta, não é só de tamanho mas de instrumento — um Congresso fragmentado já retém parcela relevante do orçamento discricionário em emendas, de modo que o Executivo "herda a responsabilidade pelo resultado sem herdar o controle sobre a despesa". O calendário aperta a janela: para produzir efeito em 2027, as medidas impopulares precisam passar no primeiro semestre, com capital político intacto, e as linhas do debate têm de ser traçadas entre o segundo turno (25 de outubro) e a virada do ano.
+
+Daí o cenário-base: PIB de 1,0%, inflação de 4,7% e Selic em 12,5% ao fim de 2027, que "pressupõe um ajuste fiscal anunciado no início do mandato, da ordem de 1,5% do PIB, capaz de produzir queda dos juros reais". A Kinea ainda argumenta que o impulso fiscal será negativo independentemente de alternância de poder, por regularidade do ciclo eleitoral (gastar menos no início do mandato), o que, somado a juros restritivos e famílias endividadas, desacelera a atividade. Há uma observação política interessante: nenhum dos dois candidatos disputará a eleição seguinte — e quem não corre atrás do mandato seguinte "tem menos a perder ao assinar o que precisa ser assinado".
+
+No internacional, a carta lê a alta do Fed como o banco central "ouvindo a curva": a taxa de 2 anos acima da taxa básica por meses era o mercado dizendo que a política estava frouxa demais. O Treasury de 10 anos acima de 5% reflete tanto juro mais alto por mais tempo quanto um prêmio de risco maior para quem financia o governo. A divergência da Kinea com o mercado está na Europa: ela vê a atividade perdendo tração nos próximos trimestres e uma eventual estabilização do petróleo pesando mais nas expectativas de inflação europeias do que nas americanas — logo, o juro europeu precificado está alto demais.
+
+Em inteligência artificial, a métrica que a casa escolheu acompanhar é receita, não lançamento de modelos: os laboratórios precisam ir de cerca de US$ 150 bilhões anualizados para perto de US$ 450 bilhões ao fim de 2027, o que exige crescimento sequencial de ~25% por cinco trimestres sem interrupção. Em commodities, a conta chega pelo diesel — Rússia baniu exportações após ataques a refinarias, Ormuz escoa com dificuldade — e o petróleo é usado como *hedge* (proteção que ganha quando o resto da carteira perde) parcial para as posições aplicadas em juros e compradas em ações, porque o choque de energia é justamente o que subiria juros e derrubaria bolsa.
+
+**Posicionamento e números.** Brasil: comprado em bolsa principalmente via EWZ (o ETF de ações brasileiras listado nos EUA), posição tática "em virtude da maior possibilidade de uma proposta mais fiscalista vencer". Juros: aplicado (posição que ganha com queda do juro) em europeus, México e Nova Zelândia, onde a ociosidade sancionaria juros abaixo do precificado. Moedas: viés comprador de dólar contra europeus, pela resiliência relativa da economia americana. Bolsa internacional: tecnologia via opções de Nasdaq e compra de índice na Coreia e Taiwan; exposição reduzida a financeiro; comprado em biotecnologia. Commodities: cesta comprada em agrícolas, petróleo, ouro e cobre. A carta não traz retornos nem atribuição de performance.
+
+**O que mudou.** Redução tática das compras de won sul-coreano e iene, após a valorização acumulada e diante de um Fed mais *hawkish* (inclinado a apertar) que sustenta o dólar; a casa observa que o BoJ segue sem conseguir garantir altas sequenciais, o que torna a apreciação do iene dependente de intervenções pontuais.
+
+**Riscos.** A própria carta descreve a condição de quebra: o cenário em que nada é anunciado, ou em que há guinada populista, "traria consigo um choque adverso de expectativas, dificultaria o trabalho do Banco Central e, com alta probabilidade, interromperia o ciclo de corte da Selic". A Kinea considera nova alta pouco provável — o nível da Selic dá carrego (o retorno que a posição rende só pela passagem do tempo) à moeda e reduz a chance de *overshoot*, e dezembro de 2024 ensinou aos presidenciáveis o custo de uma guinada. Interpretação minha: a posição via EWZ é a expressão mais líquida e mais fácil de desmontar da tese fiscal, e a carta a chama de tática por isso — se o vencedor não apresentar números até a virada do ano, o custo de sair é baixo. O risco de IA é explícito: a receita pode não triplicar; a casa só terá clareza "quando as empresas divulgarem números auditados".
+
+## Bahia Asset Management
+
+**A tese em uma frase.** Aplicado em juros nominais e reais no Brasil com a curva nominal inclinada, contra uma ponta longa americana tomada: a Selic continua caindo, mas o prêmio fiscal e o juro global mantêm a ponta longa local e americana sob pressão.
+
+**O mecanismo.** A Bahia não escreve a cadeia causal explicitamente — a carta separa cenário e posições — mas a combinação de posições revela o raciocínio. Aplicado em juros nominais e reais se paga se o Copom seguir cortando: o comunicado "não fechou a porta para novos cortes", o PIB mostrou consumo "bem mais fraco que o esperado", a PMC veio abaixo do esperado e o IPCA de agosto trouxe núcleos levemente abaixo. Comprado na inclinação (*steepener*: aposta em que o juro longo sobe mais que o curto, ou cai menos) se paga se os cortes derrubarem a ponta curta enquanto a longa fica presa por dois âncoras que a própria carta lista: o fiscal doméstico — reajuste do Bolsa Família com custo anual estimado em R$ 24 bilhões, novo Desenrola de cerca de R$ 15 bilhões, cortes de impostos sobre combustíveis — e o juro longo americano, cujos prazos longos voltaram "a níveis vistos apenas antes da crise financeira de 2008". A posição tomada (que ganha com alta do juro) em juro longo americano completa o quadro: a Bahia lista entre os fatores de atenção "a dinâmica de oferta e demanda dos títulos de longo prazo americanos, diante da deterioração fiscal americana e das emissões das empresas ligadas ao setor de inteligência artificial" — um argumento de oferta, não de inflação.
+
+Vale um alerta ao leitor, que é interpretação minha: os dados da Alaska mostram o trecho Jan/28–Jan/33 achatando em setembro (−26 bps contra −61 bps), o oposto do que um *steepener* nesse trecho ganharia. Como a Bahia reporta ganho em inclinação nominal e em posições relativas de inclinação nominal versus real, a posição deve estar em outro trecho — provavelmente mais curto, onde os cortes puxam a ponta curta para baixo mais rápido — ou o ganho veio do componente relativo entre as curvas. A carta não especifica os vértices.
+
+**Posicionamento e números.** Brasil: aplicado em nominais e reais; comprado na inclinação nominal; posições relativas de inclinação entre as curvas nominal e real; comprado em bolsa. Internacional: posições relativas em reuniões do Fed, aplicado em reuniões do Banco do Canadá, tomado em juro longo americano; comprado em dólar australiano contra cesta; comprado em bolsa americana; comprado em ouro. Resultado de setembro: Mutá 1,77% (163% do CDI), Maraú 1,33% (123%), Bahia FIC 1,17% (108%). A atribuição do Mutá mostra de onde veio: Juros On +1,0% (Brasil), Juros Off −0,2% (perdas em aplicado nos EUA e em *steepener* europeu), moedas +0,1%. Em 12 meses o quadro é outro: Mutá a 10,10% (69% do CDI), com Juros On −3,2% e Juros Off −1,4% — o livro de juros perdeu nas duas pontas no ano, compensado parcialmente por moedas (+2,4%) e commodities (+1,2%). Renda variável: carteira de 28 papéis em média, 98% comprada nos *long only* e 73% no Long Biased, maiores posições em bancos, elétrico e óleo e gás. Valuation 4,40% (Ibovespa −0,63 p.p.), Long Biased 4,25% (IPCA+6% +3,09 p.p.), Una Equity Hedge 0,77% (73% do CDI). Ganhos em concessões rodoviárias (Motiva e EcoRodovias, por expectativa de aditivos e reequilíbrios); perdas em Tenda (crédito mais apertado pela Caixa) e JBS (dólar mais fraco e revisões para baixo em carne nos EUA, porco e frango).
+
+**Riscos.** A carta lista o que monitora, não o que a derruba; a tradução para condições de quebra é minha. No Brasil: resultado do segundo turno, inflação corrente e expectativas, "discussões fiscais e parafiscais", emprego e salários. O aplicado quebra se o fiscal eleitoral (R$ 39 bilhões em medidas novas, mais subvenções a combustíveis) desancorar expectativas a ponto de o Copom parar — o Focus já projeta Selic a 13,50% no fim de 2026, o que deixa pouco espaço para surpresas. O tomado em juro longo americano quebra se o Fed, como a carta nota ter sinalizado "na margem", preferir estabilidade na próxima reunião e o mercado ler isso como fim do ciclo; a Bahia já perdeu em aplicado nos EUA e em inclinação europeia, sinal de que o cenário externo tem sido mais difícil de operar que o doméstico.
+
+## Opportunity
+
+**A tese em uma frase.** Comprado em NTN-Bs longas e aplicado no trecho intermediário do DI porque o acirramento eleitoral aumentou a probabilidade de compromisso fiscal, com juros americanos tomados como contraparte global.
+
+**O mecanismo.** A Opportunity oferece a leitura macro mais analítica do movimento global: o deslocamento para cima das curvas nos EUA e na Zona do Euro "foi essencialmente concentrado nos juros reais e pouco alterou as inflações implícitas" (o *breakeven*: a inflação que iguala o retorno de um título prefixado ao de um indexado), que seguem "em níveis condizentes com as metas". Isso importa porque diz que a reprecificação é de juro neutro mais alto e de prêmio de prazo, não de desancoragem — e por isso a bolsa reagiu de forma "ainda benigna" mesmo com a alta ocorrendo ao longo de toda a curva. A casa também destaca o *trade-off* que emergiu: com os juros longos em níveis históricos, Fed e BCE sinalizaram "cautela e altas espaçadas", revertendo parte do movimento. O dólar forte e a volatilidade implícita maior "reduziram a atratividade relativa das moedas emergentes" — a Opportunity é a casa mais explícita sobre o canal pelo qual o aperto global ameaça o Brasil.
+
+A ponte para o Brasil está numa frase: "à medida que [o acirramento da disputa] tem se traduzido em maior probabilidade de compromisso com ajustes fiscais à frente, houve recuo nos juros reais longos". A NTN-B longa (título indexado ao IPCA) é o instrumento que isola esse prêmio — seu cupom real embute a dúvida fiscal, não a inflação. O aplicado no DI intermediário é a aposta no ciclo de cortes, "com tamanho sensível ao nível de prêmio observado" — ou seja, a casa compra quando o mercado exige prêmio e reduz quando ele some. Em ações, prioriza empresas "que aliam potencial de valorização em um cenário de fechamento da curva de juros a níveis atrativos de carrego": é a mesma tese fiscal expressa em outro ativo, com um amortecedor de carrego caso ela demore.
+
+**Posicionamento e números.** Família Total: comprado em NTN-Bs; ações domésticas seletivas; DI aplicador no trecho intermediário; exterior em semicondutores, serviços financeiros e mídia. Família Income: aplicado em juros reais longos Brasil e nominais no México, África do Sul e Brasil intermediário; comprado em USDMXN como *hedge* parcial do juro mexicano; vendido em USDBRL via opções (comprado em real, com perda limitada ao prêmio); tomado em juros nos EUA. Retornos de setembro: Total 1,24% (114% do CDI), Total Evolution 1,59% (147%), Market 1,05% (97%), Icatu Prev 1,36% (126%), BTG Prev 1,12% (103%), Income 1,77% (163%). A atribuição do Evolution mostra a assimetria: Juros Brasil +1,22%, Juros G10 −1,00%, Juros Emergentes −1,11%; Câmbio G10 +0,79%; Bolsa G10 +0,59%, Bolsa Brasil +0,43%. Em 12 meses, o Total rende 11,71% (81% do CDI) e o Evolution 10,98% (76%).
+
+**O que mudou.** A carta é explícita: encerradas as vendas de euro e dólar canadense contra dólar (com ganho) e o aplicado no juro mexicano da família Total (com prejuízo); na Income, encerrados o relativo aplicado Reino Unido contra tomado Zona do Euro e o *steepening* na Polônia. Adicionados o *hedge* em USDMXN e a venda de USDBRL via opções. Interpretação minha: a casa limpou o livro de posições relativas em juros europeus e emergentes — justamente onde perdeu — e concentrou o risco no Brasil, com proteções compradas via opção.
+
+**Riscos.** A carta nomeia o canal: emergentes ficaram mais vulneráveis "a novos movimentos de aversão a risco e à continuidade da reprecificação das taxas de juros globais". A tese quebra se o Treasury de 10 anos seguir abrindo e arrastar o cupom das NTN-Bs, independentemente do fiscal doméstico — o tomado em juros americanos existe para isso, mas é parcial. Quebra também se o "compromisso com ajustes fiscais" que o mercado passou a precificar não se materializar após o segundo turno; aqui a Opportunity e a Kinea descrevem o mesmo risco a partir de lados opostos, uma carregando o ativo e a outra dimensionando a conta. A perda em Juros Emergentes (−1,11% no Evolution) mostra que juro de México e África do Sul não se comporta como o brasileiro quando o dólar sobe.
+
+## Occam Brasil
+
+Há duas séries no corpus: a carta mensal principal (macro, bolsa, câmbio) e a carta de crédito.
+
+### Série principal
+
+**A tese em uma frase.** Juros estruturalmente mais altos no mundo desenvolvido e eleição em empate técnico justificam monetizar o rali local em juros e manter o livro de ações com *hedge* elevado e foco em liquidez.
+
+**O mecanismo.** A leitura global é a mais estrutural entre as casas: o choque de energia "após mais de seis meses" deixou de ser lido como temporário e passou a preocupar por efeitos de segunda ordem; o índice spot de agrícolas da Bloomberg teve o maior avanço trimestral desde 2022; com crescimento resiliente e lucros robustos, os bancos centrais do G10 iniciaram um aperto sincronizado. A abertura das curvas globais, com soberanos em máximas de décadas, reflete "maior competição por capital associada ao forte ciclo de investimentos em inteligência artificial, preocupações fiscais mais persistentes e uma discussão crescente sobre um aumento nas taxas de juros neutras" — três forças de oferta e demanda por capital que não se resolvem com um dado melhor de inflação. Se isso vale, o prêmio de prazo global é um piso para a ponta longa brasileira.
+
+No Brasil, a Occam lê o Copom como disposto a seguir cortando em novembro mesmo com inflação subindo no período, porque o discurso é de "combater apenas os efeitos secundários de um choque de oferta". Mas a leitura eleitoral da casa é diferente das demais: "a maioria das pesquisas convergindo para um empate técnico em ambos os turnos". Com empate técnico e piso global alto, o rali de setembro vira oportunidade de reduzir o aplicado — a Occam "aproveitou o movimento local para reduzir as posições aplicadas". Em bolsa, a estrutura é *long & short* (comprado em alguns papéis e vendido em outros, para ganhar da diferença): comprado em financeiro, "nossa maior exposição comprada", financiado pela venda de materiais básicos, que caíram com o minério.
+
+**Posicionamento e números.** Juros: risco reduzido no internacional; aplicado local reduzido. Câmbio: redução do peso chileno "diante do ambiente mais desafiador para moedas emergentes"; mantido ouro comprado como diversificação contra o dólar. Bolsa: financeiro comprado, materiais básicos vendidos, hedge elevado, "foco em ativos líquidos, o que nos dá agilidade para navegar o cenário à frente"; no global, ganhos em semicondutores e propaganda digital. Retorno Absoluto: 1,17% em setembro (108% do CDI), 3,34% no ano (32% do CDI). Atribuição do mês: Bolsa Local +0,73%, Bolsa Global +0,30%, Juros Local +0,16%, Commodities −0,08%, Moedas −0,19%, Juros Global −0,22%. No ano, Juros Local −1,91% e Bolsa Local −1,00% são as perdas; o caixa líquido (+7,56%) é o que sustenta o resultado. Demais fundos: FIC Ações 5,71% (Ibovespa 5,03%), Long & Short Plus 2,73% (252% do CDI), Long Biased 7,46%, Institucional II 1,46%, Equity Hedge 1,20%.
+
+**O que mudou.** Explicitamente: redução das aplicadas locais, redução do peso chileno e hedge "marginalmente menor" que no mês anterior. Interpretação minha: a casa reduziu o risco direcional em juros e manteve o risco relativo em bolsa, o que é coerente com uma visão em que a eleição decide a direção mas o *long & short* financeiro versus materiais não depende dela.
+
+**Riscos.** A carta aponta que a eleição "será essencial para a definição tanto da pauta econômica, com destaque para a política fiscal, quanto do reequilíbrio institucional", em meio a "elevado ruído institucional". A tese de reduzir aplicado quebra se a eleição produzir, de fato, o compromisso fiscal que Opportunity e Kinea descrevem — nesse caso a Occam terá vendido cedo. A citação de Bukowski na abertura ("os inteligentes estão cheios de dúvidas") e o perfil de retorno no ano (32% do CDI, com perdas em juros e bolsa local) sugerem, na minha leitura, uma casa que foi pega pelo rali e escolheu preservar liquidez em vez de persegui-lo.
+
+### Série crédito
+
+**A tese em uma frase.** A abertura de 38 pontos-base do IDA-INFRA, sem evento de crédito, levou os isentos ao mesmo spread dos não isentos — o nível é atrativo, mas o comprador final pode fazer o contrário do racional.
+
+**O mecanismo.** O IDA-INFRA é o índice Anbima de debêntures incentivadas (isentas de IR para pessoa física), medido como spread (prêmio de taxa acima do título público) sobre a NTN-B. A Occam descreve a mecânica da abertura: com a eleição próxima, investidores ficaram cautelosos e sem apetite; tesourarias de bancos venderam sobras de ofertas não absorvidas "num momento em que não havia demanda"; o resultado foi abertura generalizada "que contaminou o sentimento". O ponto técnico central é o gráfico com *gross up* (o spread do isento recalculado como se fosse tributado, para comparar com o não isento): a linha ajustada chegou a ficar negativa em 2025 e agora voltou a 0,45–0,48%, o que a casa resume como "já há títulos isentos sendo negociados no mesmo patamar de spread que o apresentado por títulos não isentos". Para um investidor pessoa física, isso significa receber o benefício fiscal de graça. A tese de normalização pós-eleitoral é agnóstica ao resultado: "independente do resultado, o mercado de crédito voltará a ter uma melhor liquidez".
+
+**Posicionamento e números.** Compras pontuais no mercado em CDI aproveitando a abertura de 5 pontos-base do IDA-DI, cuja "dinâmica está melhor". Fundos: Infra CDI 30 −1,17% no mês (52% do CDI no ano), Infra Ativo 30 −1,83% (25% do CDI no ano), Baixa Vol 1,10% (102% do CDI), Liquidez 1,00% (92%; PL de R$ 4,3 bilhões), Crédito Corporativo 30 0,95% (88%).
+
+**Riscos.** A própria carta formula: "a decisão racional deveria ser de manter ou aumentar posições, mas aqueles com maior aversão a risco, incomodados com o desempenho recente dos fundos, podem optar justamente pelo contrário". A tese quebra se o passivo dos fundos de infraestrutura continuar saindo e forçar vendas — o mesmo canal que a Sparta descreve em detalhe.
+
+## Sparta
+
+**A tese em uma frase.** O equilíbrio frágil das debêntures incentivadas se rompeu com pouco fluxo; o spread melhorou, mas o passivo ainda não reagiu, e a assimetria está no cupom da NTN-B, não na compressão de spread.
+
+**O mecanismo.** A Sparta constrói o argumento mais completo do corpus sobre como um mercado de crédito sem inadimplência perde dinheiro. Primeiro, a fragilidade: "ao longo das últimas cartas, vínhamos descrevendo esse mercado como um equilíbrio frágil, sustentado por pouca oferta e baixa demanda" — e "bastou uma alteração relativamente pequena no equilíbrio de fluxo para provocar uma abertura de aproximadamente 40 bps na mediana dos spreads". Os resgates cotizados nos fundos de infraestrutura ficaram perto de R$ 1 bilhão, em linha com julho e agosto; "o ponto mais importante não é que os spreads abriram 40 bps. É que precisou de pouco fluxo para isso".
+
+Segundo, a retroalimentação do passivo: a maior parte dos fundos tem ~30 dias de cotização (prazo entre o pedido de resgate e a conversão em cota), de modo que os pedidos feitos após o mês ruim só aparecem em outubro e novembro — "retornos mais fracos levam a novos pedidos de resgate, que exigem mais liquidez das carteiras e podem produzir novas vendas de ativos". Terceiro, um mecanismo técnico que o leitor fora da mesa raramente vê: nos fundos *hedgeados* (que trocam o IPCA+ das debêntures por CDI via derivativo), quando a curva de cupom (a taxa real das NTN-Bs) fecha, as posições de derivativo consomem caixa; em mercado pressionado, isso obriga a vender ativo e reforça a abertura — "é o movimento inverso ao observado em mai/26 e jun/26, quando a abertura da curva gerou necessidade de novas compras para recomposição de enquadramento e ajudou, na margem, a sustentar os preços". Quarto, o contágio: fundos de infraestrutura podem vender a parcela não incentivada da carteira para gerar caixa ou para comprar incentivadas mais baratas, e "parte da pressão vendedora observada nas debêntures tradicionais nas últimas duas semanas de setembro veio justamente desse mecanismo" — os dois mercados não são independentes.
+
+A preferência por estratégias indexadas à inflação decorre de uma decomposição: o retorno de uma debênture IPCA+ tem dois componentes — o cupom da NTN-B e o spread de crédito. Em setembro, "os spreads de crédito também abriram, mas o forte fechamento das taxas das NTN-Bs mais do que compensou". Com cupons reais ainda elevados e spreads relativamente baixos, "a principal assimetria está no nível da taxa dos títulos públicos, não na expectativa de nova compressão dos spreads". A seção de risco de crédito fecha o raciocínio com a *duration* (a sensibilidade do preço à variação da taxa, em anos): a mesma abertura de 40 bps custou ~1,60% de marcação a mercado nas carteiras da Sparta (duration 4,0) contra ~2,12% no IDA-IPCA Infraestrutura (duration 5,3), antes do carrego. "A diversificação protege contra concentração de crédito, mas não elimina risco de preço" — e "um bom crédito não é necessariamente um bom investimento".
+
+**Posicionamento e números.** Liquidez preservada "para atravessar diferentes cenários": não ser vendedor forçado se os resgates acelerarem, ter capacidade de alocar se a reprecificação criar oportunidade. Primário: 13 ofertas analisadas somando R$ 13 bilhões (7 debêntures, 6 letras financeiras), alocação em apenas uma; em outra, o bid não foi atendido na taxa considerada adequada. Secundário: mediana das incentivadas abriu ~40 bps, "mais intenso nos papéis de maior prazo", com volume pouco maior e "sem sinais de entrada relevante de um novo comprador marginal"; tradicionais abriram ~2 bps, com movimentos localizados em emissores presentes nas carteiras da indústria. Fundos: Sparta Deb Inc −0,2% (CDI+0,6% de carrego, duration 4,1); Deb Inc Inflação +1,1% contra IMA-B 5 de +2,0%; Deb Inc Estratégico +0,3%; Top +1,0% (92% do CDI); Top Inflação +2,0% (em linha com o IMA-B 5). Listados: JURO11 +0,7% (carrego IPCA+9,1%), CDII11 −0,6% (CDI+1,1%), DIVS11 +1,2% (IPCA+8,3%).
+
+**O que mudou.** A carta se compara explicitamente com meses anteriores: o mecanismo dos hedgeados é o inverso de maio/junho de 2026; a abertura das tradicionais é "muito inferior ao movimento observado em mar/26"; e a pergunta mudou — de "o retorno compensa a volatilidade?" (feita ao longo do ano) para "a abertura é normalização duradoura ou oscilação?". A leitura está "inclinada" para a primeira: "não veremos novas compressões tão cedo".
+
+**Riscos.** A casa nomeia dois lados. Se os resgates acelerarem, a pressão vendedora pode aumentar "justamente em um mercado que acabou de mostrar pouca profundidade compradora", e a ordem da reprecificação é a de mercados guiados por fluxo: primeiro os ativos líquidos e de melhor rating, depois os menos líquidos — por isso "a abertura inicial dos melhores créditos não deve ser confundida com uma piora dos seus fundamentos". Do outro lado, a tese de preferência por inflação quebra se o cupom da NTN-B abrir junto com o spread — o que ocorreria num cenário de desancoragem fiscal, exatamente o risco que as casas macro discutem. Interpretação minha: a Sparta está, na prática, comprada no mesmo prêmio fiscal que Opportunity e Bahia, só que via crédito e com um amortecedor de carrego maior.
+
+## Alaska Asset Management
+
+**A tese em uma frase.** A carta não expõe tese estruturada: é um relatório de cenário e atribuição de uma casa *long-only* de ações, cuja única aposta macro explícita é a venda de dólar contra real no fundo Range.
+
+**O mecanismo.** Não há cadeia causal apresentada. O cenário descreve os fatos do mês — Fed subindo 25 pontos-base, Treasury de 5 anos acima de 5% "pela primeira vez desde 2007", petróleo entre US$ 98 e US$ 108, pesquisas eleitorais favorecendo a oposição, Copom cortando 25 pontos-base com atividade fraca, "medidas como o reajuste do Bolsa Família renovaram as preocupações fiscais" — sem conectá-los às posições. O que a ausência sugere, e aqui é interpretação minha: o mandato da casa é selecionar empresas, não prever curva; a carta mensal funciona como *disclosure* de desempenho para uma base ampla de previdência (dez dos treze veículos listados são de previdência), e a convicção aparece na composição da carteira, não no texto. Que varejo e consumo não cíclico sejam as maiores posições, com a casa vendida em dólar no Range, é uma aposta implícita em ciclo doméstico de juros caindo e real estável — mas a carta não a formula como tal.
+
+**Posicionamento e números.** Carteiras de ações "com desempenhos positivos e superiores ao Ibovespa no mês", maior contribuição de varejo, maior detrator em transportes; maiores posições em varejo e consumo não cíclico. Range: ganhos na posição direcional em bolsa, no *long & short* da carteira contra o índice, em juros e na venda de dólar contra real. A tabela rotulada como setembro traz: Alaska Institucional 16,06%, Alaska Black FIC FIA 22,77% (renda variável 22,91%), previdência 100% ao redor de 15,3–15,6% e previdência 70% ao redor de 10,6–11,0%, Range 6,20% (renda variável 5,19%, juros 0,39%, câmbio 0,08%, caixa 0,73%). A tabela de mercado da própria carta registra Ibovespa +5,03%, dólar −0,20% e DI Jan/28, Jan/29 e Jan/33 fechando 26, 42 e 61 pontos-base.
+
+**Riscos.** A carta não aponta riscos de carteira. Interpretação minha: uma carteira concentrada em varejo e consumo é a mais sensível, entre as casas desta edição, a uma interrupção do ciclo de cortes — exatamente o cenário de quebra que Kinea descreve — e uma venda de dólar contra real num mês em que o dólar se fortaleceu "frente aos seus principais pares" depende de o diferencial de juros e o fluxo eleitoral seguirem compensando o aperto global.
+
+## Convergências e divergências
+
+**Onde o consenso se forma: o juro global subiu de patamar e isso é estrutural, não cíclico.** As quatro casas macro leem a mesma coisa com vocabulários diferentes: Occam fala em "juros estruturalmente mais elevados" por competição por capital de IA, fiscal e juro neutro; Opportunity em "equilíbrio com juros mais altos" e juro neutro maior; Kinea em "juros mais altos por mais tempo" mais prêmio de risco a quem financia o governo; Bahia em oferta e demanda de títulos longos americanos. A Opportunity acrescenta o detalhe que separa este episódio de 2022: o movimento está nos juros reais, com *breakevens* ancorados. Bahia (tomada em juro longo americano) e Opportunity (tomada em juros nos EUA) expressam o consenso em posição; Kinea e Occam o usam como pano de fundo. Essas quatro casas somam, pela tabela da CVM, R$ 18,4 bilhões sob mandato de juro/macro — Kinea R$ 9,3 bi, Bahia R$ 3,2 bi, Occam R$ 2,7 bi, Opportunity sem registro na tabela disponível, portanto fora da soma —, mas apenas Bahia e Opportunity afirmam carregar a posição tomada; para as demais, mandato compatível não significa posição.
+
+**Onde racha: quanto do rali brasileiro em juros já está no preço.** Bahia (R$ 3,2 bi sob mandato juro/macro) e Opportunity (fora da tabela) carregam aplicado em juros reais e nominais no Brasil — a Opportunity dizendo explicitamente que o recuo dos juros reais longos reflete "maior probabilidade de compromisso com ajustes fiscais". Occam (R$ 2,7 bi) fez o oposto: reduziu as aplicadas locais aproveitando o movimento. Kinea (R$ 9,3 bi, o maior mandato de juro do grupo) não declara posição em juro brasileiro — sua exposição ao Brasil é tática e em bolsa, via EWZ — e dimensiona a conta que os outros estão comprando: 2% do PIB de primário para estabilizar a dívida, contra um ajuste de 1,5% no cenário-base. A divergência revela premissas diferentes sobre o que precifica o juro longo: para Opportunity e Bahia, ele responde à probabilidade de ajuste e ela subiu; para Occam, com "empate técnico", a probabilidade não mudou o bastante para justificar o preço; para Kinea, o preço só se sustenta quando houver números. Em patrimônio sob mandato compatível, o lado que carrega (Bahia) e o que reduz (Occam) são de tamanho parecido; o maior mandato (Kinea) está fora dessa posição. O consenso de que "o fiscal decide" é unânime; o consenso de que "vale carregar agora" não existe.
+
+**A leitura eleitoral diverge em parte por calendário.** A Bahia escreve após o primeiro turno (Flávio Bolsonaro ~2 pontos à frente); Alaska registra "mudança na percepção em favor da oposição"; Opportunity vê "acirramento" traduzido em compromisso fiscal; Kinea trata o duelo como aberto, com eleitorado indeciso no Sudeste; Occam vê "empate técnico em ambos os turnos". Parte da diferença é data de redação, mas não toda: Occam e Kinea leem o mesmo quadro de pesquisas e chegam a graus distintos de convicção — e a Kinea, mesmo mais construtiva, chama sua própria posição de tática.
+
+**Crédito: concordância sobre o diagnóstico, divergência sobre a convalescença.** Sparta e Occam (R$ 5,8 bi sob mandato de crédito; Sparta fora da tabela) descrevem a mesma abertura de ~40 bps nas incentivadas, sem evento de crédito, causada por fluxo — tesourarias vendendo sobras, passivo cauteloso. Ambas acham o preço melhor. A Occam é mais construtiva: isentos ao mesmo spread de não isentos, "decisão racional seria aumentar", normalização pós-eleição "independente do resultado". A Sparta é mais paciente: o passivo que vai reagir ao mês ruim só aparece em outubro e novembro, há um mecanismo técnico nos hedgeados que amplifica, há contágio para as tradicionais, e "não veremos novas compressões tão cedo" — por isso a preferência pela assimetria no cupom da NTN-B, não no spread. A divergência é sobre a velocidade do comprador marginal, e a Sparta oferece a métrica para decidir quem tem razão: a captação dos fundos de infraestrutura nos dois próximos meses. A Kinea tem R$ 44,9 bi sob mandato de crédito, mas sua carta não trata do mercado doméstico de debêntures — esse patrimônio não entra nesta conta.
+
+**Bolsa Brasil: financeiros como consenso, cíclicos domésticos como divergência.** Bahia (bancos, elétrico, óleo e gás, R$ 0,7 bi sob mandato de bolsa), Occam (financeiro como maior comprada, materiais básicos como fonte de financiamento, R$ 1,7 bi) e Opportunity (empresas que ganham com fechamento da curva e têm carrego) convergem em qualidade e juros. A Alaska, com R$ 7,8 bi sob mandato de bolsa — o maior do grupo — está em varejo e consumo não cíclico, a ponta mais sensível ao ciclo de cortes. Em patrimônio, o lado "cíclico doméstico" pesa mais que o lado "financeiro e qualidade" somado; em número de casas, é o contrário. Kinea (R$ 0,3 bi em bolsa, exposição via EWZ) fica no índice, não no setor.
+
+**Câmbio e commodities: proteções que apontam para lados opostos.** Alaska (Range) e Opportunity (via opções) estão vendidas em dólar contra real; Kinea está comprada em dólar contra europeus; Bahia em dólar australiano. Não há contradição direta — real contra dólar e dólar contra euro são apostas distintas —, mas a Opportunity é a única a nomear o canal pelo qual elas se encontram: o dólar forte "reduziu a atratividade relativa das moedas emergentes". Em commodities, Kinea, Occam e Bahia estão compradas em ouro; a Kinea usa petróleo como *hedge* explícito do aplicado em juros e da bolsa, a formulação mais clara do corpus sobre o que, hoje, derruba juros e bolsa ao mesmo tempo.
+
+## Exercício da semana: quanto o petróleo protege uma carteira que ganha com bolsa em alta e juro em queda?
+
+### Por que isto importa esta semana
+
+A Kinea escreve que carrega petróleo como *hedge* parcial "para as posições aplicadas em juros e compradas em ações, porque o choque de energia é justamente o que subiria juros e derrubaria bolsa". É uma afirmação sobre a construção da carteira, não sobre o petróleo em si — e é testável. Bahia e Opportunity carregam a mesma combinação (juros Brasil aplicados, bolsa comprada) sem o petróleo do outro lado, de modo que a pergunta vale para as três casas: quanto do risco dessa carteira o Brent efetivamente compensa, e em que tipo de semana ruim ele compensa?
+
+### O conceito
+
+Uma proteção (*hedge*) só merece o nome se ganha quando o resto da carteira perde. A forma estatística disso é a covariância: se a carteira tem retorno semanal $r_c$ e o petróleo $r_b$, o peso de petróleo que minimiza a variância da soma é
+
+$$w^* = -\frac{\mathrm{Cov}(r_c, r_b)}{\mathrm{Var}(r_b)} = -\beta_{c,b},$$
+
+o negativo da inclinação da regressão da carteira sobre o Brent. Se a covariância é negativa, $w^*$ é positivo: a carteira pede petróleo comprado. Se é próxima de zero, o petróleo não é proteção — é só uma posição a mais.
+
+Dois detalhes separam a conta ingênua da conta útil. Primeiro, a correlação não é estável: em 2020 o petróleo caiu junto com tudo (choque de demanda), em 2022 subiu enquanto bolsa e renda fixa caíam (choque de oferta). A tese da Kinea é explicitamente sobre o segundo tipo de choque, então a estatística relevante é a de hoje, não a média de seis anos — daí a janela móvel. Segundo, uma proteção que funciona nas semanas normais e falha nas piores é inútil; o que interessa é o comportamento condicional do petróleo nas semanas em que a carteira mais perdeu. O gráfico testa as duas coisas.
+
+A carteira que vamos proteger é estilizada: metade em EWZ (o ETF de ações brasileiras que a própria Kinea usa) e metade em IMAB11, ETF que replica o IMA-B e serve de aproximação para a posição comprada em NTN-B que a Opportunity descreve. Juros em queda valorizam o IMAB11; bolsa em alta valoriza o EWZ.
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Roda num terminal com `python exercicio.py` e grava `grafico-exercicio.png`.
+
+```python
+# Exercício: quanto o petróleo protege uma carteira 50% bolsa Brasil (EWZ)
+# + 50% juros Brasil (IMAB11)? Hedge ratio de variância mínima, estabilidade
+# no tempo e comportamento do Brent nas piores semanas da carteira.
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")           # sem janela gráfica: o script roda em terminal
+import matplotlib.pyplot as plt
+import yfinance as yf
+
+HOJE = pd.Timestamp.today().normalize()
+INICIO = "2019-12-01"            # IMAB11 começa a negociar no fim de 2019
+JANELA = 52                      # semanas na janela móvel (um ano)
+PESO_BOLSA, PESO_JUROS = 0.5, 0.5
+
+# ---------------------------------------------------------------------------
+# 1. Download com teste de frescor: um HTTP 200 não prova que o dado é atual.
+# ---------------------------------------------------------------------------
+def baixar(ticker):
+    df = yf.download(ticker, start=INICIO, auto_adjust=True, progress=False,
+                     threads=False, timeout=30)
+    if df is None or df.empty:
+        raise RuntimeError(f"{ticker}: resposta vazia")
+    fech = df["Close"]
+    if isinstance(fech, pd.DataFrame):        # yfinance às vezes devolve MultiIndex
+        fech = fech.iloc[:, 0]
+    fech = fech.dropna()
+    if fech.index.tz is not None:
+        fech.index = fech.index.tz_convert(None)
+    ultimo = fech.index[-1]
+    if (HOJE - ultimo).days > 10:
+        raise RuntimeError(f"{ticker}: última cotação em {ultimo.date()}, fonte parada")
+    return fech
+
+def baixar_com_alternativa(nome, opcoes):
+    erros = []
+    for t in opcoes:
+        try:
+            s = baixar(t)
+            s.name = nome
+            print(f"{nome:6s} <- {t:10s} {s.index[0].date()} a {s.index[-1].date()} "
+                  f"({len(s)} pregões)")
+            return s, t
+        except Exception as e:                # tenta a próxima fonte
+            erros.append(f"{t}: {e}")
+    raise RuntimeError(f"Nenhuma fonte válida para {nome}:\n" + "\n".join(erros))
+
+bolsa, tk_bolsa = baixar_com_alternativa("bolsa", ["EWZ"])
+juros, tk_juros = baixar_com_alternativa("juros", ["IMAB11.SA", "B5P211.SA"])
+brent, tk_brent = baixar_com_alternativa("brent", ["BZ=F", "BNO"])
+
+# ---------------------------------------------------------------------------
+# 2. Retornos semanais. B3, NYSE e ICE têm feriados diferentes; semanal com
+#    último preço disponível na sexta evita zeros artificiais de calendário.
+# ---------------------------------------------------------------------------
+precos = pd.concat([bolsa, juros, brent], axis=1).sort_index().ffill()
+semanal = precos.resample("W-FRI").last()
+ret = semanal.pct_change()
+# Descarte deliberado: só as semanas em que as TRÊS séries já existem
+# (corta apenas o início, antes da série mais nova). Conferimos o alcance.
+ret = ret.loc[ret.notna().all(axis=1)]
+print(f"\nAmostra semanal: {ret.index[0].date()} a {ret.index[-1].date()} "
+      f"({len(ret)} semanas)")
+
+cart = PESO_BOLSA * ret["bolsa"] + PESO_JUROS * ret["juros"]   # rebalanceada toda semana
+cart.name = "carteira"
+
+# ---------------------------------------------------------------------------
+# 3. Estatísticas: correlação móvel, hedge ratio móvel, grade de pesos,
+#    e Brent condicional aos decis da carteira.
+# ---------------------------------------------------------------------------
+corr_movel = cart.rolling(JANELA).corr(ret["brent"])
+beta_movel = cart.rolling(JANELA).cov(ret["brent"]) / ret["brent"].rolling(JANELA).var()
+w_hedge_movel = -beta_movel                       # peso de Brent de variância mínima
+
+corr_total = cart.corr(ret["brent"])
+w_hedge_total = -cart.cov(ret["brent"]) / ret["brent"].var()
+corr_hoje = float(corr_movel.iloc[-1])
+w_hoje = float(w_hedge_movel.iloc[-1])
+
+# Grade: petróleo entra como sobreposição (overlay via futuro), isto é, notional
+# adicional sobre a carteira de 100%, sem vender bolsa ou juros para financiar.
+pesos = np.arange(0.0, 0.61, 0.02)
+vol_anual, pior_4sem = [], []
+for w in pesos:
+    r = cart + w * ret["brent"]
+    vol_anual.append(r.std() * np.sqrt(52) * 100)
+    acum4 = (1 + r).rolling(4).apply(np.prod, raw=True) - 1
+    pior_4sem.append(acum4.min() * 100)
+vol_anual, pior_4sem = np.array(vol_anual), np.array(pior_4sem)
+i_min = int(np.argmin(vol_anual))
+w_min_vol = float(pesos[i_min])
+
+# Decis da carteira: a proteção precisa funcionar no decil 1 (piores semanas)
+decil = pd.qcut(cart, 10, labels=False) + 1
+brent_por_decil = ret["brent"].groupby(decil).mean() * 100
+cart_por_decil = cart.groupby(decil).mean() * 100
+
+print(f"\nCorrelação Brent x carteira (amostra inteira): {corr_total:+.2f}")
+print(f"Hedge ratio w* (amostra inteira):               {w_hedge_total:+.1%}")
+print(f"Correlação móvel {JANELA}s hoje:                  {corr_hoje:+.2f}")
+print(f"Hedge ratio móvel {JANELA}s hoje:                 {w_hoje:+.1%}")
+print(f"Peso de Brent que minimiza vol (grade):         {w_min_vol:.0%} "
+      f"(vol {vol_anual[i_min]:.1f}% vs {vol_anual[0]:.1f}% sem petróleo)")
+print(f"Brent médio nas 10% piores semanas da carteira: {brent_por_decil.loc[1]:+.2f}%/sem "
+      f"(carteira: {cart_por_decil.loc[1]:+.2f}%/sem)")
+
+# ---------------------------------------------------------------------------
+# 4. Gráfico: três painéis, um por pergunta.
+# ---------------------------------------------------------------------------
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(17, 5.2))
+fig.suptitle(f"Petróleo como proteção de uma carteira 50% {tk_bolsa} + 50% {tk_juros} "
+             f"— retornos semanais, {ret.index[0]:%b/%Y} a {ret.index[-1]:%d/%m/%Y}",
+             fontsize=12)
+
+# (a) correlação móvel de 52 semanas
+cm = corr_movel.dropna()
+ax1.plot(cm.index, cm.values, color="black", lw=1.4)
+ax1.axhline(0, color="grey", lw=0.8, ls="--")
+ax1.axhline(corr_total, color="tab:blue", lw=0.9, ls=":",
+            label=f"média da amostra: {corr_total:+.2f}")
+ax1.scatter(cm.index[-1], cm.values[-1], color="tab:red", zorder=5)
+ax1.annotate(f"hoje: ρ = {corr_hoje:+.2f}\nw* = {w_hoje:+.0%} em Brent",
+             xy=(cm.index[-1], cm.values[-1]), xytext=(-110, 25),
+             textcoords="offset points", fontsize=9, color="tab:red",
+             arrowprops=dict(arrowstyle="->", color="tab:red"))
+ax1.set_title(f"(a) Correlação móvel de {JANELA} semanas: Brent x carteira", fontsize=10)
+ax1.set_ylabel("Correlação (semanal)")
+ax1.set_xlabel("Data")
+ax1.set_ylim(-1, 1)
+ax1.legend(fontsize=8, loc="upper left")
+ax1.grid(alpha=0.3)
+
+# (b) volatilidade e pior janela de 4 semanas em função do peso de Brent
+ax2.plot(pesos * 100, vol_anual, color="black", lw=1.6, label="volatilidade anualizada")
+ax2.axvline(w_min_vol * 100, color="tab:red", lw=0.9, ls="--")
+ax2.annotate(f"mínimo: {w_min_vol:.0%} de Brent\nvol {vol_anual[i_min]:.1f}% "
+             f"(sem Brent: {vol_anual[0]:.1f}%)",
+             xy=(w_min_vol * 100, vol_anual[i_min]), xytext=(10, 30),
+             textcoords="offset points", fontsize=9, color="tab:red",
+             arrowprops=dict(arrowstyle="->", color="tab:red"))
+ax2.set_xlabel("Peso de Brent sobreposto à carteira (% do patrimônio)")
+ax2.set_ylabel("Volatilidade anualizada (% a.a.)")
+ax2b = ax2.twinx()
+ax2b.plot(pesos * 100, pior_4sem, color="tab:blue", lw=1.2, ls="-.",
+          label="pior janela de 4 semanas")
+ax2b.set_ylabel("Pior retorno em 4 semanas (%)", color="tab:blue")
+ax2b.tick_params(axis="y", labelcolor="tab:blue")
+h1, l1 = ax2.get_legend_handles_labels()
+h2, l2 = ax2b.get_legend_handles_labels()
+ax2.legend(h1 + h2, l1 + l2, fontsize=8, loc="upper center")
+ax2.set_title("(b) Quanto petróleo reduz o risco da carteira (amostra inteira)", fontsize=10)
+ax2.grid(alpha=0.3)
+
+# (c) retorno médio do Brent por decil de retorno da carteira
+cores = ["tab:red" if d == 1 else "tab:grey" for d in brent_por_decil.index]
+ax3.bar(brent_por_decil.index, brent_por_decil.values, color=cores)
+ax3.axhline(0, color="black", lw=0.8)
+for d, v in brent_por_decil.items():
+    ax3.annotate(f"{v:+.1f}", xy=(d, v), xytext=(0, 4 if v >= 0 else -11),
+                 textcoords="offset points", ha="center", fontsize=8)
+ax3.set_xticks(range(1, 11))
+ax3.set_xlabel("Decil do retorno semanal da carteira (1 = piores 10% das semanas)")
+ax3.set_ylabel("Retorno médio semanal do Brent (%)")
+ax3.set_title(f"(c) O Brent sobe quando a carteira cai? Decil 1: carteira "
+              f"{cart_por_decil.loc[1]:+.1f}%/sem, Brent {brent_por_decil.loc[1]:+.1f}%/sem",
+              fontsize=10)
+ax3.grid(alpha=0.3, axis="y")
+
+plt.tight_layout()
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("\nGráfico salvo em grafico-exercicio.png")
+```
+
+![Painel (a): correlação móvel de 52 semanas entre o retorno semanal do Brent (BZ=F) e o de uma carteira 50% EWZ + 50% IMAB11 rebalanceada toda semana, de 2020 até a última sexta-feira disponível; a linha pontilhada azul é a correlação da amostra inteira, o ponto vermelho é a leitura de hoje, anotada com o hedge ratio móvel w* correspondente. Painel (b): volatilidade anualizada da carteira (linha preta, eixo esquerdo) e pior retorno acumulado em 4 semanas (linha azul tracejada, eixo direito) em função do peso de Brent sobreposto, de 0% a 60% em passos de 2%; a linha vertical marca o peso que minimiza a volatilidade, com os valores anotados. Painel (c): retorno médio semanal do Brent em cada decil do retorno semanal da carteira; a barra vermelha é o decil 1, as 10% piores semanas da carteira, cujo valor aparece no título do painel.](grafico-exercicio.png)
+
+### Como o gráfico foi construído
+
+A carteira é 50% EWZ e 50% IMAB11 (ETF que replica o IMA-B, carteira de NTN-Bs), rebalanceada semanalmente — uma aproximação deliberadamente simples da combinação "bolsa Brasil comprada + juros Brasil aplicados" que atravessa as cartas de Kinea, Bahia e Opportunity; se o IMAB11 falhar no download, o código cai para o B5P211 (IMA-B 5, mais curto, menos sensível a juro). O Brent é o contrato contínuo BZ=F do Yahoo Finance, sem ajuste de rolagem — o retorno de rolagem está embutido e distorce o carrego, mas não a covariância semanal, que é o que medimos. Os retornos são semanais (último preço até sexta) porque B3, NYSE e ICE fecham em dias diferentes e o retorno diário alinhado produziria zeros falsos; o descarte de linhas é feito só no início, até a semana em que as três séries existem, e o alcance real é impresso no terminal e no título da figura. O petróleo entra como sobreposição (notional adicional via futuro), não como substituto de bolsa ou juros, que é como uma mesa macro de fato o carrega.
+
+### Como ler o resultado
+
+O painel (a) responde se o petróleo é proteção *hoje* ou só foi em algum momento. A tese da Kinea exige correlação negativa na janela corrente — um choque de oferta que sobe juro e derruba bolsa. Se a leitura marcada em vermelho está abaixo de zero e w* é positivo, os dados recentes sustentam carregar petróleo contra a carteira, e w* diz em que tamanho: um w* na casa de 10% a 20% é o que cabe chamar de "hedge parcial"; acima de 30% o petróleo deixaria de ser proteção para virar a maior posição da carteira. Se a correlação móvel está perto de zero ou positiva, a posição não é um hedge estatístico — é uma aposta de que o próximo choque será de oferta, como o de 2022, e não de demanda, como o de 2020, quando o Brent despencou junto com o EWZ. A oscilação da linha preta ao longo dos anos mostra exatamente isso: o sinal da relação depende da natureza do choque, e a média da amostra (linha azul) esconde os dois regimes.
+
+O painel (b) mostra o que a amostra inteira paga pela proteção: se a curva de volatilidade tem um mínimo interior claro, com queda de pelo menos um ponto percentual em relação ao peso zero, o petróleo reduz risco de forma material; se o mínimo fica colado em zero ou a curva é quase plana, adicionar Brent só troca risco de Brasil por risco de petróleo. A linha azul é o teste de cauda: se a pior janela de 4 semanas melhora à medida que o peso sobe, a proteção funcionou nos piores momentos; se piora, o petróleo amplificou a queda — a lição de março de 2020.
+
+O painel (c) é o mais direto. A frase da Kinea equivale a prever que, nas semanas do decil 1, o Brent tem retorno médio positivo. Se a barra vermelha está acima de zero, o mecanismo descrito na carta aparece nos dados; se está abaixo, as piores semanas da carteira brasileira foram, em média, semanas em que o petróleo também caiu, e a proteção que a carta descreve vale apenas para um tipo específico de semana ruim. Para Bahia e Opportunity, que carregam a carteira sem o petróleo, a conta inversa também interessa: a barra do decil 1 é o tamanho da perda que elas aceitam não compensar.
+
+### Vá além
+
+Troque a amostra: rode a grade do painel (b) só para 2022 em diante, quando o choque dominante foi de oferta, e compare o w* com o da amostra que inclui 2020. Em seguida, substitua o IMAB11 por uma série de juro prefixado construída com `pyettj` — basta baixar `ettj.get_ettj` numa sexta-feira por mês, filtrar `curva == "PRE"`, interpolar o vértice de 5 anos e converter a variação de taxa em retorno aproximado via duração (−duração × Δtaxa). Isso reproduz a posição "aplicada em DI" da Bahia e da Opportunity em vez da posição em NTN-B, e permite ver se o petróleo protege melhor o juro nominal (onde a inflação do choque entra inteira) ou o real.
+
+## Cartas originais
+
+- **Alaska Asset Management — Carta Mensal — Setembro de 2026** ([original](https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/setembro26.pdf))
+- **Bahia Asset Management — Carta do Gestor** ([original](https://www.bahiaasset.com.br/wp-content/uploads/2026/10/carta_do_gestor_set26.pdf))
+- **Occam Brasil — Carta Mensal Setembro 2026 Carta Mensal Setembro 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/10/Carta_Mensal_Setembro__2026.pdf))
+- **Occam Brasil — Carta Mensal Crédito Setembro 2026 Carta Mensal Crédito Setembro 2026** ([original](https://occambrasil.com.br/wp-content/uploads/2026/10/Carta_Mensal_Credito_Setembro__2026.pdf))
+- **Kinea Investimentos — Highlander, o guerreiro imortal** ([original](https://www.kinea.com.br/blog/carta-do-gestor-highlander-guerreiro-imortal/))
+- **Sparta — Carta Mensal — Setembro de 2026** ([original](https://www.sparta.com.br/uploads/CartaMensal_202609.pdf))
+- **Opportunity — Carta de Gestão — Setembro de 2026** ([original](https://www.opportunity.com.br/Content/pdf/carta_gestor/CartaGestao_Total.pdf))

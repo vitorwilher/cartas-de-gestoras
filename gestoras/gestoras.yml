@@ -44,7 +44,7 @@ gestoras:
     estrategia: url_previsivel
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: 'https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/agosto26.pdf'}
+    ultima_carta: {principal: 'https://www.alaska-asset.com.br/pdf/cartas/Mensais/2026/setembro26.pdf'}
     url_template: https://www.alaska-asset.com.br/pdf/cartas/Mensais/{ano}/{mes}{aa}.pdf
     notas: >
       A ÚNICA com URL totalmente previsível. Meses em português minúsculo e SEM
@@ -60,7 +60,7 @@ gestoras:
     estrategia: wp_rest
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: cartadogestor-42}
+    ultima_carta: {principal: cartadogestor-43}
     notas: >
       ARMADILHA CRÍTICA: na página /carta-do-gestor/ o link do PDF é montado por
       JavaScript inline e NÃO existe como href no HTML servido — scraper ingênuo
@@ -76,7 +76,7 @@ gestoras:
     estrategia: html
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Credito_Agosto_2026.pdf', principal: 'https://occambrasil.com.br/wp-content/uploads/2026/09/Carta_Mensal_Agosto_2026.pdf'}
+    ultima_carta: {credito: 'https://occambrasil.com.br/wp-content/uploads/2026/10/Carta_Mensal_Credito_Setembro__2026.pdf', principal: 'https://occambrasil.com.br/wp-content/uploads/2026/10/Carta_Mensal_Setembro__2026.pdf'}
     notas: >
       A coleta mais simples das 12: ~52 cartas numa única página de 61 KB, todos os
       href diretos no HTML, sem paginação, sem JS. Publica DUAS séries paralelas por
@@ -109,7 +109,7 @@ gestoras:
     estrategia: wp_rest
     periodicidade: mensal
     formato: html
-    ultima_carta: {principal: carta-do-gestor-a-hora-do-pesadelo}
+    ultima_carta: {principal: carta-do-gestor-highlander-guerreiro-imortal}
     notas: >
       A carta macro é HTML INLINE (texto completo na página), sem PDF — o extrator
       de PDF não se aplica aqui. Categoria carta-do-gestor = ID 340 na REST API.
@@ -248,7 +248,7 @@ gestoras:
     formato: pdf
     url_template: https://www.sparta.com.br/uploads/CartaMensal_{ano}{mes}.pdf
     meses_para_tras: 4
-    ultima_carta: {principal: 'https://www.sparta.com.br/uploads/CartaMensal_202608.pdf'}
+    ultima_carta: {principal: 'https://www.sparta.com.br/uploads/CartaMensal_202609.pdf'}
     notas: >
       Traz CRÉDITO PRIVADO ao catálogo — eixo que só a Occam cobria em parte, e
       que é 34% do patrimônio da indústria. Tese de verdade (debêntures
@@ -268,7 +268,7 @@ gestoras:
     estrategia: url_fixa
     periodicidade: mensal
     formato: pdf
-    ultima_carta: {principal: Opportunity-2026-08}
+    ultima_carta: {principal: Opportunity-2026-09}
     notas: >
       CASO ÚNICO NO CATÁLOGO: não existe página de listagem nem arquivo histórico.
       Há UM PDF numa URL FIXA, SOBRESCRITA a cada edição — mesma ideia da URL fixa
