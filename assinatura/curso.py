@@ -21,6 +21,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import html
 import re
 import sys
 from pathlib import Path
@@ -38,6 +39,10 @@ WP_AUTH = (ENV["WP_LOJA_USER"], ENV["WP_LOJA_APP_PASSWORD"])
 WC = {"consumer_key": ENV["WC_CONSUMER_KEY"], "consumer_secret": ENV["WC_CONSUMER_SECRET"]}
 # Sem User-Agent de navegador o WAF responde 403 (ver CLAUDE.md, Code Snippets).
 UA = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/120.0 Safari/537.36"}
+# O Download Monitor ignora a senha de aplicação: só aceita a chave dele (gerada no
+# painel, Downloads -> Configurações -> API). É o que serve o PDF em /download/<id>.
+DLM = {"X-DLM-API-KEY": ENV.get("DLM_API_PUBLIC_KEY") or "",
+       "X-DLM-API-SECRET": ENV.get("DLM_API_SECRET_KEY") or ""}
 
 NOME_CURSO = "Síntese das Cartas das Gestoras"
 SLUG = woo.SLUG
@@ -70,6 +75,25 @@ def subir_midia(c: httpx.Client, arquivo: Path, tipo: str) -> dict:
                    headers={"Content-Type": tipo,
                             "Content-Disposition": f'attachment; filename="{arquivo.name}"'}),
                f"upload de {arquivo.name}")
+
+
+def garantir_download(c: httpx.Client, titulo: str, url_arquivo: str) -> int:
+    """O PDF atrás de /download/<id>, só para quem está logado (`_members_only`).
+
+    Procura pelo título antes de criar: rodar de novo não duplica o download.
+    """
+    achado = _ok(_wp(c, "GET", "wp/v2/dlm_download", params={"search": titulo, "status": "any"}),
+                 f"busca do download {titulo}")
+    for d in achado:
+        if html.unescape(d["title"]["rendered"]) == titulo:
+            return d["id"]
+    novo = _ok(c.post(f"{LOJA}/wp-json/download-monitor/v1/download", headers={**UA, **DLM},
+                      json={"title": titulo, "status": "publish", "_members_only": "yes"}),
+               f"criação do download {titulo}")
+    _ok(c.post(f"{LOJA}/wp-json/download-monitor/v1/version", headers={**UA, **DLM},
+               json={"download_id": novo["download_id"], "version": "1", "url": url_arquivo}),
+        f"versão do download {titulo}")
+    return novo["download_id"]
 
 
 def titulo_edicao(qmd: Path, data: str) -> str:
@@ -114,7 +138,8 @@ def garantir_aulas(c: httpx.Client, curso_id: int) -> list[int]:
         data = pdf.stem.removeprefix("resumo-")
         slug = f"cartas-edicao-{data}"
         midia = subir_midia(c, pdf, "application/pdf")
-        materiais = (f'<a href="{midia["source_url"]}" target="_blank" rel="noopener">'
+        dl = garantir_download(c, f"Síntese das Cartas das Gestoras — {data}", midia["source_url"])
+        materiais = (f'<a href="{LOJA}/download/{dl}/" target="_blank" rel="noopener">'
                      f"Baixar o PDF da edição</a>")
         corpo = {"title": titulo_edicao(pdf.with_suffix(".qmd"), data), "slug": slug, "course": curso_id,
                  "menu_order": ordem, "materials_enabled": True, "materials": materiais}
