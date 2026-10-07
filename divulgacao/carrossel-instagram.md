@@ -29,12 +29,12 @@ na sequência (a tese, com ✓), sem inventar consenso.
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + gráfico | "A GMO vê 20 pontos de vento contra o S&P 500. Quanto disso chega ao Brasil?" — duas barras: −19% (beta calmo) e −27% (beta de correção) |
+| 1 | capa + gráfico | "A GMO vê 20 pontos de vento contra o S&P 500. Quanto disso chega ao Brasil?" — dispersão semanal desde 2004, por regime (1,34 × 0,96). Na capa a pedido do Vitor, 02/10 |
 | 2 | lista ✓ | O que a GMO argumenta: oferta de ações como gatilho, ~20 pontos em 12-18 meses |
 | 3 | lista | Onde isso pesa: venda do que é líquido; bolsa e real como fonte de caixa |
 | 4 | definição | Beta / Correção / Beta por regime — **antes** dos gráficos de série |
 | 5 | lista | Por que custa dinheiro |
-| 6 | capa + gráfico | Dispersão semanal desde 2004, por regime, com a reta de cada um (1,34 × 0,96) |
+| 6 | capa + gráfico | "Medido: 1,34 em correção, 0,96 no calmo." — duas barras: −19% (beta calmo) e −27% (beta de correção) |
 | 7 | capa + gráfico | Distância do S&P 500 até a máxima, linha dos −10% e o ponto de hoje (−0,9%) |
 | 8 | lista | O que o dado diz — inclui "hoje o regime é calmo" e "âncora, não previsão" |
 | 9 | lista numerada | O caminho que eu fiz |
@@ -68,7 +68,7 @@ na sequência (a tese, com ✓), sem inventar consenso.
 > abril de 2025, o S&P 500 caiu 9% e o Ibovespa em dólar, menos de 2%. O beta por
 > regime é âncora histórica, não previsão.
 >
-> Você não precisa acreditar em mim nem na GMO. Os slides 6 e 7 saíram de um código
+> Você não precisa acreditar em mim nem na GMO. Os gráficos saíram de um código
 > em Python com dado público, que roda em segundos.
 >
 > É o que faço toda semana em que sai carta nova: leio as cartas de 15 gestoras

@@ -326,9 +326,9 @@ def slides(d: dict) -> list[dict]:
     Edição de 29/09: só GMO e Bridgewater publicaram, e o exercício mede quanto do
     "vento contrário de 20 pontos" que a GMO projeta para o S&P 500 chega ao
     Brasil — o beta do Ibovespa em dólar ao S&P 500, separado por regime. A regra
-    continua a mesma: **nenhum gráfico aparece antes do contexto**. A capa mostra
-    só duas barras (a pergunta respondida); a dispersão e o drawdown entram
-    depois do slide que define beta e regime.
+    era "nenhum gráfico antes do contexto", com as barras na capa; em 02/10 o Vitor
+    pediu a dispersão na capa — ela tem título e legenda e se explica sozinha. As
+    barras passaram ao slide 6, que traz os betas medidos.
 
     Bullets, não parágrafos. Sem preço, sem oferta e sem emoji.
     """
@@ -338,7 +338,8 @@ def slides(d: dict) -> list[dict]:
         {
             "kind": "capa",
             "hook": "A GMO vê 20 pontos de vento contra o S&P 500. *Quanto disso chega ao Brasil?*",
-            "src": grafico_choque(d),
+            # A dispersão na capa foi pedido do Vitor (02/10): a prova abre o post.
+            "src": grafico_dispersao(d),
         },
         {
             "kind": "lista",
@@ -386,7 +387,7 @@ def slides(d: dict) -> list[dict]:
             "kind": "capa",
             "hook": f"Medido: *{_num(r['b_corr'])}* em correção, {_num(r['b_calmo'])} no calmo.",
             "hint": False,
-            "src": grafico_dispersao(d),
+            "src": grafico_choque(d),   # as barras traduzem os dois betas em queda
         },
         {
             "kind": "capa",
