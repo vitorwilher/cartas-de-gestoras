@@ -36,29 +36,18 @@ DESCRICAO_CURTA = (
     "Oaktree, GMO e Bridgewater — com o exercício em Python que verifica a tese."
 )
 
-DESCRICAO = """<p><strong>Você não paga para saber o que as gestoras disseram. Você paga
-para aprender a destrinchar tecnicamente o que elas disseram.</strong></p>
-
-<p>Toda terça, o pipeline lê as cartas novas de 15 gestoras brasileiras (Dynamo, IP,
-Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Genoa, Sparta
-e Opportunity) e de três internacionais (Oaktree, GMO e Bridgewater), e entrega:</p>
-
+# Um elemento por linha: o wpautop do WordPress converte quebra DENTRO de
+# parágrafo em <br>, e o texto fica com as linhas cortadas no meio.
+DESCRICAO = """<p><strong>Você não paga para saber o que as gestoras disseram. Você paga para aprender a destrinchar tecnicamente o que elas disseram.</strong></p>
+<p>Toda terça, o pipeline lê as cartas novas de 15 gestoras brasileiras (Dynamo, IP, Alaska, Kapitalo, Adam, Legacy, Bahia, Occam, JGP, Kinea, NEO, Dahlia, Genoa, Sparta e Opportunity) e de três internacionais (Oaktree, GMO e Bridgewater), e entrega:</p>
 <ul>
-  <li><strong>A tese de cada gestora e o mecanismo por trás dela</strong>: a cadeia
-  causal que faz a aposta se pagar e a condição em que ela quebra.</li>
-  <li><strong>Convergências e divergências</strong>: onde o consenso se forma, onde
-  racha, e quanto patrimônio sob mandato compatível está de cada lado.</li>
-  <li><strong>Um exercício em Python</strong>: código que roda, com dados públicos,
-  verificando o mecanismo da semana.</li>
-  <li><strong>O histórico completo</strong>: todas as edições ficam na sua área do
-  aluno.</li>
+  <li><strong>A tese de cada gestora e o mecanismo por trás dela</strong>: a cadeia causal que faz a aposta se pagar e a condição em que ela quebra.</li>
+  <li><strong>Convergências e divergências</strong>: onde o consenso se forma, onde racha, e quanto patrimônio sob mandato compatível está de cada lado.</li>
+  <li><strong>Um exercício em Python</strong>: código que roda, com dados públicos, verificando o mecanismo da semana.</li>
+  <li><strong>O histórico completo</strong>: todas as edições ficam na sua área do aluno.</li>
 </ul>
-
-<p>As cartas não são todas mensais: Dynamo e IP publicam ensaios irregulares. Quando
-nenhuma gestora publica na semana, não há edição.</p>
-
-<p><em>As cartas originais pertencem às respectivas gestoras. A assinatura dá acesso
-à análise, sempre com o link para o documento original.</em></p>
+<p>As cartas não são todas mensais: Dynamo e IP publicam ensaios irregulares. Quando nenhuma gestora publica na semana, não há edição.</p>
+<p><em>As cartas originais pertencem às respectivas gestoras. A assinatura dá acesso à análise, sempre com o link para o documento original.</em></p>
 """
 
 
