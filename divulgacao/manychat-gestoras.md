@@ -1,6 +1,6 @@
 # Fluxo ManyChat — palavra-chave `GESTORAS`
 
-**Status: RASCUNHO. O fluxo NÃO existe ainda.**
+**Status: fluxo criado no painel (Vitor, 09/09). Texto da DM revisto em 07/10 — falta colar.**
 
 🔴 **Bloqueio conhecido, verificado no `../ROI_Diagnostico/CLAUDE.md`:** a API do
 ManyChat **não cria fluxo** (`createFlow` → 404) nem permite conferir qual
@@ -25,16 +25,30 @@ prova ponta a ponta é comentar a palavra-chave de uma conta que nunca interagiu
 
 ## A DM
 
-> Oi! Vi que você comentou GESTORAS no carrossel.
+🔴 **Texto novo de 07/10/2026 — colar no painel** (a API do ManyChat não edita
+fluxo). A síntese completa virou assinatura de R$ 97/mês; a DM antiga dizia "É
+gratuito" e prometia a edição completa por e-mail, o que deixou de ser verdade.
+
+> Oi! Vi que você comentou GESTORAS.
 >
-> A edição desta semana — a síntese das cartas e o código do exercício — chega no
-> seu e-mail assim que você se cadastrar aqui:
+> Aqui está o link:
 >
 > https://analisemacro.com.br/conteudo/cartas-das-gestoras/?utm_source=manychat&utm_medium=dm&utm_campaign=cartas-de-gestoras
 >
-> É gratuito. Depois, sempre que sair carta nova das gestoras que acompanho — 15
-> brasileiras e, agora, Oaktree, GMO e Bridgewater —, a próxima edição chega no
-> mesmo e-mail.
+> A edição completa, com a tese de cada casa, onde elas divergem e o código do
+> exercício, é para assinantes. Na mesma página, se preferir, você se cadastra
+> para receber de graça o resumo de cada edição por e-mail.
+>
+> Acompanho 15 gestoras brasileiras e Oaktree, GMO e Bridgewater. Sai edição
+> sempre que alguma publica carta nova.
+
+<details><summary>DM anterior (23/09 a 07/10), só para histórico</summary>
+
+> Oi! Vi que você comentou GESTORAS no carrossel. A edição desta semana — a
+> síntese das cartas e o código do exercício — chega no seu e-mail assim que você
+> se cadastrar aqui: [link]. É gratuito. [...]
+
+</details>
 
 ⚠️ **Desde 23/09 a DM leva à LANDING, não ao PDF** (decisão do Vitor): o objetivo é
 o cadastro, que põe o lead na tag e no envio de cada edição. O PDF chega pelo

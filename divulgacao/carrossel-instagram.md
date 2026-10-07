@@ -1,84 +1,94 @@
 # Carrossel de Instagram — Cartas de Gestoras
 
-**Status: edição de 29/09 PRONTA, NÃO publicada** — aguarda revisão do Vitor.
+**Status: edição de 07/10 PRONTA, NÃO publicada** — aguarda revisão do Vitor.
 
 - **Arquivos:** `divulgacao/carrossel/slide-01.png` … `slide-10.png` (1080×1350)
 - **Gerador:** `python divulgacao/carrossel.py` (reexecuta o exercício da edição)
 - **Publicar:** `python divulgacao/publicar_instagram.py` (dry-run por padrão)
-- **Palavra-chave da DM:** `GESTORAS` — ver `manychat-gestoras.md` (a DM é genérica
-  desde 23/09 e serve a esta edição sem mudança)
-- **Números conferidos:** 01/10/2026, Yahoo Finance (S&P 500 até 30/09; Ibovespa e
-  dólar até 01/10)
+- **Palavra-chave da DM:** `GESTORAS` — ⚠️ a DM precisa do texto novo de
+  `manychat-gestoras.md` (07/10) ANTES do post: a antiga promete edição grátis
+- **Números conferidos:** 07/10/2026, Yahoo Finance, **semanas encerradas** até
+  02/10 (EWZ, IMAB11.SA, BZ=F). O "Brent +68% no ano" muda a cada pregão: se o post
+  sair dias depois, rode o gerador e confira
 
-## Por que este ângulo (edição de 29/09)
+## 🔴 Desde 07/10: ênfase na assinatura (pedido do Vitor)
 
-**"A GMO vê 20 pontos de vento contra o S&P 500. Quanto disso chega ao Brasil?"**
-A edição só teve GMO e Bridgewater, e o exercício mede o beta do Ibovespa em dólar
-ao S&P 500 separado por regime. O contraste se lê em dois segundos: aplicado a um
-S&P −20%, o beta de mercado calmo (0,96) dá −19%; o beta medido nas correções
-(1,34), −27%.
+A síntese completa virou assinatura de R$ 97/mês (curso 73334 ↔ produto 73335).
+Os carrosséis passam a puxar para ela — **sem preço no slide nem na legenda**: no
+feed, CTA de venda derruba alcance (skill copy-analise-macro), e o preço está na
+landing, que é para onde a DM leva. A ênfase vem de dois lugares:
 
-Um ângulo só. Ficaram de fora o preço do carbono da Bridgewater e a mecânica de
-inelasticidade da demanda por ações (o multiplicador de 4x da GMO).
+- **slide 9** ("o caminho que eu fiz") termina em "o código e a síntese completa
+  estão na edição de assinantes"
+- **slide 10** (CTA) se chama "A edição completa é para assinantes" e diz o que o
+  assinante recebe; mantém palavra-chave + pergunta
 
-⚠️ O slide 2 do padrão é "no que as cartas concordam". Sem carta brasileira e com a
-Bridgewater em outro tema, ele virou **"O que a GMO argumenta"** — a mesma posição
-na sequência (a tese, com ✓), sem inventar consenso.
+## Por que este ângulo (edição de 07/10)
+
+**"A Kinea carrega petróleo para proteger juros e bolsa. Nas piores semanas, ele
+protegeu?"** O exercício testa a frase da carta numa carteira 50% EWZ + 50% IMAB11
+(a combinação que Kinea, Bahia e Opportunity carregam). A resposta tem as duas
+metades, e as duas entram: de 2020 a hoje o petróleo **caiu junto** nas piores
+semanas (−2,4% contra −4,4% da carteira), e mais petróleo piorou o pior mês (−31%
+→ −58% com 60% em Brent); **mas hoje** a correlação de 52 semanas está em 0,00,
+entre as 5% mais baixas — o choque de 2026 é de oferta.
+
+⚠️ **Dois erros evitados, para não voltarem:**
+- "A correlação de hoje é a **menor da série**" — falso com semanas encerradas
+  (a mínima foi −0,02, em junho). Só parecia verdade com a semana aberta.
+- "2022, choque de oferta: o petróleo subiu enquanto bolsa e juro apanhavam" —
+  vale para bolsas e títulos **globais**, não para esta carteira: em 2022 a
+  correlação foi +0,40 e os dois subiram. O exemplo de oferta da amostra é 2026.
 
 ## Os 10 slides
 
 | # | Tipo | Conteúdo |
 |---|---|---|
-| 1 | capa + gráfico | "A GMO vê 20 pontos de vento contra o S&P 500. Quanto disso chega ao Brasil?" — dispersão semanal desde 2004, por regime (1,34 × 0,96). Na capa a pedido do Vitor, 02/10 |
-| 2 | lista ✓ | O que a GMO argumenta: oferta de ações como gatilho, ~20 pontos em 12-18 meses |
-| 3 | lista | Onde isso pesa: venda do que é líquido; bolsa e real como fonte de caixa |
-| 4 | definição | Beta / Correção / Beta por regime — **antes** dos gráficos de série |
-| 5 | lista | Por que custa dinheiro |
-| 6 | capa + gráfico | "Medido: 1,34 em correção, 0,96 no calmo." — duas barras: −19% (beta calmo) e −27% (beta de correção) |
-| 7 | capa + gráfico | Distância do S&P 500 até a máxima, linha dos −10% e o ponto de hoje (−0,9%) |
-| 8 | lista | O que o dado diz — inclui "hoje o regime é calmo" e "âncora, não previsão" |
-| 9 | lista numerada | O caminho que eu fiz |
-| 10 | CTA | GESTORAS + "na sua conta de risco, o beta do Brasil é um número só?" |
+| 1 | capa + gráfico | Brent médio por decil da carteira; decil 1 em vermelho (−2,4) |
+| 2 | lista ✓ | O que a Kinea argumenta |
+| 3 | lista | Por que importa além da Kinea: Bahia e Opportunity, sem o petróleo |
+| 4 | definição | Proteção / Correlação móvel / Decil 1 — **antes** dos gráficos de série |
+| 5 | lista | O tipo de choque decide: 2020 (demanda) × 2026 (oferta) |
+| 6 | capa + gráfico | Pior janela de 4 semanas × % em Brent: −31% → −58% |
+| 7 | capa + gráfico | Correlação de 52 semanas e o ponto de hoje (0,00) |
+| 8 | lista | O que o dado diz — inclui "parou de cair junto, mas ainda não protege" |
+| 9 | lista numerada | O caminho que eu fiz — termina na edição de assinantes |
+| 10 | CTA | "A edição completa é para assinantes" + GESTORAS + pergunta |
 
 ## Legenda do post
 
-> Na semana de 10 de outubro de 2008, o S&P 500 caiu 18%. O Ibovespa, medido em
-> dólar, caiu 28% — e o dólar subiu 11% contra o real no mesmo intervalo.
+> Em 2020, o Brent caiu 25% no ano. Uma carteira meio bolsa brasileira, meio
+> NTN-B, caiu junto com ele.
 >
-> Em março de 2020, de novo: o S&P 500 caiu 15% numa semana, e o Ibovespa em
-> dólar, 24%.
+> Em 2026, com o conflito entre EUA e Irã, o petróleo já subiu 68%, e a
+> correlação semanal com a mesma carteira ficou negativa (−0,15) — o único ano
+> assim desde 2020.
 >
-> A GMO publicou sua carta trimestral argumentando que o gatilho da bolha de IA
-> será a oferta de ações — SpaceX, OpenAI, Anthropic e as emissões das gigantes
-> de nuvem — e estima um vento contrário de cerca de 20 pontos sobre o S&P 500 em
-> 12 a 18 meses.
+> A Kinea escreveu na carta de setembro que carrega petróleo como proteção parcial
+> das posições aplicadas em juros e compradas em bolsa: um choque de energia sobe
+> juro e derruba bolsa, e o petróleo compensa. Bahia e Opportunity carregam a mesma
+> combinação, sem o petróleo do outro lado.
 >
-> A pergunta para quem está no Brasil: quanto disso chega aqui?
+> Testei com dado público, semanal, desde dezembro de 2019: 50% EWZ e 50% IMAB11
+> contra o Brent.
 >
-> Medi com dado público, semanal, desde 2004. Nas semanas calmas, o beta do
-> Ibovespa em dólar ao S&P 500 é 0,96. Nas semanas em que o S&P 500 está em
-> correção (mais de 10% abaixo da máxima de um ano), sobe para 1,34. Aplicado a
-> uma queda de 20%, é a diferença entre −19% e −27%.
+> Nas 10% piores semanas da carteira, ela caiu 4,4% em média. O Brent não subiu
+> para compensar: caiu 2,4%. Na amostra inteira, o peso de petróleo que minimiza o
+> risco é zero, e somar Brent piorou o pior mês, de −31% para −58% com 60% do
+> patrimônio em petróleo.
 >
-> O real faz parte disso: em correção, o dólar sobe 0,39% a cada 1% de queda do
-> S&P 500; no mercado calmo, 0,21%.
+> A ressalva que muda a leitura: hoje a correlação de 52 semanas está em zero,
+> entre as 5% mais baixas da série. O petróleo parou de cair junto, mas ainda não
+> protege. A posição da Kinea é uma aposta no tipo do próximo choque — de oferta,
+> como o deste ano, e não de demanda, como o de 2020.
 >
-> As ressalvas. Hoje o S&P 500 está a 0,9% da máxima: o regime é calmo, a correção
-> não começou. E a causa importa: na semana do anúncio das tarifas americanas, em
-> abril de 2025, o S&P 500 caiu 9% e o Ibovespa em dólar, menos de 2%. O beta por
-> regime é âncora histórica, não previsão.
+> Os gráficos saíram de um código em Python que roda em segundos. Ele está na
+> edição completa desta semana, junto com a tese de cada uma das seis casas que
+> publicaram e onde elas divergem. A edição completa é para assinantes.
 >
-> Você não precisa acreditar em mim nem na GMO. Os gráficos saíram de um código
-> em Python com dado público, que roda em segundos.
+> Comenta GESTORAS que eu te mando o link no direct.
 >
-> É o que faço toda semana em que sai carta nova: leio as cartas de 15 gestoras
-> brasileiras e de Oaktree, GMO e Bridgewater, destrincho as teses e escrevo um
-> exercício que testa uma delas.
->
-> Comenta GESTORAS que eu mando a edição desta semana — a síntese e o código — no
-> direct.
->
-> E me conta: na sua conta de risco, o beta do Brasil é um número só?
+> E me conta: na sua carteira, o petróleo protege ou só soma risco?
 
 ## Publicado
 
@@ -95,9 +105,9 @@ inteiro deixando containers órfãos.
 
 ## Checklist antes de publicar
 
-- [ ] 🔴 **Criar o fluxo `GESTORAS` no painel do ManyChat** — a API não cria. Sem
-      ele, quem comenta não recebe nada e o lead se perde em silêncio
-- [ ] Definir para onde o link da DM aponta (página de captura ou produto)
+- [ ] 🔴 **Colar no ManyChat a DM nova (07/10)** de `manychat-gestoras.md` — a
+      antiga diz "é gratuito" e promete a edição completa por e-mail
+- [ ] Rodar o gerador de novo se o post sair depois de 09/10 (números mudam)
 - [ ] Testar ponta a ponta comentando `GESTORAS` de uma conta que nunca interagiu
 - [ ] Conferir os PNGs no celular — é de onde vem a maior parte do tráfego
 - [ ] Se virar anúncio: nome de campanha/adset **sem pipe (`|`)** — a macro

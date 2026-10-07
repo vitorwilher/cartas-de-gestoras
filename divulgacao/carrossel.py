@@ -122,11 +122,13 @@ def dados_do_exercicio() -> dict:
     # valor de hoje só existia como `ult["corr"]`, campo de uma Series.
     universais = {
         "valor_hoje": ("dr_hoje", "atual_bps", "atual", "inclinacao_atual", "valor_hoje",
-                       "ult['corr']", "beta_hoje"),
+                       "ult['corr']", "beta_hoje", "corr_hoje"),
         "percentil": ("pct_hoje", "percentil", "percentil_hist", "pct_corr",
                       # 29/09: o exercício não calcula percentil; derivamos o do
                       # beta móvel de hoje contra a própria série.
-                      "(beta_movel_validos < beta_hoje).mean() * 100"),
+                      "(beta_movel_validos < beta_hoje).mean() * 100",
+                      # 07/10: percentil da correlação móvel de hoje na própria série.
+                      "(corr_movel.dropna() < corr_hoje).mean() * 100"),
     }
     dados = {k: v for k, v in ns.items() if not k.startswith("__")}
     faltando = []
@@ -170,152 +172,151 @@ def _pct(x: float, casas: int = 0) -> str:
 
 
 def _num(x: float, casas: int = 2) -> str:
+    # Um valor que arredonda para zero sai "0,00", não "−0,00" (visto em 07/10).
+    if round(x, casas) == 0:
+        x = 0.0
     return f"{x:.{casas}f}".replace(".", ",").replace("-", "−")
 
 
-def regimes(d: dict) -> dict:
-    """Os números da edição de 29/09, lidos do namespace do exercício.
+def petroleo(d: dict) -> dict:
+    """Os números da edição de 07/10, recalculados só com semanas ENCERRADAS.
 
-    O beta por regime e o choque implícito vêm direto do exercício. O beta móvel
-    "de hoje" NÃO: o resample semanal rotula a semana corrente, ainda aberta, com a
-    sexta-feira futura — e um beta de 26 semanas com a última semana pela metade
-    oscila muito (0,09 com a semana aberta, 0,30 com a última fechada, medido em
-    01/10). Para a peça usamos só semanas encerradas.
+    O resample "W-FRI" rotula a semana corrente, ainda aberta, com a sexta futura;
+    uma semana pela metade mexe na janela móvel (mesmo cuidado do carrossel de
+    29/09). Tudo o mais é o cálculo do exercício, linha a linha.
     """
+    import numpy as np
     import pandas as pd
-    bm = d["beta_movel_validos"]
-    fechadas = bm[bm.index <= pd.Timestamp.today().normalize()]
+    ret = d["ret"]
+    ret = ret[ret.index <= pd.Timestamp.today().normalize()]
+    cart = 0.5 * ret["bolsa"] + 0.5 * ret["juros"]
+    brent = ret["brent"]
+    corr = cart.rolling(52).corr(brent).dropna()
+    w = -(cart.rolling(52).cov(brent) / brent.rolling(52).var()).dropna()
+    pesos = np.arange(0.0, 0.61, 0.02)
+    vol, pior4 = [], []
+    for p in pesos:
+        r = cart + p * brent
+        vol.append(r.std() * np.sqrt(52) * 100)
+        pior4.append(((1 + r).rolling(4).apply(np.prod, raw=True) - 1).min() * 100)
+    decil = pd.qcut(cart, 10, labels=False) + 1
     return {
-        "b_calmo": float(d["b_calmo"]), "b_corr": float(d["b_corr"]),
-        "n_calmo": int(d["n_calmo"]), "n_corr": int(d["n_corr"]),
-        "c_calmo": float(d["c_calmo"]), "c_corr": float(d["c_corr"]),
-        "fx_calmo": float(d["bfx_calmo"]), "fx_corr": float(d["bfx_corr"]),
-        "impl_calmo": float(d["impl_calmo"]), "impl_corr": float(d["impl_corr"]),
-        "dd_hoje": float(d["dd_hoje"]), "data_dd": d["dd_diario"].dropna().index[-1],
-        "beta_hoje": float(fechadas.iloc[-1]), "data_beta": fechadas.index[-1],
-        "pct_beta": float((fechadas < fechadas.iloc[-1]).mean() * 100),
-        "inicio": d["ret"].index[0],
+        "inicio": ret.index[0], "fim": ret.index[-1], "n": len(ret),
+        "corr": corr, "corr_hoje": float(corr.iloc[-1]),
+        "pct_hoje": float((corr < corr.iloc[-1]).mean() * 100),
+        "corr_total": float(cart.corr(brent)),
+        "corr_max": float(corr.max()), "data_max": corr.idxmax(),
+        "w_hoje": float(w.iloc[-1]),
+        "pesos": pesos * 100, "vol": np.array(vol), "pior4": np.array(pior4),
+        "brent_decil": brent.groupby(decil).mean() * 100,
+        "cart_decil": cart.groupby(decil).mean() * 100,
     }
 
 
-def grafico_choque(d: dict) -> str:
-    """A capa: o mesmo choque de −20% no S&P 500, lido por dois betas.
+def grafico_decis(d: dict) -> str:
+    """A capa: o Brent médio em cada decil da carteira, com o decil 1 em destaque.
 
-    Só duas barras, para a capa se ler em dois segundos. É a pergunta da manchete
-    respondida com o número do exercício: −20% em Nova York vira −19% com o beta
-    de mercado calmo e −27% com o beta medido nas correções.
+    A tese da Kinea equivale a prever barra vermelha ACIMA de zero (o petróleo
+    sobe nas piores semanas de bolsa + juro Brasil). O gráfico responde em dois
+    segundos: ficou abaixo.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    r = regimes(d)
-    vals = [r["impl_calmo"] * 100, r["impl_corr"] * 100]
-    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.bar([0, 1], vals, width=0.56, color=[BLUE, "#C0392B"])
-    ax.axhline(0, color=NAVY, lw=2.2)
-    for x, v, cor in ((0, vals[0], BLUE), (1, vals[1], "#C0392B")):
-        ax.text(x, v - 0.8, _pct(v / 100), ha="center", va="top",
-                fontsize=44, color=cor, fontweight="bold")
-    ax.text(0, 0.8, f"com o beta de\nmercado calmo ({_num(r['b_calmo'])})",
-            ha="center", va="bottom", fontsize=23, color=NAVY)
-    ax.text(1, 0.8, f"com o beta medido\nnas correções ({_num(r['b_corr'])})",
-            ha="center", va="bottom", fontsize=23, color=NAVY)
-    ax.set_xlim(-0.6, 1.6)
-    ax.set_ylim(min(vals) - 7, 8)
-    ax.set_xticks([])
-    ax.set_yticks([])
-    _limpar(ax)
-    ax.grid(False)
-    _titulo(ax, "Se o S&P 500 cair 20%",
-            "queda implícita do Ibovespa em dólar · beta semanal desde 2004")
-    fig.tight_layout()
-    return _fig_para_uri(fig)
-
-
-def grafico_dispersao(d: dict) -> str:
-    """A prova: as semanas de 2004 a hoje, separadas por regime, com a reta de cada um.
-
-    Duas nuvens, duas inclinações — e o rótulo de cada reta diz o beta. O leitor
-    não precisa saber o que é mínimos quadrados para ver que a reta vermelha é
-    mais íngreme.
-    """
-    import matplotlib
-    matplotlib.use("Agg")
-    import matplotlib.pyplot as plt
-    import numpy as np
-
-    ret = d["ret"]
-    r = regimes(d)
+    p = petroleo(d)
+    bd = p["brent_decil"]
+    cores = ["#C0392B" if k == 1 else "#C9D3DF" for k in bd.index]
     fig, ax = plt.subplots(figsize=(10.8, 8.6), dpi=100)
-    for regime, cor in (("calmo", BLUE), ("correção", "#C0392B")):
-        mask = ret["correcao"] if regime == "correção" else ~ret["correcao"]
-        sub = ret[mask]
-        b, a, _, _ = d["res"][regime]["ibov"]
-        ax.scatter(sub["spx"] * 100, sub["ibov"] * 100, s=34,
-                   alpha=0.30 if regime == "calmo" else 0.55, color=cor, lw=0)
-        xx = np.linspace(-12, 8, 50) / 100
-        ax.plot(xx * 100, (a + b * xx) * 100, color=cor, lw=5)
-    ax.axhline(0, color=MUTED, lw=1.2)
-    ax.axvline(0, color=MUTED, lw=1.2)
-    ax.text(-11.5, -21.5, f"em correção\nbeta {_num(r['b_corr'])}", fontsize=28,
-            color="#C0392B", fontweight="bold", va="center", bbox=_FUNDO, zorder=6)
-    ax.text(0.8, -18.5, f"mercado calmo\nbeta {_num(r['b_calmo'])}", fontsize=28,
-            color=BLUE, fontweight="bold", va="center", bbox=_FUNDO, zorder=6)
-    ax.set_xlim(-13, 9)
-    ax.set_ylim(-28, 22)
+    ax.bar(bd.index, bd.values, width=0.68, color=cores)
+    ax.axhline(0, color=NAVY, lw=2.2)
+    for k, v in bd.items():
+        ax.text(k, v + (0.25 if v >= 0 else -0.25), _num(v, 1),
+                ha="center", va="bottom" if v >= 0 else "top",
+                fontsize=24 if k == 1 else 19,
+                color="#C0392B" if k == 1 else MUTED,
+                fontweight="bold" if k == 1 else "normal")
+    ax.annotate("as 10% piores\nsemanas da carteira", xy=(1, bd.loc[1] - 0.9),
+                xytext=(2.6, -3.6), fontsize=23, color="#C0392B", va="center",
+                bbox=_FUNDO, arrowprops=dict(arrowstyle="-", color="#C0392B", lw=1.8))
+    ax.set_xticks(range(1, 11))
+    ax.set_xticklabels(["pior"] + [str(k) for k in range(2, 10)] + ["melhor"])
+    ax.set_ylim(min(bd.min() - 2.2, -4.6), bd.max() + 1.2)
     _limpar(ax)
-    ax.grid(axis="both", color=LINE, lw=1.4)
-    from matplotlib.ticker import FuncFormatter
-    fmt = FuncFormatter(lambda v, _: f"{v:.0f}%".replace("-", "−"))
-    ax.set_xticks([-10, -5, 0, 5])
-    ax.set_yticks([-20, -10, 0, 10, 20])
-    ax.xaxis.set_major_formatter(fmt)
-    ax.yaxis.set_major_formatter(fmt)
-    _titulo(ax, "Em correção, o Brasil cai mais",
-            "cada ponto é uma semana · S&P 500 (→) × Ibovespa em US$ (↑)")
+    _eixo_virgula(ax, 0)
+    _titulo(ax, "Nas piores semanas, o petróleo caiu junto",
+            f"Brent, retorno médio semanal (%) · por decil da carteira · {p['inicio']:%Y}–{p['fim']:%Y}")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
 
-def grafico_drawdown(d: dict) -> str:
-    """Onde estamos: a distância do S&P 500 até a própria máxima, com a linha dos −10%.
+def grafico_correlacao(d: dict) -> str:
+    """Onde estamos: a correlação móvel de 52 semanas, com o ponto de hoje.
 
-    É o "ponto de hoje contra a história" desta edição: o regime que o exercício
-    usa é observável, e hoje ele diz "calmo". Sem este gráfico o carrossel
-    sugeriria que a correção já está em curso.
+    É o "ponto de hoje contra a história" desta edição. Sem ele o carrossel
+    diria só "o petróleo não protege" — e hoje a relação está perto de zero,
+    entre as mais baixas da série. NÃO é "a menor": com semanas encerradas a
+    mínima foi −0,02, em junho de 2026.
     """
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    r = regimes(d)
-    # Semanal (sexta), como o regime do exercício: a série diária é tão densa que
-    # a linha cobria o sombreado das correções curtas (2020, 2022). Semanas sem
-    # dado (o buraco do BRL=X no Yahoo, out/2004 a mar/2006) ficam como lacuna.
-    dd = d["dd"] * 100
-    hoje_x, hoje_y = d["dd_diario"].dropna().index[-1], r["dd_hoje"] * 100
+    p = petroleo(d)
+    c = p["corr"]
     fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
-    ax.fill_between(dd.index, -10, dd.values, where=(dd.values < -10),
-                    interpolate=True, color="#C0392B", alpha=0.35, lw=0)
-    ax.plot(dd.index, dd.values, color=BLUE, lw=2.2)
-    ax.axhline(-10, color="#C0392B", lw=2.0, ls=(0, (5, 4)))
-    ax.text(dd.index[int(len(dd) * 0.42)], -11.5, "abaixo de −10%: correção",
-            fontsize=22, color="#C0392B", va="top", bbox=_FUNDO, zorder=6)
-    ax.scatter([hoje_x], [hoje_y], s=700, color="white", zorder=4)
-    ax.scatter([hoje_x], [hoje_y], s=380, color=NAVY, zorder=5)
-    # O rótulo vai para a faixa vazia acima de zero: abaixo ele brigava com a
-    # linha dos −10% e com a série.
-    ax.annotate(f"hoje: {_pct(r['dd_hoje'], 1)}", xy=(hoje_x, hoje_y),
-                xytext=(-30, 52), textcoords="offset points", ha="right",
-                fontsize=28, color=NAVY, fontweight="bold", bbox=_FUNDO, zorder=6,
-                arrowprops=dict(arrowstyle="-", color=NAVY, lw=1.6))
-    ax.set_ylim(-57, 11)
+    ax.fill_between(c.index, 0, c.values, where=(c.values > 0), color=BLUE, alpha=0.15, lw=0)
+    ax.plot(c.index, c.values, color=BLUE, lw=3.2)
+    ax.axhline(0, color=NAVY, lw=2.0)
+    ax.text(c.index[int(len(c) * 0.04)], 0.04,
+            "acima de zero: petróleo e carteira\nandam juntos — não protege",
+            fontsize=21, color=MUTED, va="bottom", bbox=_FUNDO, zorder=6)
+    x, y = c.index[-1], p["corr_hoje"]
+    ax.scatter([x], [y], s=700, color="white", zorder=4)
+    ax.scatter([x], [y], s=380, color="#C0392B", zorder=5)
+    ax.annotate(f"hoje: {_num(y)}\nentre as {p['pct_hoje']:.0f}% mais baixas",
+                xy=(x, y), xytext=(-60, -120),
+                textcoords="offset points", ha="right", fontsize=27, color="#C0392B",
+                fontweight="bold", bbox=_FUNDO, zorder=6,
+                arrowprops=dict(arrowstyle="-", color="#C0392B", lw=1.6))
+    ax.set_ylim(-0.42, 0.72)
+    _limpar(ax)
+    _eixo_virgula(ax, 1)
+    _titulo(ax, "Só agora a relação chegou a zero",
+            "correlação de 52 semanas · Brent × carteira bolsa + juro Brasil")
+    fig.tight_layout()
+    return _fig_para_uri(fig)
+
+
+def grafico_cauda(d: dict) -> str:
+    """O custo: a pior janela de 4 semanas conforme cresce o petróleo sobreposto.
+
+    Se fosse proteção, a curva subiria (perda menor). Ela desce: na amostra de
+    2020 a hoje, mais Brent deixou o pior mês pior.
+    """
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    p = petroleo(d)
+    x, y = p["pesos"], p["pior4"]
+    fig, ax = plt.subplots(figsize=(10.8, 8.2), dpi=100)
+    ax.plot(x, y, color="#C0392B", lw=4.5)
+    # O rótulo da ponta direita vai ABAIXO da linha: acima, ele a cruzava.
+    for xi, yi, txt, dx, dy in ((x[0], y[0], f"sem petróleo\n{_num(y[0], 0)}%", 30, 18),
+                                (x[-1], y[-1], f"60% em Brent\n{_num(y[-1], 0)}%", -30, -90)):
+        ax.scatter([xi], [yi], s=380, color=NAVY, zorder=5)
+        ax.annotate(txt, xy=(xi, yi), xytext=(dx, dy), textcoords="offset points",
+                    ha="left" if dx > 0 else "right", fontsize=26, color=NAVY,
+                    fontweight="bold", bbox=_FUNDO, zorder=6)
+    ax.set_xlim(-4, 64)
+    ax.set_ylim(y.min() - 14, y.max() + 12)
     from matplotlib.ticker import FuncFormatter
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.0f}%"))
     ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:.0f}%".replace("-", "−")))
     _limpar(ax)
-    _titulo(ax, "E hoje? Nova York segue calma",
-            "S&P 500: distância da máxima de 252 pregões · %")
+    _titulo(ax, "Mais petróleo, pior o pior mês",
+            "pior retorno em 4 semanas × % do patrimônio em Brent sobreposto")
     fig.tight_layout()
     return _fig_para_uri(fig)
 
@@ -323,87 +324,93 @@ def grafico_drawdown(d: dict) -> str:
 def slides(d: dict) -> list[dict]:
     """Os 10 slides, na ordem em que a história se sustenta.
 
-    Edição de 29/09: só GMO e Bridgewater publicaram, e o exercício mede quanto do
-    "vento contrário de 20 pontos" que a GMO projeta para o S&P 500 chega ao
-    Brasil — o beta do Ibovespa em dólar ao S&P 500, separado por regime. A regra
-    era "nenhum gráfico antes do contexto", com as barras na capa; em 02/10 o Vitor
-    pediu a dispersão na capa — ela tem título e legenda e se explica sozinha. As
-    barras passaram ao slide 6, que traz os betas medidos.
+    Edição de 07/10: a Kinea diz carregar petróleo como hedge de juros aplicados e
+    bolsa comprada; o exercício testa isso numa carteira 50% EWZ + 50% IMAB11.
+    Capa com o gráfico que responde (pedido do Vitor em 02/10: a prova abre o post).
 
-    Bullets, não parágrafos. Sem preço, sem oferta e sem emoji.
+    Desde 07/10 a síntese completa é paga (R$ 97/mês). Pedido do Vitor: os
+    carrosséis passam a dar ÊNFASE À ASSINATURA. O preço continua fora do slide —
+    CTA de venda derruba alcance no feed (skill copy-analise-macro) e a regra da
+    casa é "palavra-chave + pergunta, sem preço"; o preço está na landing, que é
+    para onde a DM leva. A ênfase vem dos slides 9 e 10: o caminho termina na
+    edição completa, e o CTA diz o que é do assinante.
+
+    Bullets, não parágrafos. Sem preço e sem emoji.
     """
-    r = regimes(d)
-    fx_c, fx_k = _num(abs(r["fx_calmo"])), _num(abs(r["fx_corr"]))
+    p = petroleo(d)
+    b1, c1 = p["brent_decil"].loc[1], p["cart_decil"].loc[1]
     return [
         {
             "kind": "capa",
-            "hook": "A GMO vê 20 pontos de vento contra o S&P 500. *Quanto disso chega ao Brasil?*",
-            # A dispersão na capa foi pedido do Vitor (02/10): a prova abre o post.
-            "src": grafico_dispersao(d),
+            "hook": "A Kinea carrega petróleo para proteger juros e bolsa. *Nas piores semanas, ele protegeu?*",
+            "src": grafico_decis(d),
         },
         {
             "kind": "lista",
-            "title": "O que a *GMO* argumenta",
+            "title": "O que a *Kinea* argumenta",
             "variant": "check",
             "items": [
-                "O gatilho da bolha de IA não é a demanda: é a oferta de ações",
-                "SpaceX, OpenAI, Anthropic e emissões das gigantes de nuvem",
-                "Pela conta da casa, ~20 pontos a menos no S&P 500 em 12 a 18 meses",
+                "Carrega petróleo como proteção parcial da carteira",
+                "Do outro lado: juros Brasil aplicados e bolsa comprada",
+                "*Um choque de energia sobe juro e derruba bolsa — o petróleo compensa*",
             ],
         },
         {
             "kind": "lista",
-            "title": "Onde isso pesa: *o Brasil*",
+            "title": "Por que isso importa *além da Kinea*",
             "variant": "diamond",
             "items": [
-                "Na correção, o gestor global vende o que é líquido, não o que é caro",
-                "Bolsa e real brasileiros viram fonte de caixa",
-                "*A conta “20% × beta de sempre” pode sair curta*",
+                "Bahia e Opportunity carregam a mesma combinação",
+                "Juros aplicados e bolsa comprada, sem o petróleo do outro lado",
+                "*A pergunta vale para as três casas*",
             ],
         },
         {
             "kind": "definicao",
             "title": "Como se mede isso",
             "rows": [
-                {"term": "Beta",
-                 "desc": "quanto o Ibovespa em dólar anda para cada 1% do S&P 500"},
-                {"term": "Correção",
-                 "desc": "S&P 500 mais de 10% abaixo da máxima de 252 pregões"},
-                {"term": "Beta por regime",
-                 "desc": "o mesmo beta, medido só nas semanas calmas ou só nas de correção"},
+                {"term": "Proteção (hedge)",
+                 "desc": "posição que ganha quando o resto da carteira perde"},
+                {"term": "Correlação móvel",
+                 "desc": "petróleo × carteira, medida nas últimas 52 semanas"},
+                {"term": "Decil 1",
+                 "desc": "as 10% piores semanas da carteira desde 2020"},
             ],
         },
         {
             "kind": "lista",
-            "title": "E isso *custa dinheiro*",
+            "title": "O tipo de choque *decide*",
             "variant": "diamond",
             "items": [
-                "O beta médio mistura dois mundos",
-                "O hedge dimensionado pela média fica curto na hora que importa",
-                "*Para quem mede em dólar, a bolsa e o real caem juntos*",
+                # Medido nesta carteira (07/10). NÃO usar 2022 como exemplo de
+                # oferta: para bolsa + juro BRASIL a correlação em 2022 foi +0,40,
+                # os dois subiram juntos. O choque de oferta da amostra é 2026.
+                "2020, choque de demanda: o Brent caiu 25% junto com a carteira",
+                "2026, choque de oferta: Brent +68% no ano, e a relação ficou negativa",
+                "*A proteção da Kinea só funciona no segundo tipo*",
             ],
         },
         {
             "kind": "capa",
-            "hook": f"Medido: *{_num(r['b_corr'])}* em correção, {_num(r['b_calmo'])} no calmo.",
+            "hook": f"De 2020 a hoje, mais petróleo deixou o pior mês *pior*.",
             "hint": False,
-            "src": grafico_choque(d),   # as barras traduzem os dois betas em queda
+            "src": grafico_cauda(d),
         },
         {
             "kind": "capa",
-            "hook": f"Hoje o S&P 500 está a *{_pct(abs(r['dd_hoje']), 1)}* da máxima.",
+            "hook": f"Mas hoje a correlação está em *{_num(p['corr_hoje'])}*: o petróleo parou de cair junto.",
             "hint": False,
-            "src": grafico_drawdown(d),
+            "src": grafico_correlacao(d),
         },
         {
             "kind": "lista",
             "title": "O que o dado diz",
             "variant": "diamond",
             "items": [
-                f"Em correção, o beta sobe de {_num(r['b_calmo'])} para *{_num(r['b_corr'])}*",
-                f"O dólar sobe {fx_k}% a cada 1% de queda do S&P (calmo: {fx_c}%)",
-                "*Hoje o regime é calmo* — a correção não começou",
-                f"{r['n_corr']} semanas de correção desde 2004, de causas variadas: âncora, não previsão",
+                f"Nas piores semanas, a carteira caiu {_num(abs(c1), 1)}% e o Brent, *{_num(abs(b1), 1)}%*",
+                "Na amostra inteira, o peso de petróleo que minimiza o risco é zero",
+                f"*Hoje a correlação está em {_num(p['corr_hoje'])}*: o petróleo parou de cair junto, mas ainda não protege",
+                "A posição é uma aposta no tipo de choque, não um hedge medido",
             ],
         },
         {
@@ -411,18 +418,18 @@ def slides(d: dict) -> list[dict]:
             "title": "O caminho que eu fiz aqui",
             "variant": "number",
             "items": [
-                "Li a carta da GMO: 20 pontos contra o S&P 500",
-                "Achei o *mecanismo*: venda forçada do que é líquido",
-                "Medi com dado público: Ibovespa em dólar × S&P, semanal desde 2004",
-                "*Estes gráficos saíram daí* — e o código roda em segundos",
+                "Li a carta da Kinea: petróleo contra juros e bolsa",
+                "Achei o *mecanismo*: choque de oferta sobe juro e derruba bolsa",
+                "Medi com dado público: EWZ + IMAB11 × Brent, semanal desde 2020",
+                "*O código e a síntese completa estão na edição de assinantes*",
             ],
         },
         {
             "kind": "cta",
-            "title": "Te mando o código junto",
+            "title": "A edição completa é para assinantes",
             # A pergunta no fim puxa comentário de quem não vai digitar a
             # palavra-chave — e comentário é o que o algoritmo lê como alcance.
-            "paragraph": f"Leio as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater. Destrincho as teses e escrevo *um exercício em Python* que testa uma delas. Comenta *{PALAVRA_CHAVE}* que eu mando a edição — síntese e código — no seu direct. E me conta: na sua conta de risco, o beta do Brasil é um número só?",
+            "paragraph": f"Toda semana em que sai carta nova, leio 15 gestoras brasileiras e Oaktree, GMO e Bridgewater. Na *assinatura*: a tese de cada casa destrinchada, as divergências e o código do exercício. Comenta *{PALAVRA_CHAVE}* que eu te mando o link no direct. E me conta: na sua carteira, o petróleo protege ou só soma risco?",
             "cta": f"Comente {PALAVRA_CHAVE}",
         },
     ]
