@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Cria o broadcast da edição da semana no ConvertKit, para a tag do projeto.
 
-É assim que o assinante recebe a síntese a cada edição — o que a página de obrigado
-promete. O WhatsApp entrega só para quem escreveu (janela de 24h); o e-mail
+Desde 07/10/2026 a síntese completa é paga (assinatura de R$ 97/mês, produto 73335
+<-> curso 73334). O lead recebe o RESUMO da edição, tirado da seção "Nesta
+edição", e o convite para assinar. O PDF não vai mais no e-mail. O WhatsApp entrega só para quem escreveu (janela de 24h); o e-mail
 alcança todos, sem template, sem custo por conversa e sem risco de qualidade.
 
 Por padrão o broadcast NASCE COMO RASCUNHO. Com `--enviar` (decisão do Vitor em
@@ -42,7 +43,8 @@ load_dotenv(RAIZ / ".env")
 
 BASE = "https://api.kit.com/v4"
 TAG_PROJETO = 23251247          # "Leads - Cartas Semanais" — só quem veio da landing
-PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
+# CTA direto ao carrinho, padrão da casa. Conferido ao vivo em 07/10: R$ 97,00 / mês.
+ASSINAR = "https://aluno.analisemacro.com.br/carrinho/?add-to-cart=73335"
 DIGESTS = RAIZ / "digests" / "resumo"
 
 MESES = ["", "janeiro", "fevereiro", "março", "abril", "maio", "junho",
@@ -98,23 +100,55 @@ def edicao_mais_recente() -> tuple[str, list[str], str]:
     return data, gestoras, conceito
 
 
+def _md_para_html(texto: str) -> str:
+    """O pouco de Markdown que a síntese usa num parágrafo: negrito e itálico."""
+    t = html.escape(texto, quote=False)
+    t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+    return re.sub(r"\*(.+?)\*", r"<em>\1</em>", t)
+
+
+def resumo_da_edicao(data: str) -> list[str]:
+    """Os parágrafos de "Nesta edição" que contam a tensão da semana.
+
+    Fica de fora o primeiro (o pano de fundo do mês, longo para um e-mail), o
+    fecho "Adiante, cada carta é destrinchada..." e a caixa da nota editorial.
+    Edição sem a seção, ou com poucos parágrafos, devolve o que houver.
+    """
+    qmd = DIGESTS / f"resumo-{data}.qmd"
+    if not qmd.exists():
+        return []
+    m = re.search(r"(?ms)^## Nesta edição\s*$(.*?)(?=^## )", qmd.read_text(encoding="utf-8"))
+    if not m:
+        return []
+    blocos = re.sub(r"(?ms)^:::.*?^:::\s*$", "", m.group(1))
+    paragrafos = [p.strip() for p in blocos.split("\n\n")
+                  if p.strip() and not p.strip().startswith((":", ">", "Adiante"))]
+    return paragrafos[1:] if len(paragrafos) > 2 else paragrafos
+
+
 def corpo(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
     a, m, d = data.split("-")
     quando = f"{int(d)} de {MESES[int(m)]}"
     lista = ", ".join(gestoras[:-1]) + f" e {gestoras[-1]}" if len(gestoras) > 1 else (gestoras[0] if gestoras else "")
+    fim = "" if conceito.endswith(("?", ".", "!")) else "."
+    resumo = "\n\n".join(f"<p>{_md_para_html(p)}</p>" for p in resumo_da_edicao(data))
     return f"""<p>Olá, {{{{ subscriber.first_name }}}}.</p>
 
 <p>Saiu a síntese das cartas desta semana, com <strong>{lista}</strong>.</p>
 {f"{chr(10)}<p>{html.escape(nota)}</p>{chr(10)}" if nota else ""}
-<p>Como sempre: a tese de cada casa e o mecanismo que a sustenta, onde o consenso
-se forma e onde racha — e o exercício em Python da semana{f", sobre <strong>{conceito}</strong>" if conceito else ""}.</p>
+{resumo}
 
-<p><a href="{PDF}">📄 Baixar a edição de {quando}</a></p>
+<p>O exercício em Python desta edição{f" trata de: <strong>{conceito}</strong>{fim}" if conceito else " acompanha a síntese."}</p>
 
-<p>O código do exercício roda em segundos, com dado público. Você replica,
-adapta e discorda — que é o ponto.</p>
+<p><strong>Uma mudança, a partir desta edição.</strong> A síntese completa passa a ser
+exclusiva de assinantes: a tese de cada casa destrinchada pelo mecanismo, a seção de
+convergências com o patrimônio de cada lado e o código do exercício. Você continua
+recebendo este resumo toda semana em que houver carta nova.</p>
 
-<p>Boa leitura.</p>
+<p>A assinatura custa R$ 97 por mês. Confirmado o pagamento, a edição de {quando} e
+todas as anteriores ficam na sua área do aluno.</p>
+
+<p><a href="{ASSINAR}">Assinar a síntese das cartas</a></p>
 
 <p>Vítor Wilher — Análise Macro</p>"""
 
@@ -151,6 +185,8 @@ def main() -> int:
                     help="minutos até o disparo, para dar tempo de cancelar (padrão: 15)")
     ap.add_argument("--idade-maxima", type=int, default=2, metavar="DIAS",
                     help="recusa enviar edição mais velha que isso (padrão: 2 dias)")
+    ap.add_argument("--em", default="", metavar="ISO",
+                    help="horário exato do envio em UTC (ex.: 2026-10-07T10:00:00Z); vence --espera")
     ap.add_argument("--nota", default="", help="nota editorial, parágrafo logo após a abertura")
     args = ap.parse_args()
 
@@ -222,8 +258,16 @@ def main() -> int:
     # status vira `scheduled`, cancelável no painel até a hora marcada.
     quando = None
     if args.enviar:
-        quando = (datetime.now(timezone.utc)
-                  + timedelta(minutes=args.espera)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        quando = args.em or (datetime.now(timezone.utc)
+                             + timedelta(minutes=args.espera)).strftime("%Y-%m-%dT%H:%M:%SZ")
+        # Um send_at no passado não vira erro: o Kit DISPARA NA HORA (07/10/2026,
+        # --em 10:00Z rodado às 12:29Z saiu imediatamente, sem janela de cancelar).
+        alvo = datetime.fromisoformat(quando.replace("Z", "+00:00"))
+        if alvo < datetime.now(timezone.utc) + timedelta(minutes=5):
+            print(f"\n[erro] Horário de envio {quando} já passou ou está a menos de 5 min.",
+                  file=sys.stderr)
+            print("   O Kit enviaria na hora, sem janela para cancelar.", file=sys.stderr)
+            return 1
 
     r = httpx.post(f"{BASE}/broadcasts", timeout=90, headers=headers, json={
         "subject": assunto,
