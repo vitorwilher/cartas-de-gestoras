@@ -34,7 +34,9 @@ AUTH = HTTPBasicAuth(ENV["WP_FRONT_USER"], ENV["WP_FRONT_APP_PASSWORD"])
 
 PAGINA_CAPTURA = 78405
 PAGINA_OBRIGADO = 78421
-PDF = "https://storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf"
+# Desde 07/10/2026 a síntese completa é paga: CTA direto ao carrinho (padrão da casa).
+# Conferido ao vivo em 07/10: R$ 97,00 / mês.
+ASSINAR = "https://aluno.analisemacro.com.br/carrinho/?add-to-cart=73335"
 # ⚠️ O `text=` fica: é a mensagem que o LEAD envia, e é o envio dela que abre a
 #    janela de 24h em que podemos responder sem template. Sem isso, o clique
 #    abre uma conversa vazia e a janela não abre.
@@ -306,7 +308,7 @@ def formulario():
                  "placeholder": "(21) 90000-0000", "required": "true", "width": "100",
                  "custom_id": "telefone"},
             ],
-            "button_text": "Quero receber a síntese",
+            "button_text": "Quero o resumo gratuito",
             "button_size": "lg",
             "button_align": "stretch",
             # "email" grava o envio e faz o Elementor aceitar o submit; sem uma
@@ -351,10 +353,10 @@ def layout_captura() -> list:
         secao([
             colunas([
                 [
-                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">SÍNTESE SEMANAL</p>', tamanho=14),
+                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">ASSINATURA MENSAL · R$ 97</p>', tamanho=14),
                     titulo("Leia as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater toda semana", tag="h1", tamanho=44, mb=6),
                     texto("<p>Toda semana, a síntese das cartas novas — das brasileiras e, quando publicam, das três casas de fora: a tese de cada uma, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
-                    botao("Quero receber a síntese", "#form", align="left"),
+                    botao("Assinar por R$ 97/mês", ASSINAR, align="left"),
                 ],
                 [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
             ], gap=36, pesos=[42, 56]),
@@ -367,7 +369,7 @@ def layout_captura() -> list:
         ], pad_v=48),
 
         secao([
-            titulo("O que você recebe em cada edição", align="center", mb=8),
+            titulo("O que a assinatura entrega em cada edição", align="center", mb=8),
             divisor(),
             colunas([
                 [caixa([icone_texto("fas fa-lightbulb", "A tese e o mecanismo",
@@ -413,14 +415,29 @@ def layout_captura() -> list:
             colunas([
                 [imagem(IMG_VITOR, IMG_VITOR_ID, largura=88)],
                 [titulo("Quem escreve", mb=6), divisor(),
-                 texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e IA Generativa pela PUC-Rio e doutorado em Economia em curso na EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de 5.000 alunos.</p>"),
+                 texto("<p><strong>Vítor Wilher</strong> — Cientista-Chefe da Análise Macro. Bacharel e Mestre em Economia pela UFF, com pós-graduação em LLMs e IA Generativa pela PUC-Rio e doutorado em Economia em curso na EPGE/FGV. Fundou a Análise Macro, por onde já passaram mais de 4.500 alunos.</p>"),
                  caixa([texto('<p style="margin:0;font-style:italic;font-size:17px">"Todo mês eu abria seis ou sete cartas e lia duas. O que se perde não é o conteúdo de cada uma — é a comparação, que é onde está o valor."</p>')], fundo="#EAF6FC", pad=22)],
             ], pesos=[32, 68]),
         ], fundo="#F4F7FA"),
 
         secao([
-            titulo("Receba a síntese desta semana", align="center", tamanho=38, mb=8),
-            texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba o PDF na hora.</p>'),
+            titulo("A assinatura", align="center", tamanho=38, mb=8),
+            divisor(),
+            caixa([
+                texto(f'<p style="text-align:center;margin:0"><span style="font-size:44px;font-weight:700;color:{NAVY}">R$ 97</span><span style="font-size:19px"> por mês</span></p>'),
+                lista([
+                    "A síntese completa de cada edição em PDF: a tese e o mecanismo de cada casa, e as convergências e divergências com o patrimônio de cada lado",
+                    "O exercício em Python da semana, com o código comentado",
+                    "Todas as edições anteriores na sua área do aluno, desde a primeira",
+                ]),
+                botao("Assinar por R$ 97/mês", ASSINAR),
+            ], pad=40),
+            texto('<p style="text-align:center"><small>Na semana em que nenhuma gestora publica, não há edição.</small></p>', tamanho=15),
+        ], pad_v=80, css_id="assinatura"),
+
+        secao([
+            titulo("Ainda não quer assinar? Receba o resumo gratuito", align="center", tamanho=34, mb=8),
+            texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba por e-mail o resumo de cada edição: as teses da semana e onde as casas divergem, em poucos parágrafos.</p>'),
             caixa([formulario()], pad=40),
             texto('<p style="text-align:center"><small>Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
         ], fundo="#F4F7FA", pad_v=80, css_id="form"),
@@ -428,26 +445,29 @@ def layout_captura() -> list:
 
 
 def layout_obrigado() -> list:
-    """Um CTA só: o WhatsApp. O PDF vai por e-mail e como link discreto aqui.
+    """Um CTA só: o WhatsApp. A assinatura entra como link discreto no fim.
+
+    Desde 07/10/2026 o lead gratuito recebe só o resumo por e-mail; o PDF é do
+    assinante.
 
     Dois botões lado a lado competiam entre si — e empilhados ficavam feios. O
     WhatsApp é o que interessa: é ele que abre a janela de 24h e permite a
-    conversa. O PDF a pessoa recebe no e-mail de qualquer forma.
+    conversa.
     """
     return [
         secao([
             titulo("Pronto. Sua inscrição está confirmada.", tag="h1",
                    tamanho=44, align="center", mb=6),
-            texto('<p style="text-align:center;font-size:20px">A síntese desta semana '
-                  'está a caminho do seu e-mail — e a próxima chega na semana em que houver '
-                  'carta nova das gestoras acompanhadas.</p>'),
+            texto('<p style="text-align:center;font-size:20px">O resumo de cada edição '
+                  'chega no seu e-mail na semana em que houver carta nova das gestoras '
+                  'acompanhadas.</p>'),
         ], fundo="#F4F7FA", pad_v=72),
 
         secao([
             titulo("Receba também no WhatsApp", align="center", tamanho=34, mb=8),
-            texto('<p style="text-align:center;font-size:19px">Toque no botão abaixo e '
-                  'eu te envio o PDF por lá na hora — e, se quiser, a síntese de toda '
-                  'semana chega no mesmo lugar.</p>'),
+            texto('<p style="text-align:center;font-size:19px">Toque no botão abaixo '
+                  'para falar comigo por lá: tiro dúvidas sobre as teses da semana e '
+                  'sobre a assinatura.</p>'),
             botao("Receber no WhatsApp", WHATS, cor="#25D366"),
             texto('<p style="text-align:center;margin-top:14px"><small>A conversa começa '
                   'por você — é o que me permite responder na hora, sem mensagem '
@@ -458,13 +478,15 @@ def layout_obrigado() -> list:
         # SEM link do PDF aqui: por decisão do Vitor (09/09), o download chega só
         # pelo e-mail e pelo WhatsApp. A imagem fica como prévia do que vem.
         secao([
-            titulo("O que vem no PDF", align="center", tamanho=30, mb=8),
-            texto('<p style="text-align:center">Além da síntese das cartas, cada edição '
-                  'traz um exercício em Python que testa uma das teses com dado público. '
+            titulo("O que vem na assinatura", align="center", tamanho=30, mb=8),
+            texto('<p style="text-align:center">A síntese completa de cada edição em PDF '
+                  'e um exercício em Python que testa uma das teses com dado público. '
                   'Roda em segundos — e você adapta para a tese que quiser checar.</p>'),
             imagem(IMG_GRAFICO, IMG_GRAFICO_ID),
             texto('<p style="text-align:center"><small>O gráfico acima saiu do exercício '
-                  'da edição desta semana.</small></p>', tamanho=15),
+                  'de uma das edições.</small></p>', tamanho=15),
+            texto(f'<p style="text-align:center"><a href="{ASSINAR}">Assinar por '
+                  'R$ 97/mês</a></p>'),
         ], fundo="#F4F7FA"),
     ]
 
