@@ -142,7 +142,9 @@ def garantir_aulas(c: httpx.Client, curso_id: int) -> list[int]:
         slug = f"cartas-edicao-{data}"
         midia = subir_midia(c, pdf, "application/pdf")
         dl = garantir_download(c, f"Síntese das Cartas das Gestoras — {data}", midia["source_url"])
-        materiais = (f'<a href="{LOJA}/download/{dl}/" target="_blank" rel="noopener">'
+        # dlm-no-xhr-download: sem ela o script do plugin baixa por XHR, recebe o
+        # redirect num cabeçalho e salva o corpo vazio como "download.html".
+        materiais = (f'<a class="dlm-no-xhr-download" href="{LOJA}/download/{dl}/" target="_blank" rel="noopener">'
                      f"Baixar o PDF da edição</a>")
         corpo = {"title": titulo_edicao(pdf.with_suffix(".qmd"), data), "slug": slug, "course": curso_id,
                  "menu_order": ordem, "materials_enabled": True, "materials": materiais}
