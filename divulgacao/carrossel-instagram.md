@@ -1,6 +1,6 @@
 # Carrossel de Instagram — Cartas de Gestoras
 
-**Status: edição de 07/10 PRONTA, NÃO publicada** — aguarda revisão do Vitor.
+**Status: edição de 07/10 PUBLICADA em 08/10/2026** — https://www.instagram.com/p/DeP67GojN_9/
 
 - **Arquivos:** `divulgacao/carrossel/slide-01.png` … `slide-10.png` (1080×1350)
 - **Gerador:** `python divulgacao/carrossel.py` (reexecuta o exercício da edição)
@@ -92,6 +92,7 @@ entre as 5% mais baixas — o choque de 2026 é de oferta.
 
 ## Publicado
 
+- **08/10/2026:** https://www.instagram.com/p/DeP67GojN_9/ — 10 slides e legenda conferidos pela Graph API; DM nova colada pelo Vitor antes
 - **23/09/2026:** https://www.instagram.com/p/DdpUMufEWmF/ — 10 slides e legenda conferidos pela Graph API
 - **15/09/2026:** https://www.instagram.com/p/DdUg1OiG8My/
 - Palavra-chave `GESTORAS` na legenda (mesma do fluxo do ManyChat).
