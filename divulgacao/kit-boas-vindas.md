@@ -1,11 +1,18 @@
 # E-mail de boas-vindas — sequência 2888305 (Kit)
 
-**Status: texto novo de 07/10/2026 — colar no painel do Kit.**
+**Status: NO AR desde 08/10/2026, pela API.** E-mail novo **10409446** publicado;
+o antigo, **10288509** (com o link do PDF no GCS), ficou **despublicado** — guardado
+no Kit, não apagado.
 
-⚠️ **A API não resolve (testado em 08/10):** `PUT /v4/sequences/2888305/emails/10288509`
-responde 200 e **grava o assunto, mas descarta o corpo em silêncio** — até
-`"content": 123` volta 200. O e-mail foi feito no editor visual, e o corpo só muda
-pelo painel. Não confiar no 200; reler o `content`.
+⚠️ **Editar não funciona, criar sim (testado em 08/10):**
+`PUT /v4/sequences/2888305/emails/<id>` responde 200, grava o assunto e o
+`published`, mas **descarta o corpo em silêncio** (até `"content": 123` volta 200).
+`POST /v4/sequences/2888305/emails` com `content` GRAVA o corpo. O caminho foi:
+criar o novo despublicado → conferir o corpo na releitura → publicar o novo →
+despublicar o antigo (nessa ordem, para a sequência nunca ficar sem boas-vindas).
+
+A sequência está com `hold: false`: quem já tinha recebido o e-mail antigo saiu dela
+e **não** recebe o novo. Só os cadastros a partir de 08/10.
 
 🔴 **Por que trocar:** o e-mail atual entrega o link do PDF da edição em
 `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf`. Desde 07/10 a
