@@ -1,0 +1,21 @@
+# TEMPORÁRIO (08/10/2026): testa se a CI alcança a loja com os secrets. Apagar depois.
+name: Teste do passo do curso
+on: workflow_dispatch
+jobs:
+  teste:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install httpx python-dotenv
+      - env:
+          WP_LOJA_URL: ${{ secrets.WP_LOJA_URL }}
+          WP_LOJA_USER: ${{ secrets.WP_LOJA_USER }}
+          WP_LOJA_APP_PASSWORD: ${{ secrets.WP_LOJA_APP_PASSWORD }}
+          WC_CONSUMER_KEY: ${{ secrets.WC_CONSUMER_KEY }}
+          WC_CONSUMER_SECRET: ${{ secrets.WC_CONSUMER_SECRET }}
+          DLM_API_PUBLIC_KEY: ${{ secrets.DLM_API_PUBLIC_KEY }}
+          DLM_API_SECRET_KEY: ${{ secrets.DLM_API_SECRET_KEY }}
+        run: python assinatura/curso.py

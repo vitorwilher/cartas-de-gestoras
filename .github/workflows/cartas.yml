@@ -71,6 +71,35 @@ jobs:
           NOTA: ${{ inputs.nota }}
         run: python cartas.py --pdf --send ${NOTA:+--nota "$NOTA"}
 
+      # A síntese é paga desde 07/10/2026: o assinante recebe a edição como aula
+      # no curso 73334 (PDF atrás de /download, só logado). Sem este passo a
+      # edição sai para os leads e NÃO chega a quem paga. Idempotente: numa
+      # terça sem carta nova, não cria nada. Roda ANTES do e-mail, que diz que
+      # a edição está na área do aluno.
+      - name: Publicar a edição no curso dos assinantes
+        id: curso
+        continue-on-error: true
+        env:
+          WP_LOJA_URL: ${{ secrets.WP_LOJA_URL }}
+          WP_LOJA_USER: ${{ secrets.WP_LOJA_USER }}
+          WP_LOJA_APP_PASSWORD: ${{ secrets.WP_LOJA_APP_PASSWORD }}
+          WC_CONSUMER_KEY: ${{ secrets.WC_CONSUMER_KEY }}
+          WC_CONSUMER_SECRET: ${{ secrets.WC_CONSUMER_SECRET }}
+          DLM_API_PUBLIC_KEY: ${{ secrets.DLM_API_PUBLIC_KEY }}
+          DLM_API_SECRET_KEY: ${{ secrets.DLM_API_SECRET_KEY }}
+        run: |
+          faltando=""
+          for n in WP_LOJA_URL WP_LOJA_USER WP_LOJA_APP_PASSWORD WC_CONSUMER_KEY WC_CONSUMER_SECRET DLM_API_PUBLIC_KEY DLM_API_SECRET_KEY; do
+            [ -z "${!n}" ] && faltando="$faltando $n"
+          done
+          if [ -n "$faltando" ]; then
+            echo "::error::Edição NÃO publicada para os assinantes — secrets ausentes:$faltando"
+            echo "status=pulado (secrets ausentes)" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python assinatura/curso.py --publicar
+          echo "status=success" >> "$GITHUB_OUTPUT"
+
       # A URL do PDF é FIXA (cartas/edicao-atual.pdf): o ManyChat e a landing do
       # ConvertKit apontam sempre para ela, e o arquivo é sobrescrito aqui toda
       # semana. Falha aqui não derruba a edição — o PDF já foi gerado e enviado
@@ -135,8 +164,10 @@ jobs:
         run: |
           # O `status` do passo distingue "pulou por falta de secret" de "fez".
           # Vazio significa que o passo morreu antes de gravá-lo: vale o outcome.
+          curso="${{ steps.curso.outputs.status }}"
           gcs="${{ steps.gcs.outputs.status }}"
           email="${{ steps.email.outputs.status }}"
+          [ -z "$curso" ] && curso="${{ steps.curso.outcome }}"
           [ -z "$gcs" ] && gcs="${{ steps.gcs.outcome }}"
           [ -z "$email" ] && email="${{ steps.email.outcome }}"
 
@@ -145,10 +176,14 @@ jobs:
             echo ""
             echo "| Etapa | Resultado |"
             echo "|---|---|"
+            echo "| Edição no curso (assinantes) | $curso |"
             echo "| PDF no GCS | $gcs |"
             echo "| E-mail da semana | $email |"
           } >> "$GITHUB_STEP_SUMMARY"
 
+          if [ "$curso" != "success" ]; then
+            echo "::error::A edição NÃO chegou ao curso dos assinantes ($curso). Rode: python assinatura/curso.py --publicar"
+          fi
           if [ "$email" != "success" ]; then
             echo "::warning::O e-mail da semana NÃO saiu ($email). Verifique o log do passo."
           fi

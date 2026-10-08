@@ -21,6 +21,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import os
 import html
 import re
 import sys
@@ -33,7 +34,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import woo  # noqa: E402  (copy e payload da assinatura)
 
 RAIZ = Path(__file__).resolve().parents[1]
-ENV = dotenv_values(RAIZ.parent / "ROI_Diagnostico" / ".env")
+# Local: o .env do ROI_Diagnostico. Na CI esse arquivo não existe e as mesmas
+# chaves chegam como secrets no ambiente — o ambiente vence.
+ENV = {**dotenv_values(RAIZ.parent / "ROI_Diagnostico" / ".env"),
+       **{k: v for k, v in os.environ.items()
+          if k.startswith(("WP_LOJA_", "WC_", "DLM_API_")) and v}}
 LOJA = ENV["WP_LOJA_URL"].rstrip("/")
 WP_AUTH = (ENV["WP_LOJA_USER"], ENV["WP_LOJA_APP_PASSWORD"])
 WC = {"consumer_key": ENV["WC_CONSUMER_KEY"], "consumer_secret": ENV["WC_CONSUMER_SECRET"]}
