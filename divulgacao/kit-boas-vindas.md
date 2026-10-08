@@ -1,7 +1,11 @@
 # E-mail de boas-vindas — sequência 2888305 (Kit)
 
-**Status: texto novo de 07/10/2026 — colar no painel do Kit.** A API do Kit não
-edita e-mail de sequência.
+**Status: texto novo de 07/10/2026 — colar no painel do Kit.**
+
+⚠️ **A API não resolve (testado em 08/10):** `PUT /v4/sequences/2888305/emails/10288509`
+responde 200 e **grava o assunto, mas descarta o corpo em silêncio** — até
+`"content": 123` volta 200. O e-mail foi feito no editor visual, e o corpo só muda
+pelo painel. Não confiar no 200; reler o `content`.
 
 🔴 **Por que trocar:** o e-mail atual entrega o link do PDF da edição em
 `storage.googleapis.com/am-social-assets/cartas/edicao-atual.pdf`. Desde 07/10 a
