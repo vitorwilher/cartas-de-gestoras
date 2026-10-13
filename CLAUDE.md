@@ -356,6 +356,20 @@ entregue ao assinante é gerado do zero, com dados atuais.
 Falha na geração do exercício **nunca derruba a síntese** — mesmo princípio da falha
 isolada por gestora.
 
+⚠️ **Os ETFs de renda fixa da B3 no Yahoo têm preço CONGELADO** (IMAB11, B5P211,
+IMBB11, IRFM11, FIXA11: ~909 pregões parados até out/2025). O último dado é
+recente, então passam no teste de frescor; o retorno zero zera a vol e a
+correlação vira NaN. Em 13/10/2026 isso derrubou o gráfico da edição. A regra no
+prompt: juros pelo PU do Tesouro Direto (CSV do Tesouro Transparente) e checar
+série congelada, não só frescor. O IMA-B do SGS (12466) morreu em mai/2023.
+
+⚠️ **Trocar o PDF de uma aula já publicada:** rodar `curso.py` de novo NÃO
+resolve — `subir_midia` reaproveita a mídia pelo slug e `garantir_download` não
+mexe na versão. A API do Download Monitor não tem rota para editar versão: subir o
+PDF com outro nome (`-v2`) e criar a versão 2 do download (`POST
+download-monitor/v1/version`); ele serve a mais recente. Feito em 13/10 (download
+73800, versão 73806).
+
 ### O MCP (`mcp/`)
 
 Servidor MCP remoto em Cloudflare Workers, no molde do `nucleos-mcp` do
