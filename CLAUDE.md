@@ -497,6 +497,11 @@ de efeito**. Aqui o 200 mentiu duas vezes seguidas, por motivos diferentes.
 
 ### A URL fixa do PDF (`divulgacao/publicar_pdf.py`)
 
+🔴 **Desativado em 13/10/2026.** Com a síntese virando assinatura (07/10), a URL
+pública entregava a edição paga a qualquer um com o link. O passo saiu do workflow;
+a entrega é o curso 73334. Os arquivos já publicados no bucket **continuam no ar**
+até serem removidos. O texto abaixo é histórico.
+
 O PDF de cada edição é publicado no GCS em **uma URL que nunca muda**:
 
 ```
@@ -636,7 +641,7 @@ saíram do papel e o pipeline **entrega sem intervenção humana**.
 
 1. `cartas.py --pdf --send` — coleta, sintetiza, gera o exercício, renderiza e
    manda por WhatsApp
-2. `publicar_pdf.py` — sobrescreve a URL fixa no GCS
+2. ~~`publicar_pdf.py` — sobrescreve a URL fixa no GCS~~ (desativado em 13/10/2026)
 3. `broadcast_semanal.py --enviar --espera 30` — **agenda** o e-mail para a tag
    do projeto
 4. **Resumo da execução** — escreve o resultado de cada canal no Summary do run

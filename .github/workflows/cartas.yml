@@ -100,28 +100,10 @@ jobs:
           python assinatura/curso.py --publicar
           echo "status=success" >> "$GITHUB_OUTPUT"
 
-      # A URL do PDF é FIXA (cartas/edicao-atual.pdf): o ManyChat e a landing do
-      # ConvertKit apontam sempre para ela, e o arquivo é sobrescrito aqui toda
-      # semana. Falha aqui não derruba a edição — o PDF já foi gerado e enviado
-      # por WhatsApp; só o link público fica com a versão anterior.
-      - name: Publicar o PDF no GCS (URL fixa)
-        id: gcs
-        continue-on-error: true
-        env:
-          SOCIAL_GCS_BUCKET: ${{ secrets.SOCIAL_GCS_BUCKET }}
-          GCS_CREDENTIALS_JSON: ${{ secrets.GCS_CREDENTIALS_JSON }}
-        run: |
-          # `exit 0` aqui faria o `outcome` do passo virar `success` e o resumo
-          # anunciaria publicação que não houve. O status vai num output próprio.
-          if [ -z "$GCS_CREDENTIALS_JSON" ] || [ -z "$SOCIAL_GCS_BUCKET" ]; then
-            echo "::warning::PDF NÃO publicado no GCS — falta GCS_CREDENTIALS_JSON ou SOCIAL_GCS_BUCKET. O link público segue com a edição anterior."
-            echo "status=pulado (secrets ausentes)" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-          printf '%s' "$GCS_CREDENTIALS_JSON" > /tmp/gcs.json
-          GCS_CREDENTIALS_PATH=/tmp/gcs.json python divulgacao/publicar_pdf.py
-          rm -f /tmp/gcs.json
-          echo "status=success" >> "$GITHUB_OUTPUT"
+      # Sem publicação no GCS desde 13/10/2026: a síntese virou assinatura e a
+      # URL pública (cartas/edicao-atual.pdf) entregava a edição paga a qualquer
+      # um com o link. A entrega é o curso 73334; `divulgacao/publicar_pdf.py`
+      # fica no repositório, mas não roda mais.
 
       # O e-mail da semana, para a tag deste projeto (Leads - Cartas Semanais).
       # É AGENDADO para ~30 min à frente, não disparado no ato: enquanto está
@@ -145,7 +127,7 @@ jobs:
           faltando=""
           [ -z "$CONVERT_KIT_V4" ] && faltando="$faltando CONVERT_KIT_V4"
           [ -z "$CONVERTKIT_API_SECRET" ] && faltando="$faltando CONVERTKIT_API_SECRET"
-          # Idem ao passo do GCS: sair com 0 aqui daria `success` no resumo sem
+          # Sair com 0 aqui daria `success` no resumo sem
           # e-mail nenhum. O status real vai num output próprio.
           if [ -n "$faltando" ]; then
             echo "::warning::E-mail da semana NÃO enviado — secrets ausentes:$faltando"
@@ -165,10 +147,8 @@ jobs:
           # O `status` do passo distingue "pulou por falta de secret" de "fez".
           # Vazio significa que o passo morreu antes de gravá-lo: vale o outcome.
           curso="${{ steps.curso.outputs.status }}"
-          gcs="${{ steps.gcs.outputs.status }}"
           email="${{ steps.email.outputs.status }}"
           [ -z "$curso" ] && curso="${{ steps.curso.outcome }}"
-          [ -z "$gcs" ] && gcs="${{ steps.gcs.outcome }}"
           [ -z "$email" ] && email="${{ steps.email.outcome }}"
 
           {
@@ -177,7 +157,6 @@ jobs:
             echo "| Etapa | Resultado |"
             echo "|---|---|"
             echo "| Edição no curso (assinantes) | $curso |"
-            echo "| PDF no GCS | $gcs |"
             echo "| E-mail da semana | $email |"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -186,9 +165,6 @@ jobs:
           fi
           if [ "$email" != "success" ]; then
             echo "::warning::O e-mail da semana NÃO saiu ($email). Verifique o log do passo."
-          fi
-          if [ "$gcs" != "success" ]; then
-            echo "::warning::O PDF não foi publicado no GCS — o link público está servindo a edição anterior."
           fi
 
       - name: Commitar síntese e estado
