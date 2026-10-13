@@ -82,6 +82,21 @@ Estrutura:
      trunca a amostra em 2019 e o gráfico sai com sete anos de atraso exibindo
      "hoje". Para Ibovespa use `yfinance` (`^BVSP`).
    - preços de ativos → `yfinance`
+   - renda fixa / juros reais / "IMA-B" → preço diário do Tesouro Direto, no CSV
+     do Tesouro Transparente (`requests` + `pd.read_csv(..., sep=";", decimal=",")`):
+     `https://www.tesourotransparente.gov.br/ckan/dataset/df56aa42-484a-4a59-8184-7676580c81e3/resource/796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv`
+     Colunas `Tipo Titulo; Data Vencimento; Data Base; ...; PU Base Manha`, datas
+     DD/MM/AAAA. Use um título SEM cupom (ex.: `Tesouro IPCA+` 15/05/2035), cujo
+     PU não despenca na data do cupom.
+     **NUNCA use ETF de renda fixa da B3 no Yahoo** (IMAB11, B5P211, IMBB11,
+     IRFM11, FIXA11): o preço fica **CONGELADO por ~909 pregões até out/2025**.
+     O último dado é recente, então passa no teste de frescor; o retorno zero
+     zera a volatilidade e a correlação vira NaN (13/10/2026: LinAlgError, edição
+     sem gráfico). O IMA-B do SGS (12466) também morreu, em mai/2023.
+
+   **Teste de frescor não basta: cheque também se a série está CONGELADA.** Conte
+   retornos exatamente iguais a zero; se passarem de ~5% da amostra, a fonte
+   repetiu preço — levante erro em vez de seguir.
 
    **Toda série precisa passar por um teste de frescor.** Depois de baixar, cheque
    que a última data está a menos de ~10 dias da data de hoje; se não estiver, a

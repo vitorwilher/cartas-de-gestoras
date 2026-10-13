@@ -163,13 +163,15 @@ Para a comparação ser honesta, cada perna precisa estar na mesma escala de ris
 
 ### O código
 
-Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Fontes: `USDBRL=X` (câmbio), `^BVSP` (Ibovespa) e `IMAB11.SA` (ETF do IMA-B, proxy da perna de juros, com `B5P211.SA` como reserva), todas via yfinance. O script imprime o alcance real de cada série e falha explicitamente se alguma estiver parada.
+Dependências: `pandas`, `numpy`, `matplotlib`, `requests`, `yfinance`. Fontes: `USDBRL=X` (câmbio) e `^BVSP` (Ibovespa) via yfinance; para a perna de juros, o PU diário do Tesouro IPCA+ 2035 (NTN-B Principal), no CSV público do Tesouro Transparente. O script imprime o alcance real de cada série e falha explicitamente se alguma estiver parada.
 
 ```python
 # Kit Brasil: três posições ou uma só?
-# Dependências: pandas, numpy, matplotlib, yfinance (sem instalação interativa).
+# Dependências: pandas, numpy, matplotlib, requests, yfinance (sem instalação interativa).
+import io
 import sys
 import numpy as np
+import requests
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")                      # sem janela: o script roda em terminal
@@ -210,14 +212,24 @@ def checa_frescor(s, nome):
 usd  = baixa("USDBRL=X"); checa_frescor(usd, "USDBRL=X")
 ibov = baixa("^BVSP");    checa_frescor(ibov, "^BVSP")
 
-juros = None
-for t in ["IMAB11.SA", "B5P211.SA"]:      # IMA-B cheio; IMA-B 5 como reserva
-    try:
-        s = baixa(t); checa_frescor(s, t); juros = s; break
-    except Exception as e:
-        print(f"aviso: {t} indisponível ({e})")
-if juros is None:
-    sys.exit("Nenhum ETF de juros com dado recente — exercício interrompido.")
+# Juros: PU diário do Tesouro IPCA+ 2035 (sem cupom), do Tesouro Transparente.
+# Os ETFs de renda fixa da B3 no Yahoo (IMAB11, B5P211...) ficaram com preço
+# congelado por ~909 pregões até out/2025 — passam no teste de frescor, mas o
+# retorno zero zera a vol e quebra a correlação.
+URL_TD = ("https://www.tesourotransparente.gov.br/ckan/dataset/"
+          "df56aa42-484a-4a59-8184-7676580c81e3/resource/"
+          "796d2059-14e9-44e3-80c9-2d9e30b405c1/download/precotaxatesourodireto.csv")
+resp = requests.get(URL_TD, timeout=120)
+resp.raise_for_status()
+td = pd.read_csv(io.StringIO(resp.content.decode("latin-1")), sep=";", decimal=",")
+td["Data Base"] = pd.to_datetime(td["Data Base"], dayfirst=True)
+sel = (td["Tipo Titulo"] == "Tesouro IPCA+") & (td["Data Vencimento"] == "15/05/2035")
+juros = (td.loc[sel].set_index("Data Base")["PU Base Manha"].astype(float)
+         .sort_index().loc[INICIO:].rename("NTN-B Principal 2035"))
+checa_frescor(juros, "NTN-B 2035")
+congelado = (juros.pct_change().dropna() == 0).mean()
+if congelado > 0.05:
+    sys.exit(f"NTN-B 2035 com {congelado:.0%} de retornos zero — série congelada.")
 
 # ---------------------------------------------------------------- alinhamento no calendário da B3
 # O câmbio negocia em feriados brasileiros; usa-se o calendário do Ibovespa e
@@ -302,17 +314,18 @@ ax[2].plot(diag.index, diag["dr"], lw=1.3, color="tab:blue",
            label="Índice de diversificação do kit (janela 63 dias úteis)")
 ax[2].axhline(1.0, color="gray", lw=0.8, ls=":")
 ax[2].axhline(np.sqrt(n), color="gray", lw=0.8, ls=":")
-ax[2].text(diag.index[0], 1.02, "1,00 = uma só aposta", fontsize=8, color="gray")
+ax[2].text(diag.index[-1], 1.02, "1,00 = uma só aposta", ha="right", fontsize=8, color="gray")
 ax[2].text(diag.index[0], np.sqrt(n) + 0.02, "1,73 = três apostas independentes", fontsize=8, color="gray")
 ax[2].scatter([diag.index[-1]], [ultimo["dr"]], color="tab:blue", zorder=5)
 ax[2].annotate(f"hoje: {ultimo['dr']:.2f} (percentil {pct_dr:.0f}% do histórico)\n"
                f"vol do kit {vol_kit:.1%} vs {vol_indep:.1%} se independentes",
-               (diag.index[-1], ultimo["dr"]), xytext=(-190, 15), textcoords="offset points",
-               fontsize=9, color="tab:blue")
+               (diag.index[-1], ultimo["dr"]), xytext=(-250, -55), textcoords="offset points",
+               fontsize=9, color="tab:blue", arrowprops=dict(arrowstyle="-", color="tab:blue", lw=0.6),
+               bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="tab:blue", lw=0.6))
 ax[2].set_ylabel("Índice de diversificação (adimensional)")
 ax[2].set_xlabel("Data")
-ax[2].set_ylim(0.9, 1.85)
-ax[2].legend(loc="upper left", fontsize=8)
+ax[2].set_ylim(0.9, 2.05)
+ax[2].legend(loc="lower left", fontsize=8)
 
 for a in ax:
     a.grid(alpha=0.3)
@@ -320,9 +333,11 @@ plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
 print("\nGráfico salvo em grafico-exercicio.png")
 ```
 
+![Três painéis, dados diários de jul/2019 até o último pregão disponível, com cada perna do kit Brasil escalada para 10% de volatilidade anual. Painel superior: índice base 100 do real comprado contra o dólar, da NTN-B Principal 2035 aplicada, do Ibovespa comprado e do kit com as três pernas em risco igual (linha preta). Painel do meio: fração do risco explicada pelo primeiro componente principal (vermelho) e correlação média entre pares (cinza tracejado), em janela de 63 dias úteis, com as referências de 1/3 (três riscos independentes) e 1 (um único fator); o ponto marca a leitura de hoje. Painel inferior: índice de diversificação do kit na mesma janela, entre 1,00 (uma só aposta) e 1,73 (três apostas independentes); a caixa traz a leitura de hoje, o seu percentil histórico e a vol realizada do kit contra a vol que ele teria se as pernas fossem independentes.](grafico-exercicio.png)
+
 ### Como o gráfico foi construído
 
-A perna de juros usa o IMA-B via ETF porque é a única série de carteira de títulos com preço diário gratuito e atualizado; é um proxy imperfeito da posição "aplicada em DI" da Legacy — o IMA-B carrega juro real mais inflação, não juro nominal, e a sua duration (em torno de sete anos) o aproxima mais da curva longa do que do miolo. A escala de risco usa a volatilidade dos 126 dias úteis anteriores, defasada em um dia, para que a carteira de cada data só dependa de informação disponível naquela data. O calendário é o do Ibovespa: o câmbio negocia em feriados brasileiros e seu preço é levado adiante até o próximo pregão da B3; não há interpolação. A janela de 63 dias para correlação e PCA equivale a um trimestre — curta o bastante para captar o regime eleitoral de setembro–outubro, longa o bastante para que uma matriz de correlação 3x3 seja estimável.
+A perna de juros usa o preço diário do Tesouro IPCA+ 2035 (NTN-B Principal), publicado pelo Tesouro Transparente. O ETF do IMA-B no Yahoo foi descartado: o preço dele ficou congelado por quase quatro anos até outubro de 2025, e uma série parada passa no teste de frescor sem que nada avise. É um proxy imperfeito da posição "aplicada em DI" da Legacy — o título carrega juro real mais inflação, não juro nominal, e a sua duration (perto de nove anos) o aproxima da curva longa, não do miolo. A escala de risco usa a volatilidade dos 126 dias úteis anteriores, defasada em um dia, para que a carteira de cada data só dependa de informação disponível naquela data. O calendário é o do Ibovespa: o câmbio negocia em feriados brasileiros e seu preço é levado adiante até o próximo pregão da B3; não há interpolação. A janela de 63 dias para correlação e PCA equivale a um trimestre — curta o bastante para captar o regime eleitoral de setembro–outubro, longa o bastante para que uma matriz de correlação 3x3 seja estimável.
 
 ### Como ler o resultado
 
