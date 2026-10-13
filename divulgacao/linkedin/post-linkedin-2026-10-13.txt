@@ -1,0 +1,19 @@
+A Legacy escreveu na carta de setembro que câmbio, juros e bolsa carregam o mesmo prêmio de risco: o da condução da política econômica. Por isso a casa não escolhe entre eles e mantém o "kit Brasil" equilibrado — comprada em real, aplicada em juros, comprada em bolsa.
+
+Se o prêmio é um só, as três posições são uma aposta só. Isso dá para medir.
+
+Coloquei as três pernas na mesma escala de risco, 10% de volatilidade ao ano cada, e medi em janelas de 63 dias úteis, desde 2019, quanto o kit diversifica de fato. O índice de diversificação vale 1,73 se as três respondem a choques independentes e 1,00 se são a mesma aposta com nomes diferentes.
+
+Em 2 de outubro, o índice estava em 1,36, dentro da faixa normal da série (média de 1,41). Em 9 de outubro, foi a 1,12, a menor leitura desde 2019. A fração do risco explicada por um único fator subiu de 55% para 80%. A volatilidade realizada do kit ficou em 11,7% ao ano, contra 7,6% se as pernas fossem independentes.
+
+O detalhe que importa: um único pregão fez isso. Tirando o dia 5 de outubro da janela, o índice volta a 1,37. Naquele dia, o primeiro depois do primeiro turno, o Ibovespa subiu 7,7%, o dólar caiu mais de 4% e a NTN-B longa subiu junto. Nos três meses anteriores, as pernas pareciam ter vida própria. No dia em que o evento chegou, eram uma posição.
+
+Ou seja: a diversificação do kit existe nos dias comuns e some no dia que decide o resultado. A conta confirma a leitura da Legacy. O que a carta não enfatiza é que esse fator tem data marcada: o segundo turno, no domingo, 25 de outubro.
+
+Uma nota de método, porque a primeira versão deste exercício dizia o contrário. O índice saiu 1,44 e o kit parecia diversificado. O câmbio do Yahoo (USDBRL=X) chega carimbado com um dia de atraso em relação ao pregão da B3: a queda do dólar de 5 de outubro aparece no dia 6. Descasado, o real parecia não andar com o resto. Realinhado, e conferido contra a PTAX, o número é 1,12. Antes disso, outra armadilha: os ETFs de renda fixa da B3 no Yahoo ficaram com o preço congelado por quase quatro anos. A perna de juros usa o Tesouro IPCA+ 2035.
+
+Nada disso é recomendação. O ponto é o método: a carta afirma o mecanismo, e a conta que o testa não está nela.
+
+É o que faço toda semana em que sai carta nova: 15 gestoras brasileiras e Oaktree, GMO e Bridgewater. A edição desta semana traz a tese de cada uma das cinco casas que publicaram — Legacy, Genoa, Kapitalo, Dahlia e NEO —, onde elas divergem, com o patrimônio sob mandato de cada lado, e o código deste exercício. Ela é para assinantes; o link está no primeiro comentário.
+
+Pergunta para quem gere carteira: quando três posições carregam o mesmo prêmio, você conta três linhas de risco ou uma?
