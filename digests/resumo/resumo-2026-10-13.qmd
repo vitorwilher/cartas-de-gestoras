@@ -1,0 +1,345 @@
+---
+title: "Cartas de *Gestoras*"
+subtitle: "Teses, mecanismos e riscos — 5 gestoras nesta edição"
+author: "Vitor Wilher"
+date: "2026-10-13"
+date-format: "D [de] MMMM [de] YYYY"
+lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "Edição de 13 de outubro de 2026"
+  tagline: "A verdade está nos dados."
+format:
+  am-livro-typst:
+    toc-depth: 2
+---
+
+## Nesta edição
+
+Setembro de 2026 foi um mês de duas gravidades opostas. Lá fora, o Federal Reserve voltou a subir juros pela primeira vez desde 2023 (25 pontos-base, para 3,75%–4,00%), o petróleo rompeu US$ 100 por barril com o Oriente Médio sem perspectiva de paz, a Treasury de dez anos superou 5% e o dólar teve sua valorização mais forte do ano. Era o cenário clássico de aperto nas condições financeiras globais — aquele em que ativos de emergentes costumam sofrer. Aqui, aconteceu o contrário: as pesquisas eleitorais apontaram alternância de poder, o real foi a única moeda emergente que não se desvalorizou e os juros locais caíram. O primeiro turno de 4 de outubro confirmou a direção com uma surpresa de magnitude: Flávio Bolsonaro 47,03% contra 45,16% de Lula, e um pregão seguinte com Ibovespa a +7,7%, dólar a −4% e curva longa fechando mais de 130 pontos-base.
+
+Cinco casas publicaram: Legacy, Genoa, Kapitalo, Dahlia e NEO. Todas escrevem depois do primeiro turno (a NEO, com a ressalva de que sua carta não o incorpora), e todas organizam o cenário em torno do mesmo eixo — o quanto o rali brasileiro ainda tem para andar diante de um mundo que aperta. Importa porque é o tipo de momento em que a diferença entre as gestoras não está no diagnóstico, que é quase unânime, mas na resposta à pergunta de preço: depois de 130 pontos-base em um dia, a assimetria ainda existe?
+
+A tensão central desta edição é exatamente essa. Legacy e Genoa dizem que sim, e constroem a cadeia causal completa — alternância, credibilidade fiscal, âncora monetária, Selic terminal entre 10% e 11%. Kapitalo concorda com a direção, mas reduz posição: realiza parte do ganho. Dahlia aumentou risco em setembro, mas admite que "parcela relevante" do movimento já está no preço. NEO, do outro lado, declara a eleição apertada demais para apostas direcionais e prefere discutir o dólar. Por baixo dessa tensão corre uma segunda, menos visível: o que está movendo os juros longos americanos — expectativa de Fed ou prêmio fiscal — e se o dólar forte é tendência (NEO, Legacy) ou posição a ser vendida (Kapitalo).
+
+Adiante, o leitor encontra o mecanismo de cada tese, os números de atribuição que mostram quem efetivamente pagou pelo prêmio político nos últimos doze meses, e uma comparação dimensionada pelo patrimônio sob mandato de cada casa.
+
+## Legacy Capital
+
+**Série:** macro (Legacy Capital FIC).
+
+**A tese em uma frase.** A alternância de governo, agora favorita, destrava uma compressão adicional dos prêmios de risco brasileiros em câmbio, juros e bolsa simultaneamente — e isso vale mesmo depois da reprecificação do dia seguinte ao primeiro turno.
+
+**O mecanismo.** A Legacy constrói a cadeia mais explícita da edição, com três elos. O primeiro é político-estatístico: a casa aplica às pesquisas os parâmetros metodológicos dos ciclos anteriores (o "gap educacional", ajuste de amostragem que ela destaca desde 2018) e estimativas de transferência de votos de 2018 e 2022, segundo as quais cerca de 70% dos votos de candidatos de direita eliminados migram para o candidato de direita. Resultado: cenário-base de vantagem superior a 4 pontos percentuais para Flávio Bolsonaro no segundo turno. O segundo elo é institucional: equipe econômica ativa já na transição, "sinalização crível de responsabilidade fiscal", Congresso com bancada de oposição expressiva para apoiar ajuste, e nomes críveis para o Banco Central. O terceiro é monetário: essa combinação faz as expectativas de inflação de prazos longos convergirem mais rápido do que a inflação corrente, o que permite ao Copom acelerar os cortes já em dezembro e levar a Selic terminal a algo próximo de 10%.
+
+Por que isso se paga nas três classes ao mesmo tempo? Porque, na leitura da Legacy, todas carregam o mesmo prêmio — o da condução atual da política econômica. Câmbio, juro e bolsa são expressões diferentes de uma única variável latente, a credibilidade fiscal; se ela muda, as três reprecificam juntas. Daí a decisão de não escolher entre elas: o "kit Brasil" (expressão de mesa para a posição conjunta comprada em real, aplicada em juros e comprada em bolsa) fica equilibrado. Interpretação nossa: isso é, no fundo, uma posição em um fator único com três instrumentos, o que diversifica o risco de execução, mas não o risco de cenário.
+
+No global, a casa oferece outra cadeia relevante para quem lê curva americana: os juros longos dos EUA acima de 5% respondem a três forças — um Fed que precisa ficar alto por mais tempo com petróleo pressionando, déficits persistentes que elevam o prêmio exigido para carregar dívida longa, e o ciclo de investimento em inteligência artificial, que amplia a demanda por capital e pode sustentar um juro real de equilíbrio (a taxa real que nem estimula nem freia a economia) mais alto. A Legacy interpreta a alta de juros, "até aqui", como reflexo de resiliência da atividade, não como restrição — e é isso que sustenta a posição comprada em ações globais de empresas com retorno sobre capital acima do custo.
+
+**Posicionamento e números.** O fundo rendeu +1,35% em setembro (124% do CDI), +5,60% no ano (53% do CDI) e +9,33% em doze meses (64% do CDI). A atribuição mensal mostra ações +0,77%, caixa +0,93%, moedas +0,24%, renda fixa +0,23%, valor relativo +0,13%, contra volatilidade −0,51%, commodities −0,14% e crédito −0,13%. A janela de doze meses conta uma história menos confortável: renda fixa −2,16% e ações −0,80%, com o caixa (+13,02%) respondendo por praticamente todo o retorno de 9,33%. Interpretação nossa: a Legacy carregou o kit Brasil durante o período eleitoral pagando por isso ao longo do ano, e setembro foi o primeiro mês em que o prêmio começou a devolver — o que explica por que a casa insiste que a assimetria persiste, mas também por que a eleição é um evento binário para o portfólio.
+
+Posições: compradas em ações globais seletivamente; "próximos da neutralidade" em Treasuries, explorando aplicações táticas (apostar na queda da taxa) nos níveis atuais, na expectativa de que a pressão técnica da sazonalidade de emissões corporativas de setembro–outubro diminua após o CPI; neutros em dólar, aguardando "níveis mais atrativos para reconstruir uma posição comprada"; kit Brasil equilibrado entre as três classes. Projeções: PIB de 1,5% em 2026 e 1,0% em 2027 (revisados para baixo), IPCA de 5,1% e 4,7%, Fed subindo mais 25 pontos-base em dezembro com risco de um último aperto no primeiro trimestre de 2027, BCE para pelo menos mais uma alta. PL do master: R$ 1,95 bi.
+
+**O que mudou.** A carta retoma explicitamente o argumento da edição anterior sobre inteligência artificial e juro real de equilíbrio, e registra que a leitura prévia das pesquisas "sustentou a decisão de manter nossa exposição a ativos locais" durante o período eleitoral — ou seja, a posição não é nova; o que mudou é a confiança no cenário.
+
+**Riscos.** A própria Legacy lista três. Lá fora, um choque de energia prolongado (infraestrutura vulnerável, estoques baixos de derivados, oleoduto East-West atacado) pode exigir que os bancos centrais estendam o aperto além do que ela contempla — e o portfólio só funciona enquanto o juro for "reflexo de economia resiliente", não "restrição relevante ao crescimento"; a casa diz que ajustará risco se crédito ou condições financeiras indicarem a virada. No Brasil, a tese quebra se Lula obtiver transferências de voto mais favoráveis que as do cenário-base ou ampliar o comparecimento de sua base; e, mesmo com vitória da oposição, se as sinalizações fiscais não forem críveis, a Selic terminal de 10% não se materializa. Interpretação nossa: há um risco que a carta não enfatiza — o kit Brasil equilibrado concentra o portfólio em um único evento com data marcada (25 de outubro), e a atribuição de doze meses mostra o custo de estar errado por um ano.
+
+## Genoa Capital
+
+**Séries:** Radar (macro discricionário, *flagship*), Arpa (renda variável com exposição líquida variável) e Sagres (macro sistemático).
+
+**A tese em uma frase.** A vitória da oposição virou cenário "amplamente majoritário", e seu efeito principal é desinflacionário via câmbio — o que, somado à abertura do hiato, permite ao Copom acelerar cortes a partir de dezembro e levar a Selic a cerca de 11% no fim de 2027.
+
+**O mecanismo.** A Genoa é a casa que mais disciplina o argumento com condições. Na carta anterior, ela condicionou a aceleração dos cortes a três elementos: abertura do hiato (a ociosidade da economia em relação ao seu potencial — quando o hiato abre, a demanda fica abaixo da capacidade e a inflação tende a ceder), apreciação da moeda e maior higidez fiscal. Em setembro, os dois primeiros começaram a se materializar e o terceiro "ganhou probabilidade". A sequência é: alternância → real mais forte → IPCA de 2027 cai de 4,8% para 4,0%–4,5% → com atividade já contraindo (PIB do terceiro trimestre estimado em −0,4%, abaixo do consenso), o Banco Central ganha espaço para cortar mais rápido.
+
+O detalhe que ensina está no ritmo. A Genoa diz que acelerar já em novembro, dez dias após o segundo turno, "parece precipitado"; a discussão ganha força em dezembro, e só se a troca de governo vier acompanhada de "melhor percepção" sobre a condução econômica — incluindo não haver uma transição abrupta como a proposta na PEC de fim da escala 6x1. Ou seja, a casa separa a direção (consenso) do *timing* (onde há dinheiro a ganhar ou perder contra o que a curva precifica). E a Selic de 11% é descrita como "ainda contracionista", o que significa que, para a Genoa, o ciclo de 2027 é de normalização parcial, não de afrouxamento: a política fiscal, ao ficar negativa no primeiro semestre (fim dos estímulos pré-eleitorais, reforma tributária, execução lenta na troca de governo), passa a "ajudar" a monetária, e é isso que permite cortar.
+
+Para o Arpa, a cadeia é a de valuation: percepção fiscal melhor → BC segue cortando → custo de capital cai → múltiplos das empresas domésticas sobem. Por isso a exposição líquida de 90% privilegia empresas brasileiras.
+
+No global, a leitura é de reaceleração americana (crescimento próximo de 4% anualizado no terceiro trimestre, desemprego estável em 4,2% por menor oferta de mão de obra) e inflação persistente apesar da revisão anual que reduziu o núcleo do PCE (a medida de inflação preferida do Fed, que exclui alimentos e energia) em cerca de 0,35 ponto. A Genoa espera nova alta em dezembro e ciclo gradual ao longo de 2027, mas nota que a comunicação dos membros do comitê "mudou de tom e retirou a urgência" de outubro.
+
+**Posicionamento e números.** Radar: +3,34% em setembro (CDI 1,08%), +12,92% no ano (CDI 10,51%), +16,37% em doze meses. A atribuição do mês é dominada pelo livro internacional (+2,14%), seguido de juros Brasil (+0,31%), ações macro (+0,25%) e ações micro (+0,09%); câmbio Brasil zerou; custos −0,55%. No ano, o internacional responde por +3,73% de um alfa total de +4,42%. A carta diz que as contribuições vieram de "juros e moedas globais", sem detalhar direção. PL do master: R$ 4,62 bi; volatilidade de 3,69%; Sharpe de 0,79 desde o início.
+
+Arpa: +4,33% no mês (Ibovespa +5,03%), +2,91% no ano (Ibovespa +15,65%, IPCA + yield IMA-B +9,54%). Exposição líquida em torno de 90%, bruta ao redor de 160%. Ganhos em utilidades públicas, financeiro e energia no Brasil, e em semicondutores e comunicação nos EUA.
+
+Sagres: +2,66% no mês, +7,21% no ano contra 10,51% do CDI. Modelo sistemático em 19 países, correlação de 0,29 com o Radar e de 0,09 com fundos sistemáticos.
+
+Projeções: IPCA 5,2% em 2026; PIB −0,4% no terceiro trimestre e estável no quarto; ajuste fiscal necessário de 2 a 3 pontos do PIB, "gradual"; Selic próxima de 11% ao fim de 2027.
+
+**O que mudou.** Comparação explícita: as três condições colocadas na carta anterior estão sendo checadas uma a uma, e a projeção de IPCA 2027 é revisada de 4,8% para 4,0%–4,5% "como antecipamos". O primeiro turno produziu "o resultado mais favorável à oposição dentro do espectro que considerávamos possível".
+
+**Riscos.** A própria carta embute as condições de quebra: a tese do corte acelerado falha se a transição for abrupta (a PEC da escala 6x1 é citada nominalmente), se a percepção fiscal não melhorar ou se o hiato não se consolidar. O Arpa, com 90% líquido em domésticas, é o veículo mais exposto a um resultado eleitoral adverso. Interpretação nossa: há uma tensão interna que a Genoa não resolve — se o PIB contrai 0,4% e o impulso fiscal vira negativo, o mesmo argumento que libera o BC para cortar pesa sobre o lucro das empresas domésticas que o Arpa carrega; a aposta é que a queda do custo de capital compense a queda de atividade, o que depende da velocidade relativa dos dois.
+
+## Kapitalo Investimentos
+
+**Série:** K10 (macro).
+
+**A tese em uma frase.** Um governo Flávio Bolsonaro é continuidade da política econômica do governo Jair Bolsonaro com mais capacidade de implementação, e isso abre espaço para cortes de juros em 2027 e compressão do prêmio longo — mas a casa já começou a realizar.
+
+**O mecanismo.** A Kapitalo é direta sobre o que não sabe: as medidas do próximo governo "ainda não são conhecidas, foram muito pouco debatidas" e não haverá clareza no curto prazo. O que ela faz é inferir pelo elenco — o filho escolhido pelo ex-presidente, equipe econômica que trabalhou com Paulo Guedes — e pela aritmética do Congresso, que dá ao candidato "maior capacidade de implementação do que o governo de seu pai". A cadeia é: corte de gastos + redução de impostos + desregulamentação → mudança da trajetória fiscal → mais cortes de Selic ao longo de 2027 → compressão do prêmio de risco dos juros longos → custo de capital menor → ativos de risco locais valorizam. Note que é a mesma estrutura da Legacy, mas o canal fiscal aqui é a agenda liberal, não a sinalização de transição.
+
+O instrumento escolhido para o evento foi juros reais: a casa "foi para o evento com posições aplicadas em juros reais", ou seja, comprada em NTN-B (título indexado ao IPCA) ou equivalente, ganhando se a taxa real cair. Interpretação nossa: é uma escolha coerente com a cadeia — o que comprime com credibilidade fiscal é justamente o juro real de longo prazo, enquanto o juro nominal carrega a incerteza inflacionária que a Kapitalo reconhece ("expectativas de inflação continuam elevadas").
+
+No global, a casa diverge sutilmente das demais: não vê "pressões inflacionárias latentes" (mercado de trabalho equilibrado, salários contidos, expectativas ancoradas), e sim choques de oferta sucessivos sem contaminação dos núcleos. Ainda assim, mantém posição tomada na parte curta da curva americana (aposta em alta das taxas curtas, que paga se o Fed subir mais do que o mercado precifica). A tensão entre o diagnóstico e a posição é da própria carta: o Fed "indicou mais altas", mas "as comunicações recentes reduziram a probabilidade de altas sequenciais".
+
+Em commodities, as duas teses são de oferta. No café, o mercado precifica falta de estoque no destino, mas a safra brasileira foi relevante, a oferta global reagiu aos preços altos e a florada confirmada indica produção forte em 2027: transição de racionamento de demanda para superávit estrutural — posição vendida nos contratos curtos. No açúcar, o aumento de posições especulativas compradas (El Niño, importação indiana, paralisação de moagem por chuva) esbarra num superávit relevante; a Kapitalo espera safra recorde de cana no Brasil com mix maximizado para açúcar e aumento de área na Tailândia e Europa — adicionou venda. No petróleo, mantém "desinclinação" (*flattener* na curva de futuros: aposta de que a diferença entre os contratos curtos e os longos diminui — tipicamente, que o prêmio de escassez imediata se dissipe).
+
+**Posicionamento e números.** +2,83% em setembro contra 1,08% do CDI, com juros +1,00%, bolsa +1,32%, moedas −0,13%, commodities −0,24% e custos −0,20%. No ano, +7,14% contra 10,51% do CDI; o livro de commodities (−3,97% no ano) explica o atraso, enquanto bolsa (+2,45%) e juros (+0,23%) estão positivos. Em doze meses, +11,36% (78% do CDI).
+
+Posições: moedas — comprada em peso chileno e real, vendida em libra, dólar e franco suíço, venda adicionada em baht tailandês, zeradas lira turca e venda de euro; bolsa — comprada em tecnologia nos EUA, **reduzida** a posição comprada na bolsa brasileira; juros — **reduzida marginalmente** a posição aplicada no Brasil, tomada na curta dos EUA, zeradas aplicações em Suécia e África do Sul, adicionada aplicação no Reino Unido; commodities — vendida em café e açúcar, desinclinação em petróleo, zeradas compras de milho, diesel, alumínio e cobre. O VaR (perda máxima esperada em um dia com 95% de confiança) total oscilou entre 0,45% e 0,93% do PL no mês. PL da estratégia: R$ 16,8 bi.
+
+**O que mudou.** A carta não faz comparação explícita com a anterior, mas registra os movimentos do mês: redução em bolsa Brasil e em juros Brasil depois do evento, zeragem do bloco de commodities industriais.
+
+**Riscos.** A casa aponta o próprio desconhecimento do plano de governo como fonte de incerteza e julga "baixa" a probabilidade de virada no segundo turno. Nas commodities, a tese do açúcar reconhece os riscos que sustentam as posições compradas (El Niño, Índia, chuva) e aposta que o superávit é grande o bastante para absorvê-los — quebra se a safra brasileira decepcionar. Interpretação nossa: a redução simultânea em bolsa e juros Brasil após um pregão de +7,7% e −130 pontos-base é um sinal de que a Kapitalo considera parte da assimetria consumida — a posição vendida em dólar, mantida, é hoje a expressão mais limpa do kit Brasil na carteira.
+
+## Dahlia Capital
+
+**Séries:** Total Return (multimercado), Macro Global e Dahlia Ações.
+
+**A tese em uma frase.** O mundo pode estar no início de uma mudança de regime — alternância no Brasil, queda do petróleo, menos pressão no Fed, tudo potencialmente até o fim do ano — e o retorno se faz no intervalo entre a mudança dos fatos e o reconhecimento pelo consenso.
+
+**O mecanismo.** A carta é mais ensaio do que tese operacional, mas a cadeia brasileira está explícita e é a mesma das demais: regime político diferente → credibilidade fiscal maior "qualquer que fosse o governo" → prêmio de risco menor → juros reais estruturalmente mais baixos → custo de capital menor → valor presente dos ativos brasileiros maior. O argumento específico da Dahlia é de precificação relativa: os juros reais brasileiros estão "entre os mais elevados do mundo" mesmo com o ciclo de corte iniciado, o que cria assimetria porque juros mais baixos "podem indicar uma mudança de regime" — e o gráfico de Small Caps versus Ibovespa em dez anos sugere onde a casa vê a alavancagem a essa queda de juros (interpretação nossa: empresas domésticas de menor porte, mais sensíveis ao custo de capital).
+
+O ponto metodológico que a carta oferece ao leitor é o aviso sobre preço: movimentos como o do pregão pós-eleição "sempre admitem duas interpretações" — redução legítima de prêmio, ou expectativa já incorporada. A Dahlia não resolve qual, e diz esperar 25 de outubro.
+
+No global, a casa segue a mesma linha da Legacy e Genoa (Fed a 3,75%–4,00%, Treasury de dez anos chegando a 5,3%, maior nível desde 2007, petróleo acima de US$ 100), mas acrescenta heterogeneidade — imobiliário, construção e consumo discricionário fracos — e cita a projeção do UBS de convergência da inflação já no início de 2027. O cenário otimista depende de um gatilho político americano: eleições de meio de mandato que mudem os incentivos para reduzir tensões geopolíticas e alterar política energética, derrubando o petróleo.
+
+**Posicionamento e números.** Sem retornos nem atribuição. Total Return: aumentou o nível de risco em setembro, "principalmente em ações no Brasil", por preço e proximidade das eleições. Macro Global: risco estável, comprado em ações dos EUA, principalmente semicondutores e *hyperscalers* (as grandes provedoras de nuvem que concentram o capex de inteligência artificial). Dahlia Ações: comprado em bancos, energia elétrica e cíclicos domésticos.
+
+**O que mudou.** A carta revisita um texto de três anos e meio atrás ("Tudo em Todo Lugar ao Mesmo Tempo") para dizer que algumas das mudanças então imaginadas ocorreram, outras não, e que "novas variáveis" se tornaram mais importantes. Não há comparação com o mês anterior.
+
+**Riscos.** A própria carta nomeia o principal: parte da expectativa já estar nos preços depois de um movimento tão grande em tão pouco tempo. E o cenário global de "quando os fatos mudam" é condicional em três eventos (queda do petróleo, alívio no Fed, alternância no Brasil) que a casa admite não saber se acontecerão. Interpretação nossa: o aumento de risco em ações Brasil em setembro — antes do primeiro turno — coloca a Dahlia entre as que pagaram pelo prêmio antes do evento; a ausência de números na carta impede avaliar quanto isso rendeu.
+
+## NEO Investimentos
+
+**Série:** principal (nota de cenário do economista Luciano Sobral; os relatórios de gestão do Multimercado 30, Provectus I e Argo Long & Short são apenas referenciados).
+
+**A tese em uma frase.** Não há tese estruturada: a carta é uma leitura de cenário que termina declarando a eleição "apertada demais para justificar apostas direcionais".
+
+**O mecanismo.** A carta é essencialmente descritiva, e vale dizer isso com clareza. O que ela traz é um diagnóstico global com duas afirmações que têm valor analítico próprio. A primeira: a alta dos juros longos americanos reflete, "com poucas exceções, mais expectativas de juros curtos altos do que um súbito aumento de percepção de risco fiscal" — leitura que contradiz diretamente o segundo fator da Legacy (prêmio fiscal) e tem consequência operacional: se é expectativa de Fed, a curva longa cai quando o Fed sinalizar fim do ciclo; se é prêmio fiscal, não cai. A segunda: o dólar forte se apoia em dois pilares, juros mais altos e crescimento ainda forte nos EUA, e "enquanto esses dois pilares não forem abalados, esta deve ser a tendência", desfavorável a ativos de outros países. A NEO também registra que a precificação de altas nos EUA é a mais agressiva entre os países que acompanha e "lidera" movimentos esperados até em bancos centrais sem inflação acima da meta, e que a resiliência logística do petróleo cru surpreendeu para melhor em relação às projeções de março.
+
+Sobre o Brasil, a carta constata a resiliência (real como única moeda emergente que não caiu, juros locais caindo contra +50 pontos-base nas Treasuries longas) e a atribui às pesquisas — mas não extrai disso posição. Observação nossa: a carta é datada de 8 de outubro, quatro dias depois do primeiro turno, e não o menciona; trata-se de um texto sobre setembro, e a frase "o teste dessa resiliência é o resultado das urnas" deve ser lida nesse contexto.
+
+**Posicionamento e números.** Nenhum. A carta não traz posições, retornos nem atribuição.
+
+**O que mudou.** Sem comparação explícita.
+
+**Riscos.** A carta aponta que a deterioração das condições financeiras globais "ainda afetou pouco" ações e crescimento, mas "se continuar, deve levar a esse resultado nos próximos meses" — o risco é de contágio com defasagem.
+
+O que a ausência de tese sugere: a NEO escolheu, explicitamente, não pagar pelo prêmio político. Interpretação nossa: para uma casa com múltiplas estratégias (macro, equities, *long & short* — carteira comprada em alguns papéis e vendida em outros, que busca retorno pela diferença relativa e não pela direção do mercado), a nota do economista funciona como pano de fundo comum, e a neutralidade eleitoral declarada é uma decisão de risco, não uma omissão — a mais conservadora da edição, e a que mais custou se o rali continuar.
+
+## Convergências e divergências
+
+**Onde o consenso se forma — e quanto pesa.** Quatro casas convergem na cadeia alternância → credibilidade fiscal → compressão de prêmio → Selic mais baixa → ativos locais mais valiosos: Legacy, Kapitalo e Dahlia somam R$ 50,4 bi sob mandato compatível com juro e macro (R$ 17,5 bi, R$ 29,5 bi e R$ 3,4 bi, respectivamente, pela CVM), e a Genoa, que não consta da tabela, informa na própria carta PL de R$ 4,6 bi no master do Radar. A NEO, com R$ 3,1 bi sob mandato de juro/macro, é a única que se declara fora de apostas direcionais. O consenso, portanto, não é só da maioria: é de quem carrega o grosso do risco macro desta edição. Mandato não é posição — mas as cartas de Legacy, Kapitalo e Genoa confirmam que a posição existe.
+
+**Onde o consenso racha: preço, não direção.** Depois do pregão pós-primeiro turno, a pergunta é se a assimetria sobreviveu. Legacy (R$ 17,5 bi) diz que sim, explicitamente, "mesmo após a forte reprecificação", e mantém o kit Brasil inteiro. Genoa diz que sim, com Arpa a 90% líquido. Kapitalo (R$ 29,5 bi) — a maior do grupo — reduziu bolsa e juros Brasil. Dahlia aumentou risco antes do evento, mas é a que verbaliza com mais força a hipótese de que "parcela relevante dessa expectativa já passou a fazer parte dos preços". A divergência revela premissas diferentes sobre o que o mercado precificava: para a Legacy, as pesquisas publicadas subestimavam a oposição e a surpresa das urnas ainda não foi totalmente absorvida; para a Kapitalo, que não detalha a premissa, o comportamento de realizar depois de +7,7% sugere que o evento entregou o que devia.
+
+**Selic: direção comum, calendário diferente.** Legacy atribui "elevada probabilidade" a aceleração do ritmo de cortes já na última reunião do ano e terminal próxima de 10%; Genoa diz que novembro é precipitado, dezembro é a reunião da discussão, e trabalha com 11% ao fim de 2027 — "ainda contracionista". Um ponto percentual de diferença no terminal e uma reunião de diferença no início da aceleração: é nessa janela que uma posição aplicada em juros ganha ou perde contra a curva. A premissa que separa as duas é o fiscal — a Legacy aposta em sinalização crível na transição; a Genoa lembra que o ajuste necessário é de 2 a 3 pontos do PIB e será gradual, e nomeia a PEC da escala 6x1 como teste.
+
+**Inflação 2027: 4,7% contra 4,0%–4,5%.** Legacy projeta 4,7% com serviços ainda incompatíveis com a meta; Genoa, 4,0%–4,5%, porque passa a apreciação do real pelo canal cambial. A diferença de meio ponto é inteiramente o câmbio — e, dado que ambas convergem em atividade (Legacy, 1,0% de PIB em 2027; Genoa, contração no terceiro trimestre e estagnação no quarto), a divergência de inflação é uma divergência sobre quanto o real aprecia e quanto disso repassa.
+
+**Dólar: tendência ou posição a vender?** NEO vê dólar forte enquanto juros e crescimento americano sustentarem; Legacy está neutra e espera níveis melhores para "reconstruir uma posição comprada" — ambas tratam o dólar forte como regime. Kapitalo está vendida em dólar, comprada em real e peso chileno. A divergência tem lógica: NEO e Legacy olham o dólar contra o mundo (DXY), Kapitalo escolhe pares específicos onde o diferencial de juros e o prêmio político favorecem a moeda local. Não é necessariamente contradição, mas é risco diferente — a posição da Kapitalo perde se o dólar global subir o bastante para engolir o prêmio do real.
+
+**Juro longo americano: Fed ou fiscal?** NEO diz que a alta reflete expectativas de juros curtos, não prêmio fiscal. Legacy lista fiscal e juro real de equilíbrio mais alto (via capex de inteligência artificial) como dois de três fatores. Se a NEO estiver certa, a curva longa americana cai quando o Fed parar — e a aplicação tática que a Legacy "começa a explorar" se paga. Se a Legacy estiver certa sobre o fiscal, a mesma aplicação enfrenta um piso estrutural. A Legacy está, em alguma medida, operando contra o seu próprio diagnóstico de longo prazo com uma posição de curto prazo — o que ela justifica pela sazonalidade técnica de emissões, não por mudança de visão.
+
+**Fed: consenso em dezembro, tensão em quem está tomado.** Legacy e Genoa esperam +25 pontos-base em dezembro e ciclo gradual. Kapitalo não vê "pressões inflacionárias latentes" e registra que a comunicação reduziu a chance de altas sequenciais — mas segue tomada na parte curta. É a única posição da edição que parece viver em tensão com o diagnóstico da própria casa.
+
+**Atividade brasileira: unanimidade silenciosa.** Todas que projetam veem desaceleração (Legacy revisa para 1,5% e 1,0%; Genoa estima PIB negativo no terceiro trimestre; Kapitalo registra surpresas negativas). Interpretação nossa: é isso que dá coerência ao consenso de corte — a tese política não precisa de inflação baixa, precisa de hiato aberto e fiscal crível, e o hiato já está entregue pelos dados.
+
+## Exercício da semana: quantas apostas há no "kit Brasil"? Medindo a diversificação real de câmbio, juros e bolsa
+
+### Por que isto importa esta semana
+
+A Legacy diz que câmbio, juro e bolsa "carregam o mesmo prêmio" e por isso mantém o kit Brasil "equilibrado entre as três classes". A síntese fez a leitura de que isso é uma posição em um fator único com três instrumentos — o que diversifica o risco de execução, não o de cenário. Essa afirmação é testável: basta medir quanto do risco de uma carteira comprada em real, aplicada em juros e comprada em Ibovespa vem de uma única fonte comum. É o que o exercício faz.
+
+### O conceito
+
+Uma carteira só diversifica na medida em que os seus componentes respondem a choques diferentes. O teste clássico é o **índice de diversificação** (*diversification ratio*): a média ponderada das volatilidades das posições dividida pela volatilidade da carteira. Com três posições de mesmo risco, o índice vale 1,73 (raiz de três) se os três riscos forem independentes e 1,00 se forem a mesma aposta com nomes diferentes. Tudo o que fica entre esses dois números é a diversificação que você de fato obteve — não a que a contagem de linhas na carteira sugere.
+
+A segunda lente é a **decomposição em fatores**: tomando a matriz de correlação dos retornos, o maior autovalor dividido pelo número de ativos diz a fração do risco explicada pelo primeiro componente principal. Com três ativos, esse número varia de 1/3 (nada em comum) a 1 (uma única variável latente). Se a Legacy tem razão sobre a "credibilidade fiscal" como variável única, o primeiro componente deve dominar — e o kit, "equilibrado" ou não, é uma aposta com três alavancas.
+
+Para a comparação ser honesta, cada perna precisa estar na mesma escala de risco. Câmbio, bolsa e um índice de títulos têm volatilidades muito diferentes; "equilibrado" na linguagem de mesa quer dizer risco igual, não notional igual. Por isso o código escala cada perna para a mesma volatilidade anualizada antes de combinar.
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Fontes: `USDBRL=X` (câmbio), `^BVSP` (Ibovespa) e `IMAB11.SA` (ETF do IMA-B, proxy da perna de juros, com `B5P211.SA` como reserva), todas via yfinance. O script imprime o alcance real de cada série e falha explicitamente se alguma estiver parada.
+
+```python
+# Kit Brasil: três posições ou uma só?
+# Dependências: pandas, numpy, matplotlib, yfinance (sem instalação interativa).
+import sys
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")                      # sem janela: o script roda em terminal
+import matplotlib.pyplot as plt
+import yfinance as yf
+
+HOJE = pd.Timestamp.today().normalize()
+INICIO = "2019-01-01"
+JANELA = 63          # dias úteis para correlação, PCA e índice de diversificação (~1 trimestre)
+JANELA_VOL = 126     # dias úteis para medir a vol que escala cada perna (~1 semestre)
+VOL_ALVO = 0.10      # 10% a.a. para cada perna: "equilibrado" = mesmo risco, não mesmo notional
+FRESCOR_DIAS = 10    # tolerância do teste de frescor
+
+# ---------------------------------------------------------------- download e checagem
+def baixa(ticker):
+    """Baixa preço ajustado de fechamento com timeout explícito e índice sem fuso."""
+    df = yf.download(ticker, start=INICIO, auto_adjust=True, progress=False, timeout=30)
+    if df is None or df.empty:
+        raise RuntimeError(f"{ticker}: download vazio")
+    s = df["Close"]
+    if isinstance(s, pd.DataFrame):      # yfinance >= 0.2 devolve MultiIndex
+        s = s.iloc[:, 0]
+    s = s.dropna().astype(float)
+    idx = pd.DatetimeIndex(s.index)
+    if idx.tz is not None:
+        idx = idx.tz_convert(None)
+    s.index = idx.normalize()
+    return s.rename(ticker)
+
+def checa_frescor(s, nome):
+    """HTTP 200 não prova dado atualizado: exige última observação recente."""
+    atraso = (HOJE - s.index[-1]).days
+    if atraso > FRESCOR_DIAS:
+        raise RuntimeError(f"{nome}: última observação em {s.index[-1].date()}, "
+                           f"{atraso} dias atrás — fonte parada")
+    print(f"{nome:12s} {len(s):5d} obs | {s.index[0].date()} a {s.index[-1].date()}")
+
+usd  = baixa("USDBRL=X"); checa_frescor(usd, "USDBRL=X")
+ibov = baixa("^BVSP");    checa_frescor(ibov, "^BVSP")
+
+juros = None
+for t in ["IMAB11.SA", "B5P211.SA"]:      # IMA-B cheio; IMA-B 5 como reserva
+    try:
+        s = baixa(t); checa_frescor(s, t); juros = s; break
+    except Exception as e:
+        print(f"aviso: {t} indisponível ({e})")
+if juros is None:
+    sys.exit("Nenhum ETF de juros com dado recente — exercício interrompido.")
+
+# ---------------------------------------------------------------- alinhamento no calendário da B3
+# O câmbio negocia em feriados brasileiros; usa-se o calendário do Ibovespa e
+# preenche-se o último preço disponível das demais séries (não há buracos internos).
+precos = pd.concat([usd, ibov, juros], axis=1).reindex(ibov.index).ffill()
+precos = precos.dropna(how="any")          # só remove o trecho inicial, antes de o ETF existir
+print(f"Amostra alinhada: {len(precos)} pregões, de {precos.index[0].date()} "
+      f"a {precos.index[-1].date()}")
+
+# Retornos diários das três pernas, no sinal da posição do kit
+ret = pd.DataFrame({
+    "Real (comprado em BRL)":   (1.0 / precos["USDBRL=X"]).pct_change(),   # BRL por USD
+    f"Juros ({juros.name}, aplicado)": precos[juros.name].pct_change(),
+    "Bolsa (Ibovespa, comprado)": precos["^BVSP"].pct_change(),
+}).dropna(how="all")                        # descarta apenas a primeira linha
+
+# ---------------------------------------------------------------- escala de risco igual
+# Vol dos últimos 126 dias, defasada em 1 dia (sem olhar o futuro), leva cada perna a 10% a.a.
+vol_tr = ret.rolling(JANELA_VOL).std().shift(1) * np.sqrt(252)
+esc = (ret * (VOL_ALVO / vol_tr)).dropna(how="any")   # as 3 colunas têm o mesmo início
+kit = esc.mean(axis=1).rename("Kit Brasil (3 pernas, risco igual)")
+print(f"Série escalada: {len(esc)} pregões, de {esc.index[0].date()} a {esc.index[-1].date()}")
+
+# ---------------------------------------------------------------- diagnóstico em janela móvel
+datas, pc1, corr_med, dr = [], [], [], []
+V = esc.values
+n = V.shape[1]
+for i in range(JANELA, len(esc) + 1):
+    W = V[i - JANELA:i]
+    C = np.corrcoef(W, rowvar=False)
+    ev = np.linalg.eigvalsh(C)
+    pc1.append(ev[-1] / n)                           # fração do risco no 1º componente
+    corr_med.append((C.sum() - n) / (n * (n - 1)))   # correlação média entre pares
+    sig = W.std(axis=0, ddof=1) * np.sqrt(252)
+    sig_p = W.mean(axis=1).std(ddof=1) * np.sqrt(252)
+    dr.append(sig.mean() / sig_p)                    # índice de diversificação
+    datas.append(esc.index[i - 1])
+diag = pd.DataFrame({"pc1": pc1, "corr": corr_med, "dr": dr}, index=datas)
+
+ultimo = diag.iloc[-1]
+pct_dr = (diag["dr"] < ultimo["dr"]).mean() * 100
+Wf = V[-JANELA:]
+corr_final = pd.DataFrame(np.corrcoef(Wf, rowvar=False), index=esc.columns, columns=esc.columns)
+vol_kit = kit.iloc[-JANELA:].std() * np.sqrt(252)
+vol_indep = (esc.iloc[-JANELA:].std() * np.sqrt(252)).mean() / np.sqrt(n)
+
+print("\nCorrelação dos últimos 63 pregões:\n", corr_final.round(2))
+print(f"\nFração do risco no 1º componente: {ultimo['pc1']:.2f}  (1/3 = nada em comum, 1 = um fator)")
+print(f"Índice de diversificação:          {ultimo['dr']:.2f}  (1,00 = um fator, 1,73 = três independentes)")
+print(f"Percentil histórico do índice:     {pct_dr:.0f}%")
+print(f"Vol realizada do kit: {vol_kit:.1%} a.a. | vol se as pernas fossem independentes: {vol_indep:.1%} a.a.")
+
+# ---------------------------------------------------------------- gráfico
+fig, ax = plt.subplots(3, 1, figsize=(11, 12), sharex=True)
+ini = esc.index[0].date(); fim = esc.index[-1].date()
+
+acum = (1 + esc).cumprod() * 100
+acum_kit = (1 + kit).cumprod() * 100
+for c in acum.columns:
+    ax[0].plot(acum.index, acum[c], lw=1.0, alpha=0.8, label=c)
+ax[0].plot(acum_kit.index, acum_kit, lw=2.0, color="black", label=kit.name)
+ax[0].set_ylabel("Índice (base 100), cada perna a 10% a.a.")
+ax[0].set_title(f"Kit Brasil: as três pernas na mesma escala de risco ({ini} a {fim})")
+ax[0].legend(loc="upper left", fontsize=8)
+
+ax[1].plot(diag.index, diag["pc1"], lw=1.3, color="tab:red",
+           label="Fração do risco no 1º componente principal (janela 63 dias úteis)")
+ax[1].plot(diag.index, diag["corr"], lw=1.0, color="tab:gray", ls="--",
+           label="Correlação média entre pares (janela 63 dias úteis)")
+ax[1].axhline(1 / n, color="gray", lw=0.8, ls=":")
+ax[1].axhline(1.0, color="gray", lw=0.8, ls=":")
+ax[1].text(diag.index[0], 1 / n + 0.01, "1/3 = três riscos independentes", fontsize=8, color="gray")
+ax[1].text(diag.index[0], 0.96, "1 = um único fator", fontsize=8, color="gray")
+ax[1].scatter([diag.index[-1]], [ultimo["pc1"]], color="tab:red", zorder=5)
+ax[1].annotate(f"hoje: {ultimo['pc1']:.2f}", (diag.index[-1], ultimo["pc1"]),
+               xytext=(-70, 12), textcoords="offset points", fontsize=9, color="tab:red")
+ax[1].set_ylabel("Fração do risco / correlação")
+ax[1].set_ylim(-0.3, 1.05)
+ax[1].legend(loc="lower left", fontsize=8)
+
+ax[2].plot(diag.index, diag["dr"], lw=1.3, color="tab:blue",
+           label="Índice de diversificação do kit (janela 63 dias úteis)")
+ax[2].axhline(1.0, color="gray", lw=0.8, ls=":")
+ax[2].axhline(np.sqrt(n), color="gray", lw=0.8, ls=":")
+ax[2].text(diag.index[0], 1.02, "1,00 = uma só aposta", fontsize=8, color="gray")
+ax[2].text(diag.index[0], np.sqrt(n) + 0.02, "1,73 = três apostas independentes", fontsize=8, color="gray")
+ax[2].scatter([diag.index[-1]], [ultimo["dr"]], color="tab:blue", zorder=5)
+ax[2].annotate(f"hoje: {ultimo['dr']:.2f} (percentil {pct_dr:.0f}% do histórico)\n"
+               f"vol do kit {vol_kit:.1%} vs {vol_indep:.1%} se independentes",
+               (diag.index[-1], ultimo["dr"]), xytext=(-190, 15), textcoords="offset points",
+               fontsize=9, color="tab:blue")
+ax[2].set_ylabel("Índice de diversificação (adimensional)")
+ax[2].set_xlabel("Data")
+ax[2].set_ylim(0.9, 1.85)
+ax[2].legend(loc="upper left", fontsize=8)
+
+for a in ax:
+    a.grid(alpha=0.3)
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("\nGráfico salvo em grafico-exercicio.png")
+```
+
+### Como o gráfico foi construído
+
+A perna de juros usa o IMA-B via ETF porque é a única série de carteira de títulos com preço diário gratuito e atualizado; é um proxy imperfeito da posição "aplicada em DI" da Legacy — o IMA-B carrega juro real mais inflação, não juro nominal, e a sua duration (em torno de sete anos) o aproxima mais da curva longa do que do miolo. A escala de risco usa a volatilidade dos 126 dias úteis anteriores, defasada em um dia, para que a carteira de cada data só dependa de informação disponível naquela data. O calendário é o do Ibovespa: o câmbio negocia em feriados brasileiros e seu preço é levado adiante até o próximo pregão da B3; não há interpolação. A janela de 63 dias para correlação e PCA equivale a um trimestre — curta o bastante para captar o regime eleitoral de setembro–outubro, longa o bastante para que uma matriz de correlação 3x3 seja estimável.
+
+### Como ler o resultado
+
+O painel inferior é o veredito. Um índice de diversificação próximo de 1,0 diz que o kit Brasil, mesmo "equilibrado", é uma aposta só: a vol realizada do kit fica perto da vol de cada perna, e a comparação anotada no gráfico (vol realizada contra vol "se independentes") mostra quanto risco a diversificação removeu de fato. Um índice próximo de 1,7 diria o contrário — que o real, os juros e a bolsa estariam respondendo a choques distintos, e a leitura de "variável latente única" da Legacy não estaria no preço. O painel do meio conta a mesma história em outra métrica: fração do risco no primeiro componente acima de 0,7 é regime de fator único; abaixo de 0,5, as pernas têm vida própria.
+
+Para a tese, o resultado corta nos dois sentidos. Se o índice está baixo e no fundo da sua distribuição histórica (percentil anotado), a Legacy está certa de que as três classes carregam o mesmo prêmio — e a síntese está certa de que o kit concentra o portfólio em um único evento com data marcada. Nesse regime, o pior resultado de 25 de outubro atinge as três pernas ao mesmo tempo, e a atribuição de doze meses da casa (renda fixa −2,16%, ações −0,80%, moedas junto) é exatamente a cara disso. Se, ao contrário, o índice subiu nas últimas semanas, a reprecificação de 5 de outubro pode ter começado a separar as pernas — por exemplo, juros já com o corte de dezembro no preço enquanto a bolsa ainda responde a fluxo — e a escolha de qual perna sobrepesar, que a Legacy decidiu não fazer, voltaria a ter valor.
+
+O valor que mudaria a conclusão: índice acima de 1,4 (ou primeiro componente abaixo de 0,55) na janela corrente. Abaixo disso, "equilibrar" o kit é escolha de execução, não de risco.
+
+### Vá além
+
+Troque o proxy da perna de juros pela curva de fato: com `from pyettj import ettj`, colete a taxa do vértice de cinco anos da curva `PRE` em datas semanais do último ano (tratando `HolidayError` voltando ao dia útil anterior) e use a variação da taxa, com sinal invertido, como retorno da posição aplicada. A amostra fica menor, mas a perna passa a ser nominal e com o prazo da posição real. Em seguida, acrescente uma quarta perna — ações globais via `IVV` ou `^GSPC`, que a Legacy carrega "compradas seletivamente" — e veja quanto o índice de diversificação sobe: é a medida de quanto a parte global do portfólio protege o kit, e de quanto um choque como o de petróleo acima de US$ 100 pode derrubar as duas ao mesmo tempo.
+
+## Cartas originais
+
+- **NEO Investimentos — Cartas do Gestor – Setembro 2026** ([original](https://www.neo.com.br/cartas-do-gestor-setembro-2026/))
+- **Dahlia Capital — Quando os Regimes Mudam** ([original](https://www.dahliacapital.com.br/post/quando-os-regimes-mudam))
+- **Legacy Capital — Setembro** ([original](https://www.legacycapital.com.br/wp-content/uploads/202609_Carta-Mensal.pdf))
+- **Kapitalo Investimentos — Carta do Gestor Setembro Carta do Gestor Setembro** ([original](https://www.kapitalo.com.br/wp-content/uploads/2022/09/Carta-Mensal_K10_Setembro-2026_Upload.pdf))
+- **Genoa Capital — Carta Mensal Setembro/2026 PDF** ([original](https://www.genoacapital.com.br/docs/CartaMensalGenoaCapital_Set26.pdf))
