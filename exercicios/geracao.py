@@ -94,6 +94,17 @@ Estrutura:
      zera a volatilidade e a correlação vira NaN (13/10/2026: LinAlgError, edição
      sem gráfico). O IMA-B do SGS (12466) também morreu, em mai/2023.
 
+   - câmbio diário (`USDBRL=X` no Yahoo) vem carimbado **UM DIA DEPOIS** do pregão
+     da B3: a queda de 4% do dólar no pregão de 05/10/2026 aparece em 06/10. Ao
+     combinar com Ibovespa ou juros em dados DIÁRIOS, realinhe com
+     `usd = usd.shift(-1).dropna()` ou use a PTAX (`sgs` série 1). Sem isso a
+     correlação do real com o resto some: em 13/10/2026 o índice de diversificação
+     do kit Brasil saiu 1,44 quando o correto era 1,12 — conclusão invertida.
+     Em dados semanais o efeito é menor, mas o realinhamento vale do mesmo jeito.
+   - séries com defasagem de publicação diferente (Tesouro, SGS) terminam antes
+     das outras: corte a amostra na última data em que TODAS têm dado próprio, em
+     vez de preencher para frente (o ffill inventa retornos zero no fim).
+
    **Teste de frescor não basta: cheque também se a série está CONGELADA.** Conte
    retornos exatamente iguais a zero; se passarem de ~5% da amostra, a fonte
    repetiu preço — levante erro em vez de seguir.

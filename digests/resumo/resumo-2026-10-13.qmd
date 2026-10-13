@@ -210,6 +210,10 @@ def checa_frescor(s, nome):
     print(f"{nome:12s} {len(s):5d} obs | {s.index[0].date()} a {s.index[-1].date()}")
 
 usd  = baixa("USDBRL=X"); checa_frescor(usd, "USDBRL=X")
+# O Yahoo carimba o câmbio com UM DIA de atraso em relação ao pregão da B3: a
+# queda de 4% do dólar no pregão pós-eleição (05/10) aparece em 06/10. Sem este
+# realinhamento a perna do real fica descasada das outras e a correlação some.
+usd = usd.shift(-1).dropna()
 ibov = baixa("^BVSP");    checa_frescor(ibov, "^BVSP")
 
 # Juros: PU diário do Tesouro IPCA+ 2035 (sem cupom), do Tesouro Transparente.
@@ -235,7 +239,10 @@ if congelado > 0.05:
 # O câmbio negocia em feriados brasileiros; usa-se o calendário do Ibovespa e
 # preenche-se o último preço disponível das demais séries (não há buracos internos).
 precos = pd.concat([usd, ibov, juros], axis=1).reindex(ibov.index).ffill()
-precos = precos.dropna(how="any")          # só remove o trecho inicial, antes de o ETF existir
+precos = precos.dropna(how="any")          # só remove o trecho inicial
+# Corta na última data em que as TRÊS séries têm dado próprio: depois dela o
+# preenchimento repetiria preço e inventaria retornos zero.
+precos = precos.loc[:min(usd.index[-1], ibov.index[-1], juros.index[-1])]
 print(f"Amostra alinhada: {len(precos)} pregões, de {precos.index[0].date()} "
       f"a {precos.index[-1].date()}")
 
@@ -314,18 +321,18 @@ ax[2].plot(diag.index, diag["dr"], lw=1.3, color="tab:blue",
            label="Índice de diversificação do kit (janela 63 dias úteis)")
 ax[2].axhline(1.0, color="gray", lw=0.8, ls=":")
 ax[2].axhline(np.sqrt(n), color="gray", lw=0.8, ls=":")
-ax[2].text(diag.index[-1], 1.02, "1,00 = uma só aposta", ha="right", fontsize=8, color="gray")
+ax[2].text(diag.index[0], 1.02, "1,00 = uma só aposta", fontsize=8, color="gray")
 ax[2].text(diag.index[0], np.sqrt(n) + 0.02, "1,73 = três apostas independentes", fontsize=8, color="gray")
 ax[2].scatter([diag.index[-1]], [ultimo["dr"]], color="tab:blue", zorder=5)
 ax[2].annotate(f"hoje: {ultimo['dr']:.2f} (percentil {pct_dr:.0f}% do histórico)\n"
                f"vol do kit {vol_kit:.1%} vs {vol_indep:.1%} se independentes",
-               (diag.index[-1], ultimo["dr"]), xytext=(-250, -55), textcoords="offset points",
+               (diag.index[-1], ultimo["dr"]), xytext=(-330, 45), textcoords="offset points",
                fontsize=9, color="tab:blue", arrowprops=dict(arrowstyle="-", color="tab:blue", lw=0.6),
                bbox=dict(boxstyle="round,pad=0.3", fc="white", ec="tab:blue", lw=0.6))
 ax[2].set_ylabel("Índice de diversificação (adimensional)")
 ax[2].set_xlabel("Data")
 ax[2].set_ylim(0.9, 2.05)
-ax[2].legend(loc="lower left", fontsize=8)
+ax[2].legend(loc="upper right", fontsize=8)
 
 for a in ax:
     a.grid(alpha=0.3)
@@ -337,7 +344,7 @@ print("\nGráfico salvo em grafico-exercicio.png")
 
 ### Como o gráfico foi construído
 
-A perna de juros usa o preço diário do Tesouro IPCA+ 2035 (NTN-B Principal), publicado pelo Tesouro Transparente. O ETF do IMA-B no Yahoo foi descartado: o preço dele ficou congelado por quase quatro anos até outubro de 2025, e uma série parada passa no teste de frescor sem que nada avise. É um proxy imperfeito da posição "aplicada em DI" da Legacy — o título carrega juro real mais inflação, não juro nominal, e a sua duration (perto de nove anos) o aproxima da curva longa, não do miolo. A escala de risco usa a volatilidade dos 126 dias úteis anteriores, defasada em um dia, para que a carteira de cada data só dependa de informação disponível naquela data. O calendário é o do Ibovespa: o câmbio negocia em feriados brasileiros e seu preço é levado adiante até o próximo pregão da B3; não há interpolação. A janela de 63 dias para correlação e PCA equivale a um trimestre — curta o bastante para captar o regime eleitoral de setembro–outubro, longa o bastante para que uma matriz de correlação 3x3 seja estimável.
+A perna de juros usa o preço diário do Tesouro IPCA+ 2035 (NTN-B Principal), publicado pelo Tesouro Transparente. O ETF do IMA-B no Yahoo foi descartado: o preço dele ficou congelado por quase quatro anos até outubro de 2025, e uma série parada passa no teste de frescor sem que nada avise. É um proxy imperfeito da posição "aplicada em DI" da Legacy — o título carrega juro real mais inflação, não juro nominal, e a sua duration (perto de nove anos) o aproxima da curva longa, não do miolo. A escala de risco usa a volatilidade dos 126 dias úteis anteriores, defasada em um dia, para que a carteira de cada data só dependa de informação disponível naquela data. O calendário é o do Ibovespa: o câmbio negocia em feriados brasileiros e seu preço é levado adiante até o próximo pregão da B3; não há interpolação. O câmbio do Yahoo é deslocado em um dia, porque a série chega carimbada com um dia de atraso em relação ao pregão da B3 — sem o ajuste, a queda de 4% do dólar no pregão de 5 de outubro cairia no dia 6, e a perna do real pareceria descorrelacionada das outras justamente na semana que importa. A amostra termina na última data em que as três séries têm preço próprio (o Tesouro publica com alguns dias de defasagem). A janela de 63 dias para correlação e PCA equivale a um trimestre — curta o bastante para captar o regime eleitoral de setembro–outubro, longa o bastante para que uma matriz de correlação 3x3 seja estimável.
 
 ### Como ler o resultado
 
