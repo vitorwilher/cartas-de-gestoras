@@ -290,7 +290,7 @@ gestoras:
     estrategia: rss
     periodicidade: irregular
     formato: pdf
-    ultima_carta: {principal: 'https://www.dynamo.com.br/carta-128-os-serendipitistas/'}
+    ultima_carta: {principal: 'https://www.dynamo.com.br/carta-129-o-tao-do-sistema-3/'}
     notas: >
       NÃO é trimestral, ao contrário do que a tradição sugere: o ritmo atual é de
       ~2 a 4 cartas por ano, em datas irregulares (Carta 128 em 2026-04-07, 127 em

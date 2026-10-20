@@ -1,0 +1,303 @@
+---
+title: "Cartas de *Gestoras*"
+subtitle: "Teses, mecanismos e riscos — Dynamo"
+author: "Vitor Wilher"
+date: "2026-10-20"
+date-format: "D [de] MMMM [de] YYYY"
+lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "Edição de 20 de outubro de 2026"
+  tagline: "A verdade está nos dados."
+format:
+  am-livro-typst:
+    toc-depth: 2
+---
+
+## Nesta edição
+
+Esta edição traz um único documento, e ele foge ao padrão do que o mercado costuma chamar de "carta de gestora": a Dynamo publicou a Carta 129, "O Tao do Sistema 3", primeira de uma trilogia dedicada à autópsia de um investimento encerrado há anos — a Technos S/A — e, mais do que isso, ao método com que a casa examina os próprios erros. Não há leitura de cenário, não há posição macro, não há atribuição setorial. Há uma exposição de processo decisório, apoiada em Kahneman, Munger, Andy Grove, Amy Edmondson e no Projeto Aristóteles do Google.
+
+O corpus não informa o que aconteceu nos mercados na semana; o que o documento traz de quantitativo é a tabela de rentabilidade até setembro de 2026, em que o Dynamo Cougar rendeu 4,5% no mês contra 5,0% do Ibovespa e acumula 11,2% no ano contra 15,6% do índice. Esse pano de fundo importa para a leitura: uma carta sobre erros, publicada por uma casa que roda abaixo do benchmark em todas as janelas de 12 a 60 meses, não é texto neutro — é, ao menos em parte, uma declaração sobre como a gestora pretende ser julgada.
+
+A tensão central da edição, portanto, é metodológica: como se analisa uma carta que não tem tese de mercado? A resposta que propomos é tratar o processo como a tese. A Dynamo está dizendo, em essência, que o retorno de um fundo concentrado de ações é função da qualidade de cada decisão individual, e que a qualidade da decisão depende de uma arquitetura organizacional específica para combater vieses que o cérebro individual não consegue vigiar sozinho. Isso é testável, tem mecanismo causal e tem condições de falha — e é assim que a seção adiante a destrincha.
+
+O leitor vai encontrar, a seguir, a decomposição dessa "tese de processo": por que a concentração muda a natureza estatística do erro, qual é o mecanismo do chamado Sistema 3, o que os números da tabela permitem (e não permitem) concluir, e sob que condições o arranjo descrito deixa de funcionar.
+
+## Dynamo
+
+**Aviso prévio sobre a natureza do documento.** A Carta 129 é essencialmente metodológica e não expõe tese de investimento sobre ativos, setores ou macro. Isso não é lacuna: é coerente com o mandato. O Dynamo Cougar é um fundo de ações fechado para captação, que aplica no mínimo 95% do patrimônio no Fundo Master, cobra performance sobre IPCA + IMA-B (índice de títulos públicos indexados à inflação, as NTN-Bs — ou seja, a meta é bater o retorno real do título público, não o Ibovespa), tem carência de 12 meses e PL médio de R$ 5.876,9 milhões nos últimos 12 meses. Pela base CVM, a casa tem R$ 19,3 bi dos R$ 20,0 bi totais sob mandato de bolsa e zero em juro/macro ou crédito. Uma gestora com esse perfil — poucas decisões por ano, portfólio concentrado, horizonte longo — não tem o que dizer sobre "o mês" que seja relevante; o que ela tem a oferecer ao cotista é a explicação de como decide. É isso que a carta faz, e é como tese de processo que ela deve ser lida.
+
+### 1. A tese em uma frase
+
+Em um portfólio concentrado, cada erro individual é evidência estatisticamente forte de falha de processo — e, como o aparato cognitivo individual é incapaz de se autocriticar com eficácia, o retorno de longo prazo depende de uma camada externa e colegiada de vigilância, que a Dynamo batiza de "Sistema 3".
+
+### 2. O mecanismo
+
+A cadeia causal da carta tem quatro elos, e vale percorrê-los porque cada um é uma premissa que o leitor pode aceitar ou rejeitar.
+
+**Primeiro elo: a concentração muda a natureza do erro.** A Dynamo contrasta dois regimes. Num fundo de *venture capital* com duzentas posições, a distribuição de retornos obedece a uma lei de potência (*power law*: um punhado de ganhadores — cerca de 5% — responde por quase todo o resultado), de modo que o "fracasso" da maioria das posições é característica de desenho, não falha de análise. Nesse regime, o erro relevante é o tipo II (falso negativo: deixar passar o investimento que multiplicaria o capital), o "pecado de omissão" de Munger, cujo custo é custo de oportunidade. Num fundo concentrado, inverte-se a lógica: a taxa de acerto esperada por posição é alta e o número de eventos é pequeno, logo um investimento ruim carrega muito mais informação por unidade de evento. O erro relevante passa a ser o tipo I (falso positivo: entrar onde não devia), o "crime de comissão", cujo custo é perda permanente de capital — mais grave, nas palavras da carta, "em sua essência". A consequência prática é que o "álibi estatístico" ("temos muitas posições, melhor avaliar erros em agregado") não se aplica a eles: cada erro precisa ser dissecado individualmente, da mesma forma artesanal e *bottom up* (de baixo para cima: ativo por ativo, sem partir de uma visão macro) com que a tese foi construída.
+
+**Segundo elo: risco não é parâmetro.** Decorre do primeiro. Se o erro é qualitativo e individual, risco também é — a carta o define como perda permanente de capital, e rejeita explicitamente tratá-lo como *tracking error* (desvio do fundo em relação ao benchmark) ou como volatilidade das cotas. Isso explica a nota de rodapé da tabela: o Ibovespa é "mera referência econômica", não meta. É um aviso ao cotista sobre a régua que a casa aceita ser medida.
+
+**Terceiro elo: onde o erro nasce.** A Dynamo propõe percorrer, em sentido inverso, as quatro trilhas de análise descritas na Carta 76 — números, companhia, administração e negócio — e localiza a maior incidência de erros na administração (a leitura de pessoas é "onde se concentram a maior parte dos nossos erros") e, para o caso Technos, no negócio (aspectos "que não havíamos percebido em todos os seus matizes"). Sobre isso se sobrepõem os vieses cognitivos: viés de confirmação, excesso de confiança, custo afundado, Efeito Halo (deixar atributos salientes — carisma, boa apresentação — substituírem a análise árdua), ilusão de controle das planilhas, "envolvimentos emocionais" com executivos que nos tratam bem, efeito disposição (vender cedo o que sobe e segurar o que cai, derivado da Teoria do Prospecto, segundo a qual a dor da perda pesa 2 a 2,5 vezes mais que o prazer do ganho) e ancoragem em preços passados.
+
+**Quarto elo: o indivíduo não consegue se corrigir.** Aqui entra Kahneman. O Sistema 1 (rápido, intuitivo, incansável) gera coerência e confiança mesmo com base preditiva fraca; o Sistema 2 (lento, analítico, custoso) deveria auditá-lo, mas opera com orçamento limitado de esforço e tende a endossar o que o Sistema 1 já entregou — "como se o viés de confirmação operasse dentro do próprio ato de reflexão". Treinar cada mecanismo isoladamente é "tarefa de validade duvidosa". Logo, a vigilância precisa ser externa: duplas de analistas submetem a tese a todo o time em reunião sem hierarquia ("autoridade, apenas dos argumentos"), com busca disciplinada por refutação empírica. Aprovada, a tese vira "patrimônio coletivo" — o *discuss and commit* de Grove.
+
+A condição para que esse arranjo funcione é a segurança psicológica (crença compartilhada de que admitir erros, discordar dos seniores e reportar más notícias não gera retaliação), sustentada pela carta com o estudo de Edmondson em hospitais de Boston — as equipes de melhor desempenho eram as que mais *reportavam* erros, não as que menos erravam — e com a analogia da caixa-preta da aviação. O argumento neurocientífico de apoio: medo consome recursos cognitivos da memória de trabalho e prejudica o pensamento analítico.
+
+**O que isso ensina ao leitor.** Uma carta de processo deve ser lida como qualquer tese: perguntando onde está a premissa frágil. Aqui, a premissa central é que o Sistema 3 produz decisões *melhores* do que as individuais, e a própria Dynamo lista o que precisa ser verdade para isso valer (ver Riscos). O leitor que acompanha a casa há anos tem, nas próximas duas cartas, a chance de verificar se a autópsia da Technos pratica o que a Carta 129 prega — ou se recai no viés de retrospectiva que ela mesma adverte.
+
+### 3. Posicionamento e números
+
+Não há posições nem atribuição de performance na carta. O que o documento traz é a tabela de rentabilidade do Dynamo Cougar contra o Ibovespa, em reais, até setembro de 2026:
+
+| Período | Dynamo Cougar | Ibovespa |
+|---|---|---|
+| 120 meses | 215,8% | 219,3% |
+| 60 meses | 24,7% | 67,9% |
+| 36 meses | 52,6% | 59,9% |
+| 24 meses | 32,6% | 41,4% |
+| 12 meses | 21,7% | 27,4% |
+| 2026 | 11,2% | 15,6% |
+| Setembro | 4,5% | 5,0% |
+
+Em dólares, o acumulado desde setembro de 1993 é de 36.961,4% contra 1.123,4% do índice, com 2025 em +56,1% (Ibovespa +50,8%) e 2026 até setembro em +18,1% (Ibovespa +22,8%).
+
+Dois fatos saltam da tabela e merecem registro sem inferência: (a) o fundo está atrás do Ibovespa em todas as janelas de 12 a 120 meses, com a maior defasagem nos 60 meses (43 pontos percentuais); (b) o diferencial de longuíssimo prazo em dólar permanece enorme. Interpretação nossa: a janela de 60 meses engloba 2021, 2022 e 2024, anos em que o fundo caiu mais que o índice ou subiu menos (–23,0% contra –18,0% em 2021; –7,8% contra +12,0% em 2022; –30,8% contra –29,9% em 2024, em dólar). Uma carta sobre anatomia de erros publicada nesse contexto é, a nosso ver, também uma forma de prestar contas — mas a carta não faz essa ligação, e seria viés de retrospectiva do leitor afirmá-la como intenção.
+
+### 4. O que mudou
+
+A carta não compara posições nem cenário com edições anteriores. O que ela sinaliza como mudança é organizacional e de longo prazo: o desenho "evoluiu para um arranjo essencialmente participativo e colegiado" após "muitos anos estudando, observando e testando modelos diferentes". Não há data nem gatilho para essa evolução no documento. A carta se declara primeira de três: a segunda trará a "descoberta tardia" sobre a natureza do negócio da Technos; a terceira, a jornada do investimento em si.
+
+### 5. Riscos
+
+A Dynamo é explícita sobre as condições sob as quais o Sistema 3 falha, e a lista é longa o bastante para ser lida como um mapa de riscos do próprio modelo: *groupthink* (pensamento de grupo: a ilusão de invulnerabilidade dos grupos coesos), isolamento a opiniões externas, "cascata de julgamentos" (o primeiro a opinar arrasta os demais), diversidade insuficiente, racionalização de alertas negativos, ilusão de unanimidade, autocensura, "reciprocidade branda gerada pelo jogo repetido" (o mesmo time interagindo por muitos anos tende a suavizar críticas mútuas), reforço coletivo de vieses individuais e dissenso meramente artificial. A carta reconhece que "todas essas valências são mais fáceis de enunciar no papel do que vivenciar na prática" e que o arranjo depende, "em última instância", dos valores da sociedade — isto é, não é mecânico.
+
+A tese quebra, portanto, se o colegiado deixar de ser refutacionista e virar instância de validação: se a segurança psicológica degenerar em complacência, ou se a longevidade da partnership — apresentada como virtude — se converter na reciprocidade branda que a própria carta nomeia. Interpretação nossa: o risco mais sutil está na assimetria que a Dynamo estabelece entre comissão e omissão. Ao priorizar o combate ao falso positivo, um processo colegiado de refutação intensa pode elevar a taxa de falsos negativos — teses boas rejeitadas no debate, os "patos pintados de preto" que a carta menciona de passagem. A carta reconhece que o erro de omissão "merece o devido escrutínio", mas não descreve um mecanismo simétrico para auditá-lo, e o custo de oportunidade não aparece em tabela nenhuma. Para um fundo que roda abaixo do índice nas janelas intermediárias, essa é a pergunta que o cotista deveria levar às próximas duas cartas.
+
+Há também o risco que a carta assume no próprio exercício: reconstruir o contexto de decisões passadas "é sempre impreciso e perigoso", sujeito ao viés de retrospectiva (enfatizar os sinais que apontavam para o erro e desprezar a ambiguidade genuína da época) e a incentivos reputacionais dos envolvidos. A Dynamo diz que "julga válida a empreitada" apesar disso — o leitor saberá se foi válida apenas quando a autópsia da Technos estiver completa.
+
+## Exercício da semana: quanto pesa um único erro numa carteira concentrada?
+
+### Por que isto importa esta semana
+
+A Carta 129 da Dynamo sustenta que, num fundo concentrado, "um investimento ruim carrega muito mais informação por unidade de evento" e que risco é perda permanente de capital, não volatilidade nem *tracking error* (o desvio do fundo em relação ao índice). A síntese apontou que essa é uma afirmação testável. Este exercício mede, com preços reais de ações da B3, o que a concentração faz com as duas réguas — a que a Dynamo rejeita e a que ela aceita — e por que elas divergem.
+
+### O conceito
+
+A estatística básica de carteiras diz que a volatilidade cai com o número de posições, mas para de cair depois de dez ou quinze nomes: o que sobra é risco sistemático, que nenhuma diversificação dentro da bolsa remove. Pela régua da volatilidade, portanto, uma carteira de 12 ações e uma de 30 são quase a mesma coisa.
+
+A régua da Dynamo é outra. Numa carteira comprada com pesos iguais e sem rebalanceamento, uma posição que vai a zero custa aproximadamente 1/k do capital, onde k é o número de posições. Esse custo não tem piso sistemático: ele continua caindo com k indefinidamente. Em 5 nomes, um erro de comissão (entrar onde não devia) tira 20 pontos do resultado; em 30 nomes, pouco mais de 3. É por isso que o "álibi estatístico" do fundo de *venture capital* — avaliar erros em agregado — não serve para a casa concentrada: lá cada decisão individual é uma fração grande do resultado final, e o resultado final é o que o cotista recebe.
+
+O lado do retorno fecha o argumento. Se as posições são sorteadas ao acaso de um mesmo universo, concentrar não muda o retorno esperado; muda apenas a dispersão dos resultados possíveis. Concentração só paga se houver seleção — e toda a arquitetura do "Sistema 3" descrito na carta é o preço que a gestora diz pagar para que a seleção exista. O exercício mede, então, três coisas em função de k: a dispersão dos retornos de cinco anos de carteiras aleatórias, a volatilidade mediana dessas carteiras e o custo mediano da pior posição de cada uma (quanto o resultado melhoraria se aquela única decisão não tivesse sido tomada).
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `yfinance`. Os preços vêm do Yahoo Finance, ajustados por proventos. O universo são 70 tickers líquidos da B3 listados no código; os que não tiverem cinco anos completos de dados, ou que vierem com preço congelado, são descartados e informados no terminal. O número efetivo de ações entra no título do gráfico.
+
+```python
+# -*- coding: utf-8 -*-
+"""
+Exercício: quanto pesa um único erro numa carteira concentrada?
+Roda num terminal, sem interação. Salva grafico-exercicio.png.
+"""
+import numpy as np
+import pandas as pd
+import yfinance as yf
+import matplotlib
+matplotlib.use("Agg")            # sem janela: o script não pode travar
+import matplotlib.pyplot as plt
+
+HOJE = pd.Timestamp.today().normalize()
+SEMANAS = 260                    # cinco anos de retornos semanais
+N_SIM = 3000                     # sorteios por tamanho de carteira
+KS = [2, 3, 5, 8, 12, 20, 30]    # tamanhos de carteira testados
+MIN_ACOES = 30                   # mínimo de ações no universo para seguir
+INICIO = HOJE - pd.DateOffset(years=5) - pd.Timedelta(days=120)
+
+# Universo: ações líquidas da B3 (ticker sem o sufixo .SA)
+TICKERS = [
+    "PETR4", "VALE3", "ITUB4", "BBDC4", "BBAS3", "ABEV3", "WEGE3", "B3SA3",
+    "RENT3", "SUZB3", "JBSS3", "ELET3", "EQTL3", "RADL3", "PRIO3", "GGBR4",
+    "CSNA3", "USIM5", "LREN3", "MGLU3", "VIVT3", "TIMS3", "EMBR3", "RAIL3",
+    "HAPV3", "RDOR3", "CYRE3", "MRVE3", "COGN3", "YDUQ3", "CVCB3", "PETZ3",
+    "CSAN3", "UGPA3", "VBBR3", "BPAC11", "ITSA4", "SBSP3", "CMIG4", "CPLE6",
+    "TAEE11", "ENGI11", "ALPA4", "NTCO3", "BEEF3", "SLCE3", "SMTO3", "CMIN3",
+    "GOAU4", "BRAP4", "KLBN11", "EGIE3", "TOTS3", "LWSA3", "POSI3", "CASH3",
+    "QUAL3", "HYPE3", "FLRY3", "IRBR3", "MULT3", "BBSE3", "ASAI3", "AMER3",
+    "DXCO3", "EZTC3", "MDIA3", "VIVA3", "CPFE3", "ENEV3",
+]
+
+# ---------------------------------------------------------------- download
+print("Baixando preços do Yahoo Finance...")
+raw = yf.download([t + ".SA" for t in TICKERS], start=INICIO.strftime("%Y-%m-%d"),
+                  auto_adjust=True, progress=False, threads=True, timeout=60)
+px = raw["Close"].copy()
+px.columns = [c.replace(".SA", "") for c in px.columns]
+px = px.dropna(how="all")        # só descarta dias sem NENHUM preço
+
+ibov_raw = yf.download("^BVSP", start=INICIO.strftime("%Y-%m-%d"),
+                       auto_adjust=True, progress=False, timeout=60)
+ibov = ibov_raw["Close"].squeeze().dropna()
+ibov.name = "IBOV"
+
+# ---------------------------------------------------------------- frescor
+for nome, serie in [("ações", px), ("Ibovespa", ibov)]:
+    atraso = (HOJE - serie.index[-1]).days
+    if atraso > 10:
+        raise RuntimeError(f"Fonte de {nome} parada: último dado em "
+                           f"{serie.index[-1].date()}, {atraso} dias atrás.")
+    print(f"{nome}: último dado em {serie.index[-1].date()} ({atraso} dias).")
+
+# ---------------------------------------------------------------- semanal
+wk = px.resample("W-FRI").last()                 # último preço da semana
+ibov_wk = ibov.resample("W-FRI").last()
+if len(wk) < SEMANAS + 1:
+    raise RuntimeError("Histórico curto demais para cinco anos semanais.")
+wk = wk.iloc[-(SEMANAS + 1):]
+ibov_wk = ibov_wk.reindex(wk.index)
+
+# Descarta coluna a coluna (nunca a linha inteira) quem não tem a janela completa
+faltantes = wk.columns[wk.isna().any()].tolist()
+wk = wk.drop(columns=faltantes)
+
+# Teste de série congelada: retorno semanal exatamente zero em mais de 5%
+ret = wk.pct_change().iloc[1:]
+congeladas = ret.columns[(ret == 0).mean() > 0.05].tolist()
+wk = wk.drop(columns=congeladas)
+if (ibov_wk.pct_change().iloc[1:] == 0).mean() > 0.05:
+    raise RuntimeError("Ibovespa congelado no Yahoo.")
+
+print(f"Descartadas por janela incompleta: {faltantes}")
+print(f"Descartadas por preço congelado: {congeladas}")
+n = wk.shape[1]
+print(f"Universo final: {n} ações, de {wk.index[0].date()} a {wk.index[-1].date()}")
+if n < MIN_ACOES:
+    raise RuntimeError(f"Universo com {n} ações, abaixo do mínimo de {MIN_ACOES}.")
+
+# ---------------------------------------------------------------- simulação
+W = (wk / wk.iloc[0]).to_numpy()                 # riqueza de R$1 em cada ação, T x n
+ret_final = W[-1] - 1                            # retorno de 5 anos por ação
+ret_ibov = float(ibov_wk.iloc[-1] / ibov_wk.iloc[0] - 1)
+ret_univ = float(ret_final.mean())              # carteira com TODAS as ações, pesos iguais
+
+rng = np.random.default_rng(129)
+linhas = []
+for k in KS:
+    idx = np.array([rng.choice(n, k, replace=False) for _ in range(N_SIM)])  # N_SIM x k
+    Wp = W[:, idx].mean(axis=2)                  # riqueza da carteira: T x N_SIM
+    rp = Wp[-1] - 1                              # retorno de 5 anos
+    wret = Wp[1:] / Wp[:-1] - 1                  # retornos semanais da carteira
+    vol = wret.std(axis=0, ddof=1) * np.sqrt(52) # vol anualizada
+    fin = W[-1, idx]                             # riqueza final de cada posição: N_SIM x k
+    soma = fin.sum(axis=1)
+    # Mesma carteira sem a pior (ou a melhor) posição, peso redistribuído
+    sem_pior = (soma - fin.min(axis=1)) / (k - 1) - 1
+    sem_melhor = (soma - fin.max(axis=1)) / (k - 1) - 1
+    custo_pior = rp - sem_pior                   # negativo: quanto o pior erro tirou
+    ganho_melhor = rp - sem_melhor               # positivo: quanto o melhor acerto deu
+    linhas.append(dict(
+        k=k,
+        p5=np.percentile(rp, 5), p25=np.percentile(rp, 25), p50=np.median(rp),
+        p75=np.percentile(rp, 75), p95=np.percentile(rp, 95),
+        vol=np.median(vol),
+        custo_pior=np.median(custo_pior), ganho_melhor=np.median(ganho_melhor),
+        perda_nominal=(rp < 0).mean(),
+    ))
+res = pd.DataFrame(linhas).set_index("k")
+
+print("\nRetorno de 5 anos: Ibovespa %.1f%% | universo pesos iguais %.1f%%"
+      % (100 * ret_ibov, 100 * ret_univ))
+print((100 * res).round(1).rename(columns={
+    "p5": "P5 %", "p25": "P25 %", "p50": "Mediana %", "p75": "P75 %", "p95": "P95 %",
+    "vol": "Vol a.a. %", "custo_pior": "Custo pior pos. pp",
+    "ganho_melhor": "Ganho melhor pos. pp", "perda_nominal": "% carteiras c/ perda"}))
+
+# ---------------------------------------------------------------- gráfico
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+ks = res.index.to_numpy()
+
+# Painel A: dispersão do retorno de 5 anos por número de posições
+ax1.fill_between(ks, 100 * res.p5, 100 * res.p95, color="#9ecae1", alpha=0.6,
+                 label="P5–P95 das carteiras sorteadas")
+ax1.fill_between(ks, 100 * res.p25, 100 * res.p75, color="#3182bd", alpha=0.6,
+                 label="P25–P75")
+ax1.plot(ks, 100 * res.p50, color="black", lw=2, label="Mediana")
+ax1.axhline(100 * ret_ibov, color="firebrick", ls="--", lw=1.5,
+            label=f"Ibovespa: {100 * ret_ibov:.0f}%")
+ax1.axhline(100 * ret_univ, color="gray", ls=":", lw=1.5,
+            label=f"Universo c/ pesos iguais: {100 * ret_univ:.0f}%")
+ax1.set_xscale("log")
+ax1.set_xticks(ks)
+ax1.set_xticklabels([str(k) for k in ks])
+ax1.minorticks_off()
+ax1.set_xlabel("Número de posições na carteira (pesos iguais, sem rebalanceamento)")
+ax1.set_ylabel("Retorno acumulado em 5 anos (%)")
+ax1.set_title("A. Concentrar não muda a mediana; muda a dispersão")
+for k in (ks[0], ks[-1]):
+    amp = 100 * (res.loc[k, "p95"] - res.loc[k, "p5"])
+    ax1.annotate(f"P95–P5 = {amp:.0f} pp", xy=(k, 100 * res.loc[k, "p95"]),
+                 xytext=(0, 8), textcoords="offset points", ha="center", fontsize=9)
+ax1.legend(loc="upper right", fontsize=8)
+ax1.grid(alpha=0.3)
+
+# Painel B: a régua rejeitada (vol) e a régua aceita (custo de uma decisão)
+ax2.plot(ks, 100 * res.custo_pior, color="firebrick", marker="o", lw=2,
+         label="Custo mediano da pior posição (pp do retorno de 5 anos)")
+ax2.plot(ks, 100 * res.ganho_melhor, color="seagreen", marker="o", lw=2,
+         label="Ganho mediano da melhor posição (pp)")
+ax2.axhline(0, color="black", lw=0.8)
+ax2.set_xscale("log")
+ax2.set_xticks(ks)
+ax2.set_xticklabels([str(k) for k in ks])
+ax2.minorticks_off()
+ax2.set_xlabel("Número de posições na carteira")
+ax2.set_ylabel("Contribuição de UMA posição ao retorno de 5 anos (pontos percentuais)")
+ax2.set_title("B. Volatilidade estabiliza; o peso de um erro continua caindo")
+for k in (3, 30):
+    ax2.annotate(f"{100 * res.loc[k, 'custo_pior']:.0f} pp",
+                 xy=(k, 100 * res.loc[k, "custo_pior"]), xytext=(0, -14),
+                 textcoords="offset points", ha="center", color="firebrick", fontsize=9)
+ax2b = ax2.twinx()
+ax2b.plot(ks, 100 * res.vol, color="darkorange", ls="--", marker="s", lw=1.8,
+          label="Volatilidade anualizada mediana (%, eixo direito)")
+ax2b.set_ylabel("Volatilidade anualizada mediana (% a.a.)")
+for k in (3, 30):
+    ax2b.annotate(f"vol {100 * res.loc[k, 'vol']:.0f}%", xy=(k, 100 * res.loc[k, "vol"]),
+                  xytext=(0, 8), textcoords="offset points", ha="center",
+                  color="darkorange", fontsize=9)
+h1, l1 = ax2.get_legend_handles_labels()
+h2, l2 = ax2b.get_legend_handles_labels()
+ax2.legend(h1 + h2, l1 + l2, loc="center right", fontsize=8)
+ax2.grid(alpha=0.3)
+
+fig.suptitle(f"Carteiras aleatórias de {n} ações da B3 | {SEMANAS} semanas até "
+             f"{wk.index[-1].date()} | {N_SIM} sorteios por tamanho", fontsize=11)
+fig.tight_layout()
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("\nGráfico salvo em grafico-exercicio.png")
+```
+
+![Painel A: faixas P5–P95 (azul-claro) e P25–P75 (azul-escuro) do retorno acumulado em 260 semanas de carteiras sorteadas com 2, 3, 5, 8, 12, 20 e 30 ações do universo (3.000 sorteios por tamanho, pesos iguais na partida, sem rebalanceamento), com a mediana em preto, o retorno do Ibovespa no mesmo período em linha tracejada vermelha e o retorno da carteira com todas as ações do universo em linha pontilhada cinza; as anotações dão a amplitude P95–P5 em pontos percentuais para 2 e para 30 posições. Painel B: custo mediano da pior posição (vermelho) e ganho mediano da melhor posição (verde), ambos em pontos percentuais do retorno de cinco anos da carteira, contra o número de posições; no eixo direito, em laranja tracejado, a volatilidade anualizada mediana das mesmas carteiras. As anotações mostram os valores em 3 e em 30 posições. O título informa o número efetivo de ações no universo e a data final da amostra.](grafico-exercicio.png)
+
+### Como o gráfico foi construído
+
+As carteiras são compradas uma vez, com pesos iguais, e carregadas por 260 semanas sem rebalanceamento — é a aproximação mais honesta de um fundo de horizonte longo, e é o que faz a lei de potência aparecer: o ganhador cresce no peso da carteira, o perdedor encolhe. O "custo da pior posição" é a diferença entre o retorno da carteira e o retorno da mesma carteira sem aquela ação, com o peso redistribuído entre as demais; é a medida direta de "quanto custou uma única decisão de comissão". Os preços são ajustados por proventos; a amostra é cortada na última semana em que todas as ações têm dado próprio, e qualquer ticker sem a janela completa ou com retornos semanais congelados sai do universo (o terminal lista quais). Há um viés que o leitor deve carregar na cabeça: o universo só contém ações que ainda negociam hoje, de modo que falências e fechamentos de capital dos últimos cinco anos não aparecem — o custo do pior erro está subestimado, não superestimado.
+
+### Como ler o resultado
+
+O painel A é a parte "retorno" do binômio. A mediana das carteiras sorteadas deve ficar colada na linha cinza do universo em qualquer k: sortear 3 ou 30 ações do mesmo conjunto não cria retorno esperado. O que k faz é abrir ou fechar a faixa azul. Leia a amplitude P95–P5 anotada em 2 e em 30 posições: essa diferença é o que a concentração custa em incerteza de resultado — e é o tamanho do prêmio que a seleção precisa entregar para justificá-la. Use agora a tabela da carta: a Dynamo roda 43 pontos percentuais atrás do Ibovespa em 60 meses. Olhe a largura da faixa P5–P95 nos tamanhos de 12 a 20 posições, a faixa de uma carteira concentrada típica. Se 43 pontos cabem com folga dentro dela, a defasagem em cinco anos não distingue, por si só, falha de processo de sorte adversa — o que, ironicamente, é o argumento da própria Dynamo para julgar decisão por decisão em vez de julgar o agregado.
+
+O painel B é a parte "risco", e mostra por que a casa rejeita a volatilidade como régua. A linha laranja deve cair rápido até 8 ou 12 posições e depois quase parar: é o risco sistemático da bolsa brasileira, que nenhuma seleção dentro da bolsa remove. A linha vermelha não para. Compare as anotações em 3 e em 30 posições: o custo mediano da pior posição deve cair na proporção aproximada de 1/k, enquanto a volatilidade entre esses dois pontos cai bem menos. Isso é a tradução numérica da frase "um investimento ruim carrega muito mais informação por unidade de evento": em 3 nomes, o pior erro responde sozinho por uma fatia grande do resultado final do cotista; em 30, por uma fatia que se confunde com ruído. A linha verde, por sua vez, deve ficar acima da vermelha em valor absoluto em todos os k — a perda de uma ação é limitada a 100%, o ganho não é. Esse é o "erro de omissão" de que a carta fala de passagem e para o qual não descreve um mecanismo de auditoria: numa carteira concentrada, deixar de fora o nome que multiplica custa mais do que entrar no nome que afunda, e o processo refutacionista do Sistema 3 é desenhado para o segundo, não para o primeiro.
+
+O que mudaria a conclusão: se a mediana do painel A subisse de forma visível com a concentração, haveria retorno em concentrar sem seleção — não há razão teórica para isso, e seria sinal de problema na amostra. Se, no painel B, a linha vermelha achatasse junto com a laranja a partir de 12 posições, a tese de que o erro individual importa mais no fundo concentrado perderia força, porque o custo de uma decisão estaria dominado pelo mercado e não pela escolha. E se a linha verde não superasse a vermelha em módulo, o universo da amostra não teria a lei de potência que a Dynamo descreve — algo a investigar antes de aceitar a assimetria entre comissão e omissão.
+
+### Vá além
+
+Troque o universo pela carteira teórica do Ibovespa com peso por capitalização, ou rebalanceie as carteiras sorteadas a cada semana, e veja o que acontece com a linha verde do painel B: o rebalanceamento vende o que sobe e compra o que cai — o efeito disposição institucionalizado — e tende a esmagar a contribuição da melhor posição. Uma segunda variação, mais próxima da carta: fixe k = 12 e, em vez de sortear, condicione a carteira a excluir as ações do pior decil de retorno do universo, como se o Sistema 3 tivesse acertado todos os falsos positivos. Compare a mediana resultante com a da carteira que exclui o melhor decil. A diferença entre as duas é o preço relativo dos dois tipos de erro — e é o número que o cotista deveria levar às próximas duas cartas sobre a Technos.
+
+## Cartas originais
+
+- **Dynamo — Carta 129 – O Tao do Sistema 3** ([original](https://www.dynamo.com.br/carta-129-o-tao-do-sistema-3/))
