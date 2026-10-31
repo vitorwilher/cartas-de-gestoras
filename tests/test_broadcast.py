@@ -152,3 +152,27 @@ class TestDoisPublicos(unittest.TestCase):
 
     def test_cada_publico_tem_sua_tag(self):
         self.assertNotEqual(self.bs.TAG_PROJETO, self.bs.TAG_ASSINANTES)
+
+
+class TestTeseDoEmail(unittest.TestCase):
+    """O e-mail lista a tese de cada casa; o rótulo muda de formato entre edições."""
+
+    def setUp(self):
+        self.bs = carregar()
+
+    def test_rotulo_em_negrito_na_mesma_linha(self):
+        secao = "**Série:** macro.\n\n**A tese em uma frase.** O prêmio é um só.\n\n**O mecanismo.** ..."
+        self.assertEqual(self.bs._tese(secao), "O prêmio é um só.")
+
+    def test_rotulo_como_subtitulo_com_a_tese_abaixo(self):
+        secao = "### 1. A tese em uma frase\n\nCada erro é evidência forte.\n\n### 2. O mecanismo\n\n..."
+        self.assertEqual(self.bs._tese(secao), "Cada erro é evidência forte.")
+
+    def test_secao_sem_tese_devolve_vazio(self):
+        self.assertEqual(self.bs._tese("Só descrição do mês.\n\n### Riscos\n\n..."), "")
+
+    def test_email_nao_copia_paragrafos_de_bastidor(self):
+        # O "Nesta edição" de 20/10 trazia "O corpus não informa..." e "a seguir".
+        html = self.bs.corpo_assinantes("2026-10-20", ["Dynamo"], "um conceito")
+        self.assertNotIn("corpus", html)
+        self.assertNotIn("a seguir", html)

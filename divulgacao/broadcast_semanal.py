@@ -115,23 +115,46 @@ def _md_para_html(texto: str) -> str:
     return re.sub(r"\*(.+?)\*", r"<em>\1</em>", t)
 
 
-def resumo_da_edicao(data: str) -> list[str]:
-    """Os parágrafos de "Nesta edição" que contam a tensão da semana.
+def teses_da_edicao(data: str) -> list[tuple[str, str]]:
+    """(gestora, tese em uma frase) de cada seção de gestora da edição.
 
-    Fica de fora o primeiro (o pano de fundo do mês, longo para um e-mail), o
-    fecho "Adiante, cada carta é destrinchada..." e a caixa da nota editorial.
-    Edição sem a seção, ou com poucos parágrafos, devolve o que houver.
+    Desde 31/10/2026 o e-mail não copia mais os parágrafos de "Nesta edição": eles
+    foram escritos para abrir o PDF ("a seguir", "adiante") e às vezes traziam
+    bastidor do modelo ("o corpus não informa..."). A linha "**A tese em uma
+    frase.**" de cada seção é curta, autocontida e é o que o leitor quer saber.
+    Seção sem essa linha (carta descritiva) entra só com o nome.
     """
     qmd = DIGESTS / f"resumo-{data}.qmd"
     if not qmd.exists():
         return []
-    m = re.search(r"(?ms)^## Nesta edição\s*$(.*?)(?=^## )", qmd.read_text(encoding="utf-8"))
+    texto = qmd.read_text(encoding="utf-8")
+    ignorar = ("nesta edição", "convergências", "cartas originais", "o olhar de fora", "exercício")
+    teses = []
+    for m in re.finditer(r"(?ms)^## (.+?)\n(.*?)(?=^## |\Z)", texto):
+        nome = m.group(1).strip()
+        if nome.lower().startswith(ignorar):
+            continue
+        teses.append((nome.replace(" — internacional", ""), _tese(m.group(2))))
+    return teses
+
+
+def _tese(secao: str) -> str:
+    """A frase depois do rótulo "A tese em uma frase", nos formatos já vistos:
+    "**A tese em uma frase.** X" (mesma linha) e "### 1. A tese em uma frase" com
+    X no parágrafo seguinte (20/10/2026). O formato varia de edição para edição."""
+    m = re.search(r"(?im)^[#\s\d.*-]*A tese em uma frase[\s.:*—-]*(.*)$", secao)
     if not m:
-        return []
-    blocos = re.sub(r"(?ms)^:::.*?^:::\s*$", "", m.group(1))
-    paragrafos = [p.strip() for p in blocos.split("\n\n")
-                  if p.strip() and not p.strip().startswith((":", ">", "Adiante"))]
-    return paragrafos[1:] if len(paragrafos) > 2 else paragrafos
+        return ""
+    if m.group(1).strip():
+        return m.group(1).strip()
+    resto = secao[m.end():].strip().split("\n\n")[0].strip()
+    return "" if resto.startswith("#") else resto
+
+
+def _lista_de_teses(data: str) -> str:
+    itens = [f"<li><strong>{html.escape(n)}</strong>" + (f" — {_md_para_html(t)}" if t else "") + "</li>"
+             for n, t in teses_da_edicao(data)]
+    return f"<ul>\n{chr(10).join(itens)}\n</ul>" if itens else ""
 
 
 def corpo(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
@@ -139,10 +162,10 @@ def corpo(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
     quando = f"{int(d)} de {MESES[int(m)]}"
     lista = ", ".join(gestoras[:-1]) + f" e {gestoras[-1]}" if len(gestoras) > 1 else (gestoras[0] if gestoras else "")
     fim = "" if conceito.endswith(("?", ".", "!")) else "."
-    resumo = "\n\n".join(f"<p>{_md_para_html(p)}</p>" for p in resumo_da_edicao(data))
+    resumo = _lista_de_teses(data)
     return f"""<p>Olá, {{{{ subscriber.first_name }}}}.</p>
 
-<p>Saiu a síntese das cartas desta semana, com <strong>{lista}</strong>.</p>
+<p>Saiu a síntese das cartas desta semana. A tese de cada casa, em uma frase:</p>
 {f"{chr(10)}<p>{html.escape(nota)}</p>{chr(10)}" if nota else ""}
 {resumo}
 
@@ -170,10 +193,10 @@ def corpo_assinantes(data: str, gestoras: list[str], conceito: str, nota: str = 
     quando = f"{int(d)} de {MESES[int(m)]}"
     lista = ", ".join(gestoras[:-1]) + f" e {gestoras[-1]}" if len(gestoras) > 1 else (gestoras[0] if gestoras else "")
     fim = "" if conceito.endswith(("?", ".", "!")) else "."
-    resumo = "\n\n".join(f"<p>{_md_para_html(p)}</p>" for p in resumo_da_edicao(data))
+    resumo = _lista_de_teses(data)
     return f"""<p>Olá, {{{{ subscriber.first_name }}}}.</p>
 
-<p>A edição de {quando} já está na sua área do aluno, com <strong>{lista}</strong>.</p>
+<p>A edição de {quando} já está na sua área do aluno. A tese de cada casa, em uma frase:</p>
 {f"{chr(10)}<p>{html.escape(nota)}</p>{chr(10)}" if nota else ""}
 {resumo}
 
