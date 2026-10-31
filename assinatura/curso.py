@@ -116,7 +116,10 @@ def garantir_curso(c: httpx.Client, url_carrinho: str | None, capa_id: int) -> d
     achado = _ok(_wp(c, "GET", "ldlms/v2/sfwd-courses", params={"slug": SLUG, "status": "any", "context": "edit"}),
                  "busca do curso")
     corpo = {"title": NOME_CURSO, "slug": SLUG, "content": woo.DESCRICAO, "price_type": "closed",
-             "ld_course_category": [CAT_CURSO], "featured_media": capa_id}
+             "ld_course_category": [CAT_CURSO], "featured_media": capa_id,
+             # Navegação livre: com progressão linear (padrão do LearnDash) a aula 1
+             # é a edição mais recente e tranca todas as anteriores até ser concluída.
+             "progression_disabled": True}
     if url_carrinho:
         corpo["price_type_closed_custom_button_url"] = url_carrinho
     if achado:
