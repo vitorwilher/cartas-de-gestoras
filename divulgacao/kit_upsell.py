@@ -48,7 +48,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 ENV = dotenv_values(RAIZ.parent / "ROI_Diagnostico" / ".env")
 SEQ = 2888305
 BOAS_VINDAS = 10516834
-RASCUNHOS_ANTIGOS = (10409446, 10288509)
+RASCUNHOS_ANTIGOS = (10409446, 10288509, 10516933)  # 10516933: versão com o caso Kinea/IMAB11
 TAG_LEADS = 23251247
 AMOSTRA = ("https://analisemacro.com.br/wp-content/uploads/2026/10/"
            "sintese-cartas-gestoras-amostra-2026-10-13.pdf")
@@ -96,10 +96,11 @@ EMAILS = [
         "(uma aposta com três nomes) a 1,73 (três apostas independentes), estava em 1,36 "
         "em 2 de outubro. Em 9 de outubro, caiu para 1,12, a menor leitura desde 2019. "
         "Tirando um único pregão, o de 5 de outubro, volta a 1,37.",
-        "Nem sempre o teste confirma a carta. Na edição de 7 de outubro, a Kinea dizia "
-        "carregar petróleo como proteção de juros e bolsa. Nas 10% piores semanas da "
-        "carteira, o Brent não subiu para compensar: caiu 2,4% em média.",
-        "É isso que vem em cada edição completa: a tese de uma casa testada com dado "
+        # 31/10: saiu o caso da Kinea (petróleo, edição de 07/10). O exercício usou
+        # IMAB11, ETF de renda fixa do Yahoo com preço CONGELADO até out/2025: a
+        # "carteira" era só a metade em bolsa por quase três anos. Número contaminado.
+        "O teste pode confirmar a carta ou desmenti-la; a edição mostra o que deu. É "
+        "isso que vem em cada edição completa: a tese de uma casa testada com dado "
         "público, e o código em Python comentado, para você rodar e adaptar à tese que "
         "quiser checar. Não é para concordar com as gestoras. É para conseguir checar.",
         OFERTA,
