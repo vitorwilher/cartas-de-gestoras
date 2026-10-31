@@ -130,3 +130,25 @@ class TestGestorasDoEmail(unittest.TestCase):
         self.assertEqual(gestoras, ["Genoa Capital", "Oaktree Capital", "GMO"])
         self.assertEqual(conceito, "curva")
 
+
+
+class TestDoisPublicos(unittest.TestCase):
+    """Até 31/10/2026 o assinante recebia o e-mail de venda do que já tinha comprado."""
+
+    def setUp(self):
+        self.bs = carregar()
+
+    def test_assinante_nao_recebe_preco_e_recebe_o_curso(self):
+        html = self.bs.corpo_assinantes("2026-10-20", ["Dynamo"], "um conceito")
+        self.assertNotIn("R$", html)
+        self.assertNotIn("add-to-cart", html)
+        self.assertIn(self.bs.CURSO, html)
+
+    def test_lead_recebe_amostra_e_convite_sem_o_bloco_congelado(self):
+        html = self.bs.corpo("2026-10-20", ["Dynamo"], "um conceito")
+        self.assertIn(self.bs.AMOSTRA, html)
+        self.assertIn("add-to-cart=73335", html)
+        self.assertNotIn("Uma mudança, a partir desta edição", html)
+
+    def test_cada_publico_tem_sua_tag(self):
+        self.assertNotEqual(self.bs.TAG_PROJETO, self.bs.TAG_ASSINANTES)

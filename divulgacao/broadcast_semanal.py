@@ -43,6 +43,14 @@ load_dotenv(RAIZ / ".env")
 
 BASE = "https://api.kit.com/v4"
 TAG_PROJETO = 23251247          # "Leads - Cartas Semanais" — só quem veio da landing
+# Desde 31/10/2026 os assinantes têm tag própria e SAEM da de leads
+# (assinatura/tag_assinantes.py): a v4 só aceita um grupo de filtro por broadcast,
+# então "leads menos assinantes" não é expressável — a separação vive nas tags.
+TAG_ASSINANTES = 25233968       # "Assinantes - Cartas das Gestoras"
+CURSO = "https://aluno.analisemacro.com.br/cursos/sintese-das-cartas-das-gestoras/"
+# A mesma amostra da landing e do boas-vindas (mídia 80537 do site principal).
+AMOSTRA = ("https://analisemacro.com.br/wp-content/uploads/2026/10/"
+           "sintese-cartas-gestoras-amostra-2026-10-13.pdf")
 # CTA direto ao carrinho, padrão da casa. Conferido ao vivo em 07/10: R$ 97,00 / mês.
 ASSINAR = "https://aluno.analisemacro.com.br/carrinho/?add-to-cart=73335"
 DIGESTS = RAIZ / "digests" / "resumo"
@@ -59,7 +67,7 @@ def cabecalhos() -> dict[str, str]:
     return {"X-Kit-Api-Key": v, "Content-Type": "application/json"}
 
 
-def alcance(headers: dict[str, str]) -> int | None:
+def alcance(headers: dict[str, str], tag: int = TAG_PROJETO) -> int | None:
     """Quantas pessoas a tag alcança hoje. None se a API não responder.
 
     A contagem vem da v3: o endpoint da v4 lista os assinantes com cursor, e a
@@ -69,7 +77,7 @@ def alcance(headers: dict[str, str]) -> int | None:
     if not segredo:
         return None
     try:
-        r = httpx.get(f"https://api.convertkit.com/v3/tags/{TAG_PROJETO}/subscriptions",
+        r = httpx.get(f"https://api.convertkit.com/v3/tags/{tag}/subscriptions",
                       params={"api_secret": segredo, "per_page": 1}, timeout=60)
         return r.json().get("total_subscriptions") if r.status_code == 200 else None
     except httpx.HTTPError:
@@ -140,15 +148,41 @@ def corpo(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
 
 <p>O exercício em Python desta edição{f" trata de: <strong>{conceito}</strong>{fim}" if conceito else " acompanha a síntese."}</p>
 
-<p><strong>Uma mudança, a partir desta edição.</strong> A síntese completa passa a ser
-exclusiva de assinantes: a tese de cada casa destrinchada pelo mecanismo, a seção de
-convergências com o patrimônio de cada lado e o código do exercício. Você continua
-recebendo este resumo toda semana em que houver carta nova.</p>
+<p>A edição completa é para assinantes: a tese de cada casa destrinchada pelo
+mecanismo, as convergências e divergências com o patrimônio de cada lado e o código
+do exercício. Se ainda não viu como ela é, <a href="{AMOSTRA}">aqui está uma edição
+completa de amostra</a>.</p>
 
 <p>A assinatura custa R$ 97 por mês. Confirmado o pagamento, a edição de {quando} e
 todas as anteriores ficam na sua área do aluno.</p>
 
 <p><a href="{ASSINAR}">Assinar a síntese das cartas</a></p>
+
+<p>Vítor Wilher — Análise Macro</p>"""
+
+
+def corpo_assinantes(data: str, gestoras: list[str], conceito: str, nota: str = "") -> str:
+    """O e-mail de quem já paga: o mesmo resumo, e o caminho para a edição no curso.
+
+    Nada de preço nem de convite para assinar — era o que eles recebiam até 31/10.
+    """
+    a, m, d = data.split("-")
+    quando = f"{int(d)} de {MESES[int(m)]}"
+    lista = ", ".join(gestoras[:-1]) + f" e {gestoras[-1]}" if len(gestoras) > 1 else (gestoras[0] if gestoras else "")
+    fim = "" if conceito.endswith(("?", ".", "!")) else "."
+    resumo = "\n\n".join(f"<p>{_md_para_html(p)}</p>" for p in resumo_da_edicao(data))
+    return f"""<p>Olá, {{{{ subscriber.first_name }}}}.</p>
+
+<p>A edição de {quando} já está na sua área do aluno, com <strong>{lista}</strong>.</p>
+{f"{chr(10)}<p>{html.escape(nota)}</p>{chr(10)}" if nota else ""}
+{resumo}
+
+<p>O exercício em Python desta edição{f" trata de: <strong>{conceito}</strong>{fim}" if conceito else " acompanha a síntese."}
+O código completo está no PDF.</p>
+
+<p><a href="{CURSO}">Ler a edição completa</a></p>
+
+<p>Obrigado por assinar. Se algo na edição não fechar, é só responder este e-mail.</p>
 
 <p>Vítor Wilher — Análise Macro</p>"""
 
@@ -188,21 +222,31 @@ def main() -> int:
     ap.add_argument("--em", default="", metavar="ISO",
                     help="horário exato do envio em UTC (ex.: 2026-10-07T10:00:00Z); vence --espera")
     ap.add_argument("--nota", default="", help="nota editorial, parágrafo logo após a abertura")
+    ap.add_argument("--publico", choices=("leads", "assinantes"), default="leads",
+                    help="leads: resumo + convite; assinantes: resumo + link da edição no curso")
     args = ap.parse_args()
 
     data, gestoras, conceito = edicao_mais_recente()
     a, m, d = data.split("-")
-    assunto = f"Cartas das gestoras — edição de {int(d)} de {MESES[int(m)]}"
-    html_email = corpo(data, gestoras, conceito, args.nota)
+    if args.publico == "assinantes":
+        tag, nome_tag = TAG_ASSINANTES, "Assinantes - Cartas das Gestoras"
+        # Assunto próprio: a guarda de duplicata compara assuntos, e os dois
+        # e-mails da mesma semana não podem se bloquear.
+        assunto = f"Sua edição das cartas das gestoras — {int(d)} de {MESES[int(m)]}"
+        html_email = corpo_assinantes(data, gestoras, conceito, args.nota)
+    else:
+        tag, nome_tag = TAG_PROJETO, "Leads - Cartas Semanais"
+        assunto = f"Cartas das gestoras — edição de {int(d)} de {MESES[int(m)]}"
+        html_email = corpo(data, gestoras, conceito, args.nota)
 
     headers = cabecalhos()
-    total = alcance(headers)
+    total = alcance(headers, tag)
 
     print(f"Edição: {data}")
     print(f"Gestoras: {', '.join(gestoras)}")
     print(f"Exercício: {conceito or '(sem exercício)'}")
     print(f"Assunto: {assunto}")
-    print(f"Tag: {TAG_PROJETO} (Leads - Cartas Semanais)"
+    print(f"Tag: {tag} ({nome_tag})"
           + (f" — {total} pessoa(s)" if total is not None else " — alcance não verificado"))
 
     if args.dry_run:
@@ -211,6 +255,10 @@ def main() -> int:
         print("\n[dry-run] Nada foi criado.", file=sys.stderr)
         return 0
 
+    if not total and args.publico == "assinantes":
+        # Sem assinante, não há para quem mandar: silêncio, não falha.
+        print("\n[nada a enviar] Nenhum assinante na tag.", file=sys.stderr)
+        return 0
     if not total:
         print("\n[erro] A tag do projeto está vazia. Um broadcast sem destinatário",
               file=sys.stderr)
@@ -251,7 +299,7 @@ def main() -> int:
     # O filtro é o que separa "os leads deste projeto" de "a lista inteira".
     # Vai já na criação: um rascunho sem filtro nasce apontado para todo mundo,
     # e basta um clique errado no painel para ele sair assim.
-    filtro = [{"all": [{"type": "tag", "ids": [TAG_PROJETO]}]}]
+    filtro = [{"all": [{"type": "tag", "ids": [tag]}]}]
 
     # send_at é o ÚNICO campo que dispara o envio (`public` controla a publicação
     # no site, não o e-mail). None mantém rascunho; uma data futura agenda e o
@@ -299,7 +347,7 @@ def main() -> int:
 
     if not args.enviar:
         print(f"\nRascunho criado: id {bid}")
-        print(f"Segmento confirmado: tag {TAG_PROJETO} — {total} destinatário(s).")
+        print(f"Segmento confirmado: tag {tag} — {total} destinatário(s).")
         print("\nRevise e envie em https://app.kit.com/campaigns")
         return 0
 
@@ -314,7 +362,7 @@ def main() -> int:
 
     print(f"\nBroadcast {bid} AGENDADO para {corpo_lido.get('send_at')}"
           f" (~{args.espera} min).")
-    print(f"Segmento confirmado: tag {TAG_PROJETO} — {total} destinatário(s).")
+    print(f"Segmento confirmado: tag {tag} — {total} destinatário(s).")
     print("Para cancelar antes da hora: https://app.kit.com/campaigns")
     return 0
 

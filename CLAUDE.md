@@ -656,8 +656,16 @@ saíram do papel e o pipeline **entrega sem intervenção humana**.
 1. `cartas.py --pdf --send` — coleta, sintetiza, gera o exercício, renderiza e
    manda por WhatsApp
 2. ~~`publicar_pdf.py` — sobrescreve a URL fixa no GCS~~ (desativado em 13/10/2026)
-3. `broadcast_semanal.py --enviar --espera 30` — **agenda** o e-mail para a tag
-   do projeto
+3. `assinatura/tag_assinantes.py` — põe quem tem assinatura ativa na tag
+   **25233968** ("Assinantes - Cartas das Gestoras") e TIRA da de leads; quem
+   cancelou volta. Desde 31/10/2026: até lá os 2 assinantes estavam na tag de leads
+   e recebiam o convite "assine por R$ 97" do que já tinham comprado. ⚠️ A v4 do
+   Kit só aceita UM grupo de filtro por broadcast (422 ao combinar `all` + `none`),
+   então "leads menos assinantes" não existe — a separação tem de viver nas tags
+4. `broadcast_semanal.py --enviar --espera 30` — **agenda** o e-mail dos leads
+   (resumo + amostra + convite). `--publico assinantes` agenda o dos assinantes
+   (resumo + link do curso, sem preço), e só roda se a edição chegou ao curso
+5. `post_semanal.py` — o pacote do post da semana para o mLabs
 4. **Resumo da execução** — escreve o resultado de cada canal no Summary do run
 
 **Edição extra** (fora do cron): `gh workflow run cartas.yml -f nota="..."`. A

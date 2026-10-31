@@ -105,6 +105,20 @@ jobs:
       # um com o link. A entrega é o curso 73334; `divulgacao/publicar_pdf.py`
       # fica no repositório, mas não roda mais.
 
+      # Assinantes e leads recebem e-mails diferentes, e a v4 do Kit só aceita uma
+      # tag por filtro de broadcast. Este passo põe quem tem assinatura ativa na
+      # tag de assinantes e TIRA da de leads (e o inverso para quem cancelou).
+      # Se falhar, o e-mail dos leads sai assim mesmo — como era até 31/10.
+      - name: Separar assinantes e leads no Kit
+        id: tags
+        continue-on-error: true
+        env:
+          WP_LOJA_URL: ${{ secrets.WP_LOJA_URL }}
+          WC_CONSUMER_KEY: ${{ secrets.WC_CONSUMER_KEY }}
+          WC_CONSUMER_SECRET: ${{ secrets.WC_CONSUMER_SECRET }}
+          CONVERT_KIT_V4: ${{ secrets.CONVERT_KIT_V4 }}
+        run: python assinatura/tag_assinantes.py
+
       # O e-mail da semana, para a tag deste projeto (Leads - Cartas Semanais).
       # É AGENDADO para ~30 min à frente, não disparado no ato: enquanto está
       # `scheduled` dá para cancelar no painel se a edição saiu errada. O script
@@ -135,6 +149,21 @@ jobs:
             exit 0
           fi
           python divulgacao/broadcast_semanal.py --enviar --espera 30 ${NOTA:+--nota "$NOTA"}
+          echo "status=success" >> "$GITHUB_OUTPUT"
+
+      # O e-mail de quem paga: o resumo e o link da edição no curso, sem convite
+      # para assinar. Só sai se a edição chegou ao curso — ele diz "já está na sua
+      # área do aluno", e isso precisa ser verdade.
+      - name: Enviar o e-mail dos assinantes
+        id: email_assinantes
+        if: steps.curso.outputs.status == 'success'
+        continue-on-error: true
+        env:
+          CONVERT_KIT_V4: ${{ secrets.CONVERT_KIT_V4 }}
+          CONVERTKIT_API_SECRET: ${{ secrets.CONVERTKIT_API_SECRET }}
+          NOTA: ${{ inputs.nota }}
+        run: |
+          python divulgacao/broadcast_semanal.py --publico assinantes --enviar --espera 30 ${NOTA:+--nota "$NOTA"}
           echo "status=success" >> "$GITHUB_OUTPUT"
 
       # O post da semana (LinkedIn + Instagram) a partir da edição: a rotina
@@ -170,6 +199,9 @@ jobs:
           curso="${{ steps.curso.outputs.status }}"
           email="${{ steps.email.outputs.status }}"
           post="${{ steps.post.outputs.status }}"
+          tags="${{ steps.tags.outcome }}"
+          email_ass="${{ steps.email_assinantes.outputs.status }}"
+          [ -z "$email_ass" ] && email_ass="${{ steps.email_assinantes.outcome }}"
           [ -z "$curso" ] && curso="${{ steps.curso.outcome }}"
           [ -z "$email" ] && email="${{ steps.email.outcome }}"
           [ -z "$post" ] && post="${{ steps.post.outcome }}"
@@ -180,13 +212,21 @@ jobs:
             echo "| Etapa | Resultado |"
             echo "|---|---|"
             echo "| Edição no curso (assinantes) | $curso |"
-            echo "| E-mail da semana | $email |"
+            echo "| Assinantes separados dos leads no Kit | $tags |"
+            echo "| E-mail da semana (leads) | $email |"
+            echo "| E-mail dos assinantes | $email_ass |"
             echo "| Post da semana (pacote para o mLabs) | $post |"
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [ "$curso" != "success" ]; then
             echo "::error::A edição NÃO chegou ao curso dos assinantes ($curso). Rode: python assinatura/curso.py --publicar"
           fi
+          if [ "$tags" != "success" ]; then
+            echo "::warning::A separação assinantes/leads falhou ($tags): assinantes podem ter recebido o e-mail de venda."
+          fi
+          case "$email_ass" in success|skipped) ;; *)
+            echo "::warning::O e-mail dos assinantes NÃO saiu ($email_ass)." ;;
+          esac
           case "$post" in success|nada*) ;; *)
             echo "::warning::O post da semana NÃO foi gerado ($post). Sem pacote, a rotina do mLabs não publica nada." ;;
           esac
