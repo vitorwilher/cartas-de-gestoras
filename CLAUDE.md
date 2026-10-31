@@ -717,7 +717,12 @@ recebe 5–16 visitas/semana: sem divulgação recorrente, não entra ninguém.
   página de obrigado — o que funde este item com o 4. O preço desceu para a seção
   "Grátis ou assinatura". Publicar = rodar `montar_layout.py` sem flag (grava em
   78405/78421) e apagar os dois rascunhos
-- [ ] **2. Cada edição vira tráfego** — post semanal (LinkedIn + Instagram,
+- [x] **2. Cada edição vira tráfego** — **feito em 31/10**: `divulgacao/post_semanal.py`
+  gera LinkedIn + Instagram no workflow (checagem de números contra a edição e a
+  saída do exercício); a rotina `trig_012qUk3QKHn4HSaGhqH7VKJF` (terças 17h BRT)
+  agenda no mLabs para quarta 12h — Instagram, página e perfil pessoal do LinkedIn.
+  Decisão do Vitor: tudo automático, post + imagem única. Ver `divulgacao/semana/README.md`.
+  Texto original do item: — post semanal (LinkedIn + Instagram,
   palavra-chave GESTORAS) a partir do material da edição: gráfico do exercício, uma
   divergência entre casas. Conferir se o calendário de iscas da trilha C está rodando
 - [ ] **3. Campanha para a base inteira do Kit (5.118)** — oferecendo o resumo grátis,

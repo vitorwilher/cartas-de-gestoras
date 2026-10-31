@@ -14,6 +14,19 @@ agendada na nuvem, que roda às terças à tarde, sobe a imagem e **agenda** os 
 mLabs para quarta, 12h (Brasília). Entre o agendamento e a publicação, dá para
 editar ou cancelar no painel do mLabs.
 
+## A rotina
+
+`trig_012qUk3QKHn4HSaGhqH7VKJF` — https://claude.ai/code/routines/trig_012qUk3QKHn4HSaGhqH7VKJF
+Terças, 17h (Brasília) = `0 20 * * 2` UTC; o workflow começa entre 11h e 13h20 e leva
+~15 min, então há folga. Modelo Sonnet 5.5, conector mLabs. Sobe a imagem pela URL
+`raw.githubusercontent.com` (o repositório é público) — o `prepare_media_upload` com
+PUT na URL assinada deu `SignatureDoesNotMatch` no teste de 31/10. Cria dois
+agendamentos (LinkedIn página + pessoal juntos; Instagram à parte) e commita o
+`pacote.json` como `agendado`, com os ids do mLabs.
+
+Perfil mLabs `ext_Mzk2NzU0MQ.Wr5lJ4X2bSpmcYBqTWG_uw` ("Equipe de conteúdo"). Para
+cancelar uma semana: apagar os agendamentos no painel do mLabs até quarta 12h.
+
 ## Decisão (31/10/2026)
 
 O Vitor escolheu **publicação automática via mLabs** e **post + imagem única** (não o
