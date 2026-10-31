@@ -22,10 +22,14 @@ própria; por isso o acompanhamento ganhou um alias novo, inscrito pela landing.
 
 **Ordem da sequência, sempre:** publicado na posição 0, rascunhos depois. Ver abaixo.
 
-**Para destravar quem ficou parado em "Step 0":** tirar o assinante da sequência no
-painel (aba Automations, lixeira) e recolocar pela API (`POST /v4/sequences/2888305/
-subscribers/<id>`). A API não remove (DELETE dá 404), e recolocar quem ainda está na
-sequência é no-op (200 com a data antiga). Testado em 31/10: o e-mail saiu na hora.
+**Quem ficou parado em "Step 0" destrava sozinho** quando o e-mail publicado passa
+para a posição 0 — mas não na hora. Os 4 leads de 14/10 a 20/10 receberam o
+boas-vindas novo em 31/10 sem intervenção (conferido no painel, contato carlos.cmneto).
+Ao conferir logo depois da troca, o contato de teste ainda parecia parado, e eu tirei
+ele da sequência no painel e recoloquei pela API — **passo desnecessário**: era atraso.
+Se precisar mesmo: o painel remove (a API dá 404 no DELETE) e a API recoloca
+(`POST /v4/sequences/2888305/subscribers/<id>`); recolocar quem ainda está na
+sequência é no-op (200 com a data antiga).
 
 ⚠️ O contador "Emails sent" do assinante **atrasa**: o contato de acompanhamento mostrava 0 com "Step 1 of 1" enquanto o e-mail já estava na caixa. O passo da sequência é o sinal confiável; o contador, não.
 

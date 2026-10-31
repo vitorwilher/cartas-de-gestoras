@@ -19,6 +19,10 @@ import tempfile
 from pathlib import Path
 
 NOME_GRAFICO = "grafico-exercicio.png"
+# A saída do terminal traz os NÚMEROS do resultado (o texto do exercício só diz
+# "leia a amplitude"). O post semanal (divulgacao/post_semanal.py) só pode citar
+# número que esteja aqui ou na edição — sem este arquivo ele não teria de onde tirar.
+NOME_SAIDA = "saida-exercicio.txt"
 TIMEOUT_S = 180
 
 
@@ -53,9 +57,16 @@ def gerar_grafico(markdown: str, destino: Path, python: str | None = None) -> Pa
         trabalho = Path(tmp)
         script = trabalho / "exercicio.py"
         # Backend não-interativo: um plt.show() esquecido travaria o pipeline.
-        script.write_text(
-            'import matplotlib\nmatplotlib.use("Agg")\n' + codigo, encoding="utf-8"
+        # Tabela inteira na saída: com o padrão do pandas as colunas do meio viram
+        # "..." — e eram justamente os números que o post semanal precisa citar.
+        cabecalho = (
+            'import matplotlib\nmatplotlib.use("Agg")\n'
+            "try:\n    import pandas as _pd\n"
+            '    _pd.set_option("display.max_columns", 50)\n'
+            '    _pd.set_option("display.width", 250)\n'
+            "except ImportError:\n    pass\n"
         )
+        script.write_text(cabecalho + codigo, encoding="utf-8")
         try:
             proc = subprocess.run(
                 [executavel, script.name],
@@ -80,4 +91,5 @@ def gerar_grafico(markdown: str, destino: Path, python: str | None = None) -> Pa
 
         destino.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(origem, destino)
+        (destino.parent / NOME_SAIDA).write_text(proc.stdout or "", encoding="utf-8")
         return destino

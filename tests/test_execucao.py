@@ -6,7 +6,7 @@ import unittest
 from pathlib import Path
 
 from exercicios.execucao import (
-    NOME_GRAFICO, extrair_codigo, gerar_grafico, remover_referencia,
+    NOME_GRAFICO, NOME_SAIDA, extrair_codigo, gerar_grafico, remover_referencia,
 )
 
 MD_COM_GRAFICO = """### O código
@@ -51,6 +51,8 @@ class TestExecucaoExercicio(unittest.TestCase):
             self.assertIsNotNone(saida, "o código válido deveria gerar o PNG")
             self.assertTrue(destino.exists())
             self.assertGreater(destino.stat().st_size, 0)
+            # A saída do terminal fica ao lado: é dela que o post semanal tira números.
+            self.assertTrue((Path(tmp) / NOME_SAIDA).exists())
 
     def test_codigo_quebrado_nao_levanta(self):
         """Falha do exercício não pode derrubar a edição."""

@@ -137,6 +137,27 @@ jobs:
           python divulgacao/broadcast_semanal.py --enviar --espera 30 ${NOTA:+--nota "$NOTA"}
           echo "status=success" >> "$GITHUB_OUTPUT"
 
+      # O post da semana (LinkedIn + Instagram) a partir da edição: a rotina
+      # agendada na nuvem pega o pacote em divulgacao/semana/AAAA-MM-DD/ e agenda
+      # no mLabs para quarta, 12h. Sem carta nova, não gera nada (frescor). Se o
+      # post não passar na checagem (número sem fonte, preço, link), o pacote NÃO
+      # é gravado — uma semana sem post, nunca um post errado no ar.
+      - name: Gerar o post da semana
+        id: post
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_MODEL: ${{ secrets.ANTHROPIC_MODEL }}
+        run: |
+          antes=$(ls divulgacao/semana 2>/dev/null | wc -l)
+          python divulgacao/post_semanal.py
+          depois=$(ls divulgacao/semana 2>/dev/null | wc -l)
+          if [ "$depois" -gt "$antes" ]; then
+            echo "status=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "status=nada a fazer (sem edição nova)" >> "$GITHUB_OUTPUT"
+          fi
+
       # Um passo `continue-on-error` que falha deixa o run VERDE. Sem este
       # resumo, "PDF não publicado" e "e-mail não enviado" seriam invisíveis:
       # o ícone verde diria que a semana correu bem. Aqui o resultado de cada
@@ -148,8 +169,10 @@ jobs:
           # Vazio significa que o passo morreu antes de gravá-lo: vale o outcome.
           curso="${{ steps.curso.outputs.status }}"
           email="${{ steps.email.outputs.status }}"
+          post="${{ steps.post.outputs.status }}"
           [ -z "$curso" ] && curso="${{ steps.curso.outcome }}"
           [ -z "$email" ] && email="${{ steps.email.outcome }}"
+          [ -z "$post" ] && post="${{ steps.post.outcome }}"
 
           {
             echo "## Cartas das Gestoras — $(date -u +'%d/%m/%Y')"
@@ -158,11 +181,15 @@ jobs:
             echo "|---|---|"
             echo "| Edição no curso (assinantes) | $curso |"
             echo "| E-mail da semana | $email |"
+            echo "| Post da semana (pacote para o mLabs) | $post |"
           } >> "$GITHUB_STEP_SUMMARY"
 
           if [ "$curso" != "success" ]; then
             echo "::error::A edição NÃO chegou ao curso dos assinantes ($curso). Rode: python assinatura/curso.py --publicar"
           fi
+          case "$post" in success|nada*) ;; *)
+            echo "::warning::O post da semana NÃO foi gerado ($post). Sem pacote, a rotina do mLabs não publica nada." ;;
+          esac
           if [ "$email" != "success" ]; then
             echo "::warning::O e-mail da semana NÃO saiu ($email). Verifique o log do passo."
           fi
@@ -171,7 +198,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add digests/resumo/ gestoras/gestoras.yml
+          git add digests/resumo/ gestoras/gestoras.yml divulgacao/semana/
           if git diff --staged --quiet; then
             echo "Nada para commitar."
           else
