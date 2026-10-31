@@ -690,6 +690,42 @@ normal do pipeline, não falha.
 - A tag tem poucos leads reais: os primeiros envios alcançam pouca gente. É
   esperado — é a landing que precisa acumular
 
+## Plano de crescimento (decidido em 31/10/2026)
+
+Diagnóstico de 31/10: **2 assinantes ativos** (09/10 e 16/10, origem `typein`) e
+**81 leads** na tag 23251247 — **77 em setembro, 4 em outubro**. O e-mail semanal
+abre a 52–54% e tem 12–14% de clique: quem recebe lê. O gargalo é a ENTRADA, não o
+produto. Causa provável: em 07/10 a landing virou página de venda (abre com
+"ASSINATURA MENSAL · R$ 97"), e a captura grátis ficou abaixo do preço.
+
+O Vitor pediu os cinco itens implementados, nesta ordem, **depois de olhar o
+tráfego da landing** (se teve visita e não converteu, é a página; se não teve
+visita, os itens 2 e 3 sobem na fila):
+
+**Tráfego conferido no GA4 (propriedade 312087335, credencial
+`../ROI_Diagnostico/ga4_credentials.json`) em 31/10 — a página é a causa:**
+a landing convertia **37–39%** dos visitantes em inscrição (semanas de 07/09 e
+14/09). Depois da virada para venda, **10% → 2,5% → 0%**. Nas semanas de 12 a
+25/10 o tráfego voltou (92 visitantes, LinkedIn e anúncios de Facebook/Instagram)
+e só 6 se inscreveram — no ritmo de setembro seriam ~35. Entre empurrões a landing
+recebe 5–16 visitas/semana: sem divulgação recorrente, não entra ninguém.
+
+- [x] **1. Separar captura de venda** — **publicado e testado de ponta a ponta em 31/10** (ver README da landing) — a landing volta a oferecer o resumo semanal
+  grátis; a venda acontece no e-mail. Rascunho para revisão antes de publicar.
+  **31/10: rascunhos prontos** (páginas 80538 e 80539, `montar_layout.py --rascunho`):
+  formulário no hero, isca = **edição completa de 13/10** (mídia 80537) baixada na
+  página de obrigado — o que funde este item com o 4. O preço desceu para a seção
+  "Grátis ou assinatura". Publicar = rodar `montar_layout.py` sem flag (grava em
+  78405/78421) e apagar os dois rascunhos
+- [ ] **2. Cada edição vira tráfego** — post semanal (LinkedIn + Instagram,
+  palavra-chave GESTORAS) a partir do material da edição: gráfico do exercício, uma
+  divergência entre casas. Conferir se o calendário de iscas da trilha C está rodando
+- [ ] **3. Campanha para a base inteira do Kit (5.118)** — oferecendo o resumo grátis,
+  não a venda direta. Só a tag Mercado Financeiro (530) recebeu a oferta até aqui
+- [x] **4. Amostra antes de cobrar** — feito junto com o 1 (edição de 13/10 na página de obrigado). Falta a amostra no e-mail de boas-vindas — uma edição completa de amostra para o lead,
+  ou primeiro mês simbólico
+- [ ] **5. Qualidade do conteúdo** — validar o exercício gerado (retenção de quem paga)
+
 ## O workshop pago (01/10/2026)
 
 Decisão do Vitor: a síntese segue **gratuita** (não estamos vendendo a assinatura);

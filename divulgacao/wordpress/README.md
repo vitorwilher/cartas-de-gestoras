@@ -46,6 +46,31 @@ URL limpa: as strings novas presentes e as antigas ausentes.
 
 Conferido na URL limpa: strings novas presentes, antigas ausentes.
 
+## Atualizada em 31/10/2026 — captura primeiro, venda depois
+
+Em 07/10 a landing virou página de venda ("ASSINATURA MENSAL · R$ 97" no topo, isca
+de "resumo" abaixo do preço) e a conversão em inscrição caiu de **37–39%** (setembro,
+quando entregava o PDF na hora) para **2,5–10%** (GA4). Agora:
+
+- **Formulário no hero**; a isca é uma **edição completa** — a de 13/10, mídia
+  **80537** (`AMOSTRA` em `montar_layout.py`) — baixada na **página de obrigado**.
+  Isso reverte a decisão de 09/09 (PDF só por e-mail/WhatsApp).
+- O preço desceu para a seção "Grátis ou assinatura", lado a lado com o grátis.
+- Saíram números sem fonte: "6s para rodar o exercício", "dado do Tesouro Direto e
+  do Banco Central", "toda semana" no H1.
+- `--rascunho` grava em páginas-rascunho (80538/80539) para revisão; sem flag,
+  grava nas páginas no ar e roda a invalidação de cache.
+
+⚠️ A invalidação deu **HTTP 500** no DELETE do cache do Elementor e no ciclo de
+status — e a versão nova já estava no ar nas URLs limpas mesmo assim. O ciclo
+draft -> publish agora nunca aborta no meio (sairia do ar): sempre tenta o publish
+e confere o status.
+
+**Testado de ponta a ponta em 31/10**, com submit real no navegador (o hCaptcha não
+desafiou): redirect para o obrigado novo, botão abre o PDF da amostra, assinante no
+Kit com `phone`/`whatsapp` com DDI, só as tags 23251247 + 22406993, e inscrito na
+sequência 2888305.
+
 ## O fluxo (desenho do Vitor, 09/09)
 
 ```

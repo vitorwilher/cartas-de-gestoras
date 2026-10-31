@@ -10,7 +10,8 @@ herda a identidade e acompanha qualquer mudança de tema.
 
 Uso:
     python divulgacao/wordpress/montar_layout.py --dry-run
-    python divulgacao/wordpress/montar_layout.py
+    python divulgacao/wordpress/montar_layout.py --rascunho   # páginas-rascunho para revisão
+    python divulgacao/wordpress/montar_layout.py              # grava nas páginas no ar
 """
 
 from __future__ import annotations
@@ -37,6 +38,13 @@ PAGINA_OBRIGADO = 78421
 # Desde 07/10/2026 a síntese completa é paga: CTA direto ao carrinho (padrão da casa).
 # Conferido ao vivo em 07/10: R$ 97,00 / mês.
 ASSINAR = "https://aluno.analisemacro.com.br/carrinho/?add-to-cart=73335"
+# Desde 31/10/2026 a isca volta a ser uma edição COMPLETA (a de 13/10, versão final
+# com o gráfico do exercício), servida na página de obrigado. Em setembro, quando a
+# landing entregava o PDF na hora, convertia 37–39% dos visitantes; depois de virar
+# página de venda com isca de "resumo", caiu para 2,5–10% (GA4, ver CLAUDE.md).
+# Mídia 80537 no site principal. É uma amostra fixa, não a edição corrente.
+AMOSTRA = ("https://analisemacro.com.br/wp-content/uploads/2026/10/"
+           "sintese-cartas-gestoras-amostra-2026-10-13.pdf")
 # ⚠️ O `text=` fica: é a mensagem que o LEAD envia, e é o envio dela que abre a
 #    janela de 24h em que podemos responder sem template. Sem isso, o clique
 #    abre uma conversa vazia e a janela não abre.
@@ -271,14 +279,11 @@ def estilo_da_pagina():
     return {
         "id": _id(), "elType": "widget", "widgetType": "html",
         "settings": {"html": """<style>
-/* HERO: gráfico em destaque, mas sem engolir o texto (reduzido em 23/09) */
-#hero > .e-con-inner, #hero { max-width: 1240px !important; }
-#hero .e-child:first-child { flex: 0 0 42% !important; max-width: 42% !important; }
-#hero .e-child:last-child  { flex: 0 0 56% !important; max-width: 56% !important; }
-#hero img { width: 100% !important; max-width: none !important; }
-@media (max-width: 767px) {
-  #hero .e-child { flex: 0 0 100% !important; max-width: 100% !important; }
-}
+/* CAPTURA (31/10): formulário no hero. As larguras das colunas vêm do CSS por
+   coluna de colunas(); a regra antiga do #hero mirava `.e-child`, que pega também
+   a caixa do formulário e a espremeria em 44% da coluna. */
+#captura > .e-con-inner, #captura { max-width: 1240px !important; }
+#captura h1 { line-height: 1.15 !important; }
 </style>"""},
     }
 
@@ -308,7 +313,7 @@ def formulario():
                  "placeholder": "(21) 90000-0000", "required": "true", "width": "100",
                  "custom_id": "telefone"},
             ],
-            "button_text": "Quero o resumo gratuito",
+            "button_text": "Receber a edição grátis",
             "button_size": "lg",
             "button_align": "stretch",
             # "email" grava o envio e faz o Elementor aceitar o submit; sem uma
@@ -348,28 +353,42 @@ def secao(filhos, fundo=None, pad_v=76, largura=1080, direcao="column", css_id=N
 
 
 def layout_captura() -> list:
+    """Captura primeiro, venda depois (31/10/2026).
+
+    O tráfego é frio (LinkedIn e anúncios de Facebook/Instagram): abre no mecanismo
+    e na isca grátis, com o formulário no hero. O preço não sai da página — fica na
+    seção "Grátis ou assinatura", para quem chega decidido. O nível de consciência
+    de quem vem do anúncio é 2–3; preço no primeiro toque é nível 5.
+    """
     return [
         secao([estilo_da_pagina()], pad_v=0),
         secao([
             colunas([
                 [
-                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">ASSINATURA MENSAL · R$ 97</p>', tamanho=14),
-                    titulo("Leia as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater toda semana", tag="h1", tamanho=44, mb=6),
-                    texto("<p>Toda semana, a síntese das cartas novas — das brasileiras e, quando publicam, das três casas de fora: a tese de cada uma, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
-                    botao("Assinar por R$ 97/mês", ASSINAR, align="left"),
+                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.6px;margin:0">GRÁTIS · UMA EDIÇÃO COMPLETA</p>', tamanho=14),
+                    titulo("Leia as cartas de 15 gestoras brasileiras e de Oaktree, GMO e Bridgewater lado a lado", tag="h1", tamanho=42, mb=6),
+                    texto("<p>A síntese das cartas novas: a tese de cada casa, o mecanismo que a sustenta e onde o consenso do mercado racha. Com um exercício em Python que testa uma dessas teses com dado público, para você <strong>conferir em vez de acreditar</strong>.</p>", tamanho=19),
+                    lista([
+                        "Uma edição completa em PDF, na hora, para você ver o que é",
+                        "Depois, o resumo de cada edição nova no seu e-mail",
+                    ]),
                 ],
-                [imagem(IMG_GRAFICO, IMG_GRAFICO_ID)],
-            ], gap=36, pesos=[42, 56]),
-        ], fundo="#F4F7FA", pad_v=64, largura=1320, css_id="hero"),
+                [caixa([
+                    titulo("Receba a edição de amostra", tag="h2", tamanho=26, mb=4),
+                    formulario(),
+                    texto('<p style="margin:0"><small>Grátis. Sai do e-mail com um clique quando quiser.</small></p>', tamanho=14),
+                ], pad=32)],
+            ], gap=36, pesos=[54, 44]),
+        ], fundo="#F4F7FA", pad_v=64, largura=1240, css_id="captura"),
 
         secao([
-            colunas([[numero("18", "gestoras acompanhadas")],
-                     [numero("1x", "por semana, quando há carta nova")],
-                     [numero("6s", "para rodar o exercício")]], gap=20),
+            colunas([[numero("15", "gestoras brasileiras")],
+                     [numero("3", "casas de fora: Oaktree, GMO, Bridgewater")],
+                     [numero("1", "exercício em Python por edição")]], gap=20),
         ], pad_v=48),
 
         secao([
-            titulo("O que a assinatura entrega em cada edição", align="center", mb=8),
+            titulo("O que vem em cada edição", align="center", mb=8),
             divisor(),
             colunas([
                 [caixa([icone_texto("fas fa-lightbulb", "A tese e o mecanismo",
@@ -377,8 +396,10 @@ def layout_captura() -> list:
                 [caixa([icone_texto("fas fa-code-branch", "Convergências e divergências",
                     "Onde as casas concordam, onde discordam, e onde a leitura de fora bate ou colide com a daqui.")])],
                 [caixa([icone_texto("fab fa-python", "O exercício em Python",
-                    "Código comentado que testa uma das teses com dado do Tesouro Direto e do Banco Central. Roda em segundos.")])],
+                    "Código comentado que testa uma das teses com dado público, para você rodar e adaptar à tese que quiser checar.")])],
             ]),
+            imagem(IMG_GRAFICO, IMG_GRAFICO_ID, largura=60),  # a 100% passa de duas telas de altura
+            texto('<p style="text-align:center;margin:0"><small>O gráfico acima saiu do exercício de uma das edições.</small></p>', tamanho=15),
         ], fundo="#F4F7FA"),
 
         secao([
@@ -420,47 +441,55 @@ def layout_captura() -> list:
             ], pesos=[32, 68]),
         ], fundo="#F4F7FA"),
 
+        # Preço visível, mas DEPOIS do valor e sem disputar com a isca: quem chega
+        # decidido encontra o botão; quem chega frio volta ao formulário.
         secao([
-            titulo("A assinatura", align="center", tamanho=38, mb=8),
+            titulo("Grátis ou assinatura", align="center", tamanho=36, mb=8),
             divisor(),
-            caixa([
-                texto(f'<p style="text-align:center;margin:0"><span style="font-size:44px;font-weight:700;color:{NAVY}">R$ 97</span><span style="font-size:19px"> por mês</span></p>'),
-                lista([
-                    "A síntese completa de cada edição em PDF: a tese e o mecanismo de cada casa, e as convergências e divergências com o patrimônio de cada lado",
-                    "O exercício em Python da semana, com o código comentado",
-                    "Todas as edições anteriores na sua área do aluno, desde a primeira",
-                ]),
-                botao("Assinar por R$ 97/mês", ASSINAR),
-            ], pad=40),
-            texto('<p style="text-align:center"><small>Na semana em que nenhuma gestora publica, não há edição.</small></p>', tamanho=15),
+            colunas([
+                [caixa([
+                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.4px;margin:0;font-size:14px">GRÁTIS</p>'),
+                    lista([
+                        "Uma edição completa em PDF, na hora",
+                        "O resumo de cada edição nova no seu e-mail: as teses da semana e onde as casas divergem, em poucos parágrafos",
+                    ]),
+                    botao("Receber a edição grátis", "#captura"),
+                ], pad=32)],
+                [caixa([
+                    texto(f'<p style="color:{AZUL};font-weight:700;letter-spacing:1.4px;margin:0;font-size:14px">ASSINATURA · R$ 97 POR MÊS</p>'),
+                    lista([
+                        "A síntese completa de cada edição em PDF, com as convergências e divergências e o patrimônio de cada lado",
+                        "O exercício em Python de cada edição, com o código comentado",
+                        "Todas as edições anteriores na sua área do aluno, desde a primeira",
+                    ]),
+                    botao("Assinar por R$ 97/mês", ASSINAR),
+                ], pad=32)],
+            ]),
+            texto('<p style="text-align:center"><small>Na semana em que nenhuma gestora publica, não há edição. '
+                  'Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
         ], pad_v=80, css_id="assinatura"),
-
-        secao([
-            titulo("Ainda não quer assinar? Receba o resumo gratuito", align="center", tamanho=34, mb=8),
-            texto('<p style="text-align:center;font-size:19px">Deixe seus dados e receba por e-mail o resumo de cada edição: as teses da semana e onde as casas divergem, em poucos parágrafos.</p>'),
-            caixa([formulario()], pad=40),
-            texto('<p style="text-align:center"><small>Não é para você concordar com as gestoras. É para conseguir checar.</small></p>', tamanho=15),
-        ], fundo="#F4F7FA", pad_v=80, css_id="form"),
     ]
 
 
 def layout_obrigado() -> list:
-    """Um CTA só: o WhatsApp. A assinatura entra como link discreto no fim.
+    """Entrega a amostra na hora; depois, o WhatsApp; a assinatura no fim.
 
-    Desde 07/10/2026 o lead gratuito recebe só o resumo por e-mail; o PDF é do
-    assinante.
-
-    Dois botões lado a lado competiam entre si — e empilhados ficavam feios. O
-    WhatsApp é o que interessa: é ele que abre a janela de 24h e permite a
-    conversa.
+    Desde 31/10/2026 a isca é uma edição completa (AMOSTRA), e ela é baixada AQUI.
+    Isso reverte a decisão de 09/09 de mandar o PDF só por e-mail/WhatsApp: o
+    "na hora" era o que a landing de setembro prometia, e convertia 37–39%.
+    A partir daí o lead recebe o resumo de cada edição nova por e-mail.
     """
     return [
         secao([
-            titulo("Pronto. Sua inscrição está confirmada.", tag="h1",
-                   tamanho=44, align="center", mb=6),
-            texto('<p style="text-align:center;font-size:20px">O resumo de cada edição '
-                  'chega no seu e-mail na semana em que houver carta nova das gestoras '
-                  'acompanhadas.</p>'),
+            titulo("Pronto. Sua edição de amostra está aqui.", tag="h1",
+                   tamanho=42, align="center", mb=6),
+            texto('<p style="text-align:center;font-size:20px">É a edição de 13 de outubro '
+                  'de 2026, completa: a tese de cada casa, as convergências e divergências '
+                  'e o exercício em Python.</p>'),
+            botao("Baixar a edição (PDF)", AMOSTRA),
+            texto('<p style="text-align:center;margin-top:10px"><small>Daqui em diante, o '
+                  'resumo de cada edição nova chega no seu e-mail, na semana em que houver '
+                  'carta nova.</small></p>', tamanho=15),
         ], fundo="#F4F7FA", pad_v=72),
 
         secao([
@@ -475,16 +504,11 @@ def layout_obrigado() -> list:
                   tamanho=15),
         ], pad_v=64),
 
-        # SEM link do PDF aqui: por decisão do Vitor (09/09), o download chega só
-        # pelo e-mail e pelo WhatsApp. A imagem fica como prévia do que vem.
         secao([
-            titulo("O que vem na assinatura", align="center", tamanho=30, mb=8),
-            texto('<p style="text-align:center">A síntese completa de cada edição em PDF '
-                  'e um exercício em Python que testa uma das teses com dado público. '
-                  'Roda em segundos — e você adapta para a tese que quiser checar.</p>'),
-            imagem(IMG_GRAFICO, IMG_GRAFICO_ID),
-            texto('<p style="text-align:center"><small>O gráfico acima saiu do exercício '
-                  'de uma das edições.</small></p>', tamanho=15),
+            titulo("Quer todas as edições?", align="center", tamanho=30, mb=8),
+            texto('<p style="text-align:center">A assinatura traz a síntese completa de cada '
+                  'edição nova em PDF, o exercício em Python de cada uma e todas as edições '
+                  'anteriores na sua área do aluno.</p>'),
             texto(f'<p style="text-align:center"><a href="{ASSINAR}">Assinar por '
                   'R$ 97/mês</a></p>'),
         ], fundo="#F4F7FA"),
@@ -522,15 +546,70 @@ def publicar(page_id: int, layout: list, dry: bool) -> None:
         print("   ", r.text[:300], file=sys.stderr)
 
 
+def invalidar_cache(page_ids) -> None:
+    """As duas primeiras camadas da receita acima: cache do Elementor e ciclo
+    draft -> publish (que dispara a invalidação do WP Rocket). A terceira — conferir
+    na URL limpa, com string exclusiva da versão nova — fica para quem roda."""
+    h = {"User-Agent": UA}
+    r = requests.delete(f"{BASE}/wp-json/elementor/v1/cache", auth=AUTH, headers=h, timeout=60)
+    print(f"  cache do Elementor: HTTP {r.status_code}")
+    # ⚠️ Em 31/10/2026 as duas chamadas deram HTTP 500 — e a página nova já estava
+    # no ar mesmo assim. Por isso falha aqui só AVISA, e o "publish" é tentado
+    # sempre: se o "draft" passar e o "publish" falhar, a landing sai do ar.
+    for pid in page_ids:
+        url = f"{BASE}/wp-json/wp/v2/pages/{pid}"
+        rd = requests.post(url, auth=AUTH, headers=h, json={"status": "draft"}, timeout=60)
+        for _ in range(3):
+            rp = requests.post(url, auth=AUTH, headers=h, json={"status": "publish"}, timeout=60)
+            if rp.ok:
+                break
+        st = requests.get(url, auth=AUTH, headers=h, params={"context": "edit"}, timeout=60).json().get("status")
+        print(f"  página {pid}: draft HTTP {rd.status_code}, publish HTTP {rp.status_code} -> status {st}")
+        if st != "publish":
+            print(f"  🔴 PÁGINA {pid} FORA DO AR (status {st}) — republicar no painel AGORA", file=sys.stderr)
+
+
+def garantir_rascunho(slug: str, titulo_pg: str) -> int:
+    """Página-rascunho para revisão, com o mesmo modelo e a mesma mãe das reais.
+
+    Nunca gravar layout de teste na página no ar (ver README: a 78368 ficou presa
+    nas revisões e teve de ser recriada). Reaproveita o rascunho se já existir.
+    """
+    h = {"User-Agent": UA}
+    achado = requests.get(f"{BASE}/wp-json/wp/v2/pages", auth=AUTH, headers=h, timeout=60,
+                          params={"slug": slug, "status": "draft", "context": "edit"}).json()
+    if achado:
+        return achado[0]["id"]
+    r = requests.post(f"{BASE}/wp-json/wp/v2/pages", auth=AUTH, headers=h, timeout=60,
+                      json={"title": titulo_pg, "slug": slug, "status": "draft",
+                            "parent": 69413, "template": "elementor_canvas"})
+    r.raise_for_status()
+    return r.json()["id"]
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--rascunho", action="store_true",
+                    help="grava em páginas-rascunho, não nas que estão no ar")
     args = ap.parse_args()
 
+    captura, obrigado = PAGINA_CAPTURA, PAGINA_OBRIGADO
+    if args.rascunho and not args.dry_run:
+        captura = garantir_rascunho("cartas-das-gestoras-rascunho", "[RASCUNHO] Síntese das Cartas das Gestoras")
+        obrigado = garantir_rascunho("cartas-das-gestoras-obrigado-rascunho", "[RASCUNHO] Obrigado — Cartas das Gestoras")
+
     print("Landing de captura:")
-    publicar(PAGINA_CAPTURA, layout_captura(), args.dry_run)
+    publicar(captura, layout_captura(), args.dry_run)
     print("Página de obrigado:")
-    publicar(PAGINA_OBRIGADO, layout_obrigado(), args.dry_run)
+    publicar(obrigado, layout_obrigado(), args.dry_run)
+    if args.rascunho and not args.dry_run:
+        print("\nPré-visualizar (logado no WordPress):")
+        for pid in (captura, obrigado):
+            print(f"  {BASE}/?page_id={pid}&preview=true")
+    if not args.rascunho and not args.dry_run:
+        print("Invalidando cache:")
+        invalidar_cache((captura, obrigado))
     if args.dry_run:
         print("\n[dry-run] Nada foi enviado.", file=sys.stderr)
     return 0
