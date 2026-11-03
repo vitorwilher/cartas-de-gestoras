@@ -1,0 +1,14 @@
+A Kinea escreveu na última carta que o resultado da eleição trouxe alta em toda a curva de juros e que, com a dívida no nível atual, o prêmio exigido para financiar o país sobe e a curva se retroalimenta. A casa espera inflação acima de 5% e dívida bruta caminhando para 87% do PIB no fim de 2027.
+
+Essa frase esconde duas coisas diferentes. A curva pode subir porque o mercado espera Selic mais alta por mais tempo: a ponta curta sobe e arrasta o dez anos, porque o dez anos contém o um ano. Ou pode subir porque o mercado passou a cobrar mais para emprestar ao Tesouro a dez anos: a ponta curta fica parada e a curva inclina. A primeira é política monetária. A segunda é o prêmio fiscal de que a Kinea fala.
+
+Separei as duas com a curva pré das Taxas Referenciais da B3, comparando a véspera do primeiro turno (02/10) com 30/10. A taxa de um ano foi de 13,50% para 14,37%, alta de 88 pontos-base. A de dez anos foi de 14,16% para 15,27%, alta de 111. A decomposição: 88 pontos-base de deslocamento paralelo e 24 de inclinação. A inclinação entre dez anos e um ano saiu de 66 para 89 pontos-base, o percentil 98 dos últimos doze meses. O forward de cinco anos daqui a cinco anos subiu de 14,27% para 15,22%, 95 pontos-base, mais do que a ponta curta.
+
+O limite: 88 dos 111 pontos-base da alta do dez anos são Selic reprecificada, não prêmio. O prêmio existe, está no topo da distribuição de doze meses, mas são 24 pontos-base. E a curva pré mistura inflação esperada e juro real: o teste não diz se esses 24 pontos são medo de inflação ou medo de solvência. Para isso, a mesma conta precisa ser refeita com os Tesouro IPCA+.
+
+Nada disso é recomendação. O ponto é o método: a carta afirma o mecanismo, e a conta que o testa não está nela.
+
+A edição completa desta semana, com Kinea e Dynamo, é para assinantes. Deixei uma edição completa de amostra, grátis, e o resumo de cada edição nova por e-mail neste link:
+https://analisemacro.com.br/conteudo/cartas-das-gestoras/?utm_source=linkedin&utm_medium=organic&utm_campaign=cartas-de-gestoras&utm_content=post-2026-11-03
+
+Se a inclinação está no percentil 98 mas a alta foi quase toda paralela, o prêmio fiscal já está no preço ou ainda está à frente dele?

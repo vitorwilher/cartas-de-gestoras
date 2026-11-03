@@ -109,7 +109,7 @@ gestoras:
     estrategia: wp_rest
     periodicidade: mensal
     formato: html
-    ultima_carta: {principal: carta-do-gestor-highlander-guerreiro-imortal}
+    ultima_carta: {principal: carta-do-gestor-as-licoes-de-hemingway}
     notas: >
       A carta macro é HTML INLINE (texto completo na página), sem PDF — o extrator
       de PDF não se aplica aqui. Categoria carta-do-gestor = ID 340 na REST API.
@@ -290,7 +290,7 @@ gestoras:
     estrategia: rss
     periodicidade: irregular
     formato: pdf
-    ultima_carta: {principal: 'https://www.dynamo.com.br/carta-129-o-tao-do-sistema-3/'}
+    ultima_carta: {principal: 'https://www.dynamo.com.br/carta-130-o-tacito-do-tempo/'}
     notas: >
       NÃO é trimestral, ao contrário do que a tradição sugere: o ritmo atual é de
       ~2 a 4 cartas por ano, em datas irregulares (Carta 128 em 2026-04-07, 127 em

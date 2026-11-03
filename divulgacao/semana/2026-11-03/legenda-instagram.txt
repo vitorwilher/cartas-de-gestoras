@@ -1,0 +1,15 @@
+A Kinea escreveu na última carta que a eleição trouxe alta em toda a curva de juros e que, com a dívida onde está, o mercado passa a cobrar prêmio para financiar o país. A curva sobe por retroalimentação.
+
+Só que a curva sobe por dois motivos distintos. Se o mercado espera Selic mais alta, a ponta curta sobe e arrasta o resto em bloco. Se cobra prêmio fiscal, a ponta curta fica e a curva inclina.
+
+Medi com a curva pré da B3, da véspera do primeiro turno (02/10) até 30/10. O um ano subiu 88 pontos-base, de 13,50% para 14,37%. O dez anos subiu 111, de 14,16% para 15,27%.
+
+Decomposição: 88 pontos-base de deslocamento paralelo, 24 de inclinação. A inclinação foi de 66 para 89 pontos-base, percentil 98 em doze meses. O forward 5a5a subiu 95, de 14,27% para 15,22%.
+
+O limite: 88 dos 111 pontos-base são Selic reprecificada. O prêmio existe e está no topo da distribuição do ano, mas são 24 pontos. E a curva pré não separa medo de inflação de medo de solvência.
+
+Nada disso é recomendação. A carta afirma o mecanismo; a conta que o testa não está nela.
+
+A edição completa desta semana, com Kinea e Dynamo, é para assinantes. Comenta GESTORAS que eu te mando, no direct, uma edição completa de amostra, grátis.
+
+Inclinação no percentil 98, alta quase toda paralela: o prêmio fiscal já está no preço?

@@ -1,0 +1,322 @@
+---
+title: "Cartas de *Gestoras*"
+subtitle: "Teses, mecanismos e riscos — Dynamo, Kinea"
+author: "Vitor Wilher"
+date: "2026-11-03"
+date-format: "D [de] MMMM [de] YYYY"
+lang: pt-BR
+livro:
+  category: "Mercado Financeiro"
+  kicker: "SÍNTESE SEMANAL"
+  edition: "Edição de 3 de novembro de 2026"
+  tagline: "A verdade está nos dados."
+format:
+  am-livro-typst:
+    toc-depth: 2
+---
+
+## Nesta edição
+
+Duas casas publicaram, e elas não poderiam ser mais diferentes no que escolheram contar. A Kinea entrega uma carta macro completa, estruturada em torno de uma preocupação única: o Brasil começa o quarto mandato de Lula sem a folga fiscal que tinha em 2003, e o que o mercado já precificou após a eleição — curva de juros inteira para cima, bolsa para baixo, real mais fraco — é a primeira mordida de uma dinâmica que se retroalimenta se o ajuste vier pequeno e lento. A Dynamo, por sua vez, publica a Carta 130 sem uma única palavra sobre Selic, dólar ou eleição: é um ensaio conceitual sobre por que investidores financeiros, quando assumem a gestão de companhias, tendem a destruir valor em negócios cuja força está em redes de relações tácitas — preparação para a próxima carta, que contará o caso Technos.
+
+A tensão que atravessa a edição, portanto, não é entre duas leituras do mesmo cenário, mas entre dois temperamentos. A Kinea reage: saiu de quase todas as posições em inteligência artificial porque a demanda que pagaria a conta do capex deixou de aparecer, mantém aplicada em juros fora do Brasil e vendida em euro. A Dynamo adverte justamente contra o reflexo de agir rápido — o "imperativo de fazer algo logo" que, na sua leitura, vem da ansiedade com a última tecnologia e da ilusão de que gestão se resume a planilhas e KPIs.
+
+Há, porém, um ponto onde as duas se tocam sem se citar: ambas estão desconfortáveis com a forma como o mercado vem precificando a inteligência artificial. A Kinea pelo lado dos números — receita de OpenAI e Anthropic aquém do necessário, CDS de Oracle e CoreWeave em recorde. A Dynamo pelo lado do comportamento — investidores "fugindo de tudo o que pode ser alcançado pelo rolo compressor dos Labs neurais" e carimbando de "atraso" o que não parece moderno. Uma diz que a mania está cara; a outra diz que a mania está distorcendo o julgamento sobre o que vale a pena possuir.
+
+## Kinea Investimentos
+
+**A tese em uma frase.** O quarto mandato de Lula só preserva o legado se entregar um ajuste fiscal de R$ 100 a 150 bilhões e rápido; qualquer coisa menor deixa o país preso a uma espiral em que juro alto, câmbio fraco e déficit se alimentam mutuamente — e, nesse cenário, o aperto financeiro pós-eleição é só o começo.
+
+**O mecanismo.** A cadeia causal que a Kinea desenha é a de uma "dominância fiscal suave", embora ela não use o termo. O ponto de partida é a comparação entre os dois Lulas: nos dois primeiros mandatos, superávit primário médio de 3,1% do PIB e dívida bruta caindo para 51,8% do PIB em 2010; no terceiro, déficit médio de cerca de 1% do PIB e dívida que fechou 2025 em 78,6% e caminha para 87% no fim de 2027. Em 2003, o ajuste veio antes do ciclo de commodities e a sorte encontrou o país preparado. Hoje a ordem está invertida.
+
+A partir daí, a carta encadeia quatro elos. Primeiro, o resultado da eleição trouxe aperto financeiro — alta em toda a curva de juros e queda da bolsa — que vai cobrar seu preço sobre a atividade de 2027, que já desacelerava. Segundo, a depreciação do real pressiona a inflação, que a casa espera acima de 5%, somada ao efeito de propostas de campanha como o fim da escala 6×1 e ao El Niño nos alimentos. Terceiro, inflação alta impede o Banco Central de acompanhar a desaceleração com cortes, e o nível de endividamento eleva o prêmio exigido para financiar o país — a curva sobe por retroalimentação. Quarto, juros altos reduzem arrecadação, aumentam o déficit primário e inflam o nominal, o que piora a dívida e fecha o círculo. É por isso que a Kinea insiste que tamanho e velocidade do ajuste importam tanto quanto a direção: um ajuste pequeno é devorado pelo próprio custo de carregar a dívida enquanto ele é feito.
+
+A aritmética fiscal da carta: as promessas de campanha e o menor crescimento pioram em cerca de R$ 67 bilhões o primário projetado para 2027, levando o déficit a R$ 111 bilhões (0,8% do PIB), mais que o dobro dos R$ 44 bilhões esperados para 2026. Cerca de 90% da despesa é obrigatória; as alternativas compatíveis com o discurso oficial somam pouco mais de R$ 40 bilhões e não fecham a conta. Para reancorar a credibilidade do arcabouço — cuja trajetória prometida de melhora anual do primário vem sendo sucessivamente descumprida — seriam necessários R$ 100 a 150 bilhões, o que exige mexer em indexação do salário mínimo e vinculações, ou seja, na própria base de apoio do governo.
+
+O segundo bloco da tese é a saída da inteligência artificial, e aqui o raciocínio é de pura conta de chegada. A Kinea estima que são necessários cerca de US$ 400 bilhões de receita anualizada combinada de OpenAI e Anthropic para "estabilizar o mercado", isto é, para justificar o capex em curso. Partindo dos US$ 118 bilhões de setembro, isso exige crescimento de quase 8,5% ao mês até o fim de 2027; se a desaceleração do último trimestre persistir, a receita converge para US$ 280 bilhões, 30% abaixo do necessário. Os sinais de alerta são a OpenAI reportando US$ 50 bilhões anualizados (US$ 20 bilhões abaixo do que circulava), modelos abertos chineses com preço de *token* (a unidade de texto que os modelos cobram por processar) até cem vezes menor — a DeepSeek passou de 6% para 21% do volume no OpenRouter em seis meses —, 55 GW de chips vendidos no mundo contra 28 GW de capacidade nova de data centers nos EUA em 2027, e o crédito começando a cobrar: as grandes empresas de tecnologia destinam perto de 90% do fluxo de caixa operacional ao capex, emitiram US$ 229 bilhões em dívida até o 3T26, o CDS de cinco anos da Oracle (o prêmio do seguro contra calote da empresa, em pontos-base por ano) bateu perto de 280 pontos e o da CoreWeave passou de 1.000. A frase que resume a mudança: em agosto a restrição de oferta justificava a posição; o que mudou foi a demanda que paga a conta.
+
+No internacional, a lógica é de que juros altos no mundo desenvolvido — sustentados por nove meses de crise energética e pela disputa entre Tesouro americano e *hyperscalers* (as gigantes de nuvem que constroem os data centers) pela mesma poupança — já fizeram aperto suficiente para que a atividade ceda e os núcleos de inflação melhorem. Um Fed moderado, com economia resiliente mas sem sobreaquecimento (51 mil vagas por mês, desemprego em 4,2%, salários a 3,0% em 12 meses), tira a urgência de medidas duras de outros bancos centrais — daí as posições aplicadas em juros (apostas em queda de taxa) no Reino Unido e na Nova Zelândia. O euro vendido vem da combinação do aperto monetário com o fiscal francês: o prêmio da dívida da França sobre a alemã chegou a cerca de 150 pontos-base no início de outubro, maior desde 2011, acima da Itália, e a casa acha que isso pesará sobre o BCE.
+
+**Posicionamento e números.** As posições explicitadas são: saída da grande maioria das posições em inteligência artificial, com retorno condicionado a "caminhos concretos de reaceleração das receitas" e normalização do CDS das empresas mais à margem do ciclo; sem exposições relevantes nos EUA; aplicada em juros no Reino Unido e na Nova Zelândia; vendida em euro. A carta não traz posições em ativos brasileiros nem retornos ou atribuição de performance — o bloco Brasil é inteiramente diagnóstico. Em commodities, há leitura de mercado, mas sem posição declarada: frete de superpetroleiro Golfo–Ásia em cerca de US$ 36 por barril, mais de cinco vezes o pré-guerra e equivalente a 35% do Brent contra 7% antes; exportações de diesel de Rússia e Oriente Médio 61% menores em um ano; moagem de cana no Centro-Sul perto do mínimo de 2015; embarques de trigo do Mar Negro caindo cerca de 50%; abandono de área de algodão nos EUA estimado em 31% contra 22% do USDA; na China, produção de aço -2,9% no ano, só 8% dos altos-fornos lucrativos e Simandou anualizando 50 milhões de toneladas — oferta nova chegando quando a demanda encolhe.
+
+**O que mudou.** A comparação explícita é na IA: em agosto a casa estava posicionada pela restrição de oferta; agora saiu porque a demanda frustrou. No petróleo, a carta registra que o fluxo por Ormuz havia se normalizado em boa parte de setembro, com dias acima de 20 milhões de barris, e que a escalada de ataques do Irã e dos Houthis desde o fim de setembro pôs essa normalização em xeque.
+
+**Riscos.** A Kinea aponta os seus com clareza. No Brasil, o risco é que o ajuste venha "pequeno e lento" e o país chegue "só com o esqueleto"; e que a crise de confiança, que costuma se formar aos poucos, encontre um catalisador externo — altas adicionais de juros no mundo desenvolvido com energia cara. Nas posições de juros aplicadas, a cauda é a energia: até aqui "parece controlada", e uma reversão favoreceria muito a posição; se o aperto continuar, o efeito sobre a atividade aliviaria a curva — a casa argumenta que a posição se paga nos dois cenários, o que, na nossa leitura, é um sinal de que o risco real é um terceiro cenário, de inflação energética persistente com atividade resiliente. Na saída da IA, o risco é de custo de oportunidade: se a receita reacelerar, a casa volta mais caro. Na tese fiscal, o que precisaria ser verdade para ela falhar é que o governo mexa de fato em salário mínimo e vinculações — exatamente o que a carta julga improvável porque atinge a base de apoio.
+
+## Dynamo
+
+**A tese em uma frase.** Negócios cuja vantagem competitiva está em redes de relações tácitas — confiança, informação granular, solução conjunta de problemas — carregam valor que não aparece em KPIs, e a intervenção de investidores financeiros movida pelo imperativo de "modernizar" tende a destruir exatamente esse ativo.
+
+É preciso dizer com todas as letras: esta não é uma carta de tese de investimento no sentido de mercado. Não há visão de macro, não há posição, não há setor ou ação defendida. É um ensaio de filosofia de análise — a própria Dynamo o chama de "texto mais árido, entre dois mais palpáveis" — que serve de prólogo ao relato do investimento na Technos, prometido para a Carta 131. O que a ausência de tese macro sugere sobre o mandato é coerente com o que o fundo é: Dynamo Cougar, ações livre, fechado para captação, 95% no fundo master, carência de 12 meses, performance de 15% sobre IPCA + IMA-B. Um veículo assim não precisa opinar sobre a Selic do próximo trimestre; precisa acertar a natureza dos negócios que compra, e a carta inteira é sobre como a casa errou nisso uma vez.
+
+**O mecanismo.** A cadeia argumentativa tem três camadas. A primeira é psicológica e social: indivíduos e sociedades buscam soluções fora — lócus de controle externo, redução de dissonância cognitiva, viés de atribuição — e isso se transporta para empresas em dificuldade, que contratam o "CEO salvador", a consultoria global ou o M&A. Investidores financeiros que assumem gestão sobrepõem a isso duas distorções próprias: a confusão de papéis que faz acreditar que acompanhar muitas companhias confere compreensão sobre operar uma, e a vivência em um ambiente digital onde a distância entre decisão e execução é quase nula, o que leva a subestimar a densidade da execução no mundo real. A ansiedade com a IA generativa — cem milhões de usuários em dois meses, contra sete anos da internet — adiciona pressa.
+
+A segunda camada é a distinção entre trocas *arm's-length* (à distância segura, impessoais, guiadas só por preço, o padrão que a própria Dynamo defendeu como aprimoramento de governança quando o mercado brasileiro era dominado por transações com partes relacionadas) e trocas *embedded* (embebidas em relações estáveis de longo prazo). A casa recorre à sociologia econômica — Polanyi, Granovetter, Uzzi — para sustentar que redes embebidas geram três vantagens documentadas: confiança como regime de governança que poupa custo cognitivo e permite trocar o que não se consegue precificar ou contratar; transferência de informação tácita e estratégica que não circula no mercado; e arranjos de solução conjunta que funcionam como "mecanismos de voz" em vez da resposta simplista sair-ou-ficar. Os exemplos vão de Toyota versus GM na relação com fornecedores à indústria têxtil de Nova York. O benefício é maior justamente em segmentos de inovação rápida de produto, preferência volátil e ciclo longo — moda, coleções, varejo especializado.
+
+A terceira camada é o mecanismo de destruição. Como todos esses atributos são intangíveis e espalhados pela rede, e não concentrados em personagens visíveis, eles são difíceis de enxergar — o que instiga o "imperativo de fazer". O excesso de métricas, contratos rígidos e incentivos puramente monetários sinaliza quebra de confiança; a comunicação formal padronizada perde conhecimento tácito; o foco em multas estilhaça a gramática de solução conjunta; a métrica de sucesso deslocada para "menor custo unitário" ou "margem bruta por transação" destrói o valor total da parceria. E quando o resultado não aparece, o incentivo do executivo é dobrar a aposta, quando a resposta certa seria o *back to basics*: restaurar as forças relacionais.
+
+A Dynamo registra a ressalva simétrica, que é intelectualmente honesta: há um limite a partir do qual a densidade relacional torna o sistema insensível a mudança e incapaz de absorver choque externo — e anuncia que a próxima carta mostrará um caso em que o excesso de vínculos embebidos impediu incumbentes de reconhecer uma inovação tecnológica. Ou seja, a lição não é "relações sempre vencem"; é "diagnostique a natureza do negócio antes de intervir".
+
+**Posicionamento e números.** Nenhuma posição é citada. A carta traz apenas a tabela de rentabilidade do Dynamo Cougar até setembro de 2026: 4,5% no mês contra 5,0% do Ibovespa; 11,2% no ano contra 15,6%; 21,7% em 12 meses contra 27,4%; 32,6% em 24 meses contra 41,4%; 52,6% em 36 meses contra 59,9%; 24,7% em 60 meses contra 67,9%; 215,8% em 120 meses contra 219,3%. Em dólar, 18,1% em 2026 contra 22,8% do índice, e 36.961% desde setembro de 1993 contra 1.123%. Patrimônio líquido médio dos últimos 12 meses de R$ 5.876,9 milhões. A casa não comenta a performance nem traz atribuição.
+
+**O que mudou.** A única comparação explícita é com a Carta 129, que tratou dos erros como instância de aprendizado e do "Sistema 3", o ambiente de discussão crítica coletiva. Esta carta é a aplicação: o erro cognitivo com a Technos — ter enxergado a rede de varejistas especializados, principal ativo da companhia, como "uma prateleira física de marcas e categorias a ser otimizada" e não como um sistema de relações embebidas.
+
+**Riscos.** A Dynamo não fala de risco de mercado. O risco que ela descreve é de método: diagnóstico precipitado em negócios que "escondem complexidade, aparentando pouca sofisticação e baixa tecnologia embutida". Na nossa leitura, a condição em que a tese falha é a que a própria casa adianta para a próxima carta — quando a rede relacional é tão densa que vira cegueira para disrupção. O investidor que absorve só a primeira metade da lição ("não mexa") corre o risco oposto ao que a Dynamo cometeu.
+
+## Convergências e divergências
+
+Com duas casas tão distintas, o exercício aqui é menos de contar votos e mais de identificar premissas.
+
+**Onde não há contraponto.** A tese fiscal da Kinea — ajuste de R$ 100 a 150 bilhões ou espiral de juro, câmbio e dívida — chega sozinha. A Kinea carrega R$ 9,3 bilhões sob mandato compatível com juro e macro; a Dynamo tem R$ 19,3 bilhões em bolsa e nada em juro/macro, e sua carta simplesmente não toca no assunto. Não é discordância: é silêncio de mandato. O leitor deve resistir à tentação de ler a ausência como opinião.
+
+**Onde as duas convergem, por caminhos opostos.** A inteligência artificial é o único tema que aparece nas duas cartas, e as duas estão do lado cético — mas a convergência é de conclusão, não de método. A Kinea chega lá por aritmética: receita combinada de OpenAI e Anthropic precisa crescer 8,5% ao mês até o fim de 2027 para justificar o capex, e o crédito das empresas marginais já cobra prêmio de estresse. A Dynamo chega lá por epistemologia: a velocidade de adoção da IA generativa alimenta nos investidores uma "ansiedade" que carimba de atraso tudo o que não parece moderno e empurra para intervenções precipitadas. Uma vê bolha de expectativa de receita; a outra vê bolha de julgamento. São diagnósticos compatíveis — e, na nossa interpretação, complementares: o que a Kinea mede nos números é o que a Dynamo descreve como comportamento. Aqui não cabe dimensionar com patrimônio, porque a posição da Kinea está em eixo exterior e a reflexão da Dynamo não é uma posição.
+
+**Onde o temperamento racha.** A divergência de fundo é sobre a relação entre informação nova e ação. A Kinea mudou de posição em dois meses — estava posicionada em IA em agosto pela restrição de oferta, saiu em outubro pela frustração de demanda — e diz explicitamente sob que condições volta. É gestão macro: a tese tem gatilho, horizonte e porta de saída. A Dynamo escreve uma carta inteira contra o "imperativo de fazer algo logo", contra a ilusão de que a distância entre decisão e execução é nula porque no mercado financeiro ela é. Isso não é crítica à Kinea — a Dynamo fala de investidores que assumem a gestão de companhias, não de quem gira carteira de juros. Mas revela premissas diferentes sobre onde está o risco: para a Kinea, o risco é ficar parado enquanto a demanda frustra e o CDS sobe; para a Dynamo, o risco é agir sobre um diagnóstico que confunde o que é mensurável com o que é valioso. O leitor que opera macro deveria levar da Dynamo a pergunta "o que neste ativo eu não consigo ver na planilha?"; o leitor que faz ações deveria levar da Kinea a disciplina de dizer, por escrito, o que precisa acontecer para voltar.
+
+## Exercício da semana: quanto do juro que subiu depois da eleição é prêmio fiscal?
+
+### Por que isto importa esta semana
+
+A Kinea descreve o resultado da eleição como "alta em toda a curva de juros" e constrói, a partir daí, o elo mais delicado da tese: o endividamento eleva o prêmio exigido para financiar o país e "a curva sobe por retroalimentação". São duas coisas diferentes escondidas na mesma frase. A curva pode subir porque o mercado espera uma Selic mais alta por mais tempo (inflação acima de 5%, Banco Central sem espaço para cortar) ou porque passou a cobrar um prêmio adicional para emprestar ao Tesouro a dez anos. A primeira é precificação de política monetária; a segunda é o que a carta chama de dominância fiscal suave. O exercício separa as duas com os dados da própria B3.
+
+### O conceito
+
+A taxa de dez anos da curva pré é, em termos contábeis, a composição da taxa de um ano com o juro a termo (*forward*) dos nove anos seguintes — o juro que o mercado, hoje, aceita travar para um empréstimo que começa daqui a um ano e termina daqui a dez. Quando a inflação surpreende e o mercado adia os cortes de Selic, o que muda é a parte curta: o um ano sobe e arrasta o dez anos porque o dez anos contém o um ano. Esse é um deslocamento aproximadamente paralelo. Quando o que muda é a confiança na trajetória da dívida, a ponta curta não precisa mexer — a Selic do próximo ano é a mesma —, mas o mercado exige mais para carregar o papel longo. Esse é um deslocamento que inclina a curva.
+
+A decomposição é aritmética simples: a variação do dez anos é igual à variação do um ano (componente paralela) mais a variação da inclinação (dez anos menos um ano). Se, entre a véspera do primeiro turno e hoje, a inclinação abriu, o mercado está cobrando o prêmio de que a Kinea fala; se a curva subiu em bloco, o que ele precificou foi Selic, e a tese fiscal ainda está à frente do preço. O *forward* de cinco anos daqui a cinco anos (5a5a) refina a leitura: a essa distância, a expectativa de política monetária está diluída e o que sobra é quase só prêmio de prazo e de risco — é o termômetro mais limpo do "esqueleto" que a carta teme.
+
+### O código
+
+Dependências: `pandas`, `numpy`, `matplotlib`, `requests`, `pyettj`. A curva vem das Taxas Referenciais da B3 pela `pyettj` (tabela longa, curva `PRE`, taxa em decimal, base 252). O script baixa a curva de hoje, a da véspera do primeiro turno e uma curva por semana nos últimos doze meses — são cerca de 55 chamadas, conte um ou dois minutos.
+
+```python
+# -*- coding: utf-8 -*-
+"""
+Alta da curva pre pos-eleicao: quanto foi deslocamento paralelo (Selic
+esperada) e quanto foi inclinacao (premio de prazo/fiscal)?
+Fonte unica: curva PRE das Taxas Referenciais da B3, via pyettj.
+"""
+import datetime as dt
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")            # roda em terminal: nunca abre janela
+import matplotlib.pyplot as plt
+import requests
+from pyettj import ettj
+
+# --- timeout explicito para TODA leitura de rede ------------------------------
+# A pyettj usa requests por baixo e nao expoe timeout; injetamos um padrao
+# de 30 s em Session.request, que tambem cobre requests.get.
+_request_original = requests.Session.request
+
+
+def _request_com_timeout(self, *args, **kwargs):
+    kwargs.setdefault("timeout", 30)
+    return _request_original(self, *args, **kwargs)
+
+
+requests.Session.request = _request_com_timeout
+
+# --- parametros ----------------------------------------------------------------
+HOJE = dt.date.today()
+DATA_PRE_ELEICAO = dt.date(2026, 10, 2)   # ultimo pregao antes do 1o turno (04/10/2026)
+SEMANAS_HISTORICO = 52                    # uma curva por semana, 12 meses
+VERTICES_ANOS = [1, 2, 3, 5, 7, 10]       # vertices que vamos interpolar
+DU_ANO = 252
+
+
+def curva_pre(data, max_tentativas=7):
+    """Baixa a curva PRE da B3 para `data`. Em fim de semana/feriado a pyettj
+    levanta HolidayError (ou devolve tabela vazia): recuamos um dia por vez
+    ate encontrar pregao. Devolve (data_efetiva, DataFrame[dias_uteis, taxa])."""
+    d = data
+    ultimo_erro = None
+    for _ in range(max_tentativas):
+        try:
+            tab = ettj.get_ettj(d.strftime("%d/%m/%Y"))
+            pre = tab[tab["curva"] == "PRE"]
+            if len(pre) == 0:
+                raise ValueError("curva PRE ausente; curvas disponiveis: %s"
+                                 % sorted(tab["curva"].unique()))
+            pre = (pre[["dias_uteis", "taxa"]].astype(float).dropna()
+                   .groupby("dias_uteis", as_index=False).mean()
+                   .sort_values("dias_uteis").reset_index(drop=True))
+            if pre["taxa"].max() > 1.0:   # 0.1365 e 13,65%; >1 seria formato em %
+                raise ValueError("taxa nao parece estar em decimal")
+            return d, pre
+        except Exception as e:            # HolidayError, tabela vazia, rede
+            ultimo_erro = e
+            d = d - dt.timedelta(days=1)
+    raise RuntimeError("sem curva PRE perto de %s: %s" % (data, ultimo_erro))
+
+
+def taxa_no_prazo(pre, du):
+    """Interpolacao linear da taxa (a.a., base 252) em dias uteis."""
+    return float(np.interp(du, pre["dias_uteis"].values, pre["taxa"].values))
+
+
+def forward(r_curto, du_curto, r_longo, du_longo):
+    """Juro a termo entre du_curto e du_longo, a.a., base 252."""
+    fator = (1 + r_longo) ** (du_longo / DU_ANO) / (1 + r_curto) ** (du_curto / DU_ANO)
+    return fator ** (DU_ANO / (du_longo - du_curto)) - 1
+
+
+# --- curva de hoje + teste de frescor -------------------------------------------
+data_hoje, pre_hoje = curva_pre(HOJE)
+if (HOJE - data_hoje).days > 10:
+    raise RuntimeError("curva mais recente e de %s: fonte parada, nao siga" % data_hoje)
+max_du = pre_hoje["dias_uteis"].max()
+if max_du < 10 * DU_ANO:
+    # np.interp repetiria o ultimo vertice em silencio; melhor avisar e encurtar
+    VERTICES_ANOS = [a for a in VERTICES_ANOS if a * DU_ANO <= max_du]
+    print("AVISO: curva PRE so vai ate %.1f anos; vertices usados: %s"
+          % (max_du / DU_ANO, VERTICES_ANOS))
+ANO_LONGO = VERTICES_ANOS[-1]
+DU_LONGO = ANO_LONGO * DU_ANO
+print("Curva de hoje: %s (vertice mais longo: %d dias uteis)" % (data_hoje, max_du))
+
+# --- curva da vespera do 1o turno ----------------------------------------------
+data_pre, pre_eleicao = curva_pre(DATA_PRE_ELEICAO)
+print("Curva pre-eleicao: %s" % data_pre)
+
+# --- historico semanal de 12 meses ---------------------------------------------
+alvos = [data_hoje - dt.timedelta(weeks=k) for k in range(SEMANAS_HISTORICO, 0, -1)]
+curvas = {}
+for alvo in alvos:
+    d, pre = curva_pre(alvo)
+    curvas[d] = pre                      # dict: se duas semanas cairem no mesmo pregao, deduplica
+curvas[data_hoje] = pre_hoje
+curvas[data_pre] = pre_eleicao
+
+linhas = []
+for d in sorted(curvas):
+    pre = curvas[d]
+    r1 = taxa_no_prazo(pre, DU_ANO)
+    r5 = taxa_no_prazo(pre, 5 * DU_ANO)
+    rl = taxa_no_prazo(pre, DU_LONGO)
+    linhas.append({"data": pd.Timestamp(d), "r1": r1, "r5": r5, "rl": rl,
+                   "inclinacao_bp": (rl - r1) * 1e4,
+                   "f5a5a": forward(r5, 5 * DU_ANO, rl, DU_LONGO) if ANO_LONGO == 10 else np.nan})
+hist = pd.DataFrame(linhas).set_index("data")
+print("Historico: %d curvas, de %s a %s" % (len(hist), hist.index[0].date(), hist.index[-1].date()))
+
+# --- teste de serie congelada ------------------------------------------------------
+zeros = (hist["inclinacao_bp"].diff().dropna() == 0).mean()
+if zeros > 0.05:
+    raise RuntimeError("%.0f%% das semanas repetem a inclinacao: fonte congelada" % (zeros * 100))
+
+# --- decomposicao: paralelo x inclinacao ----------------------------------------
+hoje = hist.loc[pd.Timestamp(data_hoje)]
+antes = hist.loc[pd.Timestamp(data_pre)]
+delta_vertices = {a: (taxa_no_prazo(pre_hoje, a * DU_ANO)
+                      - taxa_no_prazo(pre_eleicao, a * DU_ANO)) * 1e4 for a in VERTICES_ANOS}
+delta_paralelo = delta_vertices[1]                       # quanto o 1 ano subiu
+delta_inclinacao = hoje["inclinacao_bp"] - antes["inclinacao_bp"]
+percentil = (hist["inclinacao_bp"] < hoje["inclinacao_bp"]).mean() * 100
+
+print("\nTaxa 1 ano:  antes %.2f%%  hoje %.2f%%  (%+.0f bp)"
+      % (antes["r1"] * 100, hoje["r1"] * 100, delta_vertices[1]))
+print("Taxa %d anos: antes %.2f%%  hoje %.2f%%  (%+.0f bp)"
+      % (ANO_LONGO, antes["rl"] * 100, hoje["rl"] * 100, delta_vertices[ANO_LONGO]))
+print("Inclinacao %da-1a: antes %.0f bp  hoje %.0f bp  (%+.0f bp) | percentil 12m: %.0f%%"
+      % (ANO_LONGO, antes["inclinacao_bp"], hoje["inclinacao_bp"], delta_inclinacao, percentil))
+print("Decomposicao da alta do %d anos: paralelo %+.0f bp + inclinacao %+.0f bp"
+      % (ANO_LONGO, delta_paralelo, delta_inclinacao))
+if ANO_LONGO == 10:
+    print("Forward 5a5a: antes %.2f%%  hoje %.2f%%  (%+.0f bp)"
+          % (antes["f5a5a"] * 100, hoje["f5a5a"] * 100, (hoje["f5a5a"] - antes["f5a5a"]) * 1e4))
+
+# --- grafico -----------------------------------------------------------------------
+fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(17, 5.2))
+prazos_anos = np.array(VERTICES_ANOS)
+data_12m = hist.index[0].date()
+pre_12m = curvas[data_12m]
+
+# Painel 1: as tres curvas
+for pre, rotulo, cor, estilo in [
+        (pre_hoje, "hoje (%s)" % data_hoje.strftime("%d/%m/%Y"), "#b22222", "-"),
+        (pre_eleicao, "vespera do 1o turno (%s)" % data_pre.strftime("%d/%m/%Y"), "#1f4e79", "--"),
+        (pre_12m, "52 semanas atras (%s)" % data_12m.strftime("%d/%m/%Y"), "#7f7f7f", ":")]:
+    taxas = [taxa_no_prazo(pre, a * DU_ANO) * 100 for a in VERTICES_ANOS]
+    ax1.plot(prazos_anos, taxas, estilo, marker="o", color=cor, label=rotulo)
+if ANO_LONGO == 10:
+    ax1.text(0.03, 0.04, "forward 5a5a: %.2f%% hoje vs %.2f%% pre-eleicao"
+             % (hoje["f5a5a"] * 100, antes["f5a5a"] * 100),
+             transform=ax1.transAxes, fontsize=9,
+             bbox=dict(facecolor="white", edgecolor="#cccccc"))
+ax1.set_xlabel("Prazo (anos, dias uteis / 252)")
+ax1.set_ylabel("Taxa pre (% a.a., base 252)")
+ax1.set_title("Curva pre DI x pre: tres fotografias")
+ax1.set_xticks(prazos_anos)
+ax1.grid(alpha=0.3)
+ax1.legend(fontsize=8)
+
+# Painel 2: variacao por vertice desde a vespera do 1o turno
+deltas = [delta_vertices[a] for a in VERTICES_ANOS]
+ax2.bar([str(a) for a in VERTICES_ANOS], deltas,
+        color=["#b22222" if v >= 0 else "#1f4e79" for v in deltas])
+ax2.axhline(delta_paralelo, color="black", ls="--", lw=1,
+            label="componente paralela = alta do 1 ano (%+.0f bp)" % delta_paralelo)
+ax2.axhline(0, color="black", lw=0.6)
+for i, v in enumerate(deltas):
+    ax2.annotate("%+.0f" % v, (i, v), ha="center",
+                 va="bottom" if v >= 0 else "top", fontsize=9)
+ax2.set_xlabel("Vertice (anos)")
+ax2.set_ylabel("Variacao da taxa (pontos-base)")
+ax2.set_title("De %s a %s: quanto subiu cada vertice"
+              % (data_pre.strftime("%d/%m"), data_hoje.strftime("%d/%m")))
+ax2.text(0.03, 0.96, "alta do %d anos = %+.0f bp\n= paralelo %+.0f bp + inclinacao %+.0f bp"
+         % (ANO_LONGO, delta_vertices[ANO_LONGO], delta_paralelo, delta_inclinacao),
+         transform=ax2.transAxes, va="top", fontsize=9,
+         bbox=dict(facecolor="white", edgecolor="#cccccc"))
+ax2.grid(axis="y", alpha=0.3)
+ax2.legend(fontsize=8, loc="lower right")
+
+# Painel 3: historico semanal da inclinacao, com hoje contra a distribuicao
+ax3.plot(hist.index, hist["inclinacao_bp"], color="#1f4e79", lw=1.5,
+         label="inclinacao %d anos - 1 ano (semanal)" % ANO_LONGO)
+ax3.axvline(pd.Timestamp(data_pre), color="#7f7f7f", ls="--", lw=1, label="1o turno")
+ax3.axhline(hist["inclinacao_bp"].median(), color="#7f7f7f", ls=":", lw=1,
+            label="mediana 12 meses (%.0f bp)" % hist["inclinacao_bp"].median())
+ax3.scatter([hist.index[-1]], [hoje["inclinacao_bp"]], color="#b22222", zorder=5, s=50)
+ax3.annotate("hoje: %.0f bp\npercentil %.0f%% em 12 meses" % (hoje["inclinacao_bp"], percentil),
+             (hist.index[-1], hoje["inclinacao_bp"]), xytext=(-110, -40),
+             textcoords="offset points", fontsize=9,
+             arrowprops=dict(arrowstyle="->", color="#b22222"),
+             bbox=dict(facecolor="white", edgecolor="#cccccc"))
+ax3.set_xlabel("Data da curva")
+ax3.set_ylabel("Inclinacao (pontos-base)")
+ax3.set_title("Inclinacao da curva pre, ultimas 52 semanas")
+ax3.grid(alpha=0.3)
+ax3.legend(fontsize=8, loc="upper left")
+fig.autofmt_xdate()
+
+fig.suptitle("Alta pos-eleicao da curva pre: deslocamento paralelo ou premio de prazo? "
+             "Fonte: Taxas Referenciais B3 (pyettj)", fontsize=11)
+fig.tight_layout()
+plt.savefig("grafico-exercicio.png", dpi=150, bbox_inches="tight")
+print("\nGrafico salvo em grafico-exercicio.png")
+```
+
+![Três painéis a partir da curva pré DI x pré das Taxas Referenciais da B3. À esquerda, três fotografias da curva nos vértices de 1, 2, 3, 5, 7 e 10 anos (dias úteis / 252): a de hoje em vermelho contínuo, a da véspera do primeiro turno (02/10/2026 ou o pregão anterior, se a B3 não tiver publicado) em azul tracejado e a de 52 semanas atrás em cinza pontilhado; a caixa no canto traz o juro a termo de 5 anos daqui a 5 anos hoje e na véspera do turno. No centro, a variação em pontos-base de cada um desses seis vértices entre a véspera do primeiro turno e hoje; a linha tracejada preta é a alta do 1 ano, que o exercício trata como componente paralela, e a caixa decompõe a alta do 10 anos em paralelo mais inclinação. À direita, a inclinação 10 anos menos 1 ano, em pontos-base, uma observação por semana nas últimas 52 semanas, com a linha vertical no primeiro turno, a mediana do período pontilhada e o ponto de hoje marcado com o percentil que ocupa na distribuição dos doze meses.](grafico-exercicio.png)
+
+### Como o gráfico foi construído
+
+Todos os painéis usam a mesma fonte, a curva `PRE` das Taxas Referenciais da B3 obtida pela `pyettj`, que já entrega a taxa em decimal na base 252; os vértices inteiros (1, 2, 3, 5, 7 e 10 anos) são obtidos por interpolação linear da taxa em dias úteis, o que basta para a comparação entre datas porque o mesmo método é aplicado a todas elas — quem preferir interpolação *flat-forward* mudará os números em um ou dois pontos-base, não a conclusão. A data da véspera do primeiro turno está fixada em 02/10/2026 e, como em qualquer outra data, o código recua um dia por vez quando a B3 não publica (feriado ou fim de semana), por isso a legenda de cada curva traz a data efetivamente usada. O histórico é semanal, não diário, para manter o número de chamadas à B3 em torno de 55; o script checa que a curva mais recente tem menos de dez dias, que o vértice mais longo chega a dez anos (se não chegar, encurta e avisa no console) e que a inclinação não se repete semana a semana, que seria sinal de fonte congelada. O 5a5a usa os vértices de 5 e 10 anos: é o juro anual implícito entre o quinto e o décimo ano.
+
+### Como ler o resultado
+
+O painel do meio responde à pergunta do título. Se a barra do 10 anos está bem acima da linha tracejada — ou seja, se a inclinação contribuiu com uma parcela relevante da alta —, o mercado não precificou só uma Selic mais alta em 2027: passou a cobrar um prêmio para carregar dívida longa, que é exatamente o elo três da cadeia da Kinea ("o nível de endividamento eleva o prêmio exigido"). Nesse caso, o painel da direita deve mostrar a inclinação de hoje nos percentis altos dos últimos doze meses, e o 5a5a deve ter subido mais do que a taxa de um ano. Se, ao contrário, as barras têm altura parecida e o 10 anos ficou perto da linha tracejada, a curva subiu em bloco: o que o mercado comprou foi inflação acima de 5% e um Banco Central sem espaço para cortar, e o prêmio fiscal de que a carta fala ainda não está no preço — o que torna a tese mais assimétrica, não menos, porque o ajuste "pequeno e lento" teria um segundo movimento de curva à frente.
+
+Dois valores mudariam a leitura. Uma inclinação que, apesar de ter aberto desde o primeiro turno, esteja abaixo da mediana de doze meses diz que o mercado apenas devolveu um achatamento anterior, não que está construindo prêmio novo. E um 5a5a estável com a ponta de um ano subindo diz que a dinâmica é de política monetária e não de solvência: nesse mundo, o ajuste de R$ 100 a 150 bilhões que a Kinea pede seria recompensado com queda rápida da curva inteira, porque não há prêmio de risco a ser desfeito, só expectativa de Selic.
+
+### Vá além
+
+A curva pré mistura inflação esperada e juro real. Repita a decomposição com a curva real: baixe do CSV do Tesouro Transparente o preço diário do Tesouro IPCA+ 2029 e do Tesouro IPCA+ 2035 (títulos sem cupom), recupere a taxa de cada um e compare a inclinação real com a nominal desde 02/10/2026. Se a inclinação nominal abriu mas a real não, o prêmio que o mercado cobra é de inflação — e o canal relevante é o câmbio, elo dois da Kinea; se a real abriu junto, o prêmio é de solvência, e o canal é a dívida.
+
+## Cartas originais
+
+- **Kinea Investimentos — As Lições de Hemingway** ([original](https://www.kinea.com.br/blog/carta-do-gestor-as-licoes-de-hemingway/))
+- **Dynamo — Carta 130 – O Tácito do Tempo** ([original](https://www.dynamo.com.br/carta-130-o-tacito-do-tempo/))

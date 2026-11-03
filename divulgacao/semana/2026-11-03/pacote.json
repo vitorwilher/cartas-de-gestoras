@@ -1,0 +1,13 @@
+{
+  "edicao": "2026-11-03",
+  "gestoras": [
+    "Kinea Investimentos",
+    "Dynamo"
+  ],
+  "status": "pendente",
+  "agendar_para": "2026-11-04T12:00:00-03:00",
+  "imagem": "imagem.png",
+  "link_linkedin": "https://analisemacro.com.br/conteudo/cartas-das-gestoras/?utm_source=linkedin&utm_medium=organic&utm_campaign=cartas-de-gestoras&utm_content=post-2026-11-03",
+  "gerado_em": "2026-11-03T17:38:00+00:00",
+  "modelo": "claude-fable-5-1"
+}
